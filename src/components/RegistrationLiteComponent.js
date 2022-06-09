@@ -145,6 +145,8 @@ const RegistrationLiteComponent = ({
 
     const { registerButton } = siteSettings.heroBanner.buttons;
 
+    if (!thirdPartyProviders) return null;
+
     return (
         <>
             <button className={`${styles.button} button is-large`} onClick={() => setIsActive(true)}>
