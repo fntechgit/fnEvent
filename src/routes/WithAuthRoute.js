@@ -38,7 +38,8 @@ const WithAuthRoute = ({
         return !!userProfile;
     };
 
-    const userIsAuthz = isAuthorized || (hasTicket && hasVirtualBadge);
+    // if we are trying to access to extra questions we only do need has ticket condition ...
+    const userIsAuthz = isAuthorized || (window.location.pathname === '/a/extra-questions' ? hasTicket : hasTicket && hasVirtualBadge);
 
     const checkingCredentials = () => {
         return !userIsAuthz && !fetchedUserProfile;
