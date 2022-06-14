@@ -1,5 +1,6 @@
 import moment from "moment-timezone";
-import { epochToMomentTimeZone } from "openstack-uicore-foundation/lib/utils/methods";
+import { epochToMomentTimeZone , getFromLocalStorage, putOnLocalStorage }
+  from "openstack-uicore-foundation/lib/utils/methods";
 import { isString } from "lodash";
 import { getEnvVariable, SCHEDULE_EXCLUDING_TAGS } from "./envVariables";
 import {getUserAccessLevelIds, isAuthorizedUser} from './authorizedGroups';
@@ -183,4 +184,13 @@ export const syncFilters = (newFilters, currentFilters) => {
     }
   });
   return newFilters;
+}
+
+export const savePendingAction = (action) => {
+  putOnLocalStorage('pendingAction', JSON.stringify(action));
+}
+
+export const getPendingAction = () => {
+  const pendingAction = getFromLocalStorage('pendingAction', true );
+  return pendingAction ? JSON.parse(pendingAction) : null
 }
