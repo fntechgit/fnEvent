@@ -1,3 +1,5 @@
+import i18n from '../../i18n';
+
 import {
     STATUS_CANCELLED,
     STATUS_COMPLETE,
@@ -11,43 +13,43 @@ import {
 export const statusData = {
     [STATUS_COMPLETE]: {
         type: STATUS_COMPLETE,
-        text: 'TICKET(S) ASSIGNED AND ISSUED',
+        text: i18n.t('order_status.complete'),
         icon: 'fa-check-circle',
         className: 'complete',
     },
     [STATUS_INCOMPLETE]: {
         type: STATUS_INCOMPLETE,
-        text: 'ADDITIONAL REQUIRED ATTENDEE DETAILS NEEDED BEFORE TICKET(S) CAN BE ISSUED',
+        text: i18n.t('order_status.incomplete'),
         icon: 'fa-exclamation-circle',
         className: 'warning'
     },
     [STATUS_PENDING]: {
         type: STATUS_PENDING,
-        text: 'PENDING CONFIRMATION',
+        text: i18n.t('order_status.pending'),
         icon: 'fa-fw',
         className: 'pending',
     },
     [STATUS_CANCELLED]: {
         type: STATUS_CANCELLED,
-        text: 'CANCELLED',
+        text: i18n.t('order_status.cancelled'),
         icon: 'fa-fw',
         className: 'cancelled',
     },
     [STATUS_ERROR]: {
         type: STATUS_ERROR,
-        text: 'PAYMENT ERROR',
+        text: i18n.t('order_status.error'),
         icon: 'fa-fw',
         className: 'cancelled',
     },
     [STATUS_PROCESSING]: {
         type: STATUS_PROCESSING,
-        text: 'PAYMENT PROCESSING',
+        text: i18n.t('order_status.processing'),
         icon: 'fa-fw',
         className: 'pending',
     },
     [STATUS_PROCESSING]: {
-        type: STATUS_PAST,
-        text: 'PAST',
+        text: i18n.t('order_status.past'),
+        text: 'Past',
         icon: 'fa-fw',
         className: 'past',
     }

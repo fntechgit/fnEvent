@@ -162,6 +162,15 @@
         "directions": "Get Directions",
         "calendar": "Add to Calendar"
     },
+    "order_status": {
+        "complete": "Ticket(s) assigned and issued",
+        "incomplete": "Additional attendee details required before ticket(s) can be issued",
+        "pending": "Pending confirmation",
+        "cancelled": "Cancelled",
+        "error": "Payment error",
+        "processing": "Payment processing",
+        "past": "Past"
+    },
     "tickets": {
         "title": "External Tickets Assigned to Me",
         "empty": "There are no tickets so far",
@@ -171,6 +180,13 @@
         "reassign_success_message": "The ticket was successfully reassigned.",
         "notify_success_message": "Notification was sent to ticket holder.",
         "refund_request_success_message": "Your refund request has been received. Please allow 24 - 48 hours for a response."
+    },
+    "ticket_status": {
+        "unassigned": "Unassigned",
+        "incomplete": "Required details needed",
+        "complete": "Ready to use",
+        "cancelled": "Cancelled",
+        "past": "Past"
     },
     "nav_bar": {
         "my-orders": "My Orders",
