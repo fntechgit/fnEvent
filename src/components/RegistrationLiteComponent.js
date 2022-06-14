@@ -80,7 +80,8 @@ const RegistrationLiteComponent = ({
         const params = {
             connection: "email",
             send: "code",
-            email
+            redirect_uri: `${window.location.origin}/auth/callback`,
+            email,
         };
 
         return passwordlessStart(params)
