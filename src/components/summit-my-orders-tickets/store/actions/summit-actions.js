@@ -22,6 +22,8 @@ import {
 
 export const SET_SUMMIT = 'SET_SUMMIT';
 export const GET_MAIN_EXTRA_QUESTIONS = 'GET_MAIN_EXTRA_QUESTIONS';
+export const RECEIVE_MARKETING_SETTINGS = 'RECEIVE_MARKETING_SETTINGS';
+export const CLEAR_MARKETING_SETTINGS = 'CLEAR_MARKETING_SETTINGS';
 
 export const setSummit = (summit) => async (dispatch) => dispatch(createAction(SET_SUMMIT)(summit))
 

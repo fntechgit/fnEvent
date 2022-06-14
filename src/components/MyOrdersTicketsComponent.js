@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAccessToken } from 'openstack-uicore-foundation/lib/security/methods';
-import { getEnvVariable, IDP_BASE_URL, SUMMIT_API_BASE_URL, OAUTH2_CLIENT_ID } from '../utils/envVariables';
+import { getEnvVariable, IDP_BASE_URL, SUMMIT_API_BASE_URL, OAUTH2_CLIENT_ID, SUPPORT_EMAIL } from '../utils/envVariables';
 import { MyOrdersTicketsWidget } from './summit-my-orders-tickets';
 import { getUserProfile } from '../actions/user-actions';
 
@@ -16,6 +16,7 @@ export const MyOrdersTicketsComponent = () => {
         apiBaseUrl: getEnvVariable(SUMMIT_API_BASE_URL),
         clientId: getEnvVariable(OAUTH2_CLIENT_ID),
         idpBaseUrl: getEnvVariable(IDP_BASE_URL),
+        supportEmail: getEnvVariable(SUPPORT_EMAIL),
         loginUrl: '/',
         getAccessToken,
         getUserProfile: async () => await dispatch(getUserProfile()),
