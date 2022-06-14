@@ -26,10 +26,10 @@ const baseReducer = (state = DEFAULT_STATE, action) => {
 
     switch (type) {
         case RESET_STATE:
-            return DEFAULT_STATE;
+            return { ...state, ...DEFAULT_STATE };
             break;
         case LOGOUT_USER:
-            return DEFAULT_STATE;
+            return { ...state, ...DEFAULT_STATE };
         case START_LOADING:
             return { ...state, loading: true };
             break;
