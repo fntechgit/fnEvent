@@ -11956,10 +11956,10 @@ open@^7.0.2, open@^7.0.3:
     is-docker "^2.0.0"
     is-wsl "^2.1.1"
 
-openstack-uicore-foundation@4.0.36:
-  version "4.0.36"
-  resolved "https://registry.yarnpkg.com/openstack-uicore-foundation/-/openstack-uicore-foundation-4.0.36.tgz#70fd1f175e36e089cbb7c538448e8abf3ba71dbe"
-  integrity sha512-7N5lu+pimuujtyt9L9i6iYeEXs0SdszggHjMLRTerJCcNNdcQ8b3W06WyBfOOpooVfVTaZa2f8KxH5CqMFIgnQ==
+openstack-uicore-foundation@4.0.37:
+  version "4.0.37"
+  resolved "https://registry.yarnpkg.com/openstack-uicore-foundation/-/openstack-uicore-foundation-4.0.37.tgz#c3b1dae47a1d90f783a35f6287bbedf2426015cf"
+  integrity sha512-1q3j14BsnpOPWT/DQpHLdcfSM0SAZnu5GydwSCayBzgLeZCRWZ3FhO3PDlvMjiMIf4mSn2DqDL/Tk6F0DsxePA==
 
 opentracing@^0.14.5:
   version "0.14.7"
@@ -15951,7 +15951,7 @@ superagent@^5.3.1:
     form-data "^3.0.0"
     formidable "^1.2.2"
     methods "^1.1.2"
-    mime "^2.4.6"
+    mime "^f2.4.6"
     qs "^6.9.4"
     readable-stream "^3.6.0"
     semver "^7.3.2"
