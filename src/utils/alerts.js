@@ -1,4 +1,7 @@
 import Swal from "sweetalert2";
+import { doLogin } from 'openstack-uicore-foundation/lib/security/methods'
+import URI from "urijs"
+import { savePendingAction } from "./schedule";
 
 export const alertPopup = (title, html, confirmLabel, confirmAction, cancelLabel = 'Dismiss') => {
     Swal.fire({
@@ -7,6 +10,7 @@ export const alertPopup = (title, html, confirmLabel, confirmAction, cancelLabel
             icon: 'question',
             iconHtml: '!',
             showCancelButton: true,
+            confirmButtonText: confirmLabel,
             cancelButtonText: cancelLabel,
             width: '400px',
             reverseButtons: true,
@@ -20,16 +24,22 @@ export const alertPopup = (title, html, confirmLabel, confirmAction, cancelLabel
             }
         }
     ).then((result) => {
-        if (result.isConfirmed) {
+        if (result.value) {
             confirmAction();
-        } else if (result.isDenied) {
-            // maybe add a handler here?
         }
     })
 };
 
-export const needsLogin = (msg = null) => {
-    const defaultMessage = "Please login in order to build your schedule and add activities during the event";
 
-    alertPopup('Login', msg || defaultMessage, 'Login', console.log );
+export const needsLogin = (action, msg = null) => {
+    const defaultMessage = "Please log in to add sessions to My Schedule.";
+
+    const login = () => {
+        let backUrl = window?.location?.href ?? '/a';
+        let encodedBackUrl = URI.encode(backUrl);
+        if (action) savePendingAction(action);
+        return doLogin(encodedBackUrl);
+    }
+
+    alertPopup('Login', msg || defaultMessage, 'Login', login, 'OK');
 };
