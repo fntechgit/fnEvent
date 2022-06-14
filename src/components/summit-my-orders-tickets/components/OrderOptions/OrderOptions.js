@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from "react-i18next";
 import classNames from 'classnames';
 import { CSSTransition } from "react-transition-group";
@@ -11,9 +11,10 @@ import { ConfirmPopup, CONFIRM_POPUP_CASE } from '../ConfirmPopup/ConfirmPopup';
 
 import './order-options.scss';
 
-export const OrderOptions = ({ order, summit, ticket, guest, className }) => {
-    const dispatch = useDispatch();
+export const OrderOptions = ({ order, summit, ticket, className }) => {
     const { t } = useTranslation();
+    const dispatch = useDispatch();
+    const supportEmail = useSelector(state => state.globalState?.supportEmail || '');
     const [showConfirm, setShowConfirm] = useState(false);
     const [showRefundSuccess, setShowRefundSuccess] = useState(false);
     const now = dispatch(getNow());
@@ -33,8 +34,6 @@ export const OrderOptions = ({ order, summit, ticket, guest, className }) => {
 
     if (!summit) return null;
 
-    if (guest && !ticket) return null;
-
     return (
         <>
             <div className={classNames('order-options', className)}>
@@ -52,27 +51,13 @@ export const OrderOptions = ({ order, summit, ticket, guest, className }) => {
                     </>
                 </CSSTransition>
 
-                {guest && (
-                    <div className="order-info-wrapper">
-                        <div className="row">
-                            <div className="col-md-12 info">
-                                <h4>{summit.name}</h4>
-                                <p>{getSummitFormattedDate(summit)} <br />{getSummitLocation(summit)} </p>
-                                <p>{getTicketType(ticket).name}</p>
-                                <p className="role-badge">{getTicketRole(ticket)}</p>
-                            </div>
-                        </div>
-                    </div>
-                )}
-
-                {!guest && summit.start_date > now && order && order?.status === 'Paid' && order?.amount > 0 && order?.amount > order?.refunded_amount && (
+                {summit.start_date > now && order && order?.status === 'Paid' && order?.amount > 0 && order?.amount > order?.refunded_amount && (
                     <button onClick={handleCancelClick} className="order-option cancel">
                         {t("order_info.cancel_order")}
                     </button>
                 )}
 
-                {/* TODO: Need to make sure we have the `REGISTRATION_EMAIL` in place. */}
-                <a className="order-option cancel" target="_blank" href={`mailto:${window.REGISTRATION_EMAIL}`}>
+                <a className="order-option cancel" target="_blank" href={`mailto:${supportEmail}`}>
                     {t("order_info.email_support")}
                 </a>
             </div>

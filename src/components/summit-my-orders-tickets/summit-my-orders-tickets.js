@@ -17,6 +17,7 @@ export const MyOrdersTicketsWidget = ({
     apiBaseUrl,
     idpBaseUrl,
     loginUrl,
+    supportEmail,
     getAccessToken,
     getUserProfile,
     summit,
@@ -28,10 +29,11 @@ export const MyOrdersTicketsWidget = ({
         apiBaseUrl,
         idpBaseUrl,
         loginUrl,
+        supportEmail,
         getAccessToken,
         getUserProfile,
         summit,
-        user,
+        user
     });
 
     const handleBeforeLift = () => {
@@ -65,6 +67,7 @@ MyOrdersTicketsWidget.propTypes = {
     apiBaseUrl: PropTypes.string.isRequired,
     idpBaseUrl: PropTypes.string.isRequired,
     loginUrl: PropTypes.string.isRequired,
+    supportEmail: PropTypes.string.isRequired,
     getAccessToken: PropTypes.func.isRequired,
     getUserProfile: PropTypes.func.isRequired,
     summit: PropTypes.object.isRequired,
