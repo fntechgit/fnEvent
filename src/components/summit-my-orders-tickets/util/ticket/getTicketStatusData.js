@@ -1,3 +1,4 @@
+import i18n from '../../i18n';
 import {
     STATUS_CANCELLED,
     STATUS_COMPLETE,
@@ -9,30 +10,30 @@ import {
 export const statusData = {
     [STATUS_UNASSIGNED]: {
         type: STATUS_UNASSIGNED,
-        text: 'Unassigned',
+        text: i18n.t('ticket_status.unassigned'),
         icon: 'fa-exclamation-circle',
         className: 'unset',
     },
     [STATUS_INCOMPLETE]: {
         type: STATUS_INCOMPLETE,
-        text: 'Required details needed',
+        text: i18n.t('ticket_status.incomplete'),
         icon: 'fa-exclamation-circle',
         className: 'warning',
     },
     [STATUS_COMPLETE]: {
         type: STATUS_COMPLETE,
-        text: 'Ready to use',
+        text: i18n.t('ticket_status.complete'),
         icon: 'fa-check-circle',
         className: 'complete'
     },
     [STATUS_CANCELLED]: {
         type: STATUS_CANCELLED,
-        text: 'Cancelled',
+        text: i18n.t('ticket_status.cancelled'),
         className: 'cancel',
     },
     [STATUS_PAST]: {
         type: STATUS_PAST,
-        text: 'Past',
+        text: i18n.t('ticket_status.past'),
         icon: 'fa-fw',
         className: 'past',
     }

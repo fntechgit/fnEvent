@@ -11,7 +11,7 @@
  * limitations under the License.
  **/
 
-import { default as t } from '../../i18n';
+import i18n from '../../i18n';
 import IdTokenVerifier from 'idtoken-verifier';
 import Swal from 'sweetalert2';
 import history from '../history';
@@ -41,10 +41,10 @@ const customFetchErrorHandler = (response) => {
 
     switch (code) {
         case 403:
-            Swal.fire("ERROR", t("errors.user_not_authz"), "warning");
+            Swal.fire('ERROR', i18n.t('errors.user_not_authz'), 'warning');
             break;
         case 401:
-            Swal.fire("ERROR", t("errors.session_expired"), "error");
+            Swal.fire('ERROR', i18n.t('errors.session_expired'), 'error');
             break;
         case 412:
             msg = '';
@@ -55,10 +55,10 @@ const customFetchErrorHandler = (response) => {
 
                 msg += value + '<br>';
             }
-            Swal.fire("Validation error", msg, "warning");
+            Swal.fire('Validation error', msg, 'warning');
             break;
         case 500:
-            Swal.fire("ERROR", t("errors.server_error"), "error");
+            Swal.fire('ERROR', i18n.t('errors.server_error'), 'error');
     }
 };
 
