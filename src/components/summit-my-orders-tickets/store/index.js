@@ -30,6 +30,7 @@ export const getStore = ({
     apiBaseUrl,
     idpBaseUrl,
     loginUrl,
+    supportEmail,
     getAccessToken,
     getUserProfile,
     summit,
@@ -50,8 +51,8 @@ export const getStore = ({
     };
 
     const reducers = persistCombineReducers(config, {
+        globalState: baseReducer,
         loggedUserState: loggedUserReducer,
-        baseState: baseReducer,
         summitState: summitReducer,
         orderState: orderReducer,
         ticketState: ticketReducer,
@@ -59,16 +60,30 @@ export const getStore = ({
         userState: userReducer
     });
 
+    const initialState = {
+        // Note: set config/env variables on the `globalState` for use in components as needed.
+        globalState: {
+            clientId,
+            apiBaseUrl,
+            idpBaseUrl,
+            loginUrl,
+            supportEmail
+        },
+        userState: user,
+        summitState: { summit }
+    };
+
     const store = createStore(
         reducers,
         // Initialize the userState with the user passed in to the widget props.
-        { userState: user, summitState: { summit } },
+        initialState,
         composeEnhancers(
             applyMiddleware(
                 thunk.withExtraArgument({
                     apiBaseUrl,
                     idpBaseUrl,
                     loginUrl,
+                    supportEmail,
                     getAccessToken,
                     getUserProfile
                 })
