@@ -72,10 +72,11 @@ const TemplateWrapper = ({ children, location, marketing, summit, favicons }) =>
         <meta property="og:url" content="/" />
         <meta
           property="og:image"
-          content={`${withPrefix('/')}img/og-image.jpg`}
+          content={withPrefix('/img/og-image.jpg')}
         />
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+        <link rel="stylesheet" type="text/css" href={withPrefix('/fonts/fonts.css')} />
       </Helmet>
       <a className="sr-only skip-to-content" href="#content-wrapper">Skip to content</a>
       <Header location={location} />

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { navigate } from "gatsby"
+import { navigate, withPrefix } from "gatsby"
 import { connect } from "react-redux";
 import URI from "urijs"
 // these two libraries are client-side only
@@ -28,11 +28,10 @@ const RegistrationLiteComponent = ({
     loadingIDP,
     summit,
     colorSettings,
-    siteSettings , 
+    siteSettings,
     allowsNativeAuth,
     allowsOtpAuth,
 }) => {
-    
     const [isActive, setIsActive] = useState(false);
 
     useEffect(() => {
@@ -143,6 +142,10 @@ const RegistrationLiteComponent = ({
         handleCompanyError: () => handleCompanyError,
         allowsNativeAuth: allowsNativeAuth,
         allowsOtpAuth: allowsOtpAuth,
+        stripeOptions: {
+            fonts: [{ cssSrc: withPrefix('/fonts/fonts.css') }],
+            style: { base: { fontFamily: `'Nunito Sans', sans-serif` } }
+        }
     };
 
     const { registerButton } = siteSettings.heroBanner.buttons;
@@ -161,7 +164,6 @@ const RegistrationLiteComponent = ({
     )
 };
 
-
 const mapStateToProps = ({ userState, summitState, settingState }) => {
     return ({
         registrationProfile: userState.idpProfile,
@@ -177,7 +179,6 @@ const mapStateToProps = ({ userState, summitState, settingState }) => {
         siteSettings: settingState.siteSettings,
     })
 };
-
 
 export default connect(mapStateToProps, {
     getThirdPartyProviders,

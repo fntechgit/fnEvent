@@ -49,21 +49,6 @@ module.exports = {
         name: 'images',
       },
     },
-    {
-      resolve: 'gatsby-plugin-webfonts',
-      options: {
-        fonts: {
-          google: [
-            {
-              family: 'Nunito Sans',
-              variants: ['300', '600', '700'],
-              fontDisplay: 'swap',
-              strategy: 'selfHosted'
-            },
-          ],
-        },
-      }
-    },
     'gatsby-plugin-image',
     'gatsby-plugin-sharp',
     'gatsby-transformer-sharp',
