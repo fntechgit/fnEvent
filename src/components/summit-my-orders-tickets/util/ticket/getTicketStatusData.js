@@ -9,30 +9,30 @@ import {
 export const statusData = {
     [STATUS_UNASSIGNED]: {
         type: STATUS_UNASSIGNED,
-        text: 'UNASSIGNED',
+        text: 'Unassigned',
         icon: 'fa-exclamation-circle',
         className: 'unset',
     },
     [STATUS_INCOMPLETE]: {
         type: STATUS_INCOMPLETE,
-        text: 'REQUIRED DETAILS NEEDED',
+        text: 'Required details needed',
         icon: 'fa-exclamation-circle',
         className: 'warning',
     },
     [STATUS_COMPLETE]: {
         type: STATUS_COMPLETE,
-        text: 'READY TO USE',
+        text: 'Ready to use',
         icon: 'fa-check-circle',
         className: 'complete'
     },
     [STATUS_CANCELLED]: {
         type: STATUS_CANCELLED,
-        text: 'CANCELLED',
+        text: 'Cancelled',
         className: 'cancel',
     },
     [STATUS_PAST]: {
         type: STATUS_PAST,
-        text: 'PAST',
+        text: 'Past',
         icon: 'fa-fw',
         className: 'past',
     }

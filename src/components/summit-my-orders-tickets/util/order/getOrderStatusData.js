@@ -11,43 +11,43 @@ import {
 export const statusData = {
     [STATUS_COMPLETE]: {
         type: STATUS_COMPLETE,
-        text: 'TICKET(S) ASSIGNED AND ISSUED',
+        text: 'Ticket(s) assigned and issued',
         icon: 'fa-check-circle',
         className: 'complete',
     },
     [STATUS_INCOMPLETE]: {
         type: STATUS_INCOMPLETE,
-        text: 'ADDITIONAL REQUIRED ATTENDEE DETAILS NEEDED BEFORE TICKET(S) CAN BE ISSUED',
+        text: 'Additional attendee details required before ticket(s) can be issued',
         icon: 'fa-exclamation-circle',
         className: 'warning'
     },
     [STATUS_PENDING]: {
         type: STATUS_PENDING,
-        text: 'PENDING CONFIRMATION',
+        text: 'Pending confirmation',
         icon: 'fa-fw',
         className: 'pending',
     },
     [STATUS_CANCELLED]: {
         type: STATUS_CANCELLED,
-        text: 'CANCELLED',
+        text: 'Cancelled',
         icon: 'fa-fw',
         className: 'cancelled',
     },
     [STATUS_ERROR]: {
         type: STATUS_ERROR,
-        text: 'PAYMENT ERROR',
+        text: 'Payment error',
         icon: 'fa-fw',
         className: 'cancelled',
     },
     [STATUS_PROCESSING]: {
         type: STATUS_PROCESSING,
-        text: 'PAYMENT PROCESSING',
+        text: 'Payment processing',
         icon: 'fa-fw',
         className: 'pending',
     },
     [STATUS_PROCESSING]: {
         type: STATUS_PAST,
-        text: 'PAST',
+        text: 'Past',
         icon: 'fa-fw',
         className: 'past',
     }
