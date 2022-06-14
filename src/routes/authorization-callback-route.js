@@ -17,9 +17,10 @@ import { navigate } from "gatsby"
 import { Redirect } from '@reach/router'
 import { connect } from 'react-redux';
 import AbstractAuthorizationCallbackRoute from "openstack-uicore-foundation/lib/security/abstract-auth-callback-route";
-import { getUserProfile } from '../actions/user-actions'
+import { getUserProfile, addToSchedule, removeFromSchedule } from '../actions/user-actions'
 import HeroComponent from "../components/HeroComponent";
 import { getEnvVariable, IDP_BASE_URL, OAUTH2_CLIENT_ID } from '../utils/envVariables'
+import { getPendingAction } from '../utils/schedule';
 
 class AuthorizationCallbackRoute extends AbstractAuthorizationCallbackRoute {
 
@@ -28,7 +29,14 @@ class AuthorizationCallbackRoute extends AbstractAuthorizationCallbackRoute {
   }
 
   _callback(backUrl) {
-    this.props.getUserProfile().then(() => navigate(URI.decode(backUrl)) );
+    this.props.getUserProfile().then(() => {
+        const pendingAction = getPendingAction();
+        if (pendingAction) {
+            const { action, event } = pendingAction;
+            action === 'ADD_EVENT' ? this.props.addToSchedule(event) : this.props.removeFromSchedule(event);
+        }
+        navigate(URI.decode(backUrl));
+    });
   }
   
   _redirect2Error(error) {
@@ -58,4 +66,8 @@ class AuthorizationCallbackRoute extends AbstractAuthorizationCallbackRoute {
   }
 }
 
-export default connect(null, { getUserProfile })(AuthorizationCallbackRoute)
+export default connect(null, {
+    getUserProfile,
+    addToSchedule,
+    removeFromSchedule,
+})(AuthorizationCallbackRoute)
