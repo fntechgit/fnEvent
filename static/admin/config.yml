@@ -1,6 +1,6 @@
 backend:
   name: github
-  branch: main
+  branch: prod/yoco
   repo: fntechgit/fnEvent
   commit_messages:
     create: 'Create {{collection}} “{{slug}}”'

@@ -4,64 +4,389 @@
       "tier": [
         {
           "value": "tier-cYGYq5-ae",
-          "label": "Top-Tier"
+          "label": "Top-Tier Sponsors"
         }
       ],
       "sponsors": [
         {
-          "marquee": "Your text here! (150-characters max)",
-          "sponsorColor": "#414042",
-          "logo": "/img/tier1-default-sponsor-logo.png",
-          "name": "Top-Tier",
-          "intro": "Sponsor Description (1000-character max) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget ipsum tempor lorem interdum volutpat eu et elit. Sed eleifend justo et semper ultrices. Fusce porta ut sapien at posuere. Donec placerat, lacus eget imperdiet maximus, nunc lectus viverra ligula, in sodales tortor justo vel sem. Vestibulum eleifend, nibh a dapibus rhoncus, tortor dui venenatis enim, ac euismod augue velit at justo. Cras porta lacus est, nec rhoncus augue luctus quis. Pellentesque justo risus, scelerisque laoreet tortor quis, TOP TIER TEXT.",
-          "headerImage": "/img/tier1-default-sponsor-headerimage-toptier.png",
-          "socialNetworks": [],
-          "sponsorId": 24,
-          "title": "Top-Tier Sponsor Test ",
-          "companyId": 22,
+          "marquee": "Bringing art, community, and virtual reality together. (150-characters max) ",
+          "sponsorColor": "#5b9b92",
+          "logo": {
+            "file": "/img/logo-top-tier-wherehol_demo.png",
+            "alt": ""
+          },
+          "name": "Wherehol",
+          "intro": "***Company Description (1000-character max):*** Since 2017, Wherehol has been at the forefront of virtual reality technology, developing dynamic and immersive experiences for all audiences. Our newest endeavor—VR for Great—brings art, community, and virtual reality together to create an experience like none other. Our intuitive products allow users to dive head first into any art collection and be completely immersed in content creation. Pushing the typical boundaries of VR, Wherehol has partnered with scores of international artists to bring a fresh, new, art-first twist to the virtual world.",
+          "headerVideo": "https://fntech.sfo2.cdn.digitaloceanspaces.com/Yoco/YOCO-Summit-Wherehol-Header-Video-2.mp4",
+          "headerImageMobile": {
+            "file": "/img/yoco-summit-wherehol-header-mobile.png",
+            "alt": "header image"
+          },
+          "chatLink": "https://global.gotomeeting.com/join/287912437",
+          "advertiseImage": "",
+          "sponsorId": 27,
+          "title": "Wherehol",
+          "companyId": 25,
           "documents": {
             "links": [
               {
                 "class_name": "PresentationLink",
-                "name": "Your social media links here ",
-                "order": 1,
-                "link": "https://www.facebook.com/FNTECH"
-              }
-            ],
-            "videos": [
+                "name": "FNTECH Website",
+                "link": "https://www.fntech.com",
+                "order": 1
+              },
               {
-                "class_name": "PresentationVideo",
-                "name": "Your external video links here ",
-                "order": 2,
-                "link": "https://www.youtube.com/channel/UC81WrqqnYmigub0fTNKT-Mw"
+                "class_name": "PresentationLink",
+                "name": "FNTECH Instagram ",
+                "link": "https://www.instagram.com/fntech/?hl=en",
+                "order": 2
               }
             ]
           },
           "columnAds": [
             {
-              "image": "/img/tier1-default-sponsor-space1.png",
-              "link": "fntech.com"
+              "image": "/img/yoco-sponsor-ads-large-wherehol-vert.png",
+              "alt": "sponsor image"
             }
           ],
-          "id": 24,
-          "email": "support@fntech.com",
+          "id": 27,
+          "showLogoInEventPage": true,
+          "email": "sponsorservices@fntech.com",
+          "usesSponsorPage": true
+        },
+        {
+          "marquee": " Guard Services. Executive Security. Complete Security Systems. Investigation Solutions. Research Analyst. Threat Assessment. Magnetometers. Canine.",
+          "sponsorColor": "#484848",
+          "logo": {
+            "file": "/img/yoco_ad-a-sponsor-ad_home.jpg",
+            "alt": ""
+          },
+          "name": "Anthony Drake & Associates",
+          "intro": "Founded in 2018 as The Drake Group, Inc. (TDG, Inc.), Anthony “Tony” Drake and his managers provide over fifty years of combined experience in all things “serve and protect”. While 2020 was a difficult year for us all, we were blessed to welcome exciting growth, making it possible to expand TDG, Inc. and re-brand our security arm as Anthony Drake & Associates, otherwise known as AD&A.  With security companies being a dime a dozen in densely populated tourist destinations such as Los Angeles--our birthplace--we here at AD&A strive to stand out from the crowd, proving that it is in fact possible to command the presence and confidence of a professional private security detail coupled with the excellent customer service and approachability of a public servant. AD&A is proudly owned and operated by former and active Law Enforcement and U.S. Military Veterans.\n\n*\\*Please Note: AD&A is now certified for COVID-19 Safety Compliance through L.A. County Dept. of Public Health, Health Education Services, and WHO.\"*",
+          "headerImage": {
+            "file": "/img/yoco_ad-a-header-static-image.jpg",
+            "alt": "header image"
+          },
+          "headerImageMobile": {
+            "file": "/img/yoco_ad-a-header-static-mobile.jpg",
+            "alt": "header mobile image"
+          },
+          "advertiseImage": "",
+          "sponsorId": 37,
+          "title": "Anthony Drake & Associates",
+          "companyId": 35,
+          "documents": {
+            "links": [
+              {
+                "class_name": "PresentationLink",
+                "link": "https://www.adanda.net",
+                "name": "Anthony Drake & Associates Website  ",
+                "order": 1
+              },
+              {
+                "class_name": "PresentationLink",
+                "link": "https://www.linkedin.com/company/anthony-drake-associates/",
+                "order": 4,
+                "name": "Anthony Drake & Associates Linkedin"
+              },
+              {
+                "class_name": "PresentationLink",
+                "link": "https://www.instagram.com/anthonydrakeandassociates/",
+                "order": 2,
+                "name": "Anthony Drake & Associates Instagram "
+              },
+              {
+                "class_name": "PresentationLink",
+                "name": "Anthony Drake & Associates Facebook",
+                "order": 3,
+                "link": "https://www.facebook.com/anthonydrakeandassociates"
+              }
+            ],
+            "slides": [
+              {
+                "class_name": "PresentationSlide",
+                "link": "/img/yoco-hes-certificate.pdf",
+                "name": "Health Education Services Certificate",
+                "order": 5
+              },
+              {
+                "class_name": "PresentationSlide",
+                "link": "/img/yoco-lac-certificate.pdf",
+                "name": "L.A. County Dept. of Public Health Certificate",
+                "order": 6
+              },
+              {
+                "class_name": "PresentationSlide",
+                "link": "/img/yoco-who-certificate.pdf",
+                "name": "WHO Certificate",
+                "order": 7
+              }
+            ]
+          },
+          "columnAds": [
+            {
+              "link": "https://www.adanda.net/join-us",
+              "image": "/img/yoco_ad-a-sponsor-ad_emp.png",
+              "alt": "sponsor"
+            }
+          ],
+          "id": 37,
+          "showLogoInEventPage": true,
+          "email": "info@adanda.net",
+          "usesSponsorPage": true
+        },
+        {
+          "marquee": "Curtin works for you daily – Everyday is our show day. Curtin settles for nothing less – Excellence is our standard. Curtin helps you look your best – Exhibiting is our forté.",
+          "sponsorColor": "#10069F",
+          "logo": {
+            "file": "/img/logo-middle-tier-curtin.png",
+            "alt": ""
+          },
+          "name": "CURTIN CONVENTION & EXPOSITION SERVICES, INC.",
+          "intro": "\n\n**EXHIBITING EXCELLENCE EVERYDAY!\\\n*Curtin*** serves clients nationwide, with the distinction of being the most senior independent convention contractor on the West Coast.\n\n\n\n**HOW WE SHINE:**\n\nSkilled installation [labor](https://www.curtinconvention.com/display-labor) for tradeshows, corporate events and concerts.\n\n[Freight](https://www.curtinconvention.com/freight-handling) logistics and trucking with experienced labor.\n\n[Services/Equipment](https://www.curtinconvention.com/floor-plan-development) include floorplan design, booth equipment, specialty furniture, advance warehousing, graphic design/installation, labor, carpeting, electrical services, and much more!\n\nTalented [administrative guidance](https://www.curtinconvention.com/our-team) and support through every phase of each event.\n\n**KUDOS:**“*Curtin was the BEST expo contractor I’ve ever worked with anywhere. The on-site team did \\\nnot miss a beat with a great attitude. The pride and strong work \\\nethic of a family business shines through.” **\\- Jule Uddfolk, Exhibits Manager, International Society of Hair Restoration Surgery***\n\n**TOOTING OUR HORN, TO NAME A FEW:**\n\n* SUPERBOWL 50\n* APPLE\n* FACEBOOK\n* FNTECH\n* GOOGLE\n* ORACLE\n* TECHCRUNCH\n* ZOOM",
+          "headerImage": {
+            "file": "/img/fnvirtual-yoco-curtin-headerimage.png",
+            "alt": "header image"
+          },
+          "headerImageMobile": {
+            "file": "/img/fnvirtual-yoco-curtin-headerimage-mobile.png",
+            "alt": "header image"
+          },
+          "advertiseImage": "",
+          "sponsorId": 33,
+          "title": "CURTIN CONVENTION & EXPOSITION SERVICES, INC. ",
+          "companyId": 31,
+          "documents": {
+            "links": [
+              {
+                "class_name": "PresentationLink",
+                "name": "Curtin's Website ",
+                "order": 1,
+                "link": "https:www.curtinconvention.com"
+              },
+              {
+                "class_name": "PresentationLink",
+                "name": "Curtin's LinkedIN",
+                "order": 2,
+                "link": "https://www.linkedin.com/company/curtin-convention-exposition-services-inc/"
+              },
+              {
+                "class_name": "PresentationLink",
+                "link": "https://www.facebook.com/curtinconvention",
+                "order": 3,
+                "name": "Curtin's Facebook"
+              },
+              {
+                "class_name": "PresentationLink",
+                "link": "https:www.instagram.com/curtinconvention/",
+                "order": 4,
+                "name": "Curtin's Instagram"
+              },
+              {
+                "class_name": "PresentationLink",
+                "name": "Curtin's Blog",
+                "order": 5,
+                "link": "http://www.curtinconvention.com/blog"
+              }
+            ],
+            "slides": [
+              {
+                "class_name": "PresentationSlide",
+                "link": "/img/covid-19-curtin-offerings.pdf",
+                "name": "COVID-19 Curtin Offerings",
+                "order": 6
+              },
+              {
+                "class_name": "PresentationSlide",
+                "link": "/img/safetyprotocol.pdf",
+                "name": "Curtin Safety Protocol",
+                "order": 7
+              },
+              {
+                "class_name": "PresentationSlide",
+                "link": "/img/postcard.testimonials.pdf",
+                "name": "Curtin Testimonials",
+                "order": 8
+              },
+              {
+                "class_name": "PresentationSlide",
+                "link": "/img/references.insert.1.29.pdf",
+                "name": "Curtin References",
+                "order": 9
+              }
+            ]
+          },
+          "columnAds": [
+            {
+              "link": "http://www.curtinconvention.com",
+              "image": "/img/fnvirtual-yoco-curtin-space1.png"
+            }
+          ],
+          "id": 33,
+          "email": "info@curtinconvention.com",
+          "usesSponsorPage": true
+        },
+        {
+          "marquee": "We Design. We Build. We Print. We Install.",
+          "sponsorColor": "#ff7500 ",
+          "logo": {
+            "file": "/img/dvc-logo-968x968.png",
+            "alt": ""
+          },
+          "name": "DVC",
+          "intro": "Experience, immersion, innovation and unparalleled customer experience. Those are just a few of the impressive traits D’Andrea Visual Communications (DVC) has created for some of the most impressive brands on the globe.\\\n\\\nWe began as D’Andrea Graphic Communications in 2005 as a premier lithographic printer in Los Angeles, CA. Since then, we’ve expanded our vision in-house with grand format printing and custom fabrication. DVC is now a complete visual communications producer for Fortune 500 brands as well as unique start-ups.\\\n\\\nUltimately, our goal is to create visual marketing materials that enhance your brand and get noticed. We do it efficiently, and effectively. All this and more thanks to a dream team of sales experts, project managers, designers, engineers, craftsman, and installers.\\\n\\\nDVC is [minority-owned](http://dandreavisual.com/diversity/), G7 and FSC® certified company.",
+          "headerVideo": "https://fntech.sfo2.cdn.digitaloceanspaces.com/Yoco/_Header%20Video%20for%20Fntech..mp4",
+          "headerImage": "",
+          "advertiseImage": "",
+          "sponsorId": 30,
+          "title": "The DVC Story",
+          "companyId": 28,
+          "documents": {
+            "links": [
+              {
+                "class_name": "PresentationLink",
+                "link": "https://www.instagram.com/dandreavisual/",
+                "name": "D'Andrea Visual Instagram ",
+                "order": 2
+              },
+              {
+                "class_name": "PresentationLink",
+                "link": "https://www.linkedin.com/company/3645194/admin/ ",
+                "order": 3,
+                "name": "D'Andrea Visual Linkedin "
+              },
+              {
+                "class_name": "PresentationLink",
+                "name": "D'Andrea Visual Facebook ",
+                "order": 4,
+                "link": "https://www.facebook.com/DAndrea-Visual-Communications-661492027204833/ "
+              },
+              {
+                "class_name": "PresentationLink",
+                "link": "https://dandreavisual.com/contact-us/ ",
+                "order": 1,
+                "name": "D'Andrea Visual Website "
+              }
+            ]
+          },
+          "columnAds": [
+            {
+              "image": "/img/_fnvirtual-yoco-dvc-space1.png",
+              "link": "https://dandreavisual.com/contact-us/ "
+            }
+          ],
+          "id": 30,
+          "email": "davids@dandreavisual.com",
           "usesSponsorPage": true
         },
         {
           "marquee": "Your event one-stop-shop, no matter the scope or size. Production + Event Management + Creative. We have you covered. ",
+          "externalLink": "",
           "sponsorColor": "#0C64C8",
-          "logo": "/img/logo-top-tier-fntech.png",
+          "logo": {
+            "file": "/img/logo-middle-tier-fntech.png",
+            "alt": ""
+          },
           "name": "FNTECH",
-          "intro": "**WE SPEAK EVENTS: In-person, virtual, and everything in-between.**\\\nOver the past 20+ years, we’ve successfully partnered with top-tier companies like Apple, Facebook, Wells Fargo, Vans, and Volcom on events of all sizes, types and budgets. Domestic and abroad. Intimate and straightforward to extremely complex and expansive. We have two large headquarters—one in the Northern California Bay Area and another in Southern California, which includes a virtual reality lab, 3D printing hub, and robust wood/metal fabrication shop. We’re a people-first company, which to us means treating every employee, client, vendor, partner, and community member with honesty, integrity, and respect. It’s part of our corporate ethos. People power our mission and we are eternally grateful to know and work with some of the best in the business. And as always, we make sure to have a lot of fun along the way. For more FNinfo, visit us at [fntech.com](http://fntech.com/).",
+          "intro": "**WE SPEAK EVENTS: In-person, virtual, and everything in-between.**\\\nOver the past 20+ years, we’ve successfully partnered with top-tier companies like Apple, Facebook, Wells Fargo, Vans, and Volcom on events of all sizes, types and budgets. Domestic and abroad. Intimate and straightforward to extremely complex and expansive. We have two large headquarters—one in the Northern California Bay Area and another in Southern California, which includes a virtual reality lab, 3D printing hub, and robust wood/metal fabrication shop. We're a people-first company, which to us means treating every employee, client, vendor, partner, and community member with honesty, integrity, and respect. It’s part of our corporate ethos. People power our mission and we are eternally grateful to know and work with some of the best in the business. And as always, we make sure to have a lot of fun along the way. For more FNinfo, visit us at [fntech.com](http://fntech.com/).",
           "headerVideo": "https://fntech.sfo2.cdn.digitaloceanspaces.com/Yoco/FNTECH%20animated%20logo_Black_012021.mp4",
+          "headerImage": "",
+          "headerImageMobile": {
+            "file": "/img/fnvirtual-yoco-fntech-headerimage-mobile.png",
+            "alt": "header image"
+          },
+          "chatLink": "https://global.gotomeeting.com/join/287912437 ",
           "advertiseImage": "",
-          "sponsorId": 44,
-          "title": "",
-          "companyId": 4,
-          "columnAds": [],
-          "id": 44,
+          "sponsorId": 14,
+          "companyId": 11,
+          "documents": {
+            "links": [
+              {
+                "class_name": "PresentationLink",
+                "name": "Follow FNTECH on Instagram",
+                "order": 1,
+                "link": "https://www.instagram.com/fntech/?hl=en"
+              },
+              {
+                "class_name": "PresentationLink",
+                "name": "Follow FNTECH on Facebook",
+                "order": 2,
+                "link": "https://www.facebook.com/FNTECH/"
+              },
+              {
+                "class_name": "PresentationLink",
+                "name": "Follow FNTECH on Twitter",
+                "order": 3,
+                "link": "https://twitter.com/fntech?lang=en "
+              },
+              {
+                "class_name": "PresentationLink",
+                "link": "https://www.youtube.com/watch?v=PBSZAfsTa3o",
+                "order": 4,
+                "name": "YouTube: F8 event recap"
+              },
+              {
+                "class_name": "PresentationLink",
+                "name": "YouTube: Oculus Connect event recap ",
+                "order": 5,
+                "link": "https://www.youtube.com/watch?v=9m4ZbIbO1-U "
+              }
+            ],
+            "videos": [
+              {
+                "class_name": "PresentationVideo",
+                "name": "WE SPEAK EVENTS: In-person, virtual and everything in-between.",
+                "order": 6,
+                "link": "https://fntech.sfo2.cdn.digitaloceanspaces.com/Yoco/FNTECH_Sponsor_Assets/FNTECH_Video1_FINAL_fix.mp4"
+              },
+              {
+                "class_name": "PresentationVideo",
+                "name": "Have Sponsors? Look no further!",
+                "order": 7,
+                "link": "https://fntech.sfo2.cdn.digitaloceanspaces.com/Yoco/FNTECH_Sponsor_Assets/FNTECH_Video2_V3.mp4"
+              },
+              {
+                "class_name": "PresentationVideo",
+                "name": "FNstudios at Your Service",
+                "order": 8,
+                "link": "https://fntech.sfo2.cdn.digitaloceanspaces.com/Yoco/FNTECH_Sponsor_Assets/FNTECH_Video3_V4.mp4"
+              }
+            ]
+          },
+          "columnAds": [
+            {
+              "link": "https://www.fntech.com/green-planet-initiative/ ",
+              "image": "/img/fnvirtual-yoco-fntech-space1.png"
+            }
+          ],
+          "id": 7,
           "email": "info@fntech.com",
           "usesSponsorPage": true
+        },
+        {
+          "advertiseImage": "",
+          "name": "Hughston Engineering",
+          "logo": {
+            "file": "/img/logo-middle-tier-hughston.png",
+            "alt": ""
+          },
+          "id": 32,
+          "sponsorId": 32,
+          "companyId": 30,
+          "externalLink": "/virtual-booth/",
+          "usesSponsorPage": false
+        },
+        {
+          "advertiseImage": "",
+          "name": "Seeing Eye Lighting Design",
+          "logo": {
+            "file": "/img/logo-middle-tier-seeingeye.png",
+            "alt": ""
+          },
+          "id": 31,
+          "companyId": 29,
+          "sponsorId": 31,
+          "externalLink": "/virtual-booth/"
         }
       ]
     },
@@ -69,54 +394,95 @@
       "tier": [
         {
           "value": "tier-DHcI3dWGk",
-          "label": "Mid-Tier"
+          "label": "Middle-Tier Sponsors"
         }
       ],
       "sponsors": [
         {
-          "marquee": "Your text here! (150-characters max)",
+          "marquee": "We delivered 5G first. Are you ready for what’s next? (150-characters max)",
           "sideImage": "",
-          "externalLink": "",
-          "sponsorColor": "#58595b",
-          "logo": "/img/tier1-default-sponsor-logo.png",
-          "name": "Mid-Tier",
-          "intro": "Sponsor Description (1000-character max) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget ipsum tempor lorem interdum volutpat eu et elit. Sed eleifend justo et semper ultrices. Fusce porta ut sapien at posuere. Donec placerat, lacus eget imperdiet maximus, nunc lectus viverra ligula, in sodales tortor justo vel sem. Vestibulum eleifend, nibh a dapibus rhoncus, tortor dui venenatis enim, ac euismod augue velit at justo. Cras porta lacus est, nec rhoncus augue luctus quis. Pellentesque justo risus, scelerisque laoreet tortor quis, Test Text",
-          "headerVideo": "",
-          "headerImage": "/img/tier1-default-sponsor-headerimage-middletier.png",
-          "socialNetworks": [],
-          "chatLink": "",
-          "sponsorId": 25,
-          "title": "Mid-Tier Sponsor",
-          "companyId": 23,
+          "sponsorColor": "#7e78c6",
+          "logo": {
+            "file": "/img/logo-lower-tier-mobility_demo.png",
+            "alt": ""
+          },
+          "name": "Mobility",
+          "intro": "***Company Description (1000-character max):*** At Mobility, we offer voice, data and video services across our award-winning network, keeping security and reliability at the core of our services. With 5G now blanketing the nation, only Mobility is able to link-up with thousands of mobile hubs in microseconds, ensuring your connections are delivered at near lightning speed. Using innovative communication coding and cutting-edge hardware, our technologies allow customers to connect across around the world faster and more efficiently than even we dreamed possible. And not only are we working toward a faster future, we are committed to making it a more sustainable planet. As you’ve seen in our recent ads and social media posts, reducing Mobility’s carbon footprint is at the top of our list ensuring future generations have a brighter, safer and more connected experience with Mobility.",
+          "headerImage": {
+            "file": "/img/yoco-summit-mobility-header.png",
+            "alt": "header image"
+          },
+          "headerImageMobile": {
+            "file": "/img/yoco-summit-mobility-header-mobile.png",
+            "alt": "header image"
+          },
+          "advertiseImage": "",
+          "sponsorId": 28,
+          "title": "Mobility",
+          "companyId": 26,
           "documents": {
-            "slides": [],
             "links": [
               {
                 "class_name": "PresentationLink",
-                "name": "Your social media links here ",
-                "order": 1,
-                "link": "https://www.facebook.com/FNTECH"
-              }
-            ],
-            "videos": [
+                "name": "FNTECH Website",
+                "link": "https://www.fntech.com",
+                "order": 1
+              },
               {
-                "class_name": "PresentationVideo",
-                "name": "Your external video links here ",
-                "link": "https://www.youtube.com/channel/UC81WrqqnYmigub0fTNKT-Mw",
+                "class_name": "PresentationLink",
+                "name": "FNTECH Instagram",
+                "link": "https://www.instagram.com/fntech/?hl=en",
                 "order": 2
               }
             ]
           },
           "columnAds": [
             {
-              "image": "/img/tier1-default-sponsor-space1.png",
-              "button": "",
-              "link": "https://fntech.com"
+              "image": "/img/yoco-summit-mobility-space1.png"
             }
           ],
-          "id": 25,
-          "email": "support@fntech.com",
+          "id": 28,
+          "email": "sponsorservices@fntech.com",
           "usesSponsorPage": true
+        },
+        {
+          "marquee": "",
+          "externalLink": "/virtual-booth/",
+          "logo": {
+            "file": "/img/logo-middle-tier-gamehub.png",
+            "alt": ""
+          },
+          "name": "GameHub",
+          "intro": "",
+          "headerVideo": "",
+          "headerImage": "",
+          "title": "",
+          "id": 5
+        },
+        {
+          "marquee": "",
+          "externalLink": "/virtual-booth/",
+          "logo": {
+            "file": "/img/logo-middle-tier-hyved.png",
+            "alt": ""
+          },
+          "name": "Hyved",
+          "intro": "",
+          "headerVideo": "",
+          "headerImage": "",
+          "title": "",
+          "id": 6,
+          "showLogoInEventPage": true
+        },
+        {
+          "advertiseImage": "",
+          "name": "Flightpath",
+          "id": 4,
+          "logo": {
+            "file": "/img/Logo-Top-Tier-Flightpath.png",
+            "alt": ""
+          },
+          "externalLink": "/virtual-booth/"
         }
       ]
     },
@@ -124,54 +490,86 @@
       "tier": [
         {
           "value": "tier-U_wEwGX8a",
-          "label": "Lower-Tier"
+          "label": "Lower-Tier Sponsors"
         }
       ],
       "sponsors": [
         {
-          "marquee": "Your text here! (150-characters max)",
-          "sideImage": "/img/tier1-default-sponsor-sideimage.png",
-          "externalLink": "",
-          "sponsorColor": "#6d6e71",
-          "logo": "/img/tier1-default-sponsor-logo.png",
-          "name": "Lower-Tier",
-          "intro": "Sponsor Description (1000-character max) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus eget ipsum tempor lorem interdum volutpat eu et elit. Sed eleifend justo et semper ultrices. Fusce porta ut sapien at posuere. Donec placerat, lacus eget imperdiet maximus, nunc lectus viverra ligula, in sodales tortor justo vel sem. Vestibulum eleifend, nibh a dapibus rhoncus, tortor dui venenatis enim, ac euismod augue velit at justo. Cras porta lacus est, nec rhoncus augue luctus quis. Pellentesque justo risus, scelerisque laoreet tortor quis, vehicula volutpat ipsum.",
-          "headerVideo": "",
-          "headerImage": "/img/tier1-default-sponsor-headerimage-lowertier.png",
-          "socialNetworks": [],
-          "chatLink": "",
-          "sponsorId": 26,
-          "title": "Lower-Tier Sponsor",
-          "companyId": 24,
+          "marquee": "Travel + Technology. Book your next evolved escape with Treva. (150-characters max)",
+          "sponsorColor": " #e9ad55",
+          "logo": {
+            "file": "/img/logo-middle-tier-treva_demo.png",
+            "alt": ""
+          },
+          "name": "Treva",
+          "intro": "***Company Description (1000-character max):*** Travel + Technology = Another Tremendous Trip. Since its inception in 2004, Treva has integrated more than 20 new technologies into their travel services. Services like facial recognition for seamless online check-in, 360º VR room tours, housekeeping based on geofencing, linen fragrancing based on skin analysis, and one-touch room service ordered via mobile device only begin to scratch the surface. Each quarter, Treva adds more technical integrations to better streamlined core competencies. When a traveler books their next escape with Treva, they know they’re using technology to level up their adventure. Virtually connect with a Treva travel agent today!",
+          "headerImage": {
+            "file": "/img/yoco-summit-treva-header.png",
+            "alt": "header image"
+          },
+          "headerImageMobile": {
+            "file": "/img/yoco-summit-treva-header-mobile.png",
+            "alt": "header image"
+          },
+          "advertiseImage": "",
+          "sponsorId": 29,
+          "title": "Treva",
+          "companyId": 27,
           "documents": {
-            "slides": [],
             "links": [
               {
                 "class_name": "PresentationLink",
-                "name": "Your social media links here ",
-                "link": "https://www.facebook.com/FNTECH",
-                "order": 1
-              }
-            ],
-            "videos": [
+                "name": "FNTECH Website",
+                "order": 1,
+                "link": "https://www.fntech.com"
+              },
               {
-                "class_name": "PresentationVideo",
-                "link": "https://www.youtube.com/channel/UC81WrqqnYmigub0fTNKT-Mw",
-                "order": 2,
-                "name": "Your external video links here "
+                "class_name": "PresentationLink",
+                "name": "FNTECH Instagram",
+                "link": "https://www.instagram.com/fntech/?hl=en",
+                "order": 2
               }
             ]
           },
           "columnAds": [
             {
-              "image": "/img/tier1-default-sponsor-space1.png",
-              "button": "",
-              "link": "https://www.fntech.com"
+              "image": "/img/yoco-sponsor-ads-medium-treva.png"
             }
           ],
-          "id": 26,
-          "email": "support@fntech.com",
+          "id": 29,
+          "showLogoInEventPage": true,
+          "email": "sponsorservices@fntech.com",
           "usesSponsorPage": true
+        },
+        {
+          "advertiseImage": "",
+          "name": "Topographic",
+          "logo": {
+            "file": "/img/logo-lower-tier-topographic.png",
+            "alt": ""
+          },
+          "id": 21,
+          "externalLink": "/virtual-booth/"
+        },
+        {
+          "advertiseImage": "",
+          "name": "OpenTech",
+          "logo": {
+            "file": "/img/logo-top-tier-opentech.png",
+            "alt": ""
+          },
+          "id": 22,
+          "externalLink": "/virtual-booth/"
+        },
+        {
+          "advertiseImage": "",
+          "name": "Tilted",
+          "id": 26,
+          "logo": {
+            "file": "/img/logo-lower-tier-tilted.png",
+            "alt": ""
+          },
+          "externalLink": "/virtual-booth/"
         }
       ]
     }

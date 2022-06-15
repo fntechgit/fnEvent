@@ -1,13 +1,7 @@
 {
   "tiers": [
     {
-      "id": "tier-cYGYq5-ae",
-      "name": "Top-Tier",
-      "badge": "/img/tier1-default-sessionbar-logo.png",
-      "lobby": {
-        "lobbyTemplate": "big-images",
-        "display": true
-      },
+      "badge": "",
       "sponsorPage": {
         "sponsorTemplate": "big-header",
         "widgets": {
@@ -17,13 +11,25 @@
           "banner": true
         }
       },
-      "eventTemplate": "",
-      "expoHallSize": "large"
+      "name": "Top-Tier Sponsors",
+      "expoHallSize": "large",
+      "eventTemplate": "small-images",
+      "widgetTitle": "Top-Tier Sponsors",
+      "lobby": {
+        "lobbyTemplate": "carousel",
+        "display": true
+      },
+      "expoHallPage": {
+        "expoHallTemplate": "medium-images",
+        "display": true
+      },
+      "id": "tier-cYGYq5-ae"
     },
     {
       "id": "tier-DHcI3dWGk",
-      "name": "Mid-Tier",
-      "badge": "/img/tier1-default-sessionbar-logo.png",
+      "name": "Middle-Tier Sponsors",
+      "widgetTitle": "Middle-Tier Sponsors",
+      "badge": "",
       "lobby": {
         "lobbyTemplate": "small-images",
         "display": true
@@ -42,8 +48,9 @@
     },
     {
       "id": "tier-U_wEwGX8a",
-      "name": "Lower-Tier",
-      "badge": "/img/tier1-default-sessionbar-logo.png",
+      "name": "Lower-Tier Sponsors",
+      "widgetTitle": "Lower-Tier Sponsors",
+      "badge": "",
       "lobby": {
         "lobbyTemplate": "small-images",
         "display": true
@@ -62,11 +69,11 @@
     }
   ],
   "imageHeader": {
-    "file": "/img/tier1-default-sponsor-headerimage-expopage.png",
+    "file": "/img/booth-crawl-1_adjusted-mobile.png",
     "alt": "header"
   },
   "lobbyButton": {
-    "text": "Visit the Expo Hall",
+    "text": "View all",
     "link": "/a/sponsors/"
   }
 }

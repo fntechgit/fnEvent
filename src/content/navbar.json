@@ -6,16 +6,7 @@
       "display": true,
       "requiresAuth": true,
       "pageRestriction": [
-        "ANY"
-      ]
-    },
-    {
-      "title": "My Tickets",
-      "link": "/a/my-tickets",
-      "display": true,
-      "requiresAuth": true,
-      "pageRestriction": [
-        "ANY"
+        "LOBBY"
       ]
     },
     {
@@ -28,18 +19,12 @@
       ]
     },
     {
-      "title": "My Schedule",
-      "link": "/a/my-schedule",
-      "display": true,
-      "requiresAuth": false
-    },
-    {
       "title": "Sponsors ",
       "link": "/a/sponsors/",
       "display": true,
       "requiresAuth": true,
       "pageRestriction": [
-        "ANY"
+        "ACTIVITY"
       ]
     },
     {
@@ -48,7 +33,7 @@
       "display": true,
       "requiresAuth": false,
       "pageRestriction": [
-        "ANY"
+        "SHOW"
       ]
     },
     {
@@ -57,16 +42,17 @@
       "display": true,
       "requiresAuth": false,
       "pageRestriction": [
-        "ANY"
+        "ACTIVITY"
       ]
     },
     {
       "title": "Past events",
       "link": "/past-events",
       "display": true,
-      "requiresAuth": false,
+      "requiresAuth": true,
       "pageRestriction": [
-        "ANY"
+        "ACTIVITY",
+        "MARKETING"
       ]
     },
     {
@@ -75,7 +61,7 @@
       "display": true,
       "requiresAuth": false,
       "pageRestriction": [
-        "ANY"
+        "ACTIVITY"
       ]
     },
     {
@@ -84,7 +70,8 @@
       "display": true,
       "requiresAuth": false,
       "pageRestriction": [
-        "ANY"
+        "ACTIVITY",
+        "MARKETING"
       ]
     },
     {
@@ -93,7 +80,8 @@
       "display": true,
       "requiresAuth": true,
       "pageRestriction": [
-        "ANY"
+        "ACTIVITY",
+        "MARKETING"
       ]
     }
   ]
