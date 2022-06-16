@@ -22,6 +22,8 @@ import HeroComponent from "../components/HeroComponent";
 import { getEnvVariable, IDP_BASE_URL, OAUTH2_CLIENT_ID } from '../utils/envVariables'
 import { getPendingAction } from '../utils/schedule';
 
+import '../styles/bulma.scss';
+
 class AuthorizationCallbackRoute extends AbstractAuthorizationCallbackRoute {
 
   constructor(props) {
