@@ -80,7 +80,7 @@ const SchedulePage = ({ summit, scheduleState, summitPhase, isLoggedUser, locati
 
   return (
     <Layout location={location}>
-      <div className="container" style={{ position: 'inherit' }}>
+      <div className={`container ${styles.container}`}>
         <div className={`${styles.wrapper} ${showFilters ? styles.showFilters : ""}`}>
           <div className={styles.scheduleWrapper}>
             <FullSchedule {...schedProps} />
