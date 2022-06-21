@@ -33,7 +33,7 @@
     "font-awesome": "^4.7.0",
     "formik": "^2.2.9",
     "fs-extra": "^9.0.1",
-    "full-schedule-widget": "^2.0.9",
+    "full-schedule-widget": "^2.0.10",
     "gatsby": "^4.0.0",
     "gatsby-plugin-image": "^2.10.1",
     "gatsby-plugin-netlify": "^4.1.0",
