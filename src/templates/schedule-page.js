@@ -8,14 +8,14 @@ import FullSchedule from "../components/FullSchedule";
 import ScheduleFilters from "../components/ScheduleFilters";
 import AttendanceTrackerComponent from "../components/AttendanceTrackerComponent";
 import AccessTracker from "../components/AttendeeToAttendeeWidgetComponent";
-import { PageScrollInspector, SCROLL_DIRECTION } from  '../components/PageScrollInspector';
+import { PageScrollInspector, SCROLL_DIRECTION } from '../components/PageScrollInspector';
 import { PHASES } from "../utils/phasesUtils";
 import FilterButton from "../components/FilterButton";
 import styles from "../styles/full-schedule.module.scss";
 import NotFoundPage from "../pages/404";
 import withScheduleData from '../utils/withScheduleData'
 
-const SchedulePage = ({summit, scheduleState, summitPhase, isLoggedUser, location, colorSettings, updateFilter, scheduleProps, schedKey }) => {
+const SchedulePage = ({ summit, scheduleState, summitPhase, isLoggedUser, location, colorSettings, updateFilter, scheduleProps, schedKey }) => {
 
   const [showFilters, setShowfilters] = useState(false);
 
@@ -38,7 +38,7 @@ const SchedulePage = ({summit, scheduleState, summitPhase, isLoggedUser, locatio
       filtersWrapperRef.current.scroll({ top: filtersWrapperRef.current.scrollHeight, behavior: 'smooth' });
   }, [filtersWrapperRef]);
 
-  if (!summit ) return null;
+  if (!summit) return null;
 
   // if we don't have a state, it probably means the schedule was disabled from admin.
   if (!scheduleState) {
@@ -73,14 +73,14 @@ const SchedulePage = ({summit, scheduleState, summitPhase, isLoggedUser, locatio
   if (isLoggedUser && summitPhase !== PHASES.BEFORE) {
     schedProps = {
       ...schedProps,
-      onEventClick: (ev) => navigate(`/a/event/${ev.id}`, { state: { previousUrl: location.pathname }}),
+      onEventClick: (ev) => navigate(`/a/event/${ev.id}`, { state: { previousUrl: location.pathname } }),
       onStartChat: null,
     };
   }
 
   return (
     <Layout location={location}>
-      <div className="container">
+      <div className={`container ${styles.container}`}>
         <div className={`${styles.wrapper} ${showFilters ? styles.showFilters : ""}`}>
           <div className={styles.scheduleWrapper}>
             <FullSchedule {...schedProps} />
