@@ -140,8 +140,8 @@
     },
     "orders-tickets": {
         "loading": "Loading your orders and tickets...",
-        "empty-title": "You don't have any orders or tickets.",
-        "empty-text": "You do not have placed any orders, and no tickets have been assigned to you yet."
+        "empty-title": "It appears you have not placed any orders and no tickets have been assigned to you.",
+        "empty-text": "If you believe this is incorrect please email {{support_email}}.  Thank you!"
     },
     "orders": {
         "title": "My Orders with Tickets",
