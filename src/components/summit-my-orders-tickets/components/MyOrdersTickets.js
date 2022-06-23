@@ -17,7 +17,9 @@ export const MyOrdersTickets = ({ className }) => {
         orderState,
         ticketState,
         summitState,
+        globalState
     } = useSelector(state => state || {});
+
     const [isInitializing, setIsInitializing] = useState(true);
 
     const fetchData = async () => {
@@ -50,7 +52,7 @@ export const MyOrdersTickets = ({ className }) => {
             {!isLoading && (!hasOrders && !hasTickets) && (
                 <div className="orders-tickets-empty">
                     <h2>{t('orders-tickets.empty-title')}</h2>
-                    {t('orders-tickets.empty-text')}
+                    {t('orders-tickets.empty-text', { support_email : globalState.supportEmail})}
                 </div>
             )}
 
