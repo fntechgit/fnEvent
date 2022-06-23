@@ -11,7 +11,8 @@ import SchedulePage from "../../templates/schedule-page";
 import SponsorPage from "../../templates/sponsor-page"
 import ExpoHallPage from "../../templates/expo-hall-page"
 import FullProfilePage from "../../templates/full-profile-page"
-import WithAuthRoute from '../../routes/WithAuthRoute'
+import WithAuthzRoute from '../../routes/WithAuthzRoute'
+import WithAuthRoute from '../../routes/WithAuthRoute';
 import ExtraQuestionsPage from "../../templates/extra-questions-page"
 import ShowOpenRoute from "../../routes/ShowOpenRoute";
 import WithBadgeRoute from "../../routes/WithBadgeRoute";
@@ -31,25 +32,27 @@ const App = ({ isLoggedUser, user, summit_phase, lastBuild, syncData }) => {
     <Location>
       {({ location }) => (
         <Router basepath="/a" >
-          <WithTicketRoute path="/extra-questions" location={location}>
-            <ExtraQuestionsPage path="/" isLoggedIn={isLoggedUser} user={user} location={location} />
-          </WithTicketRoute>
           <SchedulePage path="/schedule" location={location} schedKey="schedule-main" />
-          <WithAuthRoute path="/" summit_phase={summit_phase} isLoggedIn={isLoggedUser} user={user} location={location}>
-            <PostersPage path="/posters" trackGroupId={0} location={location} />
-            <PostersPage path="/posters/:trackGroupId" location={location} />
-            <PosterDetailPage path="/poster/:presentationId/" isLoggedIn={isLoggedUser} user={user} location={location} />
-            <SchedulePage path="/my-schedule" location={location} summit_phase={summit_phase} isLoggedIn={isLoggedUser} user={user} scheduleProps={{ title: 'My Schedule' }} schedKey="my-schedule-main" />
-            <FullProfilePage path="/profile" summit_phase={summit_phase} isLoggedIn={isLoggedUser} user={user} location={location} />
+          <WithAuthRoute path="/" isLoggedIn={isLoggedUser} location={location}>
             <MyTicketsPage path="/my-tickets" isLoggedIn={isLoggedUser} user={user} location={location} />
-            <ShowOpenRoute path="/" summit_phase={summit_phase} isLoggedIn={isLoggedUser} user={user} location={location}>
-              <WithBadgeRoute path="/event/:eventId" summit_phase={summit_phase} isLoggedIn={isLoggedUser} user={user} location={location}>
-                <EventPage path="/" summit_phase={summit_phase} isLoggedIn={isLoggedUser} user={user} location={location} />
-              </WithBadgeRoute>
-              <HomePage path="/" isLoggedIn={isLoggedUser} user={user} location={location} />
-              <SponsorPage path="/sponsor/:sponsorId" summit_phase={summit_phase} isLoggedIn={isLoggedUser} user={user} location={location} />
-              <ExpoHallPage path="/sponsors/" summit_phase={summit_phase} isLoggedIn={isLoggedUser} user={user} location={location} />
-            </ShowOpenRoute>
+            <WithTicketRoute path="/extra-questions" location={location}>
+                <ExtraQuestionsPage path="/" isLoggedIn={isLoggedUser} user={user} location={location} />
+            </WithTicketRoute>
+            <WithAuthzRoute path="/" summit_phase={summit_phase} isLoggedIn={isLoggedUser} user={user} location={location}>
+                <PostersPage path="/posters" trackGroupId={0} location={location} />
+                <PostersPage path="/posters/:trackGroupId" location={location} />
+                <PosterDetailPage path="/poster/:presentationId/" isLoggedIn={isLoggedUser} user={user} location={location} />
+                <SchedulePage path="/my-schedule" location={location} summit_phase={summit_phase} isLoggedIn={isLoggedUser} user={user} scheduleProps={{ title: 'My Schedule' }} schedKey="my-schedule-main" />
+                <FullProfilePage path="/profile" summit_phase={summit_phase} isLoggedIn={isLoggedUser} user={user} location={location} />
+                <ShowOpenRoute path="/" summit_phase={summit_phase} isLoggedIn={isLoggedUser} user={user} location={location}>
+                  <WithBadgeRoute path="/event/:eventId" summit_phase={summit_phase} isLoggedIn={isLoggedUser} user={user} location={location}>
+                    <EventPage path="/" summit_phase={summit_phase} isLoggedIn={isLoggedUser} user={user} location={location} />
+                  </WithBadgeRoute>
+                  <HomePage path="/" isLoggedIn={isLoggedUser} user={user} location={location} />
+                  <SponsorPage path="/sponsor/:sponsorId" summit_phase={summit_phase} isLoggedIn={isLoggedUser} user={user} location={location} />
+                  <ExpoHallPage path="/sponsors/" summit_phase={summit_phase} isLoggedIn={isLoggedUser} user={user} location={location} />
+                </ShowOpenRoute>
+            </WithAuthzRoute>
           </WithAuthRoute>
         </Router>
       )}
