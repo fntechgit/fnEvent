@@ -199,14 +199,14 @@ export const editOwnedTicket = ({
         }
     }
 
-    const normalizedEntity = {
+    const normalizedEntity = normalizeTicket({
         attendee_email,
         attendee_first_name,
         attendee_last_name,
         attendee_company,
         disclaimer_accepted,
         extra_questions
-    };
+    });
 
     return putRequest(
         null,
@@ -218,11 +218,11 @@ export const editOwnedTicket = ({
         dispatch(startLoading());
 
         // Check if there's changes in the ticket data to update the profile
-        if (attendee_company !== company || attendee_first_name !== userProfile.first_name || attendee_last_name !== userProfile.last_name) {
+        if (attendee_company.name !== company || attendee_first_name !== userProfile.first_name || attendee_last_name !== userProfile.last_name) {
             const newProfile = {
                 first_name: attendee_first_name,
                 last_name: attendee_last_name,
-                company: attendee_company
+                company: attendee_company.name
             };
             dispatch(updateProfile(newProfile));
         }
@@ -390,3 +390,17 @@ export const refundTicket = ({ ticket, order }) => async (dispatch, getState, { 
         throw (e);
     });
 };
+
+const normalizeTicket = (entity) => {
+    const normalizedEntity = {...entity};
+
+    if(!entity.attendee_company.id) {
+        normalizedEntity['attendee_company'] = entity.attendee_company.name;
+    } else {
+        delete(normalizedEntity['attendee_company']);
+        normalizedEntity['attendee_company_id'] = entity.attendee_company.id;
+    }
+
+    return normalizedEntity;
+
+}
