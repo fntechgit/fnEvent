@@ -62,6 +62,7 @@
         "assign": "Assign to:",
         "add_ticket": "Add additional ticket(s) to this order",
         "no_tickets": "No tickets selected.",
+        "disclaimer_in_person_title": "Attention",
         "placeholders": {
             "coupon": "Coupon (Optional)",
             "email": "Attendee Email (Optional)"
@@ -139,8 +140,8 @@
     },
     "orders-tickets": {
         "loading": "Loading your orders and tickets...",
-        "empty-title": "You don't have any orders or tickets.",
-        "empty-text": "You do not have placed any orders, and no tickets have been assigned to you yet."
+        "empty-title": "It appears you have not placed any orders and no tickets have been assigned to you.",
+        "empty-text": "If you believe this is incorrect please email <a href=\"mailto::{{support_email}}\">{{support_email}}</a>. Thank you!"
     },
     "orders": {
         "title": "My Orders with Tickets",
@@ -156,7 +157,7 @@
         "print": "Print",
         "resend": "Resend Receipt",
         "download": "Download Ticket PDF",
-        "cancel_order": "Cancel Order (Refund Request)",
+        "cancel_order": "Request to Refund All Tickets",
         "cancel_ticket": "Cancel Ticket",
         "email_support": "Email Support",
         "directions": "Get Directions",
@@ -195,6 +196,7 @@
     "ticket_popup": {
         "tab_assign": "Assign",
         "tab_reassign": "Re-Assign",
+        "tab_refund": "Refund",
         "tab_edit": "Edit Details",
         "tab_edit_read_only": "Details",
         "tab_notify": "Notify Ticket Holder",
@@ -224,17 +226,17 @@
         "notify_text_1": "All required details must be completed before",
         "notify_text_2": "Email will be sent to",
         "notify_button": "Re-Send Notification",
-        "cancel_ticket": "Cancel Ticket (Request Refund)",
+        "cancel_ticket": "Request a refund for this ticket",
         "save_changes": "Save Changes",
         "saving_changes": "Saving Changes",
         "do_it_later": "Do this later",
         "do_it_later_exp": "You may fill in the required information now or complete this step on the 'My Orders' page later."
     },
     "confirm_popup": {
-        "question_title_cancel": "Cancel",
-        "question_text_cancel": "Are you sure you want to cancel the ticket and request a refund?",
-        "question_title_cancel_order": "Cancel Order",
-        "question_text_cancel_order": "Are you sure you want to cancel this entire order including all tickets?",
+        "question_title_cancel": "Refund Ticket",
+        "question_text_cancel": "Are you sure you want to request a refund of this ticket ?",
+        "question_title_cancel_order": "Refund Order",
+        "question_text_cancel_order": "Are you sure you want to request a refund of this entire order ?",
         "question_title_assign": "Assign Request",
         "question_text_assign": "Are you sure you want to clean all the fields?",
         "question_title_reassign": "Re-Assign Request",
