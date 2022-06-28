@@ -52,7 +52,7 @@ export const MyOrdersTickets = ({ className }) => {
             {!isLoading && (!hasOrders && !hasTickets) && (
                 <div className="orders-tickets-empty">
                     <h2>{t('orders-tickets.empty-title')}</h2>
-                    {t('orders-tickets.empty-text', { support_email : globalState.supportEmail})}
+                    <p dangerouslySetInnerHTML={{ __html: t('orders-tickets.empty-text', { support_email : globalState.supportEmail }) }}></p>
                 </div>
             )}
 
