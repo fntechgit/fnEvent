@@ -494,7 +494,7 @@ export const TicketPopupEditDetailsForm = ({
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleblur}
                                                 value={formik.values.attendee_company}
-                                                error={formik.errors.attendee_company}
+                                                error={formik.errors.attendee_company?.name}
                                             />
                                         )}
                                     </div>
@@ -516,7 +516,7 @@ export const TicketPopupEditDetailsForm = ({
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleblur}
                                                 value={formik.values.attendee_company}
-                                                error={formik.errors.attendee_company}
+                                                error={formik.errors.attendee_company?.name}
                                             />
                                         )}
                                     </div>
