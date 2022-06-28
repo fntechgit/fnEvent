@@ -5,7 +5,7 @@ import { CSSTransition } from "react-transition-group";
 import Alert from 'react-bootstrap/lib/Alert';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { Input, RawHTML } from 'openstack-uicore-foundation/lib/components';
+import { Input, RegistrationCompanyInput, RawHTML } from 'openstack-uicore-foundation/lib/components';
 import ExtraQuestionsForm from 'openstack-uicore-foundation/lib/components/extra-questions';
 import QuestionsSet from 'openstack-uicore-foundation/lib/utils/questions-set';
 import { getMainOrderExtraQuestions } from '../../../store/actions/summit-actions';
@@ -13,6 +13,7 @@ import { assignAttendee, editOwnedTicket, removeAttendee } from '../../../store/
 import { useTicketDetails } from '../../../util';
 
 import './ticket-popup-edit-details-form.scss';
+import { number } from 'prop-types';
 
 export const TicketPopupEditDetailsForm = ({
     ticket,
@@ -57,7 +58,7 @@ export const TicketPopupEditDetailsForm = ({
             attendee_email: email,
             attendee_first_name: first_name,
             attendee_last_name: last_name,
-            attendee_company: company,
+            attendee_company: { id: null, name: company },
             disclaimer_accepted: !!disclaimer_accepted_date,
             extra_questions: formattedExtraQuestions
         };
@@ -69,7 +70,10 @@ export const TicketPopupEditDetailsForm = ({
         ...((!changeAttendee) && {
             attendee_first_name: Yup.string().nullable().required('First name is required.'),
             attendee_last_name: Yup.string().nullable().required('Last name is required.'),
-            attendee_company: Yup.string().nullable().required('Company is required.')
+            attendee_company: Yup.object().shape({
+                id: Yup.number().nullable(),
+                name: Yup.string().nullable().required('Company is required.'),
+            })
         })
     }), [changeAttendee]);
 
@@ -476,16 +480,17 @@ export const TicketPopupEditDetailsForm = ({
                                         {t("ticket_popup.edit_company")}
                                         {t("ticket_popup.edit_required_star")}
                                     </div>
-                                    <div className="col-sm-8">
+                                    <div className="col-sm-8" style={{ position: 'relative' }}>
                                         {(readOnly || !shouldEditBasicInfo) && (
                                             <span>{ticket.owner?.company}</span>
                                         )}
 
                                         {(!readOnly && shouldEditBasicInfo) && (
-                                            <Input
+                                            <RegistrationCompanyInput
                                                 id="attendee_company"
                                                 name="attendee_company"
-                                                className="form-control"
+                                                summitId={summit.id}
+                                                className={`dropdown`}                                                
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleblur}
                                                 value={formik.values.attendee_company}
@@ -497,16 +502,17 @@ export const TicketPopupEditDetailsForm = ({
 
                                 <div className="field-wrapper-mobile">
                                     <div>{t("ticket_popup.edit_company")}{t("ticket_popup.edit_required_star")}</div>
-                                    <div>
+                                    <div style={{ position: 'relative' }}>
                                         {(readOnly || !shouldEditBasicInfo) && (
                                             <span>{ticket.owner?.company}</span>
                                         )}
 
                                         {(!readOnly && shouldEditBasicInfo) && (
-                                            <Input
+                                            <RegistrationCompanyInput
                                                 id="attendee_company"
                                                 name="attendee_company"
-                                                className="form-control"
+                                                summitId={summit.id}
+                                                className={`dropdown`}
                                                 onChange={formik.handleChange}
                                                 onBlur={formik.handleblur}
                                                 value={formik.values.attendee_company}
