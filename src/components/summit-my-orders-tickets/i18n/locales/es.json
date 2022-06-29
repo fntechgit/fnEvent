@@ -141,7 +141,7 @@
     "orders-tickets": {
         "loading": "Loading your orders and tickets...",
         "empty-title": "It appears you have not placed any orders and no tickets have been assigned to you.",
-        "empty-text": "If you believe this is incorrect please email <a href=\"mailto::{{support_email}}\">{{support_email}}</a>. Thank you!"
+        "empty-text": "If you believe this is incorrect please email <a href=\"mailto:{{support_email}}\">{{support_email}}</a>. Thank you!"
     },
     "orders": {
         "title": "My Orders with Tickets",
