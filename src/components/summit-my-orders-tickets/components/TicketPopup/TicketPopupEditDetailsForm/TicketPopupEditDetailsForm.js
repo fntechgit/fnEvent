@@ -211,8 +211,7 @@ export const TicketPopupEditDetailsForm = ({
                 </>
             )}
 
-            {(hasExtraQuestions) && (
-                <>
+            <>
                     <div className="ticket-popup-form-body">
                         <div className="row ticket-popup-basic-info">
                             <div className="col-sm-6">
@@ -614,7 +613,6 @@ export const TicketPopupEditDetailsForm = ({
                         </button>
                     </div>
                 </>
-            )}
         </div >
     );
 };
