@@ -459,8 +459,12 @@ export const saveExtraQuestions = (extra_questions, owner) => async (dispatch, g
     attendee_last_name: owner.last_name,
     attendee_company: owner.company,
     disclaimer_accepted: owner.disclaimer,
-    extra_questions: extraQuestionsAnswers
+
   };
+
+  if( extraQuestionsAnswers.length > 0){
+    normalizedEntity['extra_questions'] = extraQuestionsAnswers;
+  }
 
   let accessToken;
   try {
@@ -485,13 +489,12 @@ export const saveExtraQuestions = (extra_questions, owner) => async (dispatch, g
     normalizedEntity,
     customErrorHandler
   )(params)(dispatch).then(() => {
-    Swal.fire('Success', "Extra questions saved successfully", "success");
+    Swal.fire('Success', "Attendee saved successfully", "success");
     dispatch(getUserProfile());
     navigate('/')
-  }
-  ).catch(e => {
+  }).catch(e => {
     dispatch(stopLoading());
-    Swal.fire('Error', "Error saving your questions. Please retry.", "warning");
+    Swal.fire('Error', "Error saving your Attendee info. Please retry.", "warning");
     clearAccessToken();
     return e;
   });

@@ -161,7 +161,12 @@ export const TicketPopupEditDetailsForm = ({
 
         // TODO: We shouldn't have to do this to get the changes from the `ExtraQuestionsForm`.
         // We should just be able to pass an `onChange` event handler to the `ExtraQuestionsForm`.
-        formRef.current.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+        if(hasExtraQuestions) {
+            formRef.current.dispatchEvent(new Event('submit', {cancelable: true, bubbles: true}));
+            return;
+        }
+        // Submit the formik form
+        formik.handleSubmit();
     };
 
     const handleExtraQuestionsSubmit = (answersForm) => {
