@@ -1,62 +1,11 @@
 {
-  "columns": [
-    {
-      "title": "The Event",
-      "display": true,
-      "items": [
-        {
-          "title": "All Projects",
-          "link": "/footer-content/"
-        },
-        {
-          "title": "Host a project",
-          "link": "/footer-content/"
-        },
-        {
-          "title": "Services",
-          "link": "/footer-content/"
-        }
-      ]
-    },
-    {
-      "title": "The Vision",
-      "display": true,
-      "items": [
-        {
-          "title": "About",
-          "link": "/footer-content/"
-        },
-        {
-          "title": "Supporters",
-          "link": "/footer-content/"
-        }
-      ]
-    },
-    {
-      "title": "Membership",
-      "display": false,
-      "items": [
-        {
-          "title": "Corporate members",
-          "link": "/footer-content/"
-        },
-        {
-          "title": "Join us",
-          "link": "/footer-content/"
-        },
-        {
-          "title": "Services",
-          "link": "/footer-content/"
-        }
-      ]
-    }
-  ],
+  "columns": [],
   "logo": {
     "display": false
   },
   "social": {
     "title": "Follow Us",
-    "display": true,
+    "display": false,
     "networks": [
       {
         "icon": "fa-facebook",
@@ -83,15 +32,15 @@
   "legal": [
     {
       "title": "Privacy Policy",
-      "link": "/footer-content/"
+      "link": "/privacy-policy/"
     },
     {
-      "title": "Legals",
-      "link": "/footer-content/"
+      "title": "Cookie Policy",
+      "link": "/cookie-policy/"
     },
     {
-      "title": "Disclaimer",
-      "link": "/footer-content/"
+      "title": "California Privacy Rights Statement",
+      "link": "/ca-privacy-rights-statement/"
     }
   ]
 }
