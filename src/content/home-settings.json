@@ -1,1 +1,17 @@
-{"centerColumn":{"schedule":{"showAllEvents":false},"speakers":{"showTodaySpeakers":true,"showFeatureSpeakers":false}},"homeHero":{"title":"Lobby HERO Text","subTitle":"Lobby Subtitle Text","image":"/img/tier1-default-lobby-header1.png","copy":"<h2><strong>Lobby HERO Text</strong></h2>\n<h2>Lobby Subtitle Text</h2>"}}
+{
+  "centerColumn": {
+    "schedule": {
+      "showAllEvents": false
+    },
+    "speakers": {
+      "showTodaySpeakers": false,
+      "showFeatureSpeakers": false
+    }
+  },
+  "homeHero": {
+    "title": "THRIVE 2022",
+    "subTitle": "Presented by LawPay and MyCase",
+    "image": "/img/tier1-default-lobby-header1.png",
+    "copy": "<h2><strong>Lobby HERO Text</strong></h2>\n<h2>Lobby Subtitle Text</h2>"
+  }
+}
