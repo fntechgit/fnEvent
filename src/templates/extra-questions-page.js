@@ -58,7 +58,11 @@ export const ExtraQuestionsPageTemplate = ({ user, summit, extraQuestions, saveE
     }
 
     const triggerFormSubmit = () => {
-        formRef.current.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }))
+        if(extraQuestions.length > 0){
+            formRef.current.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }))
+            return;
+        }
+        saveExtraQuestions([], owner)
     }
 
     if (!ticket) {
@@ -161,7 +165,12 @@ export const ExtraQuestionsPageTemplate = ({ user, summit, extraQuestions, saveE
                             </button>
                         </>
                         :
-                        <span>Loading...</span>
+                        <button
+                            className={`${styles.buttonSave} button is-large`}
+                            disabled={disabledButton}
+                            onClick={() => triggerFormSubmit()}>
+                            Save and Continue
+                        </button>
                     }
                 </div>
             </div>
