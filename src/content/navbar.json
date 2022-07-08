@@ -34,7 +34,7 @@
         "ANY"
       ],
       "title": "My Orders/Tickets",
-      "link": "/my-tickets",
+      "link": "/a/my-tickets",
       "display": true
     },
     {
