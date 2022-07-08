@@ -28,6 +28,16 @@
       ]
     },
     {
+      "requiresAuth": false,
+      "showOnlyAtShowTime": false,
+      "pageRestriction": [
+        "ANY"
+      ],
+      "title": "My Orders/Tickets",
+      "link": "/my-tickets",
+      "display": true
+    },
+    {
       "title": "My Profile",
       "link": "/a/profile",
       "display": true,
