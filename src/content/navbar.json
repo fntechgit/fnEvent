@@ -28,7 +28,7 @@
       ]
     },
     {
-      "requiresAuth": false,
+      "requiresAuth": true,
       "showOnlyAtShowTime": false,
       "pageRestriction": [
         "ANY"
