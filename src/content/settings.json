@@ -1,1 +1,15 @@
-{"favicon":"/img/favicon.png","widgets":{"chat":{"showQA":false,"showHelp":false}},"lastBuild":1654094591029}
+{
+  "favicon": "/img/favicon.png",
+  "widgets": {
+    "chat": {
+      "showQA": false,
+      "showHelp": false
+    }
+  },
+  "lastBuild": 1654094591029,
+  "favicons": {
+    "favicon180": "/img/thrive-favicon.png",
+    "favicon32": "/img/thrive-favicon.png",
+    "favicon16": "/img/thrive-favicon.png"
+  }
+}
