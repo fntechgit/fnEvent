@@ -33,10 +33,14 @@ const RegistrationLiteComponent = ({
     allowsOtpAuth,
 }) => {
     const [isActive, setIsActive] = useState(false);
+    const [initialEmailValue, setInitialEmailValue] = useState('');
 
     useEffect(() => {
         const fragmentParser = new FragmentParser();
         setIsActive(fragmentParser.getParam('registration'));
+        const paramInitialEmailValue = fragmentParser.getParam('email');
+        if(paramInitialEmailValue)
+            setInitialEmailValue(paramInitialEmailValue);
     }, []);
 
     useEffect(() => {
@@ -146,7 +150,8 @@ const RegistrationLiteComponent = ({
         stripeOptions: {
             fonts: [{ cssSrc: withPrefix('/fonts/fonts.css') }],
             style: { base: { fontFamily: `'Nunito Sans', sans-serif`, fontWeight: 300 } }
-        }
+        },
+        loginInitialEmailInputValue: initialEmailValue,
     };
 
     const { registerButton } = siteSettings.heroBanner.buttons;
