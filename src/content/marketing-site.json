@@ -43,7 +43,7 @@
       "title": "Top Left",
       "images": [
         {
-          "image": "/img/ad-space-gfx-1_2.png",
+          "image": "/img/space-gfx-1_2-left-top.png",
           "link": "",
           "alt": ""
         }
@@ -54,7 +54,7 @@
       "title": "Top Right",
       "images": [
         {
-          "image": "/img/ad-space-gfx-1_1.png",
+          "image": "/img/space-gfx-1_1-right-top.png",
           "link": "",
           "alt": ""
         }
@@ -65,7 +65,7 @@
       "title": "Mid Left",
       "images": [
         {
-          "image": "/img/ad-space-gfx-1_1-2.png",
+          "image": "/img/space-gfx-1_1-2_left-bottom.png",
           "alt": ""
         }
       ],
@@ -74,7 +74,7 @@
     {
       "images": [
         {
-          "image": "/img/ad-space-gfx-1_2_2.png",
+          "image": "/img/space-gfx-1_2_2-right-bottom.png",
           "alt": ""
         }
       ],
