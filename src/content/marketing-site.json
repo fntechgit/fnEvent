@@ -33,7 +33,7 @@
       "title": "Join the conversation"
     },
     "image": {
-      "display": false,
+      "display": true,
       "title": "Image",
       "src": "/img/agenda_reg-page.png"
     }
