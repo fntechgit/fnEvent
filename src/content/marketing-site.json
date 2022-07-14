@@ -1,24 +1,24 @@
 {
   "heroBanner": {
-    "title": "THRIVE 22",
-    "subTitle": "Presented by LawPay and MyCase",
-    "date": "October 27–28, 2022",
+    "title": "THRIVE '22",
+    "subTitle": "MyCase & LawPay User Conference",
+    "date": "October 27–28  |  In-Person & Online",
     "time": "",
     "dateLayout": false,
     "buttons": {
       "registerButton": {
-        "text": "Register now",
+        "text": "Register Now",
         "display": true
       },
       "loginButton": {
-        "text": "Log in",
+        "text": "Log In",
         "display": true
       }
     },
     "background": "",
     "images": [
       {
-        "file": "/img/tier1-default-header1.png",
+        "file": "/img/header-gfx-right.png",
         "alt": ""
       }
     ]
@@ -43,12 +43,8 @@
       "title": "Top Left",
       "images": [
         {
-          "image": "/img/tier1-default-space3.png",
+          "image": "/img/ad-space-gfx-1_2.png",
           "link": "",
-          "alt": ""
-        },
-        {
-          "image": "/img/tier1-default-space4.png",
           "alt": ""
         }
       ],
@@ -58,7 +54,7 @@
       "title": "Top Right",
       "images": [
         {
-          "image": "/img/tier1-default-space1.png",
+          "image": "/img/ad-space-gfx-1_1.png",
           "link": "",
           "alt": ""
         }
@@ -69,7 +65,7 @@
       "title": "Mid Left",
       "images": [
         {
-          "image": "/img/tier1-default-space2.png",
+          "image": "/img/ad-space-gfx-1_1-2.png",
           "alt": ""
         }
       ],
@@ -78,7 +74,7 @@
     {
       "images": [
         {
-          "image": "/img/tier1-default-space4.png",
+          "image": "/img/ad-space-gfx-1_2_2.png",
           "alt": ""
         }
       ],
