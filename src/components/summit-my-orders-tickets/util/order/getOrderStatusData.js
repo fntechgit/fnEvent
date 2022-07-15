@@ -47,9 +47,9 @@ export const statusData = {
         icon: 'fa-fw',
         className: 'pending',
     },
-    [STATUS_PROCESSING]: {
+    [STATUS_PAST]: {
+        type: STATUS_PAST,
         text: i18n.t('order_status.past'),
-        text: 'Past',
         icon: 'fa-fw',
         className: 'past',
     }
@@ -64,6 +64,7 @@ export const statusToKeyMap = {
 };
 
 export const getOrderStatusKey = (order, isSummitPast) => {
+
     let status = order.status;
 
     if (status !== 'Paid') return statusToKeyMap[status];
