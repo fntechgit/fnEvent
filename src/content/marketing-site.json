@@ -1,39 +1,33 @@
 {
   "heroBanner": {
     "title": "Roblox Developers Conference",
-    "subTitle": "",
+    "subTitle": "Fort Mason Center | San Francisco, CA",
     "date": "September 9–10, 2022",
     "time": "Pacific Timezone",
     "dateLayout": true,
     "buttons": {
       "registerButton": {
-        "text": "Register now",
+        "text": "Register Now",
         "display": true
       },
       "loginButton": {
-        "text": "Log in",
+        "text": "Log In",
         "display": true
       }
     },
-    "background": "",
+    "background": {
+      "file": "/img/rdc22-fnv-header-left.png"
+    },
     "images": [
       {
-        "file": "/img/tier1-default-header1.png",
-        "alt": ""
-      },
-      {
-        "file": "/img/tier1-default-header2.png",
-        "alt": ""
-      },
-      {
-        "file": "/img/tier1-default-header3.png",
+        "file": "/img/rdc22-fnv-header-right.png",
         "alt": ""
       }
     ]
   },
   "leftColumn": {
     "schedule": {
-      "display": true,
+      "display": false,
       "title": "Full Event Schedule"
     },
     "disqus": {
@@ -41,9 +35,9 @@
       "title": "Join the conversation"
     },
     "image": {
-      "display": false,
+      "display": true,
       "title": "Image",
-      "src": ""
+      "src": "/img/rdc22-fnv-image-left-static-schedule.png"
     }
   },
   "sponsors": [
@@ -51,12 +45,8 @@
       "title": "Top Left",
       "images": [
         {
-          "image": "/img/tier1-default-space3.png",
+          "image": "/img/rdc22-fnv-space-top-left.png",
           "link": "",
-          "alt": ""
-        },
-        {
-          "image": "/img/tier1-default-space4.png",
           "alt": ""
         }
       ],
@@ -66,18 +56,18 @@
       "title": "Top Right",
       "images": [
         {
-          "image": "/img/tier1-default-space1.png",
+          "image": "/img/rdc22-fnv-space-double.png",
           "link": "",
           "alt": ""
         }
       ],
-      "size": 1
+      "size": 2
     },
     {
       "title": "Mid Left",
       "images": [
         {
-          "image": "/img/tier1-default-space2.png",
+          "image": "/img/rdc22-fnv-space-single.png",
           "alt": ""
         }
       ],
@@ -86,11 +76,11 @@
     {
       "images": [
         {
-          "image": "/img/tier1-default-space4.png",
+          "image": "/img/rdc22-fnv-space-single.png",
           "alt": ""
         }
       ],
-      "size": 2
+      "size": 1
     }
   ],
   "countdown": {
