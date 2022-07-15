@@ -113,18 +113,18 @@ const MarketingHeroComponent = ({ siteSettings, summit_phase, isLoggedUser, summ
               <div
                 className={styles.date}
                 style={{
-                  backgroundColor: siteSettings.heroBanner.dateLayout
+                  backgroundColor: !siteSettings.heroBanner.dateLayout
                     ? "var(--color_secondary)"
                     : "",
-                  display: siteSettings.heroBanner.dateLayout
+                  display: !siteSettings.heroBanner.dateLayout
                     ? ""
                     : "inline",
-                  transform: siteSettings.heroBanner.dateLayout
+                  transform: !siteSettings.heroBanner.dateLayout
                     ? "skew(-25deg)"
                     : "skew(0deg)",
                 }}
               >
-                {siteSettings.heroBanner.dateLayout ?
+                {!siteSettings.heroBanner.dateLayout ?
                 <div style={{transform: "skew(25deg)"}}>{siteSettings.heroBanner.date}</div>
                 :
                 <div style={{transform: "skew(0deg)"}}>
