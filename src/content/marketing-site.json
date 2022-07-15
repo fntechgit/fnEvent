@@ -3,8 +3,8 @@
     "title": "Roblox Developers Conference",
     "subTitle": "Fort Mason Center | San Francisco, CA",
     "date": "September 9–10, 2022",
-    "time": "Pacific Timezone",
-    "dateLayout": true,
+    "time": "",
+    "dateLayout": false,
     "buttons": {
       "registerButton": {
         "text": "Register Now",
