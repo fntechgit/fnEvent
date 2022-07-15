@@ -7,8 +7,26 @@
         "ANY"
       ],
       "title": "Home",
-      "link": "/a/",
+      "link": "/",
       "display": true
+    },
+    {
+      "title": "Schedule",
+      "link": "/a/schedule",
+      "display": true,
+      "requiresAuth": true,
+      "pageRestriction": [
+        "ANY"
+      ]
+    },
+    {
+      "title": "My Schedule",
+      "link": "/a/my-schedule",
+      "display": true,
+      "requiresAuth": true,
+      "pageRestriction": [
+        "ANY"
+      ]
     },
     {
       "requiresAuth": false,
@@ -31,8 +49,18 @@
       "display": true
     },
     {
-      "title": "Lobby",
-      "link": "/a/",
+      "requiresAuth": true,
+      "showOnlyAtShowTime": false,
+      "pageRestriction": [
+        "ANY"
+      ],
+      "title": "Code of Conduct",
+      "link": "/a/code-of-conduct/",
+      "display": true
+    },
+    {
+      "title": "My Orders/Tickets",
+      "link": "/a/my-tickets",
       "display": true,
       "requiresAuth": true,
       "pageRestriction": [
@@ -40,35 +68,17 @@
       ]
     },
     {
-      "title": "My Tickets",
-      "link": "/a/my-tickets",
-      "display": false,
+      "title": "My Profile",
+      "link": "/a/profile",
+      "display": true,
       "requiresAuth": true,
       "pageRestriction": [
         "ANY"
       ]
     },
     {
-      "title": "Schedule",
-      "link": "/a/schedule",
-      "display": false,
-      "requiresAuth": false,
-      "pageRestriction": [
-        "ANY"
-      ]
-    },
-    {
-      "title": "My Schedule",
-      "link": "/a/my-schedule",
-      "display": false,
-      "requiresAuth": false,
-      "pageRestriction": [
-        "ANY"
-      ]
-    },
-    {
-      "title": "My Profile",
-      "link": "/a/profile",
+      "title": "Lobby",
+      "link": "/a/",
       "display": true,
       "requiresAuth": true,
       "pageRestriction": [
