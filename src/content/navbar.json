@@ -1,6 +1,36 @@
 {
   "items": [
     {
+      "requiresAuth": false,
+      "showOnlyAtShowTime": false,
+      "pageRestriction": [
+        "ANY"
+      ],
+      "title": "Home",
+      "link": "/a/",
+      "display": true
+    },
+    {
+      "requiresAuth": false,
+      "showOnlyAtShowTime": false,
+      "pageRestriction": [
+        "ANY"
+      ],
+      "title": "Travel Details",
+      "link": "/travel-details/",
+      "display": true
+    },
+    {
+      "requiresAuth": false,
+      "showOnlyAtShowTime": false,
+      "pageRestriction": [
+        "ANY"
+      ],
+      "title": "FAQ",
+      "link": "/faq/",
+      "display": true
+    },
+    {
       "title": "Lobby",
       "link": "/a/",
       "display": true,
@@ -12,7 +42,7 @@
     {
       "title": "My Tickets",
       "link": "/a/my-tickets",
-      "display": true,
+      "display": false,
       "requiresAuth": true,
       "pageRestriction": [
         "ANY"
@@ -21,7 +51,7 @@
     {
       "title": "Schedule",
       "link": "/a/schedule",
-      "display": true,
+      "display": false,
       "requiresAuth": false,
       "pageRestriction": [
         "ANY"
@@ -30,58 +60,7 @@
     {
       "title": "My Schedule",
       "link": "/a/my-schedule",
-      "display": true,
-      "requiresAuth": false
-    },
-    {
-      "title": "Sponsors ",
-      "link": "/a/sponsors/",
-      "display": true,
-      "requiresAuth": true,
-      "pageRestriction": [
-        "ANY"
-      ]
-    },
-    {
-      "title": "About the event",
-      "link": "/about-event",
-      "display": true,
-      "requiresAuth": false,
-      "pageRestriction": [
-        "ANY"
-      ]
-    },
-    {
-      "title": "Who we are",
-      "link": "/who-we-are",
-      "display": true,
-      "requiresAuth": false,
-      "pageRestriction": [
-        "ANY"
-      ]
-    },
-    {
-      "title": "Past events",
-      "link": "/past-events",
-      "display": true,
-      "requiresAuth": false,
-      "pageRestriction": [
-        "ANY"
-      ]
-    },
-    {
-      "title": "Contact",
-      "link": "/contact",
-      "display": true,
-      "requiresAuth": false,
-      "pageRestriction": [
-        "ANY"
-      ]
-    },
-    {
-      "title": "Help",
-      "link": "/help",
-      "display": true,
+      "display": false,
       "requiresAuth": false,
       "pageRestriction": [
         "ANY"
