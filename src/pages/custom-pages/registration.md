@@ -7,15 +7,15 @@ Thrive will be an in-person event, with a limited virtual offering. Please find 
 
 ### **Registration Options**
 
-**• Super-Early Bird: $199 (7/19-25)**
+• Super-Early Bird: $199 (7/19-25)
 
-**• Early-Bird: $249 (7/26-8/19)**
+• Early-Bird: $249 (7/26-8/19)
 
-**• Regular Price: $299 (8/19-10/27)**
+• Regular Price: $299 (8/19-10/27)
 
-**• Virtual only (limited access, keynotes only): $49**
+• Virtual only (limited access, keynotes only): $49
 
-==============
+\==============
 
 ### **Cancellation Policy**
 
