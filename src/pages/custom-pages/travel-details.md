@@ -25,8 +25,6 @@ Rate: $335/night
 
 - - -
 
- 
-
 ### Nearby Airports
 
 SAN - San Diego International Airport \[3 miles from venue]
