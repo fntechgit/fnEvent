@@ -19,7 +19,11 @@ Thrive will be an in-person event, with a limited virtual offering. Please find 
 
 ### **Cancellation Policy**
 
-A request to cancel your ticket must be emailed to conference@mycase.com
+A request to cancel your ticket must be emailed to conference@mycase.com. 
+
+If you cancel by August 27, 2022 — you will be refunded 50% of your paid event ticket price. 
+
+If you cancel after August 28, 2022 — we are unable to refund your ticket (0%). 
 
 \==============
 
