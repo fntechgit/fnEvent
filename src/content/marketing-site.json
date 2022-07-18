@@ -38,7 +38,7 @@
       "display": true,
       "title": "",
       "src": "/img/rdc22-fnv-image-left-description.png",
-      "alt": "https://blog.roblox.com/2022/07/voting-now-open-roblox-innovation-awards/"
+      "alt": ""
     }
   },
   "sponsors": [
@@ -47,7 +47,7 @@
       "images": [
         {
           "image": "/img/rdc22_fnv_space-top-left.png",
-          "link": "",
+          "link": "/schedule/",
           "alt": ""
         }
       ],
