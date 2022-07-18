@@ -9,7 +9,7 @@ Fort Mason Center
 
 [2 Marina Blvd, San Francisco, CA 94109](https://goo.gl/maps/mZda6yJsYYNsAwea6)
 
-Looking for things to do in San Francisco? Visit the city's [travel page](https://www.sftravel.com/)!
+Looking for things to do in San Francisco? Visit the [city's travel page](<<a href=“www.sftravel.com"target="_blank”>TITLE</a>>)!
 
 - - -
 
@@ -21,7 +21,7 @@ Book your reservations in one of our RDC blocks below!
 
 Rate: $249/night
 
-**Click here to book.** Deadline: 
+**Click here to book.** Deadline: August 18, 2022
 
 <br>
 
@@ -29,7 +29,7 @@ Rate: $249/night
 
 Rate: $259/night
 
-**Click here to book.** Deadline:
+**Click here to book.** Deadline: Info Coming Soon! 
 
 - - -
 
