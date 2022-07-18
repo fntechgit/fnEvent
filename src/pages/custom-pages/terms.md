@@ -1,6 +1,6 @@
 ---
 templateKey: custom-page
-title: TERMS
+title: Terms
 userRequirement: NONE
 ---
 ### Terms of Registration
