@@ -12,9 +12,9 @@
     },
     {
       "title": "Schedule",
-      "link": "/a/schedule",
+      "link": "/schedule/",
       "display": true,
-      "requiresAuth": true,
+      "requiresAuth": false,
       "pageRestriction": [
         "ANY"
       ]
@@ -32,7 +32,7 @@
       "requiresAuth": false,
       "showOnlyAtShowTime": false,
       "pageRestriction": [
-        "ANY"
+        "MARKETING"
       ],
       "title": "Travel Details",
       "link": "/travel-details/",
