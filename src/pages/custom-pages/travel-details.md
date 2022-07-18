@@ -21,7 +21,7 @@ Marriott Marquis San Diego Marina
 
 Rate: $335/night
 
-[Click here](https://book.passkey.com/gt/218497389?gtid=b50be3ae0321c9cce56919d20a187ebe) to book. Deadline: 10/5/2022
+[Click here](https://book.passkey.com/go/Thrive22) to book. Deadline: 10/5/2022
 
 - - -
 
