@@ -46,7 +46,7 @@
       "title": "Top Left",
       "images": [
         {
-          "image": "/img/rdc22_fnv_space-top-left.png",
+          "image": "/img/rdc22-fnv-space-top-left.png",
           "link": "/schedule/",
           "alt": ""
         }
@@ -57,18 +57,18 @@
       "title": "Top Right",
       "images": [
         {
-          "image": "/img/rdc22-fnv-space-double.png",
+          "image": "/img/rdc22-fnv-space-top-right.png",
           "link": "",
           "alt": ""
         }
       ],
-      "size": 2
+      "size": 1
     },
     {
       "title": "Mid Left",
       "images": [
         {
-          "image": "/img/rdc22-fnv-space-single.png",
+          "image": "/img/rdc22-fnv-space-bottom-left.png",
           "alt": ""
         }
       ],
@@ -77,8 +77,9 @@
     {
       "images": [
         {
-          "image": "/img/rdc22-fnv-space-single.png",
-          "alt": ""
+          "image": "/img/rdc22-fnv-space-bottom-right.png",
+          "alt": "",
+          "link": "https://blog.roblox.com/2022/07/voting-now-open-roblox-innovation-awards/"
         }
       ],
       "size": 1
