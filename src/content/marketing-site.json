@@ -16,11 +16,11 @@
       }
     },
     "background": {
-      "file": "/img/rdc22-fnv-header-left.png"
+      "file": "/img/rdc22-fnv-header-left_v2.png"
     },
     "images": [
       {
-        "file": "/img/rdc22-fnv-header-right.png",
+        "file": "/img/rdc22-fnv-header-right_v2.png",
         "alt": ""
       }
     ]
@@ -46,7 +46,7 @@
       "title": "Top Left",
       "images": [
         {
-          "image": "/img/rdc22-fnv-space-top-left_v2.png",
+          "image": "/img/rdc22-fnv-space-top-left_v3.png",
           "link": "/schedule/",
           "alt": ""
         }
