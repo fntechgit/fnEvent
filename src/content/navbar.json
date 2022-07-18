@@ -49,13 +49,13 @@
       "display": true
     },
     {
-      "requiresAuth": true,
+      "requiresAuth": false,
       "showOnlyAtShowTime": false,
       "pageRestriction": [
         "ANY"
       ],
-      "title": "Code of Conduct",
-      "link": "/a/code-of-conduct/",
+      "title": "Terms",
+      "link": "/terms/",
       "display": true
     },
     {
