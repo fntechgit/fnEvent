@@ -15,7 +15,7 @@ Thrive will be an in-person event, with a limited virtual offering. Please find 
 
 • Virtual only (limited access, keynotes only): $49
 
-\==============
+- - -
 
 ### **Cancellation Policy**
 
@@ -25,7 +25,7 @@ If you cancel by midnight (PT) on August 27, 2022 — you will be refunded 50% o
 
 If you cancel after midnight (PT) on August 27, 2022 — your ticket will not be refunded. 
 
-\==============
+- - -
 
 ### **How to Register:**
 
