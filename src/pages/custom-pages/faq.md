@@ -5,8 +5,6 @@ userRequirement: NONE
 ---
 Get all the information you need on topics such as health and safety, registration, accessibility, and much more. Make sure to follow our [Twitter](https://twitter.com/robloxdevrel) for the latest news and updates.
 
-
-
 - - -
 
 ## Registration
@@ -57,7 +55,7 @@ Get all the information you need on topics such as health and safety, registrati
 
 - - -
 
-## Health And Safety
+## Health and Safety
 
 At a minimum, we will be following all mandated venue, municipality, and CDC guidelines. This list and all protocols are subject to change as the COVID-19 situation changes. Anyone experiencing cold or flu-like symptoms should stay home and get well. 
 
@@ -128,7 +126,5 @@ At a minimum, we will be following all mandated venue, municipality, and CDC gui
 **How do I request accessibility services?**
 
 * If you require special assistance, auxiliary aids, or other reasonable accommodations to fully participate in this event, please email [RDC22registration@fntech.com](mailto:RDC22registration@fntech.com). Information regarding disabilities and special assistance will remain confidential.
-
-
 
 - - -
