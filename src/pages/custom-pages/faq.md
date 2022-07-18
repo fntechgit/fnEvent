@@ -3,6 +3,12 @@ templateKey: custom-page
 title: FAQ
 userRequirement: NONE
 ---
+**For registration questions,** please email **[conference@mycase.com](mailto:conference@mycase.com).**
+
+**For technical support,** please email us at **[support@fntech.com](mailto:support@fntech.com).**
+
+- - -
+
 **What is Thrive, the MyCase-LawPay Customer Conference?**
 
 *Thrive, the MyCase-LawPay Customer Conference is a 1.5-day conference that will arm you with valuable, practical information to help your firm continue to find success in today’s rapidly evolving environment. Join fellow MyCase-LawPay customers, industry experts, and the MyCase-LawPay team to learn about best practices for keeping up with changes to the legal industry, the latest updates to MyCase and LawPay, and much more!*
