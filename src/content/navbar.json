@@ -6,6 +6,16 @@
       "pageRestriction": [
         "ANY"
       ],
+      "title": "Home",
+      "link": "thrive22.fnvirtual.app",
+      "display": true
+    },
+    {
+      "requiresAuth": false,
+      "showOnlyAtShowTime": false,
+      "pageRestriction": [
+        "ANY"
+      ],
       "title": "About the Event",
       "link": "/about-the-event/",
       "display": true
@@ -26,9 +36,18 @@
       "pageRestriction": [
         "ANY"
       ],
-      "title": "FAQ",
-      "link": "/faq/",
+      "title": "Travel ",
+      "link": "/travel-details/",
       "display": true
+    },
+    {
+      "title": "Schedule",
+      "link": "/a/schedule",
+      "display": true,
+      "requiresAuth": false,
+      "pageRestriction": [
+        "ANY"
+      ]
     },
     {
       "requiresAuth": false,
@@ -36,8 +55,8 @@
       "pageRestriction": [
         "ANY"
       ],
-      "title": "Travel Details",
-      "link": "/travel-details/",
+      "title": "FAQ",
+      "link": "/faq/",
       "display": true
     },
     {
@@ -45,15 +64,6 @@
       "link": "/a/",
       "display": true,
       "requiresAuth": true,
-      "pageRestriction": [
-        "ANY"
-      ]
-    },
-    {
-      "title": "Schedule",
-      "link": "/a/schedule",
-      "display": true,
-      "requiresAuth": false,
       "pageRestriction": [
         "ANY"
       ]
