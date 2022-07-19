@@ -1,6 +1,6 @@
 ---
 templateKey: custom-page
-title: Travel Details
+title: Travel
 userRequirement: NONE
 ---
 ### Event Venue 
