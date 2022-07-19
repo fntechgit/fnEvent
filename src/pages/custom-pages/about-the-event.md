@@ -7,7 +7,7 @@ Join fellow MyCase and LawPay customers, industry experts, and the AffiniPay tea
 
 ### Why Attend?
 
-* You want to learn new ways to use MyCase and LawPay in your practice
+* You want to learn new ways to use MyCase or LawPay in your practice
 * You think you may be missing out on everything MyCase and LawPay can do for your firm
 * You’re interested in learning about the trends shaping the practice of law
 * You want to hear directly from the MyCase and LawPay teams about the future of our products
@@ -19,9 +19,9 @@ Join fellow MyCase and LawPay customers, industry experts, and the AffiniPay tea
 
 Wednesday, October 26, 5pm-7pm (opening reception)
 
-Thursday October 27, 9am-5:30pm; 7pm-10pm 
+Thursday, October 27, 9am-5:30pm; 7pm-10pm 
 
-Friday October 28, 9am-12pm
+Friday, October 28, 9am-12pm
 
 ### Where is the conference?
 
