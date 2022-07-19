@@ -104,13 +104,14 @@ userRequirement: NONE
 
 - - -
 
-**I forgot my FNid login/password. What should I do now?** 
+**I forgot my FNid login/password. What do I do now?** 
 
-*Please visit* <a href=“<https://idp.fnvirtual.app/>“target=“_blank”>this page!</a>[](https://idp.fnvirtual.app/)
+A. Please visit <a href="https://idp.fnvirtual.app/auth/login" target="_blank">this page</a>.
 
-* *Choose “Forgot Password?”. Follow the process to receive your password.*
-* *You will receive an email—at whatever email address you used to create your FNid—which will allow you to reset your password.*
-* *You may also use a social login or request a one-time-use authorization code to be sent to your email. If you are registered for an event, please use the same email on your ticket in order to log in.* 
+* Type in your email address (whichever one you used to create your FNid). 
+* Choose “Reset your password” and follow the subsequent instructions.
+* You will receive an email that will allow you to reset your password.
+* You may also use a social login or request a one-time-use authorization code to be sent to your email. If you are registered for an event, please use the same email on your ticket in order to log in. 
 
 - - -
 
