@@ -32,7 +32,7 @@
       "requiresAuth": false,
       "showOnlyAtShowTime": false,
       "pageRestriction": [
-        "MARKETING"
+        "ANY"
       ],
       "title": "Travel",
       "link": "/travel-details/",
