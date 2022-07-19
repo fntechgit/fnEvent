@@ -34,5 +34,5 @@ A request to cancel your ticket must be emailed to conference@mycase.com.
 
 ### **How to find your orders/tickets:**
 
-1. Navigate to the Global Summit event site: <a href="thrive22.fnvirtual.app" target ="_blank" >thrive22.fnvirtual.app</a>
+1. Navigate to the Thrive event site: <a href="thrive22.fnvirtual.app" target ="_blank" >thrive22.fnvirtual.app</a>
 2. Click the “Log in” button. Use the same authentication process you used above. Once you have been authenticated, a new link called “My Orders/Tickets” will appear in the green top nav bar. Click this link to see your order/tickets for this event.
