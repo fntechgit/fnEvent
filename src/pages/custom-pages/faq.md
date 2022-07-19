@@ -52,7 +52,7 @@ A. The information you provide as a speaker/presenter through FNspeaker.mgmt wil
 
 **Q. I forgot my FNid login/password. What do I do now?** 
 
-A. Please visit <a href=“https://idp.fnvirtual.app/auth/login“ target=“_blank”>this page!</a>[](https://idp.fntech.com/)
+A. Please visit <a href="https://idp.fnvirtual.app/auth/login" target="_blank">This page</a>.
 
 * Type in your email address (whichever one you used to create your FNid). 
 * Choose “Reset your password” and follow the subsequent instructions.
@@ -78,7 +78,7 @@ A. For FNregistration support, please email [registration@opencompute.org](Mailt
 A. After you registered/purchased your ticket, you should have received an Order Confirmation email and a Ticket email that contained your ticket.
 
 * If you don’t remember receiving your Order Confirmation or Ticket email, please check your Junk/Spam folder for an email from registration@fntech.com
-* Alternatively, you can find your ticket in the “My Orders/Tickets” page located in the top nav bar after you log in to [2022ocpglobal.fnvirtual.app](https://2022ocpglobal.fnvirtual.app). You will be asked to log in using your FNid, social authorization, or a one-time-use code can be emailed to you. Please be sure to use this email address. 
+* Alternatively, you can find your ticket in the “My Orders/Tickets” page located in the top nav bar after you log in to 2022ocpglobal.fnvirtual.app. You will be asked to log in using your FNid, social authorization, or a one-time-use code can be emailed to you. Please be sure to use this email address. 
 * For additional Registration support, please email [registration@opencompute.org](Mailto:registration@opencompute.org)
 
 <br><br>
