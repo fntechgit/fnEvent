@@ -25,7 +25,7 @@
       "display": true,
       "requiresAuth": true,
       "pageRestriction": [
-        "LOBBY"
+        "ANY"
       ]
     },
     {
@@ -64,7 +64,7 @@
       "display": true,
       "requiresAuth": true,
       "pageRestriction": [
-        "LOBBY"
+        "ANY"
       ]
     },
     {
@@ -73,7 +73,7 @@
       "display": true,
       "requiresAuth": true,
       "pageRestriction": [
-        "LOBBY"
+        "ANY"
       ]
     },
     {
