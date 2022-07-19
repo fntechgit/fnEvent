@@ -132,7 +132,7 @@ A. Please visit <a href="https://idp.fnvirtual.app/auth/login" target="_blank">t
 *After you registered/purchased your ticket, you should have received an Order Confirmation email and a Ticket email that contained your ticket.*
 
 * *If you don’t remember receiving your Order Confirmation or Ticket email, please check your Junk/Spam folder for an email from registration@fntech.com*
-* *Alternatively, you can find your ticket in the “My Orders/Tickets” page located in the top nav bar after you log in to <a href="https://thrive22.fnvirtual.app/" target="_blank">https://thrive22.fnvirtual.app</a>. You will be asked to log in using your FNid, social authorization, or a one-time-use code can be emailed to you. Please be sure to use this email address.* 
+* *Alternatively, you can find your ticket in the “My Orders/Tickets” page located in the top nav bar after you log in to <a href="https://thrive22.fnvirtual.app" target="_blank">thrive22.fnvirtual.app</a>. You will be asked to log in using your FNid, social authorization, or a one-time-use code can be emailed to you. Please be sure to use this email address.* 
 * *For additional Registration support, please email conference@mycase.com*
 
 - - -
@@ -150,7 +150,7 @@ A. Please visit <a href="https://idp.fnvirtual.app/auth/login" target="_blank">t
 *You can access your order from the Order Confirmation email you received at the address you provided during the registration process.*
 
 * *If you don’t remember receiving your Order Confirmation email, please check your Junk folder for an email from registration@fntech.com*
-* *Alternatively, you can find your ticket in the “My Orders/Tickets” page located in the top nav bar after you log in to <a href="https://thrive22.fnvirtual.app/" target="_blank">https://thrive22.fnvirtual.app</a>. You will be asked to log in using your FNid, social authorization, or a one-time-use code can be emailed to you. Please be sure to use this email address.* 
+* *Alternatively, you can find your ticket in the “My Orders/Tickets” page located in the top nav bar after you log in to <a href="https://thrive22.fnvirtual.app" target="_blank">thrive22.fnvirtual.app</a>. You will be asked to log in using your FNid, social authorization, or a one-time-use code can be emailed to you. Please be sure to use this email address.* 
 * *For additional FNregistration support, please email [conference@mycase.com](mailto:conference@mycase.com)*
 
 - - -
