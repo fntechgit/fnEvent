@@ -96,7 +96,7 @@ A. If you registered with your FNid, you can simply log in using those credentia
 A. You can access your order from the Order Confirmation email you received at the address you provided during the registration process.
 
 * If you don’t remember receiving your Order Confirmation email, please check your Junk folder for an email from registration@opencompute.org
-* Alternatively, you can find your ticket in the “My Orders/Tickets” page located in the top nav bar after you log in to 2022ocpglobal.fnvirtual.app. You will be asked to log in using your FNid, social authorization, or a one-time-use code can be emailed to you. Please be sure to use this email address. 
+* Alternatively, you can find your ticket in the “My Orders/Tickets” page located in the top nav bar after you log in to <a href="https://2022ocpglobal.fnvirtual.app" target="_blank">2022ocpglobal.fnvirtual.app</a>. You will be asked to log in using your FNid, social authorization, or a one-time-use code can be emailed to you. Please be sure to use this email address. 
 * For additional FNregistration support, please email [registration@opencompute.org](Mailto:registration@opencompute.org)
 
   <br><br>
