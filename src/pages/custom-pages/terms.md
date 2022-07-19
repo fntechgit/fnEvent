@@ -5,7 +5,7 @@ userRequirement: NONE
 ---
 ### Terms of Registration
 
-<a href="https://https://en.help.roblox.com/hc/en-us/articles/115004630823-Roblox-Privacy-and-Cookie-Policy-" target ="_blank" >Roblox Privacy and Cookie Policy</a>
+<a href="https://en.help.roblox.com/hc/en-us/articles/115004630823-Roblox-Privacy-and-Cookie-Policy-" target ="_blank" >Roblox Privacy and Cookie Policy</a>
 
 <a href="https://en.help.roblox.com/hc/en-us/articles/115004647846-Roblox-Terms-of-Use" target ="_blank" >Roblox Terms of Use</a>
 
