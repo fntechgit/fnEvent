@@ -79,7 +79,7 @@
     {
       "title": "Lobby",
       "link": "/a/",
-      "display": true,
+      "display": false,
       "requiresAuth": true,
       "pageRestriction": [
         "ANY"
