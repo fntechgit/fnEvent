@@ -12,7 +12,7 @@
     },
     {
       "title": "Schedule",
-      "link": "a/schedule/",
+      "link": "/a/schedule/",
       "display": true,
       "requiresAuth": false,
       "pageRestriction": [
