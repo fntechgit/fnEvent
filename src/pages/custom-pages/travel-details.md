@@ -9,7 +9,7 @@ Fort Mason Center
 
 [2 Marina Blvd, San Francisco, CA 94109](https://goo.gl/maps/mZda6yJsYYNsAwea6)
 
-Looking for things to do in San Francisco? Visit the [city's travel page](<<a href=“www.sftravel.com"target="_blank”>TITLE</a>>)!
+Looking for things to do in San Francisco? Visit the <a href="https://www.sftravel.com" target ="_blank" >city's travel page!</a>
 
 - - -
 
@@ -17,19 +17,23 @@ Looking for things to do in San Francisco? Visit the [city's travel page](<<a hr
 
 Book your reservations in one of our RDC blocks below!
 
-[Courtyard San Francisco Fisherman's Wharf](https://www.marriott.com/en-us/hotels/sfocf-courtyard-san-francisco-fishermans-wharf/overview/)
+**Courtyard San Francisco Fisherman's Wharf**
 
 Rate: $249/night
 
-**Click here to book.** Deadline: August 18, 2022
+*Booking link will be provided soon!* 
+
+Reservation deadline: August 18, 2022
 
 <br>
 
-[Hyatt Centric Fisherman's Wharf San Francisco](https://www.hyatt.com/en-US/hotel/california/hyatt-centric-fishermans-wharf-san-francisco/sfofw)
+**Hyatt Centric Fisherman's Wharf San Francisco**
 
 Rate: $259/night
 
-**Click here to book.** Deadline: Info Coming Soon! 
+*Booking link will be provided soon!* 
+
+Reservation deadline: To be announced soon! 
 
 - - -
 
