@@ -21,18 +21,18 @@ Thrive will be an in-person event, with a limited virtual offering. Please find 
 
 A request to cancel your ticket must be emailed to conference@mycase.com. 
 
-If you cancel by midnight (PT) on August 27, 2022 — you will be refunded 50% of your paid event ticket price. 
+**If you cancel by midnight (PT) on August 27, 2022** — you will be refunded 50% of your paid event ticket price. 
 
-If you cancel after midnight (PT) on August 27, 2022 — your ticket will not be refunded. 
+**If you cancel after midnight (PT) on August 27, 2022** — your ticket will not be refunded. 
 
 - - -
 
 ### **How to Register:**
 
-1. Navigate to the Thrive event site: thrive22.fnvirtual.app 
+1. Navigate to the Thrive event site: <a href="thrive22.fnvirtual.app" target ="_blank" >thrive22.fnvirtual.app</a>
 2. Click the “Register now” button. Follow the log in instructions to authenticate yourself (this lets us know who you are) and complete the registration process. 
 
 ### **How to find your orders/tickets:**
 
-1. Navigate to the Global Summit event site: thrive22.fnvirtual.app 
+1. Navigate to the Global Summit event site: <a href="thrive22.fnvirtual.app" target ="_blank" >thrive22.fnvirtual.app</a>
 2. Click the “Log in” button. Use the same authentication process you used above. Once you have been authenticated, a new link called “My Orders/Tickets” will appear in the green top nav bar. Click this link to see your order/tickets for this event.
