@@ -7,7 +7,11 @@ userRequirement: NONE
 
 Fort Mason Center
 
-[2 Marina Blvd, San Francisco, CA 94109](https://goo.gl/maps/mZda6yJsYYNsAwea6)
+2 Marina Blvd, San Francisco, CA 94109
+
+<a href="https://goo.gl/maps/mZda6yJsYYNsAwea6" target ="_blank" >See Google map here!</a>
+
+
 
 Looking for things to do in San Francisco? Visit the <a href="https://www.sftravel.com" target ="_blank" >city's travel page!</a>
 
