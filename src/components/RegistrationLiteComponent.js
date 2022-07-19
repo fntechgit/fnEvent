@@ -150,7 +150,7 @@ const RegistrationLiteComponent = ({
         stripeOptions: {
             fonts: [{ cssSrc: withPrefix('/fonts/fonts.css') }],
             style: { base: { fontFamily: `'TTHovesW05-Regular', sans-serif`, fontWeight: 300 } }
-        }
+        },
         loginInitialEmailInputValue: initialEmailValue,
     };
 
