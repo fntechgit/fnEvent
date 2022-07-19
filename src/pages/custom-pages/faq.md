@@ -3,7 +3,7 @@ templateKey: custom-page
 title: FAQ
 userRequirement: NONE
 ---
-Get all the information you need on topics such as health and safety, registration, accessibility, and much more. Make sure to follow our [Twitter](https://twitter.com/robloxdevrel) for the latest news and updates.
+Get all the information you need on topics such as health and safety, registration, accessibility, and much more. Make sure to follow our [](https://twitter.com/robloxdevrel)<a href="https://twitter.com/robloxdevrel" target ="_blank" >Twitter</a> for the latest news and updates.
 
 - - -
 
