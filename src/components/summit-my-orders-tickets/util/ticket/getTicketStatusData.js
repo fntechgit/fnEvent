@@ -3,7 +3,6 @@ import {
     STATUS_CANCELLED,
     STATUS_COMPLETE,
     STATUS_INCOMPLETE,
-    STATUS_PAST,
     STATUS_UNASSIGNED,
 } from "../../global/constants";
 
@@ -30,27 +29,12 @@ export const statusData = {
         type: STATUS_CANCELLED,
         text: i18n.t('ticket_status.cancelled'),
         className: 'cancel',
-    },
-    [STATUS_PAST]: {
-        type: STATUS_PAST,
-        text: i18n.t('ticket_status.past'),
-        icon: 'fa-fw',
-        className: 'past',
     }
 };
-
-export const statusToKeyMap = {
-    'Incomplete': STATUS_INCOMPLETE,
-    'Complete': STATUS_COMPLETE,
-    'Cancelled': STATUS_CANCELLED
-};
-
 export const getTicketStatusKey = (ticket, isSummitPast) => {
     if (!ticket.is_active) return STATUS_CANCELLED;
 
     if (ticket.owner_id === 0) return STATUS_UNASSIGNED;
-
-    if (isSummitPast) return STATUS_PAST;
 
     if (!ticket.owner.first_name || !ticket.owner.last_name) return STATUS_INCOMPLETE;
 
@@ -58,7 +42,7 @@ export const getTicketStatusKey = (ticket, isSummitPast) => {
 
     if (ticket.owner && ticket.owner.status === 'Complete') return STATUS_COMPLETE;
 
-    return statusToKeyMap[ticket.status];
+    return STATUS_INCOMPLETE;
 };
 
 export const getTicketStatusData = (ticket, isSummitPast) => statusData[getTicketStatusKey(ticket, isSummitPast)];
