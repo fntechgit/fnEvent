@@ -1,33 +1,31 @@
 {
-  "columns": [],
+  "columns": [
+    {
+      "title": "Follow Us! ",
+      "display": true,
+      "items": [
+        {
+          "title": "Twitter LawPay",
+          "link": "https://twitter.com/LawPay?ref_src=twsrc%5Etfw"
+        },
+        {
+          "title": "LinkedIn LawPay",
+          "link": "https://www.linkedin.com/company/lawpay/"
+        },
+        {
+          "title": "LinkedIn MyCase",
+          "link": "https://www.linkedin.com/company/mycase/"
+        }
+      ]
+    }
+  ],
   "logo": {
     "display": false
   },
   "social": {
-    "title": "Follow Us",
+    "title": "o",
     "display": false,
-    "networks": [
-      {
-        "icon": "fa-facebook",
-        "link": "/footer-content/",
-        "display": false
-      },
-      {
-        "icon": "fa-twitter",
-        "link": "/footer-content/",
-        "display": false
-      },
-      {
-        "icon": "fa-linkedin",
-        "link": "/footer-content/",
-        "display": false
-      },
-      {
-        "link": "/footer-content/",
-        "icon": "TEST",
-        "display": false
-      }
-    ]
+    "networks": []
   },
   "legal": [
     {
