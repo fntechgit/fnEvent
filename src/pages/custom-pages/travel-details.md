@@ -11,7 +11,7 @@ Marriott Marquis San Diego Marina
 
 San Diego, CA 92101
 
-Looking for things to do in San Diego? Visit the [city's travel page!](<<a href=”https://www.sandiego.org/explore/things-to-do.aspx”target=”_blank”> sandiego.org/explore/things-to-do.aspx</a>>)
+Looking for things to do in San Diego? Visit the <a href="https://www.sandiego.org/explore/things-to-do.aspx" target ="_blank" >city's travel page!</a>
 
 - - -
 
@@ -21,7 +21,9 @@ Marriott Marquis San Diego Marina
 
 Rate: $335/night
 
-[Click here to book.](<<a href=https://book.passkey.com/go/Thrive22”target=”_blank”>book.passkey.com/go/Thrive22</a>>) Deadline: 10/5/2022
+<a href="https://book.passkey.com/go/Thrive22" target ="_blank" >Click here to book!</a>
+
+Deadline: 10/5/2022
 
 - - -
 
