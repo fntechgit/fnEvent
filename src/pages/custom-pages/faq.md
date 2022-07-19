@@ -106,7 +106,7 @@ userRequirement: NONE
 
 **I forgot my FNid login/password. What should I do now?** 
 
-*Please visit [https://idp.fntech.com](https://idp.fntech.com/).*
+*Please visit* <a href="<https://idp.fnvirtual.app/>" target ="_blank" >this page!</a>[](https://idp.fnvirtual.app/)
 
 * *Choose “Forgot Password?”. Follow the process to receive your password.*
 * *You will receive an email—at whatever email address you used to create your FNid—which will allow you to reset your password.*
