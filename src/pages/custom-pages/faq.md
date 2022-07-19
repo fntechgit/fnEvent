@@ -19,7 +19,7 @@ Get all the information you need on topics such as health and safety, registrati
 
 **What is included in the virtual pass?**
 
-* * The virtual pass lets you access the live stream, plus on-demand recordings of all sessions (available within 24 hours following the live premiere).
+* The virtual pass lets you access the live stream, plus on-demand recordings of all sessions (available within 24 hours following the live premiere).
 
 **Is there an age requirement to attend RDC 2022?**
 
@@ -43,15 +43,15 @@ Get all the information you need on topics such as health and safety, registrati
 
 **Can I sign-up onsite at the venue?**
 
-* No. You must be an invited in-person registered attendee to attend the in-person event
+* No, you must be an invited in-person registered attendee to attend the in-person event.
 
 **I'm a member of the press. How can I get more information?**
 
-* If you‘re a reporter or analyst who is interested in learning more about RDC, please contact the RDC press team for more information: [press@roblox.com](mailto:press@roblox.com) 
+* If you‘re a reporter or analyst who is interested in learning more about RDC, please contact the RDC press team for more information: [press@roblox.com](mailto:press@roblox.com).
 
 **Who do I contact if I have registration issues?**
 
-* * If you have any issues with registration, please contact [RDC22registration@fntech.com](mailto:RDC22registration@fntech.com).
+* If you have any issues with registration, please contact [RDC22registration@fntech.com](mailto:RDC22registration@fntech.com).
 
 - - -
 
