@@ -538,7 +538,6 @@ export const TicketPopupEditDetailsForm = ({
 
                                         <ExtraQuestionsForm
                                             ref={formRef}
-                                            readOnly={readOnly}
                                             extraQuestions={extraQuestions}
                                             userAnswers={formik.values.extra_questions}
                                             onAnswerChanges={handleExtraQuestionsSubmit}

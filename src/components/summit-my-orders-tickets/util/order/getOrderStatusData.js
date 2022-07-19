@@ -5,7 +5,6 @@ import {
     STATUS_COMPLETE,
     STATUS_ERROR,
     STATUS_INCOMPLETE,
-    STATUS_PAST,
     STATUS_PENDING,
     STATUS_PROCESSING
 } from "../../global/constants";
@@ -46,12 +45,6 @@ export const statusData = {
         text: i18n.t('order_status.processing'),
         icon: 'fa-fw',
         className: 'pending',
-    },
-    [STATUS_PROCESSING]: {
-        text: i18n.t('order_status.past'),
-        text: 'Past',
-        icon: 'fa-fw',
-        className: 'past',
     }
 };
 
@@ -64,11 +57,10 @@ export const statusToKeyMap = {
 };
 
 export const getOrderStatusKey = (order, isSummitPast) => {
+
     let status = order.status;
 
     if (status !== 'Paid') return statusToKeyMap[status];
-
-    if (isSummitPast) return STATUS_PAST;
 
     if (order.tickets.some(ticket => (!ticket.owner || ticket.owner.status === "Incomplete"))) return STATUS_INCOMPLETE
 

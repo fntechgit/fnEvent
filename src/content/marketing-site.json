@@ -1,39 +1,33 @@
 {
   "heroBanner": {
     "title": "Roblox Developers Conference",
-    "subTitle": "",
+    "subTitle": "Fort Mason Center | San Francisco, CA",
     "date": "September 9–10, 2022",
-    "time": "Pacific Timezone",
-    "dateLayout": true,
+    "time": "",
+    "dateLayout": false,
     "buttons": {
       "registerButton": {
-        "text": "Register now",
+        "text": "Register Now",
         "display": true
       },
       "loginButton": {
-        "text": "Log in",
+        "text": "Log In",
         "display": true
       }
     },
-    "background": "",
+    "background": {
+      "file": "/img/rdc22-fnv-header-left_v2.png"
+    },
     "images": [
       {
-        "file": "/img/tier1-default-header1.png",
-        "alt": ""
-      },
-      {
-        "file": "/img/tier1-default-header2.png",
-        "alt": ""
-      },
-      {
-        "file": "/img/tier1-default-header3.png",
+        "file": "/img/rdc22-fnv-header-right_v2.png",
         "alt": ""
       }
     ]
   },
   "leftColumn": {
     "schedule": {
-      "display": true,
+      "display": false,
       "title": "Full Event Schedule"
     },
     "disqus": {
@@ -41,9 +35,10 @@
       "title": "Join the conversation"
     },
     "image": {
-      "display": false,
-      "title": "Image",
-      "src": ""
+      "display": true,
+      "title": "",
+      "src": "/img/rdc22-fnv-image-left-description_072822pm.png",
+      "alt": ""
     }
   },
   "sponsors": [
@@ -51,12 +46,8 @@
       "title": "Top Left",
       "images": [
         {
-          "image": "/img/tier1-default-space3.png",
-          "link": "",
-          "alt": ""
-        },
-        {
-          "image": "/img/tier1-default-space4.png",
+          "image": "/img/rdc22-fnv-space-top-left_v3.png",
+          "link": "a/schedule/",
           "alt": ""
         }
       ],
@@ -66,7 +57,7 @@
       "title": "Top Right",
       "images": [
         {
-          "image": "/img/tier1-default-space1.png",
+          "image": "/img/rdc22-fnv-space-top-right.png",
           "link": "",
           "alt": ""
         }
@@ -77,7 +68,7 @@
       "title": "Mid Left",
       "images": [
         {
-          "image": "/img/tier1-default-space2.png",
+          "image": "/img/rdc22-fnv-space-bottom-left.png",
           "alt": ""
         }
       ],
@@ -86,11 +77,12 @@
     {
       "images": [
         {
-          "image": "/img/tier1-default-space4.png",
-          "alt": ""
+          "image": "/img/rdc22-fnv-space-bottom-right.png",
+          "alt": "",
+          "link": "https://blog.roblox.com/2022/07/voting-now-open-roblox-innovation-awards/"
         }
       ],
-      "size": 2
+      "size": 1
     }
   ],
   "countdown": {

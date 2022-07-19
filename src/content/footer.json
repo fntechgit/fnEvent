@@ -1,97 +1,60 @@
 {
-  "columns": [
-    {
-      "title": "The Event",
-      "display": true,
-      "items": [
-        {
-          "title": "All Projects",
-          "link": "/footer-content/"
-        },
-        {
-          "title": "Host a project",
-          "link": "/footer-content/"
-        },
-        {
-          "title": "Services",
-          "link": "/footer-content/"
-        }
-      ]
-    },
-    {
-      "title": "The Vision",
-      "display": true,
-      "items": [
-        {
-          "title": "About",
-          "link": "/footer-content/"
-        },
-        {
-          "title": "Supporters",
-          "link": "/footer-content/"
-        }
-      ]
-    },
-    {
-      "title": "Membership",
-      "display": false,
-      "items": [
-        {
-          "title": "Corporate members",
-          "link": "/footer-content/"
-        },
-        {
-          "title": "Join us",
-          "link": "/footer-content/"
-        },
-        {
-          "title": "Services",
-          "link": "/footer-content/"
-        }
-      ]
-    }
-  ],
+  "columns": [],
   "logo": {
     "display": false
   },
   "social": {
     "title": "Follow Us",
-    "display": true,
+    "display": false,
     "networks": [
       {
         "icon": "fa-facebook",
-        "link": "/footer-content/",
+        "link": "https://www.facebook.com/Roblox",
         "display": true
       },
       {
         "icon": "fa-twitter",
-        "link": "/footer-content/",
+        "link": "https://twitter.com/InsideRoblox",
         "display": true
       },
       {
         "icon": "fa-linkedin",
-        "link": "/footer-content/",
+        "link": "https://www.linkedin.com/company/roblox/",
         "display": true
       },
       {
-        "link": "/footer-content/",
-        "icon": "TEST",
+        "icon": "fa-instagram",
+        "link": "https://www.instagram.com/Roblox/",
+        "display": true
+      },
+      {
+        "icon": "fa-twitch",
+        "link": "https://www.twitch.tv/Roblox",
+        "display": true
+      },
+      {
+        "icon": "fa-youtube",
+        "link": "https://www.youtube.com/Roblox",
         "display": true
       }
     ]
   },
   "legal": [
     {
-      "title": "Privacy Policy",
-      "link": "/footer-content/"
+      "title": "Terms",
+      "link": "https://en.help.roblox.com/hc/en-us/articles/115004647846-Roblox-Terms-of-Use"
     },
     {
-      "title": "Legals",
-      "link": "/footer-content/"
+      "title": "Privacy",
+      "link": "https://en.help.roblox.com/hc/en-us/articles/115004630823-Roblox-Privacy-and-Cookie-Policy-"
     },
     {
-      "title": "Disclaimer",
-      "link": "/footer-content/"
+      "title": "Accessibility",
+      "link": "https://en.help.roblox.com/hc/en-us/articles/360059080071-Roblox-Accessibility-Statement"
+    },
+    {
+      "link": "https://corp.roblox.com/",
+      "title": "Roblox.com"
     }
   ]
 }

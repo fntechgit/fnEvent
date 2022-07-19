@@ -33,10 +33,14 @@ const RegistrationLiteComponent = ({
     allowsOtpAuth,
 }) => {
     const [isActive, setIsActive] = useState(false);
+    const [initialEmailValue, setInitialEmailValue] = useState('');
 
     useEffect(() => {
         const fragmentParser = new FragmentParser();
         setIsActive(fragmentParser.getParam('registration'));
+        const paramInitialEmailValue = fragmentParser.getParam('email');
+        if(paramInitialEmailValue)
+            setInitialEmailValue(paramInitialEmailValue);
     }, []);
 
     useEffect(() => {
@@ -147,6 +151,7 @@ const RegistrationLiteComponent = ({
             fonts: [{ cssSrc: withPrefix('/fonts/fonts.css') }],
             style: { base: { fontFamily: `'TTHovesW05-Regular', sans-serif`, fontWeight: 300 } }
         }
+        loginInitialEmailInputValue: initialEmailValue,
     };
 
     const { registerButton } = siteSettings.heroBanner.buttons;

@@ -1,22 +1,14 @@
 {
   "items": [
     {
-      "title": "Lobby",
-      "link": "/a/",
-      "display": true,
-      "requiresAuth": true,
+      "requiresAuth": false,
+      "showOnlyAtShowTime": false,
       "pageRestriction": [
         "ANY"
-      ]
-    },
-    {
-      "title": "My Tickets",
-      "link": "/a/my-tickets",
-      "display": true,
-      "requiresAuth": true,
-      "pageRestriction": [
-        "ANY"
-      ]
+      ],
+      "title": "Home",
+      "link": "/",
+      "display": true
     },
     {
       "title": "Schedule",
@@ -31,11 +23,44 @@
       "title": "My Schedule",
       "link": "/a/my-schedule",
       "display": true,
-      "requiresAuth": false
+      "requiresAuth": true,
+      "pageRestriction": [
+        "ANY"
+      ]
     },
     {
-      "title": "Sponsors ",
-      "link": "/a/sponsors/",
+      "requiresAuth": false,
+      "showOnlyAtShowTime": false,
+      "pageRestriction": [
+        "ANY"
+      ],
+      "title": "Travel",
+      "link": "/travel-details/",
+      "display": true
+    },
+    {
+      "requiresAuth": false,
+      "showOnlyAtShowTime": false,
+      "pageRestriction": [
+        "ANY"
+      ],
+      "title": "FAQ",
+      "link": "/faq/",
+      "display": true
+    },
+    {
+      "requiresAuth": false,
+      "showOnlyAtShowTime": false,
+      "pageRestriction": [
+        "ANY"
+      ],
+      "title": "Terms",
+      "link": "/terms/",
+      "display": true
+    },
+    {
+      "title": "My Orders/Tickets",
+      "link": "/a/my-tickets",
       "display": true,
       "requiresAuth": true,
       "pageRestriction": [
@@ -43,53 +68,17 @@
       ]
     },
     {
-      "title": "About the event",
-      "link": "/about-event",
-      "display": true,
-      "requiresAuth": false,
-      "pageRestriction": [
-        "ANY"
-      ]
-    },
-    {
-      "title": "Who we are",
-      "link": "/who-we-are",
-      "display": true,
-      "requiresAuth": false,
-      "pageRestriction": [
-        "ANY"
-      ]
-    },
-    {
-      "title": "Past events",
-      "link": "/past-events",
-      "display": true,
-      "requiresAuth": false,
-      "pageRestriction": [
-        "ANY"
-      ]
-    },
-    {
-      "title": "Contact",
-      "link": "/contact",
-      "display": true,
-      "requiresAuth": false,
-      "pageRestriction": [
-        "ANY"
-      ]
-    },
-    {
-      "title": "Help",
-      "link": "/help",
-      "display": true,
-      "requiresAuth": false,
-      "pageRestriction": [
-        "ANY"
-      ]
-    },
-    {
       "title": "My Profile",
       "link": "/a/profile",
+      "display": true,
+      "requiresAuth": true,
+      "pageRestriction": [
+        "ANY"
+      ]
+    },
+    {
+      "title": "Lobby",
+      "link": "/a/",
       "display": true,
       "requiresAuth": true,
       "pageRestriction": [
