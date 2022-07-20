@@ -15925,10 +15925,10 @@ sudo-prompt@^8.2.0:
   resolved "https://registry.yarnpkg.com/sudo-prompt/-/sudo-prompt-8.2.5.tgz#cc5ef3769a134bb94b24a631cc09628d4d53603e"
   integrity sha512-rlBo3HU/1zAJUrkY6jNxDOC9eVYliG6nS4JA8u8KAshITd07tafMc/Br7xQwCSseXwJ2iCcHCE8SNWX3q8Z+kw==
 
-summit-registration-lite@^2.0.25:
-  version "2.0.25"
-  resolved "https://registry.yarnpkg.com/summit-registration-lite/-/summit-registration-lite-2.0.25.tgz#f6af46f9badeed60bc1e8bcb78b58a3b5f94a730"
-  integrity sha512-3Znt4iNslU8r04w8ZEUuYJdMiVEsjlft3y7EG6Fu2UPumO76+4Bfo8Hych0/Rt1WHWgkaTK2Wq/+ueqjLkAh6A==
+summit-registration-lite@^2.0.26:
+  version "2.0.26"
+  resolved "https://registry.yarnpkg.com/summit-registration-lite/-/summit-registration-lite-2.0.26.tgz#06e45677443daed2b941f781e79a69555a203b23"
+  integrity sha512-q52RgbHmwWNbWDn4Y4Sc8opZ1Up3W2qcMR9+hhrwb1t6KziMbtiMuBEU2ktu8Q+jS9LQ8Oi8sxpG25OospzhwA==
   dependencies:
     "@stripe/react-stripe-js" "^1.4.1"
     "@stripe/stripe-js" "^1.15.0"
@@ -15938,6 +15938,7 @@ summit-registration-lite@^2.0.25:
     react-spring "^9.1.2"
     react-use "^17.2.4"
     resize-observer-polyfill "^1.5.1"
+    svg-url-loader "^7.1.1"
     use-debounce "^6.0.1"
 
 superagent@^5.3.1:
