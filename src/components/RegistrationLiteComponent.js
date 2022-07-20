@@ -152,6 +152,7 @@ const RegistrationLiteComponent = ({
             style: { base: { fontFamily: `'TTHovesW05-Regular', sans-serif`, fontWeight: 300 } }
         },
         loginInitialEmailInputValue: initialEmailValue,
+        showMultipleTicketTexts: false,
     };
 
     const { registerButton } = siteSettings.heroBanner.buttons;
