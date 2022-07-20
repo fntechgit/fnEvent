@@ -132,9 +132,12 @@
       z-index: 1;
 
       .single-image {
-        height: 100%;
-        background-size: cover;
-        min-height: 350px;
+        height: 336px;
+        min-height: 100%;
+        background-size: contain;
+        background-position: center;
+        background-color: black;
+        background-repeat: no-repeat;
       }
 
       .image-slider {
