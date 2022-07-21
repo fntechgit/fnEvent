@@ -2,19 +2,20 @@
 @import './global-classes';
 
 @font-face {
-  font-family: AvenirBlack;
-  src: url("../../static/fonts/Avenir Black.ttf");
+  font-family: Avenir;
+  src: url("../../static/fonts/Avenir Regular Medium.ttf");
 }
 
 @font-face {
-  font-family: AvenirRegular;
-  src: url("../../static/fonts/Avenir Regular Medium.ttf");
+  font-family: Avenir;
+  src: url("../../static/fonts/Avenir Black.ttf");
+  font-weight: bold;
 }
 
 
 html,
 body {
-  font-family: "AvenirRegular", sans-serif !important;
+  font-family: "Avenir", sans-serif !important;
   margin: 0;
   padding: 0;
   height: 100%;
@@ -153,7 +154,7 @@ div.content {
 div.title {
   font-weight: 700 !important;
   color: #333333 !important;
-  font-family: "AvenirBlack", sans-serif;
+  font-family: "Avenir", sans-serif;
 }
 
 h2 {
@@ -342,7 +343,7 @@ h2 {
 
 .outerWrapper___lGus2 {
   .widget-title {
-    font-family: "AvenirBlack", sans-serif;
+    font-family: "Avenir", sans-serif;
     font-weight: 700;
     font-size: 30px;
     line-height: 33px;
@@ -352,7 +353,7 @@ h2 {
 }
 
 .widget-title {
-  font-family: "AvenirBlack", sans-serif;
+  font-family: "Avenir", sans-serif;
   font-size: 18px !important;
 }
 
