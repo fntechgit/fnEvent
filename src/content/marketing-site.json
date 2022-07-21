@@ -75,7 +75,8 @@
       "images": [
         {
           "image": "/img/space-gfx-1_2_2-right-bottom.png",
-          "alt": ""
+          "alt": "",
+          "link": "/registration/"
         }
       ],
       "size": 1
