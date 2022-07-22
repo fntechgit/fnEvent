@@ -11,8 +11,6 @@ Fort Mason Center
 
 <a href="https://goo.gl/maps/mZda6yJsYYNsAwea6" target ="_blank" >See Google map here!</a>
 
-
-
 Looking for things to do in San Francisco? Visit the <a href="https://www.sftravel.com" target ="_blank" >city's travel page!</a>
 
 - - -
@@ -25,7 +23,7 @@ Book your reservations in one of our RDC blocks below!
 
 Rate: $249/night
 
-*Booking link will be provided soon!* 
+<a href="https://www.marriott.com/event-reservations/reservation-link.mi?id=1658442567557&key=GRP&app=resvlink" target="_blank">Click here to book.</a>
 
 Reservation deadline: August 18, 2022
 
