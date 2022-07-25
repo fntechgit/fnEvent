@@ -7,9 +7,9 @@ Thrive will be an in-person event, with a limited virtual offering. Please find 
 
 ### **Registration Options**
 
-• Super-Early Bird: $199 (7/19-25)
+• Super-Early Bird: $199 (7/19-8/1)
 
-• Early-Bird: $249 (7/26-8/19)
+• Early-Bird: $249 (8/2-8/19)
 
 • Regular Price: $299 (8/19-10/27)
 
@@ -29,10 +29,10 @@ A request to cancel your ticket must be emailed to conference@mycase.com.
 
 ### **How to Register:**
 
-1. Navigate to the Thrive event site: <a href="https://thrive22.fnvirtual.app" target ="_blank" >thrive22.fnvirtual.app</a>
+1. Navigate to the Thrive event site: <a href="https://thrive22.fnvirtual.app" target ="_blank">thrive22.fnvirtual.app</a>
 2. Click the “Register now” button. Follow the log in instructions to authenticate yourself (this lets us know who you are) and complete the registration process. 
 
 ### **How to find your orders/tickets:**
 
-1. Navigate to the Thrive event site: <a href="https://thrive22.fnvirtual.app" target ="_blank" >thrive22.fnvirtual.app</a>
+1. Navigate to the Thrive event site: <a href="https://thrive22.fnvirtual.app" target ="_blank">thrive22.fnvirtual.app</a>
 2. Click the “Log in” button. Use the same authentication process you used above. Once you have been authenticated, a new link called “My Orders/Tickets” will appear in the green top nav bar. Click this link to see your order/tickets for this event.
