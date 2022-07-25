@@ -185,4 +185,4 @@ A. Please visit <a href="https://idp.fnvirtual.app/auth/login" target="_blank">t
 
 **I’m interested in using FNvirtual for an event. Who should I contact?**
 
-*Please email govirtual@fntech.com. We’d love to collaborate with you!*
+*Please email [govirtual@fntech.com](mailto:govirtual@fntech.com). We’d love to collaborate with you!*
