@@ -25,9 +25,9 @@ userRequirement: NONE
 
 *Yes:*
 
-*Super-Early Bird: $199 (7/19-25)*
+*Super-Early Bird: $199 (7/19-8/1)*
 
-*Early-Bird: $249 (7/26-8/19)*
+*Early-Bird: $249 (8/2-8/19)*
 
 *Regular Price: $299 (9/19-10/27)*
 
