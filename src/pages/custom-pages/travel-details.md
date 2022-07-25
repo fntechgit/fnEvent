@@ -33,9 +33,9 @@ Reservation deadline: August 18, 2022
 
 Rate: $259/night
 
-*Booking link will be provided soon!* 
+<a href="https://www.hyatt.com/shop/sfofw?location=Hyatt%20Centric%20Fisherman%27s%20Wharf%20San%20Francisco&checkinDate=2022-09-08&checkoutDate=2022-09-11&rooms=1&adults=1&kids=0&corp_id=G-FNTC" target="_blank">Click here to book.</a>
 
-Reservation deadline: To be announced soon! 
+Reservation deadline: August 21, 2022
 
 - - -
 
