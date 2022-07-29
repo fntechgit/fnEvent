@@ -21,7 +21,7 @@
     }
   }
 
-  .field-wrapper {
+  .field-wrapper, .field-wrapper-unique {
     margin-top: 10px;
     margin-bottom: 10px;
     display: flex;
@@ -254,6 +254,17 @@
 
     .field-wrapper {
       display: none;
+    }
+
+    .field-wrapper-unique {    
+      display: flex;
+      flex-direction: column;
+      .col-sm-4 {
+        width: 100%;
+      }
+      .col-sm-8 {
+        width: 100%;
+      }
     }
 
     .field-wrapper--textarea {
