@@ -479,34 +479,12 @@ export const TicketPopupEditDetailsForm = ({
                                     </div>
                                 </div>
 
-                                <div className="row field-wrapper">
+                                <div className="row field-wrapper-unique">
                                     <div className="col-sm-4">
                                         {t("ticket_popup.edit_company")}
                                         {t("ticket_popup.edit_required_star")}
                                     </div>
                                     <div className="col-sm-8" style={{ position: 'relative' }}>
-                                        {(readOnly || !shouldEditBasicInfo) && (
-                                            <span>{ticket.owner?.company}</span>
-                                        )}
-
-                                        {(!readOnly && shouldEditBasicInfo) && (
-                                            <RegistrationCompanyInput
-                                                id="attendee_company"
-                                                name="attendee_company"
-                                                summitId={summit.id}
-                                                className={`dropdown`}                                                
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleblur}
-                                                value={formik.values.attendee_company}
-                                                error={formik.errors.attendee_company?.name}
-                                            />
-                                        )}
-                                    </div>
-                                </div>
-
-                                <div className="field-wrapper-mobile">
-                                    <div>{t("ticket_popup.edit_company")}{t("ticket_popup.edit_required_star")}</div>
-                                    <div style={{ position: 'relative' }}>
                                         {(readOnly || !shouldEditBasicInfo) && (
                                             <span>{ticket.owner?.company}</span>
                                         )}
