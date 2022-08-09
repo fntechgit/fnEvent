@@ -29,7 +29,7 @@ Reservation deadline: August 18, 2022
 
 <br>
 
-**Hyatt Centric Fisherman's Wharf San Francisco**
+**Hyatt Centric Fisherman's Wharf San Francisco — SOLD OUT!** 
 
 Rate: $259/night
 
