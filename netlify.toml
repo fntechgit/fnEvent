@@ -18,4 +18,8 @@
   for = "/fonts/*"
     [headers.values]
      Access-Control-Allow-Origin = "*"
-     
+
+# Deploy Preview context: all deploys resulting from a pull/merge request will
+# inherit these settings.
+[context.deploy-preview.environment]
+  GATSBY_SUMMIT_ID = "52"
