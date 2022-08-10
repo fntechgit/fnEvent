@@ -19,19 +19,11 @@ Looking for things to do in San Francisco? Visit the <a href="https://www.sftrav
 
 Book your reservations in one of our RDC blocks below!
 
-**Courtyard San Francisco Fisherman's Wharf**
-
-Rate: $249/night
-
-<a href="https://www.marriott.com/event-reservations/reservation-link.mi?id=1658442567557&key=GRP&app=resvlink" target="_blank">Click here to book.</a>
-
-Reservation deadline: August 18, 2022
+**Courtyard San Francisco Fisherman's Wharf — SOLD OUT!** 
 
 <br>
 
 **Hyatt Centric Fisherman's Wharf San Francisco — SOLD OUT!** 
-
-
 
 - - -
 
