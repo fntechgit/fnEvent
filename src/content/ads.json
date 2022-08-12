@@ -4,58 +4,25 @@
       "section": "lobby",
       "columnAds": [
         {
-          "image":{
-            "file": "/img/tier1-default-lobby-space1.png",
-            "alt" : ""
-          },
-          "column": "left",
-          "button": {
-            "link": "/link-to-url-of-your-choice"
-          }
-        },
-        {
           "image": {
-            "file": "/img/tier1-default-lobby-button.png",
+            "file": "/img/rdc22_fnv_lobby_adgfx.jpg",
             "alt": ""
           },
-          "column": "left",
-          "button": {
-            "link": "/link-to-url-of-your-choice"
-          }
+          "column": "left"
         },
         {
           "image": {
-            "file" : "/img/tier1-default-lobby-button.png",
-            "alt" : ""
-          },
-          "button": {
-            "link": "/link-to-url-of-your-choice"
+            "file": "/img/rdc22_fnv_lobby_adgfx2.jpg",
+            "alt": ""
           },
           "column": "right"
         },
         {
           "image": {
-            "file": "/img/tier1-default-lobby-space1.png",
+            "file": "/img/rdc22_fnv_lobby_adgfx3.jpg",
             "alt": ""
           },
-          "button": {
-            "text": "",
-            "link": "/link-to-url-of-your-choice"
-          },
-          "column": "right",
-          "id": null
-        },
-        {
-          "image": {
-            "file": "/img/tier1-default-lobby-space2.png",
-            "alt": ""
-          },
-          "button": {
-            "text": "",
-            "link": "/link-to-url-of-your-choice"
-          },
-          "column": "right",
-          "id": null
+          "column": "right"
         }
       ]
     }
