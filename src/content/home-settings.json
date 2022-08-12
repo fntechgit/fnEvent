@@ -6,12 +6,12 @@
     }
   },
   "homeHero": {
-    "title": "Lobby HERO Text",
-    "subTitle": "Lobby Subtitle Text ",
+    "title": "Roblox Developers Conference",
+    "subTitle": "September 9–10, 2022",
     "image": {
-      "file": "/img/tier1-default-lobby-header1.png",
-      "alt": ""
+      "file": "/img/rdc22-fnv-lobby-header1.png",
+      "alt": "RDC Header"
     },
-    "copy": "<h2><strong>Lobby HERO Text</strong></h2>\n<h2>Lobby Subtitle Text</h2>"
+    "copy": ""
   }
 }
