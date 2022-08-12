@@ -3,13 +3,27 @@ templateKey: custom-page
 title: Onsite Info
 userRequirement: NONE
 ---
-###### **RDC Location**
+###### **<br>RDC Location**
 
 Fort Mason Center for Arts & Culture, 
 
 2 Marina Blvd, San Francisco, CA 94123
 
-[(415) 345-7500](<>)
+(415) 345-7500
+
+<br><br>
+
+###### **WIFI**
+
+SSID: RDC2022
+
+PASS: imacreator
+
+<br><br>
+
+###### **[RDC Events Schedule](https://rdc22.fnvirtual.app/a/schedule/)**
+
+<br><br>
 
 ###### **Lost and Found**
 
