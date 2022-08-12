@@ -100,7 +100,7 @@ export const EventPageTemplate = class extends React.Component {
             >
               <div className="columns is-gapless">
                 {this.canRenderVideo(currentPhase) ? (
-                  <div className="column is-three-quarters px-0 py-0">
+                  <div className="column px-0 py-0">
                     <VideoComponent
                       url={event.streaming_url}
                       title={event.title}
@@ -112,7 +112,7 @@ export const EventPageTemplate = class extends React.Component {
                     {event.meeting_url && <VideoBanner event={event} />}
                   </div>
                 ) : (
-                  <div className="column is-three-quarters px-0 py-0 is-full-mobile">
+                  <div className="column px-0 py-0 is-full-mobile">
                     <NoTalkComponent
                       currentEventPhase={currentPhase}
                       event={event}
@@ -120,24 +120,11 @@ export const EventPageTemplate = class extends React.Component {
                     />
                   </div>
                 )}
-                <div
-                  className="column is-hidden-mobile"
-                  style={{
-                    position: "relative",
-                    borderBottom: "1px solid #d3d3d3",
-                  }}
-                >
-                  <DisqusComponent
-                    hideMobile={true}
-                    event={event}
-                    title="Public Conversation"
-                  />
-                </div>
               </div>
             </section>
-              <section className="section px-0 pt-5 pb-0">
+              <section className="section mt-5 px-0 pt-5 pb-0">
                 <div className="columns mx-0 my-0">
-                  <div className="column is-three-quarters is-full-mobile">
+                  <div className="column is-full-mobile">
                     <div className="px-5 py-5">
                       <TalkComponent
                         currentEventPhase={currentPhase}
@@ -148,16 +135,8 @@ export const EventPageTemplate = class extends React.Component {
                     <div className="px-5 py-0">
                       <SponsorComponent page="event" />
                     </div>
-                    <div className="is-hidden-tablet">
-                      <DisqusComponent
-                        hideMobile={false}
-                        event={event}
-                        title="Public Conversation"
-                      />
-                      ∆
-                    </div>
                     {event.etherpad_link && (
-                      <div className="column is-three-quarters">
+                      <div className="column">
                         <Etherpad
                           className="talk__etherpad"
                           etherpad_link={event.etherpad_link}
@@ -167,7 +146,7 @@ export const EventPageTemplate = class extends React.Component {
                     )}
                     <UpcomingEventsComponent
                       trackId={event.track ? event.track.id : null}
-                      eventCount={3}
+                      eventCount={4}
                       title={
                         event.track
                           ? `Up Next on ${event.track.name}`
@@ -180,12 +159,7 @@ export const EventPageTemplate = class extends React.Component {
                         </Link>
                       }
                     />
-                  </div>
-                  <div className="column px-0 py-0 is-one-quarter is-full-mobile">
-                    <DocumentsComponent event={event} />
                     <AccessTracker />
-                    <AttendeesWidget user={user} event={event} />
-                    <AdvertiseComponent section="event" column="right" />
                   </div>
                 </div>
               </section>

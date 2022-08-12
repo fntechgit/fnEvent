@@ -9,14 +9,11 @@ import withOrchestra from "../utils/widgetOrchestra";
 import AdvertiseComponent from '../components/AdvertiseComponent'
 import LiteScheduleComponent from '../components/LiteScheduleComponent'
 import UpcomingEventsComponent from '../components/UpcomingEventsComponent'
-import DisqusComponent from '../components/DisqusComponent'
 import LiveEventWidgetComponent from '../components/LiveEventWidgetComponent'
 import SpeakersWidgetComponent from '../components/SpeakersWidgetComponent'
 import SponsorComponent from '../components/SponsorComponent'
 import Link from '../components/Link'
-import AccessTracker, {
-  AttendeesWidget,
-} from "../components/AttendeeToAttendeeWidgetComponent"
+import AccessTracker from "../components/AttendeeToAttendeeWidgetComponent"
 import AttendanceTrackerComponent from '../components/AttendanceTrackerComponent'
 import PageHeader from '../components/page-header'
 
@@ -63,13 +60,6 @@ export const HomePageTemplate = class extends React.Component {
                 onEventClick={(ev) => this.onEventChange(ev)}
                 style={{marginBottom: '15px'}}
               />
-              <DisqusComponent
-                page="lobby"
-                summit={summit}
-                className="disqus-container-home"
-                title="Public conversation"
-                skipTo="#upcoming-events"
-              />
               <UpcomingEventsComponent
                 title="Up Next"
                 eventCount={4}
@@ -95,7 +85,6 @@ export const HomePageTemplate = class extends React.Component {
             <div className="column is-one-quarter pb-6">
               <h2><b>My Info</b></h2>
               <AccessTracker />
-              <AttendeesWidget user={user} />
               <LiteScheduleComponent
                 onEventClick={(ev) => this.onEventChange(ev)}
                 onViewAllEventsClick={() => this.onViewAllMyEventsClick()}

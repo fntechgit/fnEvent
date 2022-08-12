@@ -407,16 +407,6 @@ h2 {
   }
 }
 
-.schedule-container-home {
-  margin-top: 15px;
-  margin-bottom: 15px;
-  position: static;
-  overflow-y: auto;
-  overflow-x: hidden;
-  padding-bottom: 10px;
-  max-height: 1500px;
-}
-
 .schedule-container {
   display: flex;
   flex-direction: column;
@@ -427,6 +417,9 @@ h2 {
     padding: 15px 15px 0px 0px;
     margin-bottom: 0;
     height: auto;
+  }
+  &-sidebar {
+    margin-top: 0px;
   }
 }
 

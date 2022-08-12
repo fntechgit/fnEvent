@@ -20,7 +20,7 @@ const LiteScheduleComponent = ({
                                    summit,
                                    ...rest
                                }) => {
-    const wrapperClass = page === 'marketing-site' ? 'schedule-container-marketing' : 'schedule-container';
+    const wrapperClass = page === 'marketing-site' ? 'schedule-container-marketing' : 'schedule-container-sidebar';
 
     const componentProps = {
         defaultImage: homeSettings.schedule_default_image,
