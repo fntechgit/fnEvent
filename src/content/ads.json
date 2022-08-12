@@ -5,21 +5,31 @@
       "columnAds": [
         {
           "image": {
-            "file": "/img/rdc22_fnv_lobby_adgfx.jpg",
+            "file": "/img/rdc22-fnv-lobby-button-sched.png",
+            "alt": ""
+          },
+          "column": "left",
+          "button": {
+            "link": "/a/schedule"
+          }
+        },
+        {
+          "image": {
+            "file": "/img/rdc22_fnv_lobby_adgfx3.jpg",
             "alt": ""
           },
           "column": "left"
         },
         {
           "image": {
-            "file": "/img/rdc22_fnv_lobby_adgfx2.jpg",
+            "file": "/img/rdc22_fnv_lobby_adgfx.jpg",
             "alt": ""
           },
           "column": "right"
         },
         {
           "image": {
-            "file": "/img/rdc22_fnv_lobby_adgfx3.jpg",
+            "file": "/img/rdc22_fnv_lobby_adgfx2.jpg",
             "alt": ""
           },
           "column": "right"
