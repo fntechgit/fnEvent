@@ -22,6 +22,20 @@
         },
         {
           "image": {
+            "file": "/img/rdc22_fnv_lobby_adgfx4.jpg",
+            "alt": ""
+          },
+          "column": "left"
+        },
+        {
+          "image": {
+            "file": "/img/rdc22_fnv_lobby_adgfx5.jpg",
+            "alt": ""
+          },
+          "column": "left"
+        },
+        {
+          "image": {
             "file": "/img/rdc22_fnv_lobby_adgfx.jpg",
             "alt": ""
           },
