@@ -1,7 +1,7 @@
 ---
 templateKey: custom-page
 title: Onsite Info
-userRequirement: NONE
+userRequirement: HAS_TICKET
 ---
 ###### **<br>RDC Location**
 
@@ -29,4 +29,13 @@ PASS: imacreator
 
 Please visit the Registration/Check-in area in Gallery 308 for any lost items. Once RDC concludes, all items will be given to the Roblox security team (phone: XXX-XXX-XXXX).
 
-…and any other pertinent info the attendee might need including late-breaking announcements
+<br><br>
+
+###### EMERGENCIES/SECURITY ISSUES
+
+
+For immediate support: Text or call: 424-431-8611 or flag down any event security personnel
+
+
+
+<br> <br>
