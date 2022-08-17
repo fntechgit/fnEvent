@@ -13,7 +13,7 @@ import {
 import {customErrorHandler} from '../utils/customErrorHandler';
 
 import {LOGOUT_USER} from "openstack-uicore-foundation/lib/utils/actions";
-
+import moment from "moment-timezone";
 export const GET_EVENT_DATA = 'GET_EVENT_DATA';
 export const GET_EVENT_DATA_ERROR = 'GET_EVENT_DATA_ERROR';
 
@@ -21,16 +21,24 @@ export const handleResetReducers = () => (dispatch) => {
     dispatch(createAction(LOGOUT_USER)({}));
 };
 
-export const getEventById = (eventId) => async (dispatch, getState) => {
+/**
+ *
+ * @param eventId
+ * @param checkLocal
+ * @returns {(function(*, *): Promise<*>)|*}
+ */
+export const getEventById = (eventId, checkLocal = true) => async (dispatch, getState) => {
 
     dispatch(startLoading());
 
-    // if we have it on the reducer , provide that first
-    let {allSchedulesState: {allEvents}} = getState();
-    const event = allEvents.find(ev => ev.id === parseInt(eventId));
+    if(checkLocal) {
+        // if we have it on the reducer , provide that first
+        let {allSchedulesState: {allEvents}} = getState();
+        const event = allEvents.find(ev => ev.id === parseInt(eventId));
 
-    if (event) {
-        dispatch(createAction(GET_EVENT_DATA)({event}));
+        if (event) {
+            dispatch(createAction(GET_EVENT_DATA)({event}));
+        }
     }
 
     // then refresh from api
