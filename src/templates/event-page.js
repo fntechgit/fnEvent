@@ -53,21 +53,29 @@ export const EventPageTemplate = class extends React.Component {
 
     async queryRealTimeDB(summitId, eventId) {
 
-        if(!this._supabase) return Promise.resolve();
 
-        const res = await this._supabase
-            .from('summit_entity_updates')
-            .select('id,created_at,summit_id,entity_id,entity_type,entity_op')
-            .eq('summit_id', summitId)
-            .eq('entity_id', eventId)
-            .eq('entity_type', 'Presentation')
-            .order('id', {ascending: false})
-            .limit(1);
+        if(!this._supabase) return Promise.resolve(false);
 
-        if (res.error) throw new Error(res.error)
+        try {
+            const res = await this._supabase
+                .from('summit_entity_updates')
+                .select('id,created_at,summit_id,entity_id,entity_type,entity_op')
+                .eq('summit_id', summitId)
+                .eq('entity_id', eventId)
+                .eq('entity_type', 'Presentation')
+                .order('id', {ascending: false})
+                .limit(1);
 
-        if (res.data && res.data.length > 0) {
-            return res.data[0];
+            if (res.error) throw new Error(res.error)
+
+            if (res.data && res.data.length > 0) {
+                return res.data[0];
+            }
+            return false;
+        }
+        catch (e){
+            console.log("EventPageTemplate::queryRealTimeDB ERROR");
+            console.log(e);
         }
     }
 
@@ -78,27 +86,34 @@ export const EventPageTemplate = class extends React.Component {
         }
 
         console.log("EventPageTemplate::createRealTimeSubscription");
-        this._subscription = this._supabase
-            .from(`summit_entity_updates:summit_id=eq.${summit.id}`)
-            .on('INSERT', (payload) => {
-                console.log('EventPageTemplate::createRealTimeSubscription Change received (INSERT)', payload)
-                let {new: update} = payload;
-                if (update.entity_type === 'Presentation' && parseInt(update.entity_id) == parseInt(eventId)) {
-                    this.props.getEventById(eventId, false);
-                }
-            })
-            .on('UPDATE', (payload) => {
-                console.log('EventPageTemplate::createRealTimeSubscription Change received (UPDATE)', payload)
-                let {new: update} = payload;
-                if (update.entity_type === 'Presentation' && parseInt(update.entity_id) == parseInt(eventId)) {
-                    this.props.getEventById(eventId, false);
-                }
-            })
-            .subscribe()
+        try {
+            this._subscription = this._supabase
+                .from(`summit_entity_updates:summit_id=eq.${summit.id}`)
+                .on('INSERT', (payload) => {
+                    console.log('EventPageTemplate::createRealTimeSubscription Change received (INSERT)', payload)
+                    let {new: update} = payload;
+                    if (update.entity_type === 'Presentation' && parseInt(update.entity_id) == parseInt(eventId)) {
+                        this.props.getEventById(eventId, false);
+                    }
+                })
+                .on('UPDATE', (payload) => {
+                    console.log('EventPageTemplate::createRealTimeSubscription Change received (UPDATE)', payload)
+                    let {new: update} = payload;
+                    if (update.entity_type === 'Presentation' && parseInt(update.entity_id) == parseInt(eventId)) {
+                        this.props.getEventById(eventId, false);
+                    }
+                })
+                .subscribe();
+        }
+        catch (e){
+            console.log("EventPageTemplate::createRealTimeSubscription ERROR");
+            console.log(e);
+        }
     }
 
     checkForPastNovelties(summitId, event, eventId){
         this.queryRealTimeDB(summitId, parseInt(eventId)).then((res) => {
+            if(!res) return;
             // has record on db ( novelty )
             const DeltaSeconds = 60;
             let {created_at: lastUpdateNovelty} = res;
@@ -127,9 +142,14 @@ export const EventPageTemplate = class extends React.Component {
 
     clearRealTimeSubscription(){
         if (this._supabase && this._subscription) {
-            console.log("EventPageTemplate::clearRealTimeSubscription");
-            this._supabase.removeSubscription(this._subscription);
-            this._subscription = null;
+            try {
+                console.log("EventPageTemplate::clearRealTimeSubscription");
+                this._supabase.removeSubscription(this._subscription);
+                this._subscription = null;
+            }
+            catch (e){
+                console.log(e);
+            }
         }
     }
 
