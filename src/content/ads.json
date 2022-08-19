@@ -19,12 +19,15 @@
             "alt": ""
           },
           "column": "left",
-          "id": "73, 76, 75, 78"
+          "id": "73, 76, 75, 78",
+          "button": {
+            "text": "IN PERSON"
+          }
         },
         {
           "image": {
             "file": "/img/rdc22_fnv_lobby_adgfx4.jpg",
-            "alt": ""
+            "alt": "79"
           },
           "column": "left"
         },
@@ -33,21 +36,33 @@
             "file": "/img/rdc22_fnv_lobby_adgfx5.jpg",
             "alt": ""
           },
-          "column": "left"
+          "column": "left",
+          "id": "76, 78, 75, 73",
+          "button": {
+            "text": "IN PERSON"
+          }
         },
         {
           "image": {
             "file": "/img/rdc22_fnv_lobby_adgfx.jpg",
             "alt": ""
           },
-          "column": "right"
+          "column": "right",
+          "id": "76, 78, 75, 73",
+          "button": {
+            "text": "IN PERSON "
+          }
         },
         {
           "image": {
             "file": "/img/rdc22_fnv_lobby_adgfx2.jpg",
             "alt": ""
           },
-          "column": "right"
+          "column": "right",
+          "id": "79",
+          "button": {
+            "text": "GEN POP "
+          }
         }
       ]
     }
