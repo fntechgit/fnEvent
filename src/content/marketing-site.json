@@ -37,7 +37,7 @@
     "image": {
       "display": true,
       "title": "",
-      "src": "/img/rdc22-fnv-image-left-static-schedule_072022_v5.png",
+      "src": "/img/rdc22-fnv-image-left-static-schedule_081822.png",
       "alt": ""
     }
   },
@@ -46,18 +46,18 @@
       "title": "Top Left",
       "images": [
         {
-          "image": "/img/rdc22-fnv-space-top-left_v3.png",
-          "link": "/a/schedule/",
+          "image": "/img/rdc22-fnv-space-top-left-081922.png",
+          "link": "https://www.guilded.gg/i/k5aMDR4k",
           "alt": ""
         }
       ],
-      "size": 2
+      "size": 1
     },
     {
       "title": "Top Right",
       "images": [
         {
-          "image": "/img/rdc22-fnv-space-top-right.png",
+          "image": "/img/rdc22-fnv-space-top-right-081922.png",
           "link": "",
           "alt": ""
         }
@@ -68,8 +68,9 @@
       "title": "Mid Left",
       "images": [
         {
-          "image": "/img/rdc22-fnv-space-bottom-left.png",
-          "alt": ""
+          "image": "/img/rdc22-fnv-space-bottom-left-081922.png",
+          "alt": "",
+          "link": "/a/schedule"
         }
       ],
       "size": 1
@@ -77,7 +78,7 @@
     {
       "images": [
         {
-          "image": "/img/rdc22-fnv-space-bottom-right.png",
+          "image": "/img/rdc22-fnv-space-bottom-right-081922.png",
           "alt": "",
           "link": "https://blog.roblox.com/2022/07/voting-now-open-roblox-innovation-awards/"
         }
