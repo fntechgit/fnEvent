@@ -15,6 +15,16 @@
         },
         {
           "image": {
+            "file": "/img/rdc22-fnv-lobby-button-guildbutton.png",
+            "alt": ""
+          },
+          "column": "left",
+          "button": {
+            "link": "https://www.guilded.gg/"
+          }
+        },
+        {
+          "image": {
             "file": "/img/rdc22_fnv_lobby_adgfx3.jpg",
             "alt": ""
           },
@@ -44,21 +54,6 @@
           "id": "79",
           "button": {
             "text": "GEN POP "
-          }
-        }
-      ]
-    },
-    {
-      "section": "lobby",
-      "columnAds": [
-        {
-          "image": {
-            "file": "/img/rdc22-fnv-lobby-button-guildbutton.png",
-            "alt": ""
-          },
-          "column": "left",
-          "button": {
-            "link": "https://www.guilded.gg"
           }
         }
       ]
