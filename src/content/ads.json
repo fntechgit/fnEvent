@@ -22,39 +22,6 @@
           "button": {
             "link": "https://www.guilded.gg/"
           }
-        },
-        {
-          "image": {
-            "file": "/img/rdc22_fnv_lobby_adgfx3.jpg",
-            "alt": ""
-          },
-          "column": "left",
-          "id": "",
-          "button": {
-            "text": ""
-          }
-        },
-        {
-          "image": {
-            "file": "/img/rdc22_fnv_lobby_adgfx.jpg",
-            "alt": ""
-          },
-          "column": "right",
-          "id": "76, 78, 75, 73",
-          "button": {
-            "text": "IN PERSON "
-          }
-        },
-        {
-          "image": {
-            "file": "/img/rdc22_fnv_lobby_adgfx2.jpg",
-            "alt": ""
-          },
-          "column": "right",
-          "id": "79",
-          "button": {
-            "text": "GEN POP "
-          }
         }
       ]
     }
