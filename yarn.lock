@@ -13004,10 +13004,10 @@ open@^8.4.0:
     is-docker "^2.1.1"
     is-wsl "^2.2.0"
 
-openstack-uicore-foundation@4.0.43:
-  version "4.0.43"
-  resolved "https://registry.yarnpkg.com/openstack-uicore-foundation/-/openstack-uicore-foundation-4.0.43.tgz#a6ba13736b52837b7b90670209ace1aa644fd887"
-  integrity sha512-2/eqibAXUU+ixbT/NE5Zm9qn/exu06M5nN6O8M9G1AursgAKHX1WlpZbTg42wt3OTRGGwkTI7kiST5w3UrYrRA==
+openstack-uicore-foundation@4.0.49:
+  version "4.0.49"
+  resolved "https://registry.yarnpkg.com/openstack-uicore-foundation/-/openstack-uicore-foundation-4.0.49.tgz#e38126757e75eb1bb75637cb54f6d0d33c1f8651"
+  integrity sha512-lr2mthXHJXPvCkKniJJHMwO2xyO61Nj7dLsu2r08BNwop07JhKR109KImZZIpJ05Ij92prQVB6Bcmh0EDf/9jw==
 
 opentracing@^0.14.5:
   version "0.14.7"
@@ -17026,10 +17026,10 @@ sudo-prompt@^8.2.0:
   resolved "https://registry.yarnpkg.com/sudo-prompt/-/sudo-prompt-8.2.5.tgz#cc5ef3769a134bb94b24a631cc09628d4d53603e"
   integrity sha512-rlBo3HU/1zAJUrkY6jNxDOC9eVYliG6nS4JA8u8KAshITd07tafMc/Br7xQwCSseXwJ2iCcHCE8SNWX3q8Z+kw==
 
-summit-registration-lite@3.0.14:
-  version "3.0.14"
-  resolved "https://registry.yarnpkg.com/summit-registration-lite/-/summit-registration-lite-3.0.14.tgz#fc81fdc1c427153d905ed732c60901d86b6895bb"
-  integrity sha512-Eg0sn2fB0ZttxU3DC5c2C/QiG0kMioh6sndeOlLe6vq7gMITLO4D8Xdeb+dopoyKK6bRAsQFqqmvtOyfykReuw==
+summit-registration-lite@3.0.18:
+  version "3.0.18"
+  resolved "https://registry.yarnpkg.com/summit-registration-lite/-/summit-registration-lite-3.0.18.tgz#52a8c1a60684fc5c52729151fba154ff137307d3"
+  integrity sha512-BDUDhSRFbxx7DsuheRqxzneDYkPiDqgQPZZT5WocgmlJqWfmvofgXbJLURU1P1PCmpMtHFT7tC+wILJvBFZYDw==
   dependencies:
     "@stripe/react-stripe-js" "^1.4.1"
     "@stripe/stripe-js" "^1.15.0"
