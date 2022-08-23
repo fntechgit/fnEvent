@@ -153,6 +153,16 @@ const RegistrationLiteComponent = ({
         },
         loginInitialEmailInputValue: initialEmailValue,
         showMultipleTicketTexts: false,
+        authErrorCallback: (error) => {
+            // we have an auth Error, perform logout
+            const fragment = window?.location?.hash;
+            return navigate('/auth/logout',
+                {
+                    state: {
+                        backUrl: '/'+fragment
+                    }
+                });
+        }
     };
 
     const { registerButton } = siteSettings.heroBanner.buttons;
