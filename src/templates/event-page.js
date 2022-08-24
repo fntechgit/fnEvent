@@ -27,15 +27,21 @@ import {
     SUPABASE_KEY,
 } from "../utils/envVariables";
 import moment from "moment-timezone";
+import { getBrowserVisibilityProp, getIsDocumentHidden } from "../utils/browserUtils";
+import _ from 'lodash';
+
+const CHECK_FOR_NOVELTIES_DELAY = 5000;
 
 export const EventPageTemplate = class extends React.Component {
+
+
 
     constructor(props) {
         super(props);
 
         // attributes
         this._subscription = null;
-
+        this._subscriptionError = false;
         try {
             this._supabase = SupabaseClientBuilder.getClient(getEnvVariable(SUPABASE_URL), getEnvVariable(SUPABASE_KEY));
         }
@@ -44,11 +50,13 @@ export const EventPageTemplate = class extends React.Component {
             console.log(e);
         }
 
+        this._checkForPastNovelties = null;
         // binds
         this.createRealTimeSubscription = this.createRealTimeSubscription.bind(this);
         this.queryRealTimeDB = this.queryRealTimeDB.bind(this);
         this.checkForPastNovelties = this.checkForPastNovelties.bind(this);
         this.clearRealTimeSubscription = this.clearRealTimeSubscription.bind(this);
+        this.onVisibilityChange = this.onVisibilityChange.bind(this);
     }
 
     async queryRealTimeDB(summitId, eventId) {
@@ -79,12 +87,8 @@ export const EventPageTemplate = class extends React.Component {
         }
     }
 
-    createRealTimeSubscription(summit, eventId){
-
-        if (this._subscription && this._subscription.state === 'joined') {
-            return
-        }
-
+    createRealTimeSubscription(summit, event, eventId){
+        this._subscriptionError = false;
         console.log("EventPageTemplate::createRealTimeSubscription");
         try {
             this._subscription = this._supabase
@@ -103,7 +107,29 @@ export const EventPageTemplate = class extends React.Component {
                         this.props.getEventById(eventId, false);
                     }
                 })
-                .subscribe();
+                .subscribe((status) => {
+                    const isDocHidden = getIsDocumentHidden();
+                    console.log("EventPageTemplate::createRealTimeSubscription subscribe ", status, isDocHidden);
+                    if (status === "SUBSCRIPTION_ERROR") {
+                        if (isDocHidden) {    // page visible so let realtime reconnect and reload data
+                            this.clearRealTimeSubscription();
+                            this._subscriptionError = true
+                        }
+                    }
+                    if (status === "SUBSCRIBED") {
+
+                        // RELOAD
+                        // check on demand ( just in case that we missed some Real time update )
+                        if(event && eventId) {
+                            if(this._checkForPastNovelties){
+                                this._checkForPastNovelties.cancel();
+                                this._checkForPastNovelties = null;
+                            }
+                            this._checkForPastNovelties = _.debounce(this.checkForPastNovelties, CHECK_FOR_NOVELTIES_DELAY);
+                            this._checkForPastNovelties(summit.id, event, eventId);
+                        }
+                    }
+                })
         }
         catch (e){
             console.log("EventPageTemplate::createRealTimeSubscription ERROR");
@@ -112,6 +138,7 @@ export const EventPageTemplate = class extends React.Component {
     }
 
     checkForPastNovelties(summitId, event, eventId){
+        console.log("EventPageTemplate::checkForPastNovelties", summitId, event, eventId);
         this.queryRealTimeDB(summitId, parseInt(eventId)).then((res) => {
             if(!res) return;
             // has record on db ( novelty )
@@ -153,21 +180,38 @@ export const EventPageTemplate = class extends React.Component {
         }
     }
 
+    onVisibilityChange(){
+        const {eventId, event, summit} = this.props;
+        const docIsHidden = getIsDocumentHidden();
+        console.log(`EventPage::onVisibilityChange`, docIsHidden, this._subscriptionError);
+
+        if(!docIsHidden){
+            if(this._subscriptionError)
+                this.createRealTimeSubscription(summit, event, eventId);
+            else {
+                if(this._checkForPastNovelties){
+                    this._checkForPastNovelties.cancel();
+                    this._checkForPastNovelties = null;
+                }
+                this._checkForPastNovelties = _.debounce(this.checkForPastNovelties, CHECK_FOR_NOVELTIES_DELAY);
+                this._checkForPastNovelties(summit.id, event, eventId);
+            }
+        }
+
+    }
+
     componentDidMount() {
         const {eventId, event, summit} = this.props;
         if (parseInt(event?.id) !== parseInt(eventId))
             this.props.getEventById(eventId);
 
-        // check on demand ( just in case that we missed some Real time update )
-        if(event && eventId) {
-           this.checkForPastNovelties(summit.id, event, eventId);
-        }
+        this.createRealTimeSubscription(summit, event, eventId);
 
-        this.createRealTimeSubscription(summit, eventId);
-
+        document.addEventListener(getBrowserVisibilityProp(), this.onVisibilityChange, false)
     }
 
     componentWillUnmount() {
+        document.removeEventListener(getBrowserVisibilityProp(), this.onVisibilityChange)
         this.clearRealTimeSubscription();
     }
 
