@@ -29,12 +29,9 @@ import {
 import moment from "moment-timezone";
 import { getBrowserVisibilityProp, getIsDocumentHidden } from "../utils/browserUtils";
 import _ from 'lodash';
-
 const CHECK_FOR_NOVELTIES_DELAY = 5000;
 
 export const EventPageTemplate = class extends React.Component {
-
-
 
     constructor(props) {
         super(props);
@@ -50,13 +47,13 @@ export const EventPageTemplate = class extends React.Component {
             console.log(e);
         }
 
-        this._checkForPastNovelties = null;
         // binds
         this.createRealTimeSubscription = this.createRealTimeSubscription.bind(this);
         this.queryRealTimeDB = this.queryRealTimeDB.bind(this);
         this.checkForPastNovelties = this.checkForPastNovelties.bind(this);
         this.clearRealTimeSubscription = this.clearRealTimeSubscription.bind(this);
         this.onVisibilityChange = this.onVisibilityChange.bind(this);
+        this._checkForPastNoveltiesDebounced = _.debounce(this.checkForPastNovelties, CHECK_FOR_NOVELTIES_DELAY);
     }
 
     async queryRealTimeDB(summitId, eventId) {
@@ -117,16 +114,10 @@ export const EventPageTemplate = class extends React.Component {
                         }
                     }
                     if (status === "SUBSCRIBED") {
-
                         // RELOAD
                         // check on demand ( just in case that we missed some Real time update )
                         if(event && eventId) {
-                            if(this._checkForPastNovelties){
-                                this._checkForPastNovelties.cancel();
-                                this._checkForPastNovelties = null;
-                            }
-                            this._checkForPastNovelties = _.debounce(this.checkForPastNovelties, CHECK_FOR_NOVELTIES_DELAY);
-                            this._checkForPastNovelties(summit.id, event, eventId);
+                            this._checkForPastNoveltiesDebounced(summit.id, event, eventId);
                         }
                     }
                 })
@@ -186,18 +177,12 @@ export const EventPageTemplate = class extends React.Component {
         console.log(`EventPage::onVisibilityChange`, docIsHidden, this._subscriptionError);
 
         if(!docIsHidden){
-            if(this._subscriptionError)
+            if(this._subscriptionError) {
                 this.createRealTimeSubscription(summit, event, eventId);
-            else {
-                if(this._checkForPastNovelties){
-                    this._checkForPastNovelties.cancel();
-                    this._checkForPastNovelties = null;
-                }
-                this._checkForPastNovelties = _.debounce(this.checkForPastNovelties, CHECK_FOR_NOVELTIES_DELAY);
-                this._checkForPastNovelties(summit.id, event, eventId);
+                return;
             }
+            this._checkForPastNoveltiesDebounced(summit.id, event, eventId);
         }
-
     }
 
     componentDidMount() {
