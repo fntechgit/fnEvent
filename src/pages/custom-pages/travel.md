@@ -15,9 +15,7 @@ Looking for things to do in San Jose? Visit their <a href="https://www.sanjose.
 **Hotels**\
 Book your reservations in one of our OCP blocks below!
 
-**Marriott**\
-Rate: $319/night\
-<a href="https://book.passkey.com/gt/218490646?gtid=f9e171787e503698a1fa671468cc037a" target="_blank" style="color:#94C400">Click here</a> to book. Deadline: 9/23
+**Marriott – SOLD OUT!**
 
 **Hilton**\
 Rate: $339/night\
