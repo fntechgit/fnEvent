@@ -105,14 +105,20 @@ export const EventPageTemplate = class extends React.Component {
                         this.props.getEventById(eventId, false);
                     }
                 })
-                .subscribe((status) => {
+                .subscribe((status, e) => {
                     const visibilityState = document.visibilityState;
                     console.log("EventPageTemplate::createRealTimeSubscription subscribe ", status, visibilityState);
                     if (status === "SUBSCRIPTION_ERROR") {
-                        if (visibilityState  === "hidden") {   // page no visible so let realtime reconnect and reload data
-                            this.clearRealTimeSubscription();
+                        console.log("ventPageTemplate::createRealTimeSubscription SUBSCRIPTION_ERROR", e);
+                        // init the RT cleaning process
+                        this.clearRealTimeSubscription();
+                        if (visibilityState  === "hidden") {
+                            // if page not visible mark the error for later
                             this._subscriptionError = true
+                            return;
                         }
+                        // if we are on visible state, then restart the RT
+                        window.setTimeout(() => {this.createRealTimeSubscription(summit, event, eventId, lastUpdate)}, 1000);
                     }
                     if (status === "SUBSCRIBED") {
                         // RELOAD
