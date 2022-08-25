@@ -18,7 +18,7 @@ import Link from "../components/Link";
 import AccessTracker, {AttendeesWidget} from "../components/AttendeeToAttendeeWidgetComponent"
 import AttendanceTrackerComponent from "../components/AttendanceTrackerComponent";
 import {PHASES} from '../utils/phasesUtils';
-import {getEventById} from "../actions/event-actions";
+import { getEventById, setEventLastUpdate } from "../actions/event-actions";
 import URI from "urijs"
 import SupabaseClientBuilder from "../utils/supabaseClientBuilder";
 import {
@@ -27,9 +27,8 @@ import {
     SUPABASE_KEY,
 } from "../utils/envVariables";
 import moment from "moment-timezone";
-import { getBrowserVisibilityProp, getIsDocumentHidden } from "../utils/browserUtils";
 import _ from 'lodash';
-const CHECK_FOR_NOVELTIES_DELAY = 5000;
+const CHECK_FOR_NOVELTIES_DELAY = 2000;
 
 export const EventPageTemplate = class extends React.Component {
 
@@ -84,7 +83,7 @@ export const EventPageTemplate = class extends React.Component {
         }
     }
 
-    createRealTimeSubscription(summit, event, eventId){
+    createRealTimeSubscription(summit, event, eventId, lastUpdate){
         this._subscriptionError = false;
         console.log("EventPageTemplate::createRealTimeSubscription");
         try {
@@ -94,6 +93,7 @@ export const EventPageTemplate = class extends React.Component {
                     console.log('EventPageTemplate::createRealTimeSubscription Change received (INSERT)', payload)
                     let {new: update} = payload;
                     if (update.entity_type === 'Presentation' && parseInt(update.entity_id) == parseInt(eventId)) {
+                        this.props.setEventLastUpdate(moment.utc(update.created_at));
                         this.props.getEventById(eventId, false);
                     }
                 })
@@ -101,14 +101,15 @@ export const EventPageTemplate = class extends React.Component {
                     console.log('EventPageTemplate::createRealTimeSubscription Change received (UPDATE)', payload)
                     let {new: update} = payload;
                     if (update.entity_type === 'Presentation' && parseInt(update.entity_id) == parseInt(eventId)) {
+                        this.props.setEventLastUpdate(moment.utc(update.created_at));
                         this.props.getEventById(eventId, false);
                     }
                 })
                 .subscribe((status) => {
-                    const isDocHidden = getIsDocumentHidden();
-                    console.log("EventPageTemplate::createRealTimeSubscription subscribe ", status, isDocHidden);
+                    const visibilityState = document.visibilityState;
+                    console.log("EventPageTemplate::createRealTimeSubscription subscribe ", status, visibilityState);
                     if (status === "SUBSCRIPTION_ERROR") {
-                        if (isDocHidden) {    // page visible so let realtime reconnect and reload data
+                        if (visibilityState  === "hidden") {   // page no visible so let realtime reconnect and reload data
                             this.clearRealTimeSubscription();
                             this._subscriptionError = true
                         }
@@ -117,7 +118,7 @@ export const EventPageTemplate = class extends React.Component {
                         // RELOAD
                         // check on demand ( just in case that we missed some Real time update )
                         if(event && eventId) {
-                            this._checkForPastNoveltiesDebounced(summit.id, event, eventId);
+                            this._checkForPastNoveltiesDebounced(summit.id, event, eventId, lastUpdate);
                         }
                     }
                 })
@@ -128,31 +129,22 @@ export const EventPageTemplate = class extends React.Component {
         }
     }
 
-    checkForPastNovelties(summitId, event, eventId){
-        console.log("EventPageTemplate::checkForPastNovelties", summitId, event, eventId);
+    checkForPastNovelties(summitId, event, eventId, lastUpdate){
+        console.log("EventPageTemplate::checkForPastNovelties", summitId, event, eventId, lastUpdate);
         this.queryRealTimeDB(summitId, parseInt(eventId)).then((res) => {
             if(!res) return;
-            // has record on db ( novelty )
-            const DeltaSeconds = 60;
             let {created_at: lastUpdateNovelty} = res;
-            if (lastUpdateNovelty) {
-                if (event && event.hasOwnProperty('last_edited')) {
-                    let {last_edited} = event;
-                    last_edited = moment.unix(last_edited).utc();
+            if (lastUpdateNovelty && event) {
                     lastUpdateNovelty = moment.utc(lastUpdateNovelty);
                     // then compare if the novelty date is greater than last edit date of the event
-                    if (
-                        (lastUpdateNovelty <= last_edited) ||
-
-                        (lastUpdateNovelty > last_edited && lastUpdateNovelty.diff(last_edited, 'seconds') <= DeltaSeconds)) {
+                    if (lastUpdate === null || lastUpdateNovelty <= lastUpdate){
                         // skip it
-                        console.log("EventPageTemplate::checkForPastNovelties: skipping update")
+                        console.log("EventPageTemplate::checkForPastNovelties: skipping update", lastUpdateNovelty, lastUpdate)
                         return;
                     }
-                }
             }
-
             console.log("EventPageTemplate::checkForPastNovelties: doing update");
+            this.props.setEventLastUpdate(lastUpdateNovelty);
             this.props.getEventById(eventId, false);
 
         }).catch((err) => console.log(err));
@@ -172,31 +164,34 @@ export const EventPageTemplate = class extends React.Component {
     }
 
     onVisibilityChange(){
-        const {eventId, event, summit} = this.props;
-        const docIsHidden = getIsDocumentHidden();
-        console.log(`EventPage::onVisibilityChange`, docIsHidden, this._subscriptionError);
+        const {eventId, event, summit, lastUpdate} = this.props;
+        const visibilityState = document.visibilityState;
 
-        if(!docIsHidden){
+        console.log(`EventPage::onVisibilityChange  visibilityState ${visibilityState}`, this._subscriptionError, lastUpdate);
+
+        if(visibilityState === "visible"){
+
             if(this._subscriptionError) {
-                this.createRealTimeSubscription(summit, event, eventId);
+                this.createRealTimeSubscription(summit, event, eventId, lastUpdate);
                 return;
             }
-            this._checkForPastNoveltiesDebounced(summit.id, event, eventId);
+
+            this._checkForPastNoveltiesDebounced(summit.id, event, eventId, lastUpdate);
         }
     }
 
     componentDidMount() {
-        const {eventId, event, summit} = this.props;
+        const {eventId, event, summit, lastUpdate} = this.props;
         if (parseInt(event?.id) !== parseInt(eventId))
             this.props.getEventById(eventId);
 
-        this.createRealTimeSubscription(summit, event, eventId);
+        this.createRealTimeSubscription(summit, event, eventId, lastUpdate);
 
-        document.addEventListener(getBrowserVisibilityProp(), this.onVisibilityChange, false)
+        document.addEventListener( "visibilitychange", this.onVisibilityChange, false)
     }
 
     componentWillUnmount() {
-        document.removeEventListener(getBrowserVisibilityProp(), this.onVisibilityChange)
+        document.removeEventListener("visibilitychange", this.onVisibilityChange)
         this.clearRealTimeSubscription();
     }
 
@@ -374,7 +369,9 @@ const EventPage = ({
                        user,
                        eventsPhases,
                        nowUtc,
-                       getEventById
+                       getEventById,
+                       setEventLastUpdate,
+                       lastUpdate,
                    }) => {
     return (
         <Layout location={location}>
@@ -395,6 +392,8 @@ const EventPage = ({
                 nowUtc={nowUtc}
                 location={location}
                 getEventById={getEventById}
+                setEventLastUpdate={setEventLastUpdate}
+                lastUpdate={lastUpdate}
             />
         </Layout>
     );
@@ -403,19 +402,23 @@ const EventPage = ({
 EventPage.propTypes = {
     loading: PropTypes.bool,
     event: PropTypes.object,
+    lastUpdate: PropTypes.object,
     eventId: PropTypes.string,
     user: PropTypes.object,
     eventsPhases: PropTypes.array,
     getEventById: PropTypes.func,
+    setEventLastUpdate: PropTypes.func,
 };
 
 EventPageTemplate.propTypes = {
     event: PropTypes.object,
+    lastUpdate: PropTypes.object,
     loading: PropTypes.bool,
     eventId: PropTypes.string,
     user: PropTypes.object,
     eventsPhases: PropTypes.array,
     getEventById: PropTypes.func,
+    setEventLastUpdate: PropTypes.func,
 };
 
 const mapStateToProps = ({eventState, summitState, userState, clockState}) => ({
@@ -425,8 +428,10 @@ const mapStateToProps = ({eventState, summitState, userState, clockState}) => ({
     summit: summitState.summit,
     eventsPhases: clockState.events_phases,
     nowUtc: clockState.nowUtc,
+    lastUpdate: eventState.lastUpdate,
 });
 
 export default connect(mapStateToProps, {
-    getEventById
+    getEventById,
+    setEventLastUpdate,
 })(EventPage);

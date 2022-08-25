@@ -16,10 +16,15 @@ import {LOGOUT_USER} from "openstack-uicore-foundation/lib/utils/actions";
 import moment from "moment-timezone";
 export const GET_EVENT_DATA = 'GET_EVENT_DATA';
 export const GET_EVENT_DATA_ERROR = 'GET_EVENT_DATA_ERROR';
+export const SET_EVENT_LAST_UPDATE = 'SET_EVENT_LAST_UPDATE';
 
 export const handleResetReducers = () => (dispatch) => {
     dispatch(createAction(LOGOUT_USER)({}));
 };
+
+export const setEventLastUpdate = (lastUpdate) => (dispatch) => {
+    dispatch(createAction(SET_EVENT_LAST_UPDATE)(lastUpdate));
+}
 
 /**
  *
