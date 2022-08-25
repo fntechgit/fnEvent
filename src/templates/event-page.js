@@ -107,9 +107,8 @@ export const EventPageTemplate = class extends React.Component {
                 })
                 .subscribe((status, e) => {
                     const visibilityState = document.visibilityState;
-                    console.log("EventPageTemplate::createRealTimeSubscription subscribe ", status, visibilityState);
+                    console.log("EventPageTemplate::createRealTimeSubscription subscribe ", status, e, visibilityState);
                     if (status === "SUBSCRIPTION_ERROR") {
-                        console.log("ventPageTemplate::createRealTimeSubscription SUBSCRIPTION_ERROR", e);
                         // init the RT cleaning process
                         this.clearRealTimeSubscription();
                         if (visibilityState  === "hidden") {
