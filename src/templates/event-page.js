@@ -137,7 +137,7 @@ export const EventPageTemplate = class extends React.Component {
             if (lastUpdateNovelty && event) {
                     lastUpdateNovelty = moment.utc(lastUpdateNovelty);
                     // then compare if the novelty date is greater than last edit date of the event
-                    if (lastUpdate === null || lastUpdateNovelty <= lastUpdate){
+                    if (lastUpdate !== null && lastUpdateNovelty <= lastUpdate){
                         // skip it
                         console.log("EventPageTemplate::checkForPastNovelties: skipping update", lastUpdateNovelty, lastUpdate)
                         return;
@@ -182,8 +182,10 @@ export const EventPageTemplate = class extends React.Component {
 
     componentDidMount() {
         const {eventId, event, summit, lastUpdate} = this.props;
-        if (parseInt(event?.id) !== parseInt(eventId))
+        if (parseInt(event?.id) !== parseInt(eventId)) {
+            this.props.setEventLastUpdate(null);
             this.props.getEventById(eventId);
+        }
 
         this.createRealTimeSubscription(summit, event, eventId, lastUpdate);
 
@@ -200,6 +202,7 @@ export const EventPageTemplate = class extends React.Component {
         const {eventId: prevEventId} = prevProps;
         // event id could come as param at uri
         if (parseInt(eventId) !== parseInt(prevEventId) || parseInt(event?.id) !== parseInt(eventId)) {
+            this.props.setEventLastUpdate(null);
             this.props.getEventById(eventId);
         }
     }
