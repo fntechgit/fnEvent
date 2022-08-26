@@ -5,7 +5,7 @@ userRequirement: HAS_TICKET
 ---
 #### **<br>QUICK LINKS**
 
-**<a href="https://rdc22.fnvirtual.app/a/schedule/" target="_blank" style="#00A3FF">RDC EVENTS SCHEDULE</a>**
+**<a href="https://rdc22.fnvirtual.app/a/schedule/" target="_blank">RDC EVENTS SCHEDULE</a>**
 
 **CAMPUS MAP**
 
