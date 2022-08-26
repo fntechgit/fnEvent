@@ -11,7 +11,7 @@ userRequirement: HAS_TICKET
 
 - - -
 
-##### **RDC LOCATION**
+##### **RDC Location**
 
 Fort Mason Center for Arts & Culture, 
 
@@ -29,13 +29,13 @@ PASS: imacreator
 
 <br>
 
-##### **LOST AND FOUND**
+##### **Lost and Found**
 
 Please visit the Registration/Check-in area in Gallery 308 for any lost items. Once RDC concludes, all items will be given to the Roblox security team (phone: XXX-XXX-XXXX).
 
 <br>
 
-##### **EMERGENCIES/SECURITY ISSUES**
+##### **Emergencies/Security Issues**
 
 For immediate support: Text or call: 424-431-8611 or flag down any event security personnel
 
