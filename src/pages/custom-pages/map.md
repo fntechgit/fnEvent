@@ -3,4 +3,4 @@ templateKey: custom-page
 title: Map
 userRequirement: NONE
 ---
-Check back on SEPT. 9 for event maps.
+Fort Mason Center map will be released Sept.9.
