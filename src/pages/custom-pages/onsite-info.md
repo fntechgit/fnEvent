@@ -5,9 +5,9 @@ userRequirement: HAS_TICKET
 ---
 ### Quick Links
 
-##### **<a href="https://rdc22.fnvirtual.app/a/schedule/" target="_blank">RDC Event Schedule</a>**
+##### <a href="https://rdc22.fnvirtual.app/a/schedule/" target="_blank">RDC Event Schedule</a>
 
-##### **<a href="https://rdc22.fnvirtual.app/map/" target="_blank">Event Center Map</a>**
+##### <a href="https://rdc22.fnvirtual.app/map/" target="_blank">Event Center Map</a>
 
 - - -
 
