@@ -11,31 +11,39 @@ userRequirement: HAS_TICKET
 
 - - -
 
-##### **RDC Location**
+### Event Venue 
 
-Fort Mason Center for Arts & Culture, 
+Fort Mason Center
 
-2 Marina Blvd, San Francisco, CA 94123
+2 Marina Blvd, San Francisco, CA 94109
 
-(415) 345-7500
+[See Google map here!](https://goo.gl/maps/mZda6yJsYYNsAwea6)
 
-<br>
 
-##### **WIFI**
+
+### **WIFI**
 
 SSID: RDC2022
 
 PASS: imacreator
 
-<br>
 
-##### **Lost and Found**
+
+### **Shuttle Schedule**
+
+Complimentary shuttles will be running on Sept. 9 and Sept. 10 from the Courtyard San Francisco Fisherman's Wharf, Hyatt Centric Fisherman's Wharf San Francisco, Kimpton Alton Hotel-Fisherman's Wharf, and SF Marriott Fisherman's Wharf to Fort Mason Center. 
+
+Timing for these shuttles will be available starting Sept. 8. 
+
+
+
+### **Lost and Found**
 
 Please visit the Registration/Check-in area in Gallery 308 for any lost items. Once RDC concludes, all items will be given to the Roblox security team (phone: XXX-XXX-XXXX).
 
-<br>
 
-##### **Emergencies/Security Issues**
+
+### **Emergencies/Security Issues**
 
 For immediate support: Text or call: 424-431-8611 or flag down any event security personnel
 
