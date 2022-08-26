@@ -7,7 +7,7 @@ userRequirement: HAS_TICKET
 
 **<a href="https://rdc22.fnvirtual.app/a/schedule/" target="_blank">RDC EVENTS SCHEDULE</a>**
 
-**CAMPUS MAP**
+**<a href="https://rdc22.fnvirtual.app/map/" target="_blank">EVENT CENTER MAP</a>**
 
 **<br><br>RDC LOCATION**
 
