@@ -3,7 +3,7 @@ templateKey: custom-page
 title: Onsite Info
 userRequirement: HAS_TICKET
 ---
-###### **<br>RDC Location**
+###### **<br>RDC LOCATION**
 
 Fort Mason Center for Arts & Culture, 
 
@@ -11,7 +11,7 @@ Fort Mason Center for Arts & Culture,
 
 (415) 345-7500
 
-<br><br>
+<br>
 
 ###### **WIFI**
 
@@ -19,23 +19,24 @@ SSID: RDC2022
 
 PASS: imacreator
 
-<br><br>
+<br>
 
-###### **[RDC Events Schedule](https://rdc22.fnvirtual.app/a/schedule/)**
+###### **[RDC EVENTS SCHEDULE](https://rdc22.fnvirtual.app/a/schedule/)**
 
-<br><br>
+<br>
 
-###### **Lost and Found**
+###### **MAPS**
+
+<br>
+
+###### **LOST AND FOUND**
 
 Please visit the Registration/Check-in area in Gallery 308 for any lost items. Once RDC concludes, all items will be given to the Roblox security team (phone: XXX-XXX-XXXX).
 
-<br><br>
+<br>
 
 ###### EMERGENCIES/SECURITY ISSUES
 
-
 For immediate support: Text or call: 424-431-8611 or flag down any event security personnel
-
-
 
 <br> <br>
