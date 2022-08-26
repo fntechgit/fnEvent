@@ -22,6 +22,37 @@
           "button": {
             "link": "https://www.guilded.gg/"
           }
+        },
+        {
+          "image": {
+            "file": "/img/rdc22-fnv-lobby-button-map.png",
+            "alt": ""
+          },
+          "button": {
+            "link": "/map"
+          },
+          "column": "left"
+        },
+        {
+          "image": {
+            "file": "/img/rdc22-fnv-lobby-button-robloxexperience.png",
+            "alt": ""
+          },
+          "column": "left"
+        },
+        {
+          "image": {
+            "file": "/img/rdc22-fnv-lobby-space-booth.png",
+            "alt": ""
+          },
+          "column": "left"
+        },
+        {
+          "image": {
+            "file": "/img/rdc22-fnv-lobby-space-ria.png",
+            "alt": ""
+          },
+          "column": "left"
         }
       ]
     }
