@@ -19,15 +19,11 @@ Fort Mason Center
 
 [See Google map here!](https://goo.gl/maps/mZda6yJsYYNsAwea6)
 
-
-
 ### **WIFI**
 
 SSID: RDC2022
 
 PASS: imacreator
-
-
 
 ### **Shuttle Schedule**
 
@@ -35,16 +31,12 @@ Complimentary shuttles will be running on Sept. 9 and Sept. 10 from the Courtyar
 
 Timing for these shuttles will be available starting Sept. 8. 
 
-
-
 ### **Lost and Found**
 
 Please visit the Registration/Check-in area in Gallery 308 for any lost items. Once RDC concludes, all items will be given to the Roblox security team (phone: XXX-XXX-XXXX).
 
-
-
 ### **Emergencies/Security Issues**
 
-For immediate support: Text or call: 424-431-8611 or flag down any event security personnel
+For immediate support: Text or call the number on the back of your badge, flag down any onsite event security personnel, or go to Check-in at Gallery 308 for assistance.
 
 <br> <br>
