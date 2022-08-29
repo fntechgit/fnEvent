@@ -41,8 +41,8 @@ const TalkComponent = class extends React.Component {
   }
 
   render() {
-
-    const { event: { start_date, end_date, speakers, title, description }, event, summit: { time_zone_id } } = this.props;
+    const { event, summit: { time_zone_id } } = this.props;
+    const { start_date, end_date, speakers, title, description, track } = event;
 
     return (
       <div className={`columns talk`}>
@@ -77,7 +77,9 @@ const TalkComponent = class extends React.Component {
                   {this.formatSpeakers(speakers)}
                 </span>
             }
-            <br />
+            <div className="talk__track">
+              <b>Track:</b> {track?.name}
+            </div>
             <div className="talk__description" dangerouslySetInnerHTML={{ __html: description }} />
           </div>
           <br />
