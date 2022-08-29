@@ -119,7 +119,8 @@
     "videojs-youtube": "^2.6.1",
     "what-input": "^5.2.10",
     "xmlhttprequest": "^1.8.0",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "@supabase/supabase-js": "^1.28.5"
   },
   "keywords": [
     "gatsby"
