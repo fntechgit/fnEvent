@@ -1,10 +1,11 @@
 import { START_LOADING, STOP_LOADING, LOGOUT_USER } from "openstack-uicore-foundation/lib/utils/actions";
-import { GET_EVENT_DATA, GET_EVENT_DATA_ERROR } from '../actions/event-actions'
+import { GET_EVENT_DATA, GET_EVENT_DATA_ERROR, SET_EVENT_LAST_UPDATE } from '../actions/event-actions'
 import {RESET_STATE, SYNC_DATA} from "../actions/base-actions";
 
 const DEFAULT_STATE = {
   loading: false,
   event: null,
+  lastUpdate: null
 };
 
 const eventReducer = (state = DEFAULT_STATE, action) => {
@@ -16,6 +17,9 @@ const eventReducer = (state = DEFAULT_STATE, action) => {
     case SYNC_DATA:
     {
       return DEFAULT_STATE;
+    }
+    case SET_EVENT_LAST_UPDATE:{
+      return {...state, lastUpdate: payload};
     }
     case START_LOADING:
       return { ...state, loading: true };
