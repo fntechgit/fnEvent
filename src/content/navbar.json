@@ -11,6 +11,16 @@
       "display": true
     },
     {
+      "title": "Home (switch on Thursday 4PM)",
+      "link": "/a/",
+      "display": false,
+      "requiresAuth": true,
+      "pageRestriction": [
+        "ANY"
+      ],
+      "showOnlyAtShowTime": true
+    },
+    {
       "title": "Schedule",
       "link": "/a/schedule/",
       "display": true,
@@ -29,10 +39,29 @@
       ]
     },
     {
+      "requiresAuth": true,
+      "showOnlyAtShowTime": true,
+      "pageRestriction": [
+        "ANY"
+      ],
+      "title": "Onsite Info (switch on Thursday 4PM)",
+      "link": "/onsite-info"
+    },
+    {
+      "requiresAuth": true,
+      "showOnlyAtShowTime": true,
+      "pageRestriction": [
+        "ANY"
+      ],
+      "title": "Map (switch on Thursday 4PM)",
+      "link": "/map"
+    },
+    {
       "requiresAuth": false,
       "showOnlyAtShowTime": false,
       "pageRestriction": [
-        "ANY"
+        "MARKETING",
+        "CUSTOM_PAGE"
       ],
       "title": "Travel",
       "link": "/travel-details/",
@@ -74,16 +103,8 @@
       "requiresAuth": true,
       "pageRestriction": [
         "ANY"
-      ]
-    },
-    {
-      "title": "Lobby",
-      "link": "/a/",
-      "display": false,
-      "requiresAuth": true,
-      "pageRestriction": [
-        "LOBBY"
-      ]
+      ],
+      "showOnlyAtShowTime": false
     }
   ]
 }
