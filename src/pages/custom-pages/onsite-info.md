@@ -27,7 +27,11 @@ PASS: imacreator
 
 ### **Shuttle Schedule**
 
-Complimentary shuttles will be running on Sept. 9 and Sept. 10 from the Courtyard San Francisco Fisherman's Wharf, Hyatt Centric Fisherman's Wharf San Francisco, Kimpton Alton Hotel-Fisherman's Wharf, and SF Marriott Fisherman's Wharf to Fort Mason Center. 
+Complimentary shuttles will be running on Sept. 9 and Sept. 10 from the Courtyard San Francisco Fisherman's Wharf, and from general pick-up poing for Hyatt Centric Fisherman's Wharf San Francisco, Kimpton Alton Hotel-Fisherman's Wharf, and SF Marriott Fisherman's Wharf to Fort Mason Center. 
+
+The general pick-up point for Hyatt Centric Fisherman's Wharf San Francisco, Kimpton Alton Hotel-Fisherman's Wharf, and SF Marriott Fisherman's Wharf will be located at 2701 Jones St. 
+
+The pick-up point for Courtyard San Francisco Fisherman's Wharf will be outside the lobby of the hotel. 
 
 Timing for these shuttles will be available starting Sept. 8. 
 
