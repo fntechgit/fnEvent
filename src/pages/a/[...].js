@@ -32,7 +32,12 @@ const App = ({ isLoggedUser, user, summit_phase, lastBuild, syncData }) => {
     <Location>
       {({ location }) => (
         <Router basepath="/a" >
-          <SchedulePage path="/schedule" location={location} schedKey="schedule-main" />
+          <SchedulePage
+            path="/schedule"
+            location={location}
+            schedKey="schedule-main"
+            scheduleProps={{ subtitle: <a href="/a/my-schedule">Show My Schedule</a> }}
+          />
           <WithAuthRoute path="/" isLoggedIn={isLoggedUser} location={location}>
             <MyTicketsPage path="/my-tickets" isLoggedIn={isLoggedUser} user={user} location={location} />
             <WithTicketRoute path="/extra-questions" location={location}>
@@ -42,7 +47,15 @@ const App = ({ isLoggedUser, user, summit_phase, lastBuild, syncData }) => {
                 <PostersPage path="/posters" trackGroupId={0} location={location} />
                 <PostersPage path="/posters/:trackGroupId" location={location} />
                 <PosterDetailPage path="/poster/:presentationId/" isLoggedIn={isLoggedUser} user={user} location={location} />
-                <SchedulePage path="/my-schedule" location={location} summit_phase={summit_phase} isLoggedIn={isLoggedUser} user={user} scheduleProps={{ title: 'My Schedule' }} schedKey="my-schedule-main" />
+                <SchedulePage
+                  path="/my-schedule"
+                  location={location}
+                  summit_phase={summit_phase}
+                  isLoggedIn={isLoggedUser}
+                  user={user}
+                  scheduleProps={{ title: 'My Schedule', showSync: true, subtitle: <a href="/a/schedule">Show Schedule</a> }}
+                  schedKey="my-schedule-main"
+                />
                 <FullProfilePage path="/profile" summit_phase={summit_phase} isLoggedIn={isLoggedUser} user={user} location={location} />
                 <ShowOpenRoute path="/" summit_phase={summit_phase} isLoggedIn={isLoggedUser} user={user} location={location}>
                   <WithBadgeRoute path="/event/:eventId" summit_phase={summit_phase} isLoggedIn={isLoggedUser} user={user} location={location}>
