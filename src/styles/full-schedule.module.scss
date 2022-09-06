@@ -11,6 +11,12 @@
       margin: 15px;
     }
 
+    :global(.widget-subtitle) {
+      a {
+        color: red;
+      }
+    }
+
     @media (max-width: 991px) {
       &.showFilters {
         .scheduleWrapper {
