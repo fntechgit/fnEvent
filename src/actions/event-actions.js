@@ -13,24 +13,41 @@ import {
 import {customErrorHandler} from '../utils/customErrorHandler';
 
 import {LOGOUT_USER} from "openstack-uicore-foundation/lib/utils/actions";
-
+import moment from "moment-timezone";
 export const GET_EVENT_DATA = 'GET_EVENT_DATA';
 export const GET_EVENT_DATA_ERROR = 'GET_EVENT_DATA_ERROR';
+export const SET_EVENT_LAST_UPDATE = 'SET_EVENT_LAST_UPDATE';
 
 export const handleResetReducers = () => (dispatch) => {
     dispatch(createAction(LOGOUT_USER)({}));
 };
 
-export const getEventById = (eventId) => async (dispatch, getState) => {
+export const setEventLastUpdate = (lastUpdate) => (dispatch) => {
+    dispatch(createAction(SET_EVENT_LAST_UPDATE)(lastUpdate));
+}
 
-    dispatch(startLoading());
+/**
+ *
+ * @param eventId
+ * @param checkLocal
+ * @returns {(function(*, *): Promise<*>)|*}
+ */
+export const getEventById = (
+    eventId,
+    { checkLocal = true, dispatchLoader = true } = {},
+) => async (dispatch, getState) => {
 
-    // if we have it on the reducer , provide that first
-    let {allSchedulesState: {allEvents}} = getState();
-    const event = allEvents.find(ev => ev.id === parseInt(eventId));
+    if (dispatchLoader)
+        dispatch(startLoading());
 
-    if (event) {
-        dispatch(createAction(GET_EVENT_DATA)({event}));
+    if (checkLocal) {
+        // if we have it on the reducer , provide that first
+        let {allSchedulesState: {allEvents}} = getState();
+        const event = allEvents.find(ev => ev.id === parseInt(eventId));
+
+        if (event) {
+            dispatch(createAction(GET_EVENT_DATA)({event}));
+        }
     }
 
     // then refresh from api
@@ -40,7 +57,8 @@ export const getEventById = (eventId) => async (dispatch, getState) => {
         accessToken = await getAccessToken();
     } catch (e) {
         console.log('getAccessToken error: ', e);
-        dispatch(stopLoading());
+        if (dispatchLoader)
+            dispatch(stopLoading());
         return Promise.reject();
     }
 
@@ -55,9 +73,11 @@ export const getEventById = (eventId) => async (dispatch, getState) => {
         `${window.SUMMIT_API_BASE_URL}/api/v1/summits/${window.SUMMIT_ID}/events/${eventId}/published`,
         customErrorHandler
     )(params)(dispatch).then(() => {
-        dispatch(stopLoading());
+        if (dispatchLoader)
+            dispatch(stopLoading());
     }).catch(e => {
-        dispatch(stopLoading());
+        if (dispatchLoader)
+            dispatch(stopLoading());
         dispatch(createAction(GET_EVENT_DATA_ERROR)(e));
         console.log('ERROR: ', e);
         clearAccessToken();
