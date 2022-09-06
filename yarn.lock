@@ -8339,10 +8339,10 @@ fsevents@~2.3.2:
   resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-2.3.2.tgz#8a526f78b8fdf4623b709e0b975c52c24c02fd1a"
   integrity sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==
 
-full-schedule-widget@^2.0.12:
-  version "2.0.12"
-  resolved "https://registry.yarnpkg.com/full-schedule-widget/-/full-schedule-widget-2.0.12.tgz#ced7da3a23455183ff964ad80149e5baf577843d"
-  integrity sha512-4VioSkDQ2s3zArjRCF8IxIzdZMcECK9M1ohgheQSU2e+EA0D999maCKh/HHZD9HcUvNvkOqEWqr9BlZ/tF4TKg==
+full-schedule-widget@^2.0.13:
+  version "2.0.13"
+  resolved "https://registry.yarnpkg.com/full-schedule-widget/-/full-schedule-widget-2.0.13.tgz#6073403c3e70eae1d2d14db36586c0738f2b0c27"
+  integrity sha512-oXT7Xm/svgVq5aAlAe2EOzf5A8SszTZsqL4evb/xlnG6NfbV4CwLvWsiPv1raRm1AD2AQ8wmylMAfs9HLgOXEQ==
   dependencies:
     bootstrap "^5.1.3"
     pure-react-carousel "^1.27.4"
