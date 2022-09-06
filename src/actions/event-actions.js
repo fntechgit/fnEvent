@@ -32,11 +32,15 @@ export const setEventLastUpdate = (lastUpdate) => (dispatch) => {
  * @param checkLocal
  * @returns {(function(*, *): Promise<*>)|*}
  */
-export const getEventById = (eventId, checkLocal = true) => async (dispatch, getState) => {
+export const getEventById = (
+    eventId,
+    { checkLocal = true, dispatchLoader = true } = {},
+) => async (dispatch, getState) => {
 
-    dispatch(startLoading());
+    if (dispatchLoader)
+        dispatch(startLoading());
 
-    if(checkLocal) {
+    if (checkLocal) {
         // if we have it on the reducer , provide that first
         let {allSchedulesState: {allEvents}} = getState();
         const event = allEvents.find(ev => ev.id === parseInt(eventId));
@@ -53,7 +57,8 @@ export const getEventById = (eventId, checkLocal = true) => async (dispatch, get
         accessToken = await getAccessToken();
     } catch (e) {
         console.log('getAccessToken error: ', e);
-        dispatch(stopLoading());
+        if (dispatchLoader)
+            dispatch(stopLoading());
         return Promise.reject();
     }
 
@@ -68,9 +73,11 @@ export const getEventById = (eventId, checkLocal = true) => async (dispatch, get
         `${window.SUMMIT_API_BASE_URL}/api/v1/summits/${window.SUMMIT_ID}/events/${eventId}/published`,
         customErrorHandler
     )(params)(dispatch).then(() => {
-        dispatch(stopLoading());
+        if (dispatchLoader)
+            dispatch(stopLoading());
     }).catch(e => {
-        dispatch(stopLoading());
+        if (dispatchLoader)
+            dispatch(stopLoading());
         dispatch(createAction(GET_EVENT_DATA_ERROR)(e));
         console.log('ERROR: ', e);
         clearAccessToken();
