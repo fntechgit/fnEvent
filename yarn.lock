@@ -7717,6 +7717,13 @@ event-emitter@^0.3.5:
     d "1"
     es5-ext "~0.10.14"
 
+event-feedback-widget@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/event-feedback-widget/-/event-feedback-widget-1.0.1.tgz#5eb1be3ee2a57a7744172fd2f8013f3210ba6983"
+  integrity sha512-dhoAWLYwohWg+/oEVvC4g784qvvCLbUILpxxz0yU+YZpFqIbiGn9xWPgDC7UrKePckU/GF/c0FuWlVmcMQX3ZQ==
+  dependencies:
+    svg-url-loader "^7.1.1"
+
 event-source-polyfill@1.0.25:
   version "1.0.25"
   resolved "https://registry.yarnpkg.com/event-source-polyfill/-/event-source-polyfill-1.0.25.tgz#d8bb7f99cb6f8119c2baf086d9f6ee0514b6d9c8"
@@ -14967,6 +14974,11 @@ react-star-ratings@^2.3.0:
     classnames "^2.2.1"
     prop-types "^15.6.0"
     react "^16.1.0"
+
+react-stars@^2.2.5:
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/react-stars/-/react-stars-2.2.5.tgz#911852018e1574a0f9a2c1dfa4f0bc9af071b921"
+  integrity sha512-O//KS6Z9RZnUOU/r+3+wxCzNalVn/wEWIcbAQFRV3dw8WbV+ys/kgcpBPijqTiNpHGrcwZdtb/7wF/UVem20CQ==
 
 react-style-proptype@^3.2.2:
   version "3.2.2"
