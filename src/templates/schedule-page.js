@@ -11,9 +11,9 @@ import AccessTracker from "../components/AttendeeToAttendeeWidgetComponent";
 import { PageScrollInspector, SCROLL_DIRECTION } from '../components/PageScrollInspector';
 import { PHASES } from "../utils/phasesUtils";
 import FilterButton from "../components/FilterButton";
-import styles from "../styles/full-schedule.module.scss";
 import NotFoundPage from "../pages/404";
 import withScheduleData from '../utils/withScheduleData'
+import styles from "../styles/full-schedule.module.scss";
 
 const SchedulePage = ({ summit, scheduleState, summitPhase, isLoggedUser, location, colorSettings, updateFilter, scheduleProps, schedKey }) => {
 
