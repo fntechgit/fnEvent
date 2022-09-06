@@ -37,7 +37,7 @@ Timing for these shuttles will be available starting Sept. 8.
 
 ### **Lost and Found**
 
-Please visit the Registration/Check-in area in Gallery 308 for any lost items. Once RDC concludes, all items will be given to the Roblox security team (phone: XXX-XXX-XXXX).
+Please visit the Registration/Check-in area in Gallery 308 for any lost items. Once RDC concludes, all items will be given to the Roblox security team and will be available for pick up at Roblox HQ. 
 
 ### **Emergencies/Security Issues**
 
