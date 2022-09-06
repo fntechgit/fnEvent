@@ -15903,10 +15903,10 @@ saxes@^5.0.1:
   dependencies:
     xmlchars "^2.2.0"
 
-schedule-filter-widget@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/schedule-filter-widget/-/schedule-filter-widget-2.0.0.tgz#b9d66a77f46d1282e4632f505566b1d234df69a8"
-  integrity sha512-osjlmMcltrc1Lq7nbokebjUQbi6G74EEXNxEgwpu9p6nv4BQ7t4LcNj4Bnj4Cv1ZnIIZ6ioRJsZE6nR59PyzEg==
+schedule-filter-widget@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/schedule-filter-widget/-/schedule-filter-widget-2.0.1.tgz#d5787a74f8183697f173c9cad7b21ad2fc1bfb64"
+  integrity sha512-8Tn0zIeIlmrolnC8fxDpKjuGZvh7ykcC8E8VsMl4xxzSKunge3sdyZ5oqYASLhJgzWV0pjPWcfbixvVhSjYoPg==
   dependencies:
     react-spring "^9.1.2"
     react-use "^17.2.4"
@@ -17958,10 +17958,10 @@ unquote@~1.1.1:
   resolved "https://registry.yarnpkg.com/unquote/-/unquote-1.1.1.tgz#8fded7324ec6e88a0ff8b905e7c098cdc086d544"
   integrity sha1-j97XMk7G6IoP+LkF58CYzcCG1UQ=
 
-upcoming-events-widget@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/upcoming-events-widget/-/upcoming-events-widget-2.0.1.tgz#fa326f87118a9b224748853145da8a231a64b1f1"
-  integrity sha512-6LPcWqz5QsOWsosSW8uga0k4O21wV0hDLN+7yNXUhbLoV/xsLvFhnKVDrse6OGe4BcQKIgGQUXEWZFpa9jUa6w==
+upcoming-events-widget@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/upcoming-events-widget/-/upcoming-events-widget-2.0.2.tgz#ef73ee50979dacce9c033efa43ee673efca29242"
+  integrity sha512-4wDuJnSq/ZzjrPkFcJQm+5GxEstdb/AXIxXoMkVMjrQhuaDGy9u1GlHU4x807a04M/t9KrnbS1oUzjX0yaj1Sw==
   dependencies:
     pure-react-carousel "^1.27.4"
 
