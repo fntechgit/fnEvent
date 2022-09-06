@@ -18,6 +18,7 @@ import UpcomingEventsComponent from "../components/UpcomingEventsComponent";
 import Link from "../components/Link";
 import AccessTracker, {AttendeesWidget} from "../components/AttendeeToAttendeeWidgetComponent"
 import AttendanceTrackerComponent from "../components/AttendanceTrackerComponent";
+import EventFeedbackComponent from '../components/EventFeedbackComponent'
 import {PHASES} from '../utils/phasesUtils';
 import { getEventById, setEventLastUpdate } from "../actions/event-actions";
 import URI from "urijs"
@@ -319,6 +320,11 @@ export const EventPageTemplate = class extends React.Component {
                                     summit={summit}
                                 />
                             </div>
+                            { event.allow_feedback &&
+                              <div className="px-5 py-5">
+                                <EventFeedbackComponent eventId={event.id} />
+                              </div>
+                            }
                             <div className="px-5 py-0">
                                 <SponsorComponent page="event"/>
                             </div>
