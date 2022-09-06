@@ -38,7 +38,10 @@
             "file": "/img/rdc22-fnv-lobby-button-robloxexperience.png",
             "alt": ""
           },
-          "column": "left"
+          "column": "left",
+          "button": {
+            "link": "https://www.roblox.com/games/10767940743/RDC-2022"
+          }
         },
         {
           "image": {
