@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import {navigate} from "gatsby";
 import {connect} from "react-redux";
+import { isEqual } from "lodash";
 import Layout from "../components/Layout";
 import DisqusComponent from "../components/DisqusComponent";
 import AdvertiseComponent from "../components/AdvertiseComponent";
@@ -94,7 +95,7 @@ export const EventPageTemplate = class extends React.Component {
                     let {new: update} = payload;
                     if (update.entity_type === 'Presentation' && parseInt(update.entity_id) == parseInt(eventId)) {
                         this.props.setEventLastUpdate(moment.utc(update.created_at));
-                        this.props.getEventById(eventId, false);
+                        this.props.getEventById(eventId, { checkLocal: false, dispatchLoader: false });
                     }
                 })
                 .on('UPDATE', (payload) => {
@@ -102,7 +103,7 @@ export const EventPageTemplate = class extends React.Component {
                     let {new: update} = payload;
                     if (update.entity_type === 'Presentation' && parseInt(update.entity_id) == parseInt(eventId)) {
                         this.props.setEventLastUpdate(moment.utc(update.created_at));
-                        this.props.getEventById(eventId, false);
+                        this.props.getEventById(eventId, { checkLocal: false, dispatchLoader: false });
                     }
                 })
                 .subscribe((status, e) => {
@@ -150,7 +151,7 @@ export const EventPageTemplate = class extends React.Component {
             }
             console.log("EventPageTemplate::checkForPastNovelties: doing update");
             this.props.setEventLastUpdate(lastUpdateNovelty);
-            this.props.getEventById(eventId, false);
+            this.props.getEventById(eventId, { checkLocal: false, dispatchLoader: false });
 
         }).catch((err) => console.log(err));
     }
@@ -220,10 +221,9 @@ export const EventPageTemplate = class extends React.Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        const {loading, eventId, event, eventsPhases} = this.props;
-        if (loading !== nextProps.loading) return true;
+        const {eventId, event, eventsPhases} = this.props;
         if (eventId !== nextProps.eventId) return true;
-        if (event?.id !== nextProps.event?.id) return true;
+        if (!isEqual(event, nextProps.event)) return true;
         // compare current event phase with next one
         const currentPhase = eventsPhases.find((e) => parseInt(e.id) === parseInt(eventId))?.phase;
         const nextCurrentPhase = nextProps.eventsPhases.find(
