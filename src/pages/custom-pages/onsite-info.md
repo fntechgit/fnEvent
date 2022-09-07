@@ -13,17 +13,11 @@ userRequirement: HAS_TICKET
 
 ### Event Venue 
 
-Fort Mason Center
-
-2 Marina Blvd, San Francisco, CA 94109
-
-[See Google map here!](https://goo.gl/maps/mZda6yJsYYNsAwea6)
+Fort Mason Center <br> 2 Marina Blvd, San Francisco, CA 94109 <br> [See Google map here!](https://goo.gl/maps/mZda6yJsYYNsAwea6)
 
 ### **WIFI**
 
-SSID: RDC2022
-
-PASS: imacreator
+SSID: RDC2022 <br> PASS: imacreator
 
 ### **Shuttle Schedule**
 
