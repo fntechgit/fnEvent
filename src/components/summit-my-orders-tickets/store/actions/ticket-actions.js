@@ -77,7 +77,7 @@ export const getUserTickets = ({ page = 1, perPage = 5 }) => async (dispatch, ge
         access_token: accessToken,
         expand: 'order, owner, owner.extra_questions, order, badge, badge.features, refund_requests',
         order: '-id',
-        'filter[]': [`status==Confirmed,status==Paid,status==Error`, `order_owner_id<>${userProfile.id}`],
+        'filter[]': [`status==Paid`, `order_owner_id<>${userProfile.id}`],
         page: page,
         per_page: perPage,
     };
