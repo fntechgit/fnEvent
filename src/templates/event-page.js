@@ -7,7 +7,7 @@ import Layout from "../components/Layout";
 import DisqusComponent from "../components/DisqusComponent";
 import AdvertiseComponent from "../components/AdvertiseComponent";
 import Etherpad from "../components/Etherpad";
-import VideoComponent from "../components/VideoComponent";
+import { MemoizedVideoComponent as VideoComponent } from '../components/VideoComponent';
 import TalkComponent from "../components/TalkComponent";
 import DocumentsComponent from "../components/DocumentsComponent";
 import VideoBanner from "../components/VideoBanner";
