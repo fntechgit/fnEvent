@@ -33,7 +33,14 @@ The general pick-up point for Hyatt Centric Fisherman's Wharf San Francisco, Kim
 
 The pick-up point for Courtyard San Francisco Fisherman's Wharf will be outside the lobby of the hotel. 
 
-Timing for these shuttles will be available starting Sept. 8. 
+Thursday, September 8\
+**From Hotels:** beginning at 3:45pm <br> **From Fort Mason Center:** beginning at 7:15pm
+
+Friday, September 9\
+**From Hotels:** beginning at 7:45am <br> **Last shuttle from Fort Mason Center:** beginning at 6:15pm
+
+Saturday, September 10\
+**From Hotels:** beginning at 7:45am <br> **Last shuttle from Fort Mason Center:** 10:15pm
 
 ### **Lost and Found**
 
