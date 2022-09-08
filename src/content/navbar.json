@@ -1,19 +1,9 @@
 {
   "items": [
     {
-      "requiresAuth": false,
-      "showOnlyAtShowTime": false,
-      "pageRestriction": [
-        "ANY"
-      ],
       "title": "Home",
-      "link": "/",
-      "display": true
-    },
-    {
-      "title": "Home (switch on Thursday 4PM)",
       "link": "/a/",
-      "display": false,
+      "display": true,
       "requiresAuth": true,
       "pageRestriction": [
         "ANY"
@@ -44,8 +34,9 @@
       "pageRestriction": [
         "ANY"
       ],
-      "title": "Onsite Info (switch on Thursday 4PM)",
-      "link": "/onsite-info"
+      "title": "Onsite Info",
+      "link": "/onsite-info",
+      "display": true
     },
     {
       "requiresAuth": true,
@@ -53,8 +44,9 @@
       "pageRestriction": [
         "ANY"
       ],
-      "title": "Map (switch on Thursday 4PM)",
-      "link": "/map"
+      "title": "Map",
+      "link": "/map",
+      "display": true
     },
     {
       "requiresAuth": false,
