@@ -2,7 +2,7 @@
   "items": [
     {
       "title": "Home",
-      "link": "/",
+      "link": "/a/",
       "display": true,
       "requiresAuth": true,
       "pageRestriction": [
