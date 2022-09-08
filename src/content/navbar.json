@@ -2,13 +2,13 @@
   "items": [
     {
       "title": "Home",
-      "link": "/a/",
+      "link": "/",
       "display": true,
       "requiresAuth": true,
       "pageRestriction": [
         "ANY"
       ],
-      "showOnlyAtShowTime": true
+      "showOnlyAtShowTime": false
     },
     {
       "title": "Schedule",
