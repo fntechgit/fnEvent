@@ -7718,10 +7718,10 @@ event-emitter@^0.3.5:
     d "1"
     es5-ext "~0.10.14"
 
-event-feedback-widget@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/event-feedback-widget/-/event-feedback-widget-1.0.1.tgz#5eb1be3ee2a57a7744172fd2f8013f3210ba6983"
-  integrity sha512-dhoAWLYwohWg+/oEVvC4g784qvvCLbUILpxxz0yU+YZpFqIbiGn9xWPgDC7UrKePckU/GF/c0FuWlVmcMQX3ZQ==
+event-feedback-widget@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/event-feedback-widget/-/event-feedback-widget-1.0.2.tgz#bd7c9909472b7383520c86cdae68057e84fb1872"
+  integrity sha512-GtVE99Blg9X+nG3unm95BV8nLhpjyVNrCqgnAwH03cBxOYzZOpWNBLqtQIs8U2bpueWiHSGIVscENkZqKsn0cw==
   dependencies:
     svg-url-loader "^7.1.1"
 
