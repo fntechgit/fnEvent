@@ -119,7 +119,7 @@ export const EventPageTemplate = class extends React.Component {
                             return;
                         }
                         // if we are on visible state, then restart the RT
-                        window.setTimeout(() => {this.createRealTimeSubscription(summit, event, eventId, lastUpdate)}, 1000);
+                        // window.setTimeout(() => {this.createRealTimeSubscription(summit, event, eventId, lastUpdate)}, 1000);
                     }
                     if (status === "SUBSCRIBED") {
                         // RELOAD
@@ -129,6 +129,9 @@ export const EventPageTemplate = class extends React.Component {
                         }
                     }
                 })
+                if(event && eventId) {
+                    this._checkForPastNoveltiesDebounced(summit.id, event, eventId, lastUpdate);
+                }
         }
         catch (e){
             console.log("EventPageTemplate::createRealTimeSubscription ERROR");
