@@ -353,6 +353,21 @@ h2 {
   margin: 0 0 15px;
 }
 
+div.event-feedback-container {
+  margin: 0 0 15px;
+
+  div.widget-title {
+    margin-bottom: 10px !important;
+    position: relative;
+    text-align: center;
+
+    @media (min-width: 768px) {
+      margin-bottom: 0 !important;
+      bottom: -38px;
+    }
+  }
+}
+
 .disqus-container {
   padding: 0 15px;
 }
