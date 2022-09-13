@@ -7,10 +7,10 @@ import {getEnvVariable, SUMMIT_API_BASE_URL} from "../utils/envVariables";
 import EventFeedbackWidget from 'event-feedback-widget/dist/index.js';
 import 'event-feedback-widget/dist/index.css';
 
-const EventFeedbackComponent = ({eventId, summit, user, colorSettings, className = 'live-event-container'}) => {
+const EventFeedbackComponent = ({eventId, summit, user, colorSettings, className = 'event-feedback-container'}) => {
 
   const widgetProps = {
-    title: "",
+    title: "Rate this session",
     summitId: summit.id,
     eventId,
     userId: user.id,
@@ -18,8 +18,6 @@ const EventFeedbackComponent = ({eventId, summit, user, colorSettings, className
     getAccessToken: getAccessToken,
     apiBaseUrl: getEnvVariable(SUMMIT_API_BASE_URL),
   };
-
-  console.log(user);
 
   return (
     <div className={className}>
