@@ -31,6 +31,7 @@ import {
 import moment from "moment-timezone";
 import _ from 'lodash';
 const CHECK_FOR_NOVELTIES_DELAY = 2000;
+const MAX_SUBSCRIPTION_RETRY = 3;
 
 export const EventPageTemplate = class extends React.Component {
 
@@ -40,6 +41,8 @@ export const EventPageTemplate = class extends React.Component {
         // attributes
         this._subscription = null;
         this._subscriptionError = false;
+        this._retrySubscriptionCounter = 0;
+
         try {
             this._supabase = SupabaseClientBuilder.getClient(getEnvVariable(SUPABASE_URL), getEnvVariable(SUPABASE_KEY));
         }
@@ -118,10 +121,18 @@ export const EventPageTemplate = class extends React.Component {
                             this._subscriptionError = true
                             return;
                         }
-                        // if we are on visible state, then restart the RT
-                        window.setTimeout(() => {this.createRealTimeSubscription(summit, event, eventId, lastUpdate)}, 1000);
+                        // do exponential back off on retries
+                        if(this._retrySubscriptionCounter < MAX_SUBSCRIPTION_RETRY) {
+                            ++this._retrySubscriptionCounter;
+                            // if we are on visible state, then restart the RT
+                            window.setTimeout(() => {
+                                this.createRealTimeSubscription(summit, event, eventId, lastUpdate)
+                            }, 2 **  this._retrySubscriptionCounter  * 1000);
+                        }
                     }
                     if (status === "SUBSCRIBED") {
+                        // reset counter
+                        this._retrySubscriptionCounter = 0;
                         // RELOAD
                         // check on demand ( just in case that we missed some Real time update )
                         if(event && eventId) {
@@ -129,6 +140,10 @@ export const EventPageTemplate = class extends React.Component {
                         }
                     }
                 })
+            // always check for novelty
+            if(event && eventId) {
+                this._checkForPastNoveltiesDebounced(summit.id, event, eventId, lastUpdate);
+            }
         }
         catch (e){
             console.log("EventPageTemplate::createRealTimeSubscription ERROR");
@@ -142,13 +157,13 @@ export const EventPageTemplate = class extends React.Component {
             if(!res) return;
             let {created_at: lastUpdateNovelty} = res;
             if (lastUpdateNovelty && event) {
-                    lastUpdateNovelty = moment.utc(lastUpdateNovelty);
-                    // then compare if the novelty date is greater than last edit date of the event
-                    if (lastUpdate !== null && lastUpdateNovelty <= lastUpdate){
-                        // skip it
-                        console.log("EventPageTemplate::checkForPastNovelties: skipping update", lastUpdateNovelty, lastUpdate)
-                        return;
-                    }
+                lastUpdateNovelty = moment.utc(lastUpdateNovelty);
+                // then compare if the novelty date is greater than last edit date of the event
+                if (lastUpdate !== null && lastUpdateNovelty <= lastUpdate){
+                    // skip it
+                    console.log("EventPageTemplate::checkForPastNovelties: skipping update", lastUpdateNovelty, lastUpdate)
+                    return;
+                }
             }
             console.log("EventPageTemplate::checkForPastNovelties: doing update");
             this.props.setEventLastUpdate(lastUpdateNovelty);
@@ -321,9 +336,9 @@ export const EventPageTemplate = class extends React.Component {
                                 />
                             </div>
                             { event.allow_feedback &&
-                              <div className="px-5 py-5">
-                                <EventFeedbackComponent eventId={event.id} />
-                              </div>
+                                <div className="px-5 py-5">
+                                    <EventFeedbackComponent eventId={event.id} />
+                                </div>
                             }
                             <div className="px-5 py-0">
                                 <SponsorComponent page="event"/>
