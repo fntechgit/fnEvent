@@ -1,6 +1,6 @@
 import React from "react"
 import { useDispatch, useSelector } from 'react-redux';
-import { Pagination } from 'react-bootstrap';
+import Pager from '../../../Pager/index';
 import { useTranslation } from "react-i18next";
 import classNames from 'classnames';
 import { getUserOrders } from "../../store/actions/order-actions";
@@ -41,20 +41,16 @@ export const OrderList = ({ className }) => {
 
             {hasMultiplePages && (
                 <div className="order-list__pagination">
+                    
                     <div className="row">
                         <div className="col-md-8">
-                            <Pagination
-                                bsSize="medium"
-                                prev
-                                next
-                                first
-                                last
-                                ellipsis
-                                boundaryLinks
-                                maxButtons={5}
-                                items={lastPage}
-                                activePage={currentPage}
-                                onSelect={handlePageChange}
+                            <Pager
+                                totPages={lastPage}
+                                currentPage={currentPage}
+                                items={orders}
+                                pageClicked={(ele) => {
+                                    handlePageChange(ele);
+                                }}
                             />
                         </div>
                     </div>
