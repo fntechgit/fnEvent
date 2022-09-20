@@ -7,6 +7,7 @@
     "@ncwidgets/file-relation": "^0.8.0",
     "@ncwidgets/id": "^0.8.1",
     "@react-spring/web": "^9.4.3",
+    "@supabase/supabase-js": "^1.28.5",
     "@types/googlemaps": "^3.39.9",
     "@types/markerclustererplus": "^2.1.33",
     "@types/react": "^16.9.42",
@@ -88,8 +89,8 @@
     "react-rte": "^0.16.3",
     "react-select": "^2.4.4",
     "react-slick": "^0.27.0",
-    "react-stars": "^2.2.5",
     "react-star-ratings": "^2.3.0",
+    "react-stars": "^2.2.5",
     "react-tabs": "^3.0.0",
     "react-tooltip": "^3.11.6",
     "react-transition-group": "^4.4.2",
@@ -104,6 +105,7 @@
     "simple-oauth2": "^4.1.0",
     "slick-carousel": "^1.8.1",
     "smoothscroll-polyfill": "^0.4.4",
+    "socket.io-client": "^4.5.2",
     "speakers-widget": "3.0.2",
     "stream-browserify": "^3.0.0",
     "stream-chat": "^2.7.2",
@@ -121,8 +123,7 @@
     "videojs-youtube": "^2.6.1",
     "what-input": "^5.2.10",
     "xmlhttprequest": "^1.8.0",
-    "yup": "^0.32.11",
-    "@supabase/supabase-js": "^1.28.5"
+    "yup": "^0.32.11"
   },
   "keywords": [
     "gatsby"
