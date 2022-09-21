@@ -1,1 +1,15 @@
-{"favicon":"/img/favicon.png","widgets":{"chat":{"showQA":false,"showHelp":false}},"lastBuild":1663788899751,"favicons":{"favicon180":"/img/ocpglo22-fnv-favicon-180.png","favicon32":"/img/ocpglo22-fnv-favicon-32.png","favicon16":"/img/ocpglo22-fnv-favicon-16.png"}}
+{
+  "favicon": "/img/favicon.png",
+  "widgets": {
+    "chat": {
+      "showQA": false,
+      "showHelp": false
+    }
+  },
+  "lastBuild": 1654094591029,
+  "favicons": {
+    "favicon180": "/img/ocpglo22-fnv-favicon-180.png",
+    "favicon32": "/img/ocpglo22-fnv-favicon-32.png",
+    "favicon16": "/img/ocpglo22-fnv-favicon-16.png"
+  }
+}

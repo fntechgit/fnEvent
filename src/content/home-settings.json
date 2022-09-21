@@ -1,1 +1,17 @@
-{"centerColumn":{"schedule":{"showAllEvents":false},"speakers":{"showTodaySpeakers":true,"showFeatureSpeakers":false}},"homeHero":{"title":"OCP Global Summit 2022","subTitle":"EMPOWERING OPEN.","image":"/img/tier1-default-lobby-header1.png","copy":""}}
+{
+  "centerColumn": {
+    "schedule": {
+      "showAllEvents": false
+    },
+    "speakers": {
+      "showTodaySpeakers": true,
+      "showFeatureSpeakers": false
+    }
+  },
+  "homeHero": {
+    "title": "OCP Global Summit 2022",
+    "subTitle": "EMPOWERING OPEN.",
+    "image": "/img/tier1-default-lobby-header1.png",
+    "copy": ""
+  }
+}

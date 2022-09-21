@@ -1,1 +1,80 @@
-{"heroBanner":{"title":"2022 OCP Global Summit","subTitle":"Empowering Open.","date":"October 18–20, 2022 ","time":"","dateLayout":false,"buttons":{"registerButton":{"text":"Register now","display":true},"loginButton":{"text":"Log in","display":true}},"background":"","images":[{"file":"/img/ocpglo22-fnv-marketing-header1-v2.png","alt":""}]},"leftColumn":{"schedule":{"display":false,"title":""},"disqus":{"display":false,"title":"Join the conversation"},"image":{"display":true,"title":"","src":"/img/ocpglo22-fnv-hlsched-080422-v2.png"}},"sponsors":[{"title":"Mid Left","images":[{"image":"/img/ocpglo22-fnv-marketing-space3_v2.png","alt":"","link":"https://www.opencompute.org/membership/how-to-join"}],"size":1},{"title":"Top Left","images":[{"image":"/img/ocpglo22-fnv-marketing-space1_v2.png","link":"https://www.opencompute.org/summit/regional-summit","alt":""}],"size":1},{"title":"Top Right","images":[{"image":"/img/ocpglo22-fnv-marketing-space3_v3.png","link":"https://2022ocpglobal.fnvirtual.app/travel","alt":""}],"size":1},{"images":[{"image":"/img/ocpglo22-fnv-marketing-space4_v3.png","alt":"","link":"https://www.opencompute.org/events/past-events/2021-ocp-global-summit"}],"size":1}],"countdown":{"display":true,"text":"EVENT COUNTDOWN"},"registration_in_person_disclaimer":""}
+{
+  "heroBanner": {
+    "title": "2022 OCP Global Summit",
+    "subTitle": "Empowering Open.",
+    "date": "October 18–20, 2022 ",
+    "time": "",
+    "dateLayout": false,
+    "buttons": {
+      "registerButton": {
+        "text": "Register now",
+        "display": true
+      },
+      "loginButton": {
+        "text": "Log in",
+        "display": true
+      }
+    },
+    "background": "",
+    "images": [{
+      "file": "/img/ocpglo22-fnv-marketing-header1-v2.png",
+      "alt": ""
+    }]
+  },
+  "leftColumn": {
+    "schedule": {
+      "display": false,
+      "title": ""
+    },
+    "disqus": {
+      "display": false,
+      "title": "Join the conversation"
+    },
+    "image": {
+      "display": true,
+      "title": "",
+      "src": "/img/ocpglo22-fnv-hlsched-080422-v2.png"
+    }
+  },
+  "sponsors": [{
+      "title": "Mid Left",
+      "images": [{
+        "image": "/img/ocpglo22-fnv-marketing-space3_v2.png",
+        "alt": "",
+        "link": "https://www.opencompute.org/membership/how-to-join"
+      }],
+      "size": 1
+    },
+    {
+      "title": "Top Left",
+      "images": [{
+        "image": "/img/ocpglo22-fnv-marketing-space1_v2.png",
+        "link": "https://www.opencompute.org/summit/regional-summit",
+        "alt": ""
+      }],
+      "size": 1
+    },
+    {
+      "title": "Top Right",
+      "images": [{
+        "image": "/img/ocpglo22-fnv-marketing-space3_v3.png",
+        "link": "https://2022ocpglobal.fnvirtual.app/travel",
+        "alt": ""
+      }],
+      "size": 1
+    },
+    {
+      "images": [{
+        "image": "/img/ocpglo22-fnv-marketing-space4_v3.png",
+        "alt": "",
+        "link": "https://www.opencompute.org/events/past-events/2021-ocp-global-summit"
+      }],
+      "size": 1
+    }
+  ],
+  "countdown": {
+    "display": true,
+    "text": "EVENT COUNTDOWN"
+  },
+  "registration_in_person_disclaimer": ""
+}
