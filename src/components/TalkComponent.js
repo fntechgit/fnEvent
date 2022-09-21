@@ -20,7 +20,7 @@ const TalkComponent = class extends React.Component {
     return dateNice;
   }
 
-  formatSpeakers(speakers) {
+  formatSpeakers(speakers, moderator) {
     let formatedSpeakers = '';
     if (speakers && speakers.length > 0) {
       speakers.forEach((speaker, index) => {
@@ -28,6 +28,9 @@ const TalkComponent = class extends React.Component {
         if (speakers.length > index + 2) formatedSpeakers += ', ';
         if (speakers.length - 2 === index) formatedSpeakers += ' & ';
       });
+    }
+    if (moderator) {
+      formatedSpeakers += `. ${moderator.first_name} ${moderator.last_name}`;
     }
     return formatedSpeakers;
   }
@@ -42,7 +45,7 @@ const TalkComponent = class extends React.Component {
 
   render() {
     const { event, summit: { time_zone_id } } = this.props;
-    const { start_date, end_date, speakers, title, description, track } = event;
+    const { start_date, end_date, speakers, title, description, track, moderator = null } = event;
 
     return (
       <div className={`columns talk`}>
@@ -71,10 +74,21 @@ const TalkComponent = class extends React.Component {
                     )
                   })
                   }
+                  {moderator && 
+                    <div className="column is-one-third-desktop is-half-mobile talk__moderator-container">
+                      <img alt="" src={moderator.pic} />
+                      <div>
+                        {`${moderator.first_name} ${moderator.last_name}`}
+                        <br />
+                        {moderator.title && <b dangerouslySetInnerHTML={{ __html: moderator.title }} />}
+                        {moderator.company && <><b> - </b><b dangerouslySetInnerHTML={{ __html: moderator.company }} /></>}
+                      </div>
+                    </div>
+                  }
                 </div>
                 :
                 <span className="talk__speaker--name">
-                  {this.formatSpeakers(speakers)}
+                  {this.formatSpeakers(speakers, moderator)}
                 </span>
             }
             <div className="talk__track">
