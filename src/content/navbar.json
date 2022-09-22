@@ -29,6 +29,15 @@
       ]
     },
     {
+      "requiresAuth": false,
+      "showOnlyAtShowTime": true,
+      "pageRestriction": [
+        "ANY"
+      ],
+      "title": "MAP (turn on for show only! 10/18)",
+      "link": "/map"
+    },
+    {
       "title": "SCHEDULE",
       "link": "/a/schedule",
       "display": true,
