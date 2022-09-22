@@ -2,19 +2,20 @@
 @import './global-classes';
 
 @font-face {
-  font-family: FranklinGothic;
-  src: url("../../static/fonts/FranklinGothicURW-Boo.woff") format("woff"), url("../../static/fonts/FranklinGothicURW-Boo.woff2") format("woff2");
+  font-family: 'FranklinGothic';
+  src: url("../../static/fonts/FranklinGothicURW-Boo.woff");
+  font-weight: normal;
 }
 
 @font-face {
-  font-family: FranklinGothic;
-  src: url("../../static/fonts/FranklinGothicURW-Med.woff") format("woff"), url("../../static/fonts/FranklinGothicURW-Med.woff2"), format("woff2");
+  font-family: 'FranklinGothic';
   font-weight: bold;
+  src: url("../../static/fonts/FranklinGothicURW-Med.woff");
 }
 
 html,
 body {
-  font-family: "FranklinGothic", sans-serif !important;
+  font-family: FranklinGothic, sans-serif !important;
   margin: 0;
   padding: 0;
   height: 100%;

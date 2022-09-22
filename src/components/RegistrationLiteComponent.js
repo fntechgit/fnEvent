@@ -145,7 +145,7 @@ const RegistrationLiteComponent = ({
         allowsOtpAuth: allowsOtpAuth,
         stripeOptions: {
             fonts: [{ cssSrc: withPrefix('/fonts/fonts.css') }],
-            style: { base: { fontFamily: `'FranklinGothic', sans-serif`, fontWeight: 300 } }
+            style: { base: { fontFamily: `'FranklinGothicURW', sans-serif`, fontWeight: 300 } }
         }
     };
 

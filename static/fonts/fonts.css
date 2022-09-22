@@ -1,6 +1,6 @@
 /* FranklinGothic-300 - latin */
 @font-face {
-  font-family: "FranklinGothic";
+  font-family: "FranklinGothicURW";
   font-style: normal;
   font-weight: 300;
   src: local(""),  
@@ -11,7 +11,7 @@
 
 /* FranklinGothic-700 - latin */
 @font-face {
-  font-family: "FranklinGothic";
+  font-family: "FranklinGothicURW";
   font-style: normal;
   font-weight: 700;
   src: local(""),  
