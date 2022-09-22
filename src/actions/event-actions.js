@@ -71,8 +71,10 @@ export const getEventById = (
         null,
         createAction(GET_EVENT_DATA),
         `${window.SUMMIT_API_BASE_URL}/api/v1/summits/${window.SUMMIT_ID}/events/${eventId}/published`,
-        customErrorHandler
-    )(params)(dispatch).then(() => {
+        customErrorHandler,
+        {},
+        true)
+    (params)(dispatch).then(() => {
         if (dispatchLoader)
             dispatch(stopLoading());
     }).catch(e => {
