@@ -25,9 +25,7 @@ Rate: $339/night\
 Rate: $319\
 <a href="https://www.marriott.com/event-reservations/reservation-link.mi?id=1654713293711&key=GRP&app=resvlink" target="_blank" style="color:#94C400">Click here</a> to book. Deadline: 9/26
 
-**Hyatt Place**\
-Rate: $309/night\
-<a href="https://www.hyatt.com/en-US/group-booking/SJCZJ/G-OCP3" target="_blank" style="color:#94C400">Click here</a> to book. Deadline: 9/23
+**Hyatt Place – SOLD OUT!**
 
 - - -
 
