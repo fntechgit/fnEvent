@@ -256,7 +256,7 @@ h2 {
   }
 
 
-  &__speaker {
+  &__speaker, &__moderator {
     &--name {
       text-transform: capitalize;
     }
