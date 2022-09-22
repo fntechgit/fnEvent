@@ -1,9 +1,21 @@
 @import './colors.scss';
 @import './global-classes';
 
+@font-face {
+  font-family: 'FranklinGothic';
+  src: url("../../static/fonts/FranklinGothicURW-Boo.woff");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'FranklinGothic';
+  font-weight: bold;
+  src: url("../../static/fonts/FranklinGothicURW-Med.woff");
+}
+
 html,
 body {
-  font-family: "Nunito Sans", sans-serif !important;
+  font-family: FranklinGothic, sans-serif !important;
   margin: 0;
   padding: 0;
   height: 100%;
@@ -142,7 +154,7 @@ div.content {
 div.title {
   font-weight: 700 !important;
   color: #333333 !important;
-  font-family: "Nunito Sans", sans-serif;
+  font-family: "FranklinGothic", sans-serif;
 }
 
 h2 {
@@ -331,7 +343,7 @@ h2 {
 
 .outerWrapper___lGus2 {
   .widget-title {
-    font-family: "Nunito Sans", sans-serif;
+    font-family: "FranklinGothic", sans-serif;
     font-weight: 700;
     font-size: 30px;
     line-height: 33px;
@@ -341,7 +353,7 @@ h2 {
 }
 
 .widget-title {
-  font-family: "Open Sans", sans-serif;
+  font-family: "FranklinGothic", sans-serif;
   font-size: 18px !important;
 }
 
