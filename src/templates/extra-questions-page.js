@@ -128,7 +128,7 @@ export const ExtraQuestionsPageTemplate = ({ user, summit, extraQuestions, saveE
                             </div>
                         </div>
                     </div>
-                    {extraQuestions.length > 0 ?
+                    { extraQuestions.length > 0  &&
                         <>
                             <h2>Additional Information</h2>
                             <span>
@@ -148,30 +148,23 @@ export const ExtraQuestionsPageTemplate = ({ user, summit, extraQuestions, saveE
                                     questionControlContainerClassName={'column is-two-thirds'}
                                 />
                             </div>
-                            {summit?.registration_disclaimer_content &&
-                                <div className={`columns ${styles.disclaimer}`}>
-                                    <div className="column is-12">
-                                        <input type="checkbox" checked={owner.disclaimer} onChange={toggleDisclaimer} />
-                                        <b>{summit.registration_disclaimer_mandatory ? '*' : ''}</b>
-                                        <span dangerouslySetInnerHTML={{ __html: summit.registration_disclaimer_content }} />
-                                    </div>
-                                </div>
-                            }
-                            <button
-                                className={`${styles.buttonSave} button is-large`}
-                                disabled={disabledButton}
-                                onClick={() => triggerFormSubmit()}>
-                                Save and Continue
-                            </button>
                         </>
-                        :
-                        <button
-                            className={`${styles.buttonSave} button is-large`}
-                            disabled={disabledButton}
-                            onClick={() => triggerFormSubmit()}>
-                            Save and Continue
-                        </button>
                     }
+                    { summit?.registration_disclaimer_content &&
+                        <div className={`columns ${styles.disclaimer}`}>
+                            <div className="column is-12">
+                                <input type="checkbox" checked={owner.disclaimer} onChange={toggleDisclaimer} />
+                                <b>{summit.registration_disclaimer_mandatory ? '*' : ''}</b>
+                                <span dangerouslySetInnerHTML={{ __html: summit.registration_disclaimer_content }} />
+                            </div>
+                        </div>
+                    }
+                    <button
+                        className={`${styles.buttonSave} button is-large`}
+                        disabled={disabledButton}
+                        onClick={() => triggerFormSubmit()}>
+                        Save and Continue
+                    </button>
                 </div>
             </div>
         </>
