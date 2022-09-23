@@ -15,7 +15,7 @@ import {RESET_STATE, SYNC_DATA} from "../actions/base-actions";
 
 import { getSummitPhase } from '../utils/phasesUtils';
 
-const localNowUtc = Date.now();
+const localNowUtc = Math.round(+new Date() / 1000);
 const {summit} = summitData;
 // calculate on initial state the nowUtc ( local ) and the summit phase using the json data
 const DEFAULT_STATE = {
@@ -27,7 +27,6 @@ const DEFAULT_STATE = {
 
 const clockReducer = (state = DEFAULT_STATE, action) => {
   const { type, payload } = action;
-
   switch (type) {
     case RESET_STATE:
     case LOGOUT_USER:
