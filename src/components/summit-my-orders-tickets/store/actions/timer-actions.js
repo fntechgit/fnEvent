@@ -10,10 +10,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
+import {createAction} from "openstack-uicore-foundation/lib/utils/actions";
+
+export const UPDATE_CLOCK = 'UPDATE_CLOCK';
 
 export const defaultCurrentTime = () => {
     // fallback, depends on user clock better than nothing
     return Math.round(+new Date() / 1000);
+};
+
+export const updateClock = (timestamp) => (dispatch) => {
+    dispatch(createAction(UPDATE_CLOCK)({ timestamp }));
 };
 
 export const getNow = () => (dispatch, getState) => {

@@ -21,7 +21,7 @@ import summitReducer from './reducers/summit-reducer'
 import orderReducer from './reducers/order-reducer'
 import ticketReducer from './reducers/ticket-reducer'
 import userReducer from './reducers/user-reducer';
-import clockReducer from '../../../reducers/clock-reducer';
+import clockReducer from './reducers/clock-reducer';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
