@@ -43,7 +43,8 @@ export const PosterDetailPage = ({
   votingPeriods,
   votes,
   castPresentationVote,
-  uncastPresentationVote
+  uncastPresentationVote,
+  activityCtaText
 }) => {
 
   const [{ poster, posterTrackGroups, posterViewable }, setPosterState] = useState({
@@ -235,7 +236,7 @@ export const PosterDetailPage = ({
             )}
           </div>
           <div className="column px-5 py-0 is-one-quarter is-full-mobile">
-            {poster.meeting_url && <PosterLiveSession poster={poster} />}
+            {poster.meeting_url && <PosterLiveSession poster={poster} ctaText={activityCtaText} />}
             <DocumentsComponent event={poster} />
             <AccessTracker />
             <AttendeesWidget user={user} event={poster} />
@@ -264,7 +265,8 @@ const PosterDetailPageTemplate = ({
   votingPeriods,
   votes,
   castPresentationVote,
-  uncastPresentationVote
+  uncastPresentationVote,
+  activityCtaText
 }) => {
   return (
     <Layout location={location}>
@@ -285,6 +287,7 @@ const PosterDetailPageTemplate = ({
         votes={votes}
         castPresentationVote={castPresentationVote}
         uncastPresentationVote={uncastPresentationVote}
+        activityCtaText={activityCtaText}
       />
     </Layout>
   );
@@ -307,12 +310,13 @@ const posterDetailPageTemplatePropTypes = {
   votes: PropTypes.array,
   castPresentationVote: PropTypes.func,
   uncastPresentationVote: PropTypes.func,
+  activityCtaText: PropTypes.string,
 };
 
 PosterDetailPage.propTypes = posterDetailPageTemplatePropTypes;
 PosterDetailPageTemplate.propTypes = posterDetailPageTemplatePropTypes;
 
-const mapStateToProps = ({ userState, summitState, presentationsState }) => ({
+const mapStateToProps = ({ userState, summitState, presentationsState, settingState }) => ({
   loading: presentationsState.voteablePresentations.loading,
   summit: summitState.summit,
   user: userState,
@@ -321,7 +325,8 @@ const mapStateToProps = ({ userState, summitState, presentationsState }) => ({
   allPosters: presentationsState.voteablePresentations.allPresentations,
   recommendedPosters: presentationsState.voteablePresentations.recommendedPresentations,
   votingPeriods: presentationsState.votingPeriods,
-  votes: userState.attendee?.presentation_votes ?? []
+  votes: userState.attendee?.presentation_votes ?? [],
+  activityCtaText: settingState.siteSettings.activity_cta_text
 });
 
 export default connect(mapStateToProps, {

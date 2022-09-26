@@ -256,7 +256,9 @@ export const EventPageTemplate = class extends React.Component {
 
     render() {
 
-        const {event, user, loading, nowUtc, summit, eventsPhases, eventId, location} = this.props;
+        const {event, user, loading, nowUtc, summit, eventsPhases, eventId, location, activityCtaText} = this.props;
+
+        console.log('activityCtaText', activityCtaText);
         // get current event phase
         const currentPhase = eventsPhases.find((e) => parseInt(e.id) === parseInt(eventId))?.phase;
         const firstHalf = currentPhase === PHASES.DURING ? nowUtc < ((event?.start_date + event?.end_date) / 2) : false;
@@ -299,7 +301,7 @@ export const EventPageTemplate = class extends React.Component {
                                     autoPlay={autoPlay}
                                     start={startTime}
                                 />
-                                {event.meeting_url && <VideoBanner event={event}/>}
+                                {!event.meeting_url && <VideoBanner event={event} ctaText={activityCtaText} />}
                             </div>
                         ) : (
                             <div className="column is-three-quarters px-0 py-0 is-full-mobile">
@@ -401,6 +403,7 @@ const EventPage = ({
                        getEventById,
                        setEventLastUpdate,
                        lastUpdate,
+                       activityCtaText,
                    }) => {
     return (
         <Layout location={location}>
@@ -423,6 +426,7 @@ const EventPage = ({
                 getEventById={getEventById}
                 setEventLastUpdate={setEventLastUpdate}
                 lastUpdate={lastUpdate}
+                activityCtaText={activityCtaText}
             />
         </Layout>
     );
@@ -437,6 +441,7 @@ EventPage.propTypes = {
     eventsPhases: PropTypes.array,
     getEventById: PropTypes.func,
     setEventLastUpdate: PropTypes.func,
+    activityCtaText: PropTypes.string,
 };
 
 EventPageTemplate.propTypes = {
@@ -448,9 +453,10 @@ EventPageTemplate.propTypes = {
     eventsPhases: PropTypes.array,
     getEventById: PropTypes.func,
     setEventLastUpdate: PropTypes.func,
+    activityCtaText: PropTypes.string,
 };
 
-const mapStateToProps = ({eventState, summitState, userState, clockState}) => ({
+const mapStateToProps = ({eventState, summitState, userState, clockState, settingState}) => ({
     loading: eventState.loading,
     event: eventState.event,
     user: userState,
@@ -458,6 +464,7 @@ const mapStateToProps = ({eventState, summitState, userState, clockState}) => ({
     eventsPhases: clockState.events_phases,
     nowUtc: clockState.nowUtc,
     lastUpdate: eventState.lastUpdate,
+    activityCtaText: settingState.siteSettings.ACTIVITY_CTA_TEXT
 });
 
 export default connect(mapStateToProps, {
