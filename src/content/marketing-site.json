@@ -1,1 +1,55 @@
-{"heroBanner":{"title":"TIER 1 - EVENT NAME HERE","subTitle":"","date":"Date Information","time":"Timezone","dateLayout":true,"buttons":{"registerButton":{"text":"Register now","display":true},"loginButton":{"text":"Log in","display":true}},"background":"","images":[{"file":"/img/tier1-default-header1.png","alt":""},{"file":"/img/tier1-default-header2.png","alt":""},{"file":"/img/tier1-default-header3.png","alt":""}]},"leftColumn":{"schedule":{"display":true,"title":"Full Event Schedule"},"disqus":{"display":false,"title":"Join the conversation"},"image":{"display":false,"title":"Image","src":""}},"sponsors":[{"title":"Top Left","images":[{"image":"/img/tier1-default-space3.png","link":"","alt":""},{"image":"/img/tier1-default-space4.png","alt":""}]},{"title":"Top Right","images":[{"image":"/img/tier1-default-space1.png","link":"","alt":""}]},{"title":"Mid Left","images":[{"image":"/img/tier1-default-space2.png","alt":""}]},{"images":[{"image":"/img/tier1-default-space4.png","alt":""}]}],"countdown":{"display":true,"text":"Event Kickoff"},"registration_in_person_disclaimer":""}
+{
+  "heroBanner": {
+    "title": "Global Frand & SEP Symposium ",
+    "subTitle": "",
+    "date": "October 21, 2022",
+    "time": "",
+    "dateLayout": true,
+    "buttons": {
+      "registerButton": {
+        "text": "Register now",
+        "display": false
+      },
+      "loginButton": {
+        "text": "Log in",
+        "display": true
+      }
+    },
+    "background": "",
+    "images": [
+      {
+        "file": "/img/tier1-default-header1.png",
+        "alt": ""
+      },
+      {
+        "file": "/img/tier1-default-header2.png",
+        "alt": ""
+      },
+      {
+        "file": "/img/tier1-default-header3.png",
+        "alt": ""
+      }
+    ]
+  },
+  "leftColumn": {
+    "schedule": {
+      "display": true,
+      "title": "Full Event Schedule"
+    },
+    "disqus": {
+      "display": false,
+      "title": "Join the conversation"
+    },
+    "image": {
+      "display": false,
+      "title": "Image",
+      "src": ""
+    }
+  },
+  "sponsors": [],
+  "countdown": {
+    "display": true,
+    "text": "Event Kickoff"
+  },
+  "registration_in_person_disclaimer": ""
+}
