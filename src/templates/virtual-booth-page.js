@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { graphql } from 'gatsby'
+import { GatsbyImage } from "gatsby-plugin-image"
 import Layout from '../components/Layout'
 import Content, { HTMLContent } from '../components/Content'
 
@@ -28,18 +29,18 @@ export const VirtualBoothPageTemplate = ({
           <br />
           <br />
           <Zoom>
-            <img src={!!columns.leftColumn.image.childImageSharp ? columns.leftColumn.image.childImageSharp.fluid.src : columns.leftColumn.image} alt={columns.leftColumn.alt} />
-          </Zoom>          
+            <GatsbyImage image={columns.leftColumn.image.childImageSharp ? columns.leftColumn.image.gatsbyImageData : columns.leftColumn.image} alt={columns.leftColumn.alt} />
+          </Zoom>
         </div>
         <div className="column is-half">
           <h2>{columns.rightColumn.title}</h2>
           {columns.rightColumn.content}
           <br />
-          <br />          
+          <br />
           <br />
           <Zoom>
-            <img src={!!columns.rightColumn.image.childImageSharp ? columns.rightColumn.image.childImageSharp.fluid.src : columns.rightColumn.image} alt={columns.leftColumn.alt} />
-          </Zoom>          
+            <GatsbyImage image={columns.rightColumn.image.childImageSharp ? columns.rightColumn.image.gatsbyImageData : columns.rightColumn.image} alt={columns.rightColumn.alt} />
+          </Zoom>
         </div>
       </div>
       <br />
@@ -97,9 +98,7 @@ export const virtualBoothPagePageQuery = graphql`
             content
             image {
               childImageSharp {
-                fluid(maxWidth: 2048, quality: 100) {
-                  ...GatsbyImageSharpFluid
-                }
+                gatsbyImageData(layout: FIXED)
               }
             }      
             alt      
@@ -109,9 +108,7 @@ export const virtualBoothPagePageQuery = graphql`
             content
             image {
               childImageSharp {
-                fluid(maxWidth: 2048, quality: 100) {
-                  ...GatsbyImageSharpFluid
-                }
+                gatsbyImageData(layout: FIXED)
               }
             }
             alt
