@@ -31,6 +31,15 @@
 
     .scheduleWrapper {
       width: 70%;
+
+      ul {
+        list-style: disc;
+        margin: 0 15px;
+      }
+
+      p {
+        margin: 0;
+      }
       // make up space for button
       @media (max-width: 991px) {
         width: 100%;
