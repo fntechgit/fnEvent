@@ -22,212 +22,11 @@ import EventFeedbackComponent from '../components/EventFeedbackComponent'
 import {PHASES} from '../utils/phasesUtils';
 import { getEventById, setEventLastUpdate } from "../actions/event-actions";
 import URI from "urijs"
-import SupabaseClientBuilder from "../utils/supabaseClientBuilder";
-import {
-    getEnvVariable,
-    SUPABASE_URL,
-    SUPABASE_KEY,
-} from "../utils/envVariables";
-import moment from "moment-timezone";
-import _ from 'lodash';
-const CHECK_FOR_NOVELTIES_DELAY = 2000;
-const MAX_SUBSCRIPTION_RETRY = 3;
-
+import withRealTimeSingleEventUpdate from '../utils/real_time_updates/withRealTimeSingleEventUpdate';
+/**
+ * @type {EventPageTemplate}
+ */
 export const EventPageTemplate = class extends React.Component {
-
-    constructor(props) {
-        super(props);
-
-        // attributes
-        this._subscription = null;
-        this._subscriptionError = false;
-        this._retrySubscriptionCounter = 0;
-
-        try {
-            this._supabase = SupabaseClientBuilder.getClient(getEnvVariable(SUPABASE_URL), getEnvVariable(SUPABASE_KEY));
-        }
-        catch (e){
-            this._supabase = null;
-            console.log(e);
-        }
-
-        // binds
-        this.createRealTimeSubscription = this.createRealTimeSubscription.bind(this);
-        this.queryRealTimeDB = this.queryRealTimeDB.bind(this);
-        this.checkForPastNovelties = this.checkForPastNovelties.bind(this);
-        this.clearRealTimeSubscription = this.clearRealTimeSubscription.bind(this);
-        this.onVisibilityChange = this.onVisibilityChange.bind(this);
-        this._checkForPastNoveltiesDebounced = _.debounce(this.checkForPastNovelties, CHECK_FOR_NOVELTIES_DELAY);
-    }
-
-    async queryRealTimeDB(summitId, eventId) {
-
-
-        if(!this._supabase) return Promise.resolve(false);
-
-        try {
-            const res = await this._supabase
-                .from('summit_entity_updates')
-                .select('id,created_at,summit_id,entity_id,entity_type,entity_op')
-                .eq('summit_id', summitId)
-                .eq('entity_id', eventId)
-                .eq('entity_type', 'Presentation')
-                .order('id', {ascending: false})
-                .limit(1);
-
-            if (res.error) throw new Error(res.error)
-
-            if (res.data && res.data.length > 0) {
-                return res.data[0];
-            }
-            return false;
-        }
-        catch (e){
-            console.log("EventPageTemplate::queryRealTimeDB ERROR");
-            console.log(e);
-        }
-    }
-
-    createRealTimeSubscription(summit, event, eventId, lastUpdate){
-        this._subscriptionError = false;
-        console.log("EventPageTemplate::createRealTimeSubscription");
-        try {
-            this._subscription = this._supabase
-                .from(`summit_entity_updates:summit_id=eq.${summit.id}`)
-                .on('INSERT', (payload) => {
-                    console.log('EventPageTemplate::createRealTimeSubscription Change received (INSERT)', payload)
-                    let {new: update} = payload;
-                    if (update.entity_type === 'Presentation' && parseInt(update.entity_id) == parseInt(eventId)) {
-                        this.props.setEventLastUpdate(moment.utc(update.created_at));
-                        this.props.getEventById(eventId, { checkLocal: false, dispatchLoader: false });
-                    }
-                })
-                .on('UPDATE', (payload) => {
-                    console.log('EventPageTemplate::createRealTimeSubscription Change received (UPDATE)', payload)
-                    let {new: update} = payload;
-                    if (update.entity_type === 'Presentation' && parseInt(update.entity_id) == parseInt(eventId)) {
-                        this.props.setEventLastUpdate(moment.utc(update.created_at));
-                        this.props.getEventById(eventId, { checkLocal: false, dispatchLoader: false });
-                    }
-                })
-                .subscribe((status, e) => {
-                    const visibilityState = document.visibilityState;
-                    console.log("EventPageTemplate::createRealTimeSubscription subscribe ", status, e, visibilityState);
-                    if (status === "SUBSCRIPTION_ERROR") {
-                        // init the RT cleaning process
-                        this.clearRealTimeSubscription();
-                        if (visibilityState  === "hidden") {
-                            // if page not visible mark the error for later
-                            this._subscriptionError = true
-                            return;
-                        }
-                        // do exponential back off on retries
-                        if(this._retrySubscriptionCounter < MAX_SUBSCRIPTION_RETRY) {
-                            ++this._retrySubscriptionCounter;
-                            // if we are on visible state, then restart the RT
-                            window.setTimeout(() => {
-                                this.createRealTimeSubscription(summit, event, eventId, lastUpdate)
-                            }, 2 **  this._retrySubscriptionCounter  * 1000);
-                        }
-                    }
-                    if (status === "SUBSCRIBED") {
-                        // reset counter
-                        this._retrySubscriptionCounter = 0;
-                        // RELOAD
-                        // check on demand ( just in case that we missed some Real time update )
-                        if(event && eventId) {
-                            this._checkForPastNoveltiesDebounced(summit.id, event, eventId, lastUpdate);
-                        }
-                    }
-                })
-            // always check for novelty
-            if(event && eventId) {
-                this._checkForPastNoveltiesDebounced(summit.id, event, eventId, lastUpdate);
-            }
-        }
-        catch (e){
-            console.log("EventPageTemplate::createRealTimeSubscription ERROR");
-            console.log(e);
-        }
-    }
-
-    checkForPastNovelties(summitId, event, eventId, lastUpdate){
-        console.log("EventPageTemplate::checkForPastNovelties", summitId, event, eventId, lastUpdate);
-        this.queryRealTimeDB(summitId, parseInt(eventId)).then((res) => {
-            if(!res) return;
-            let {created_at: lastUpdateNovelty} = res;
-            if (lastUpdateNovelty && event) {
-                lastUpdateNovelty = moment.utc(lastUpdateNovelty);
-                // then compare if the novelty date is greater than last edit date of the event
-                if (lastUpdate !== null && lastUpdateNovelty <= lastUpdate){
-                    // skip it
-                    console.log("EventPageTemplate::checkForPastNovelties: skipping update", lastUpdateNovelty, lastUpdate)
-                    return;
-                }
-            }
-            console.log("EventPageTemplate::checkForPastNovelties: doing update");
-            this.props.setEventLastUpdate(lastUpdateNovelty);
-            this.props.getEventById(eventId, { checkLocal: false, dispatchLoader: false });
-
-        }).catch((err) => console.log(err));
-    }
-
-    clearRealTimeSubscription(){
-        if (this._supabase && this._subscription) {
-            try {
-                console.log("EventPageTemplate::clearRealTimeSubscription");
-                this._supabase.removeSubscription(this._subscription);
-                this._subscription = null;
-            }
-            catch (e){
-                console.log(e);
-            }
-        }
-    }
-
-    onVisibilityChange(){
-        const {eventId, event, summit, lastUpdate} = this.props;
-        const visibilityState = document.visibilityState;
-
-        console.log(`EventPage::onVisibilityChange  visibilityState ${visibilityState}`, this._subscriptionError, lastUpdate);
-
-        if(visibilityState === "visible"){
-
-            if(this._subscriptionError) {
-                this.createRealTimeSubscription(summit, event, eventId, lastUpdate);
-                return;
-            }
-
-            this._checkForPastNoveltiesDebounced(summit.id, event, eventId, lastUpdate);
-        }
-    }
-
-    componentDidMount() {
-        const {eventId, event, summit, lastUpdate} = this.props;
-        if (parseInt(event?.id) !== parseInt(eventId)) {
-            this.props.setEventLastUpdate(null);
-            this.props.getEventById(eventId);
-        }
-
-        this.createRealTimeSubscription(summit, event, eventId, lastUpdate);
-
-        document.addEventListener( "visibilitychange", this.onVisibilityChange, false)
-    }
-
-    componentWillUnmount() {
-        document.removeEventListener("visibilitychange", this.onVisibilityChange)
-        this.clearRealTimeSubscription();
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        const {eventId, event} = this.props;
-        const {eventId: prevEventId} = prevProps;
-        // event id could come as param at uri
-        if (parseInt(eventId) !== parseInt(prevEventId) || parseInt(event?.id) !== parseInt(eventId)) {
-            this.props.setEventLastUpdate(null);
-            this.props.getEventById(eventId);
-        }
-    }
 
     onEventChange(ev) {
         const {eventId} = this.props;
@@ -253,6 +52,23 @@ export const EventPageTemplate = class extends React.Component {
         const {event} = this.props;
         return (currentPhase >= PHASES.DURING || event.streaming_type === 'VOD') && event.streaming_url;
     };
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        const {eventId, event} = this.props;
+        const {eventId: prevEventId} = prevProps;
+        // event id could come as param at uri
+        if (parseInt(eventId) !== parseInt(prevEventId) || parseInt(event?.id) !== parseInt(eventId)) {
+            this.props.getEventById(eventId);
+        }
+    }
+
+    componentDidMount() {
+        const {eventId, event } = this.props;
+
+        if (parseInt(event?.id) !== parseInt(eventId)) {
+            this.props.getEventById(eventId);
+        }
+    }
 
     render() {
 
@@ -389,6 +205,8 @@ export const EventPageTemplate = class extends React.Component {
     }
 };
 
+const EventPageTemplateWithRealTimeSingleEventUpdate = withRealTimeSingleEventUpdate(EventPageTemplate);
+
 const EventPage = ({
                        summit,
                        location,
@@ -402,6 +220,7 @@ const EventPage = ({
                        setEventLastUpdate,
                        lastUpdate,
                    }) => {
+
     return (
         <Layout location={location}>
             {event && event.id && (
@@ -411,7 +230,7 @@ const EventPage = ({
                     sourceName="EVENT"
                 />
             )}
-            <EventPageTemplate
+            <EventPageTemplateWithRealTimeSingleEventUpdate
                 summit={summit}
                 event={event}
                 eventId={eventId}
