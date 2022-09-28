@@ -10,41 +10,20 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
+import {createAction} from "openstack-uicore-foundation/lib/utils/actions";
 
-import { createAction, getRequest } from 'openstack-uicore-foundation/lib/utils/actions';
-
-export const TIMER_UPDATE = 'TIMER_UPDATE';
-export const TIMER_INIT = 'TIMER_INIT';
-export const TIMER_INIT_ERROR = 'TIMER_INIT_ERROR';
+export const UPDATE_CLOCK = 'UPDATE_CLOCK';
 
 export const defaultCurrentTime = () => {
     // fallback, depends on user clock better than nothing
     return Math.round(+new Date() / 1000);
 };
 
-export const timerErrorHandler = (err, res) => (dispatch, state) => {
-
-};
-
-export const getCurrentTime = () => (dispatch, getState) => {
-    return getRequest(
-        null,
-        createAction(TIMER_INIT),
-        `https://timeintervalsince1970.appspot.com/`,
-        timerErrorHandler
-    )({})(dispatch)
-        .catch(e => {
-            console.log(e);
-            dispatch(createAction(TIMER_INIT_ERROR)({}));
-            return (e);
-        });
-};
-
-export const tickTime = () => (dispatch, getState) => {
-    dispatch(createAction(TIMER_UPDATE)({}));
+export const updateClock = (timestamp) => (dispatch) => {
+    dispatch(createAction(UPDATE_CLOCK)({ timestamp }));
 };
 
 export const getNow = () => (dispatch, getState) => {
     let { timerState } = getState();
-    return timerState.now == null ? defaultCurrentTime() : timerState.now;
+    return timerState.nowUtc == null ? defaultCurrentTime() : timerState.nowUtc;
 };

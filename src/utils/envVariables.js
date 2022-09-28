@@ -21,6 +21,7 @@ export const API_BASE_URL = 'API_BASE_URL';
 export const SUPPORT_EMAIL = 'SUPPORT_EMAIL';
 export const WS_PUB_SERVER_URL = 'WS_PUB_SERVER_URL';
 export const REAL_TIME_UPDATES_STRATEGY = 'REAL_TIME_UPDATES_STRATEGY';
+export const TIMEINTERVALSINCE1970_API_URL = 'TIMEINTERVALSINCE1970_API_URL';
 
 const processEnv = {
     IDP_BASE_URL: process.env.GATSBY_IDP_BASE_URL,
@@ -46,6 +47,7 @@ const processEnv = {
     WS_PUB_SERVER_URL: process.env.GATSBY_WS_PUB_SERVER_URL,
     // could be SUPA OR WS
     REAL_TIME_UPDATES_STRATEGY: process.env.GATSBY_REAL_TIME_UPDATES_STRATEGY,
+    TIMEINTERVALSINCE1970_API_URL: process.env.GATSBY_TIMEINTERVALSINCE1970_API_URL,
 }
 
 export const getEnvVariable = (name) => {
@@ -79,4 +81,5 @@ if (typeof window === 'object') {
     window.SUPPORT_EMAIL = processEnv[SUPPORT_EMAIL];
     window.WS_PUB_SERVER_URL = processEnv[WS_PUB_SERVER_URL];
     window.REAL_TIME_UPDATES_STRATEGY = processEnv[REAL_TIME_UPDATES_STRATEGY];
+    window.TIMEINTERVALSINCE1970_API_URL = processEnv[TIMEINTERVALSINCE1970_API_URL];
 }

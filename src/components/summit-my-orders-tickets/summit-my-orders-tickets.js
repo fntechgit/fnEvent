@@ -5,10 +5,11 @@ import PropTypes from 'prop-types'
 import './i18n';
 import { useInitStore } from './store';
 import { RESET_STATE } from './store/actions/base-actions';
+import { updateClock } from './store/actions/timer-actions';
 import { setUser } from "./store/actions/user-actions";
 import { setSummit } from "./store/actions/summit-actions";
 import { MyOrdersTickets } from "./components/MyOrdersTickets";
-
+import Clock from 'openstack-uicore-foundation/lib/components/clock';
 import './styles/general.scss';
 
 export const MyOrdersTicketsWidget = ({
@@ -39,7 +40,6 @@ export const MyOrdersTicketsWidget = ({
     const handleBeforeLift = () => {
         const params = new URLSearchParams(window.location.search);
         const flush = params.has("flushState");
-
         if (flush) store.dispatch({ type: RESET_STATE, payload: null });
     };
 
@@ -56,6 +56,7 @@ export const MyOrdersTicketsWidget = ({
     return (
         <Provider store={store}>
             <PersistGate onBeforeLift={handleBeforeLift} loading={null} persistor={persistor}>
+                <Clock onTick={(timestamp) => store.dispatch(updateClock(timestamp))} timezone={summit.time_zone_id} />
                 <MyOrdersTickets {...props} />
             </PersistGate>
         </Provider>

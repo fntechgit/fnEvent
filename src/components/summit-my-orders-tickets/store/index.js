@@ -20,8 +20,8 @@ import baseReducer from './reducers/base-reducer'
 import summitReducer from './reducers/summit-reducer'
 import orderReducer from './reducers/order-reducer'
 import ticketReducer from './reducers/ticket-reducer'
-import timerReducer from "./reducers/timer-reducer";
 import userReducer from './reducers/user-reducer';
+import clockReducer from './reducers/clock-reducer';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -56,7 +56,7 @@ export const getStore = ({
         summitState: summitReducer,
         orderState: orderReducer,
         ticketState: ticketReducer,
-        timerState: timerReducer,
+        timerState: clockReducer,
         userState: userReducer
     });
 
@@ -67,7 +67,7 @@ export const getStore = ({
             apiBaseUrl,
             idpBaseUrl,
             loginUrl,
-            supportEmail
+            supportEmail,
         },
         userState: user,
         summitState: { summit }
