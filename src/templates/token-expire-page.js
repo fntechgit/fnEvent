@@ -14,12 +14,12 @@ export const TokenExpirePageTemplate = class extends React.Component {
 
   componentDidMount() {
 
-    const { location, handleResetReducers } = this.props;
+    const { location, handleResetReducers, eventRedirect } = this.props;
 
     if (window.authExpired === undefined) {
       window.authExpired = true
 
-      let defaultPath = getEnvVariable(AUTHORIZED_DEFAULT_PATH) ? getEnvVariable(AUTHORIZED_DEFAULT_PATH) : '/a/';
+      let defaultPath = eventRedirect ? `/a/event/${eventRedirect}` : getEnvVariable(AUTHORIZED_DEFAULT_PATH) ? getEnvVariable(AUTHORIZED_DEFAULT_PATH) : '/a/';
       let previousLocation = location.state?.backUrl && location.state.backUrl !== '/auth/expired' ? location.state.backUrl : defaultPath;
       let backUrl = URI.encode(previousLocation);
 
@@ -63,8 +63,9 @@ TokenExpirePage.propTypes = {
   handleResetReducers: PropTypes.func,
 }
 
-const mapStateToProps = ({ loggedUserState }) => ({
-  loggedUser: loggedUserState
+const mapStateToProps = ({ loggedUserState, settingState }) => ({
+  loggedUser: loggedUserState,
+  eventRedirect: settingState.siteSettings.eventRedirect,
 })
 
 export default connect(mapStateToProps, { handleResetReducers })(TokenExpirePage);

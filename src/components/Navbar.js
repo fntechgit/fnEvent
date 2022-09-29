@@ -26,6 +26,7 @@ const Navbar = ({
   updateProfile,
   location,
   summit_phase,
+  eventRedirect
 }) => {
   const [active, setActive] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
@@ -113,7 +114,7 @@ const Navbar = ({
            passPageRestriction;
   };
 
-  const defaultPath = getEnvVariable(AUTHORIZED_DEFAULT_PATH)
+  const defaultPath = eventRedirect ? `/a/event/${eventRedirect}` : getEnvVariable(AUTHORIZED_DEFAULT_PATH)
     ? getEnvVariable(AUTHORIZED_DEFAULT_PATH)
     : "/a/";
   const navBarActiveClass = active ? styles.isActive : "";
@@ -188,9 +189,10 @@ const Navbar = ({
   );
 };
 
-const mapStateToProps = ({ summitState, clockState }) => ({
+const mapStateToProps = ({ summitState, clockState, settingState }) => ({
   summit: summitState.summit,
   summit_phase: clockState.summit_phase,
+  eventRedirect: settingState.siteSettings.eventRedirect,
 });
 
 export default connect(mapStateToProps, {

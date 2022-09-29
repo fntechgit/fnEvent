@@ -13,7 +13,7 @@ import RegistrationLiteComponent from "./RegistrationLiteComponent";
 
 import styles from "../styles/marketing-hero.module.scss";
 
-const MarketingHeroComponent = ({ siteSettings, summit_phase, isLoggedUser, summit, location }) => {
+const MarketingHeroComponent = ({ siteSettings, eventRedirect, summit_phase, isLoggedUser, summit, location }) => {
 
   const sliderRef = useRef(null);
   const [sliderHeight, setSliderHeight] = useState(424);
@@ -31,7 +31,7 @@ const MarketingHeroComponent = ({ siteSettings, summit_phase, isLoggedUser, summ
   }, []);
 
   const getBackURL = () => {
-    let defaultLocation = getEnvVariable(AUTHORIZED_DEFAULT_PATH)
+    let defaultLocation = eventRedirect ? `/a/event/${eventRedirect}` : getEnvVariable(AUTHORIZED_DEFAULT_PATH)
       ? getEnvVariable(AUTHORIZED_DEFAULT_PATH)
       : "/a/";
     let backUrl = location.state?.backUrl
@@ -46,7 +46,7 @@ const MarketingHeroComponent = ({ siteSettings, summit_phase, isLoggedUser, summ
 
   const getButtons = () => {
 
-    const path = getEnvVariable(AUTHORIZED_DEFAULT_PATH) || '/a/';
+    const path = eventRedirect ? `/a/event/${eventRedirect}` : getEnvVariable(AUTHORIZED_DEFAULT_PATH) || '/a/';
     const { registerButton, loginButton } = siteSettings.heroBanner.buttons;
 
     if (summit_phase >= PHASES.DURING && isLoggedUser) {
@@ -164,6 +164,7 @@ const mapStateToProps = ({ clockState, settingState, userState, summitState }) =
   summit_phase: clockState.summit_phase,
   summit: summitState.summit,
   siteSettings: settingState.siteSettings,
+  eventRedirect: settingState.siteSettings.eventRedirect,
   userProfile: userState.userProfile
 });
 

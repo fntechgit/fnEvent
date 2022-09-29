@@ -59,10 +59,10 @@ const UserNavbar = class extends React.Component {
 
   render() {
 
-    let { isLoggedUser, userProfile } = this.props;
+    let { isLoggedUser, userProfile, eventRedirect } = this.props;
     let { showProfile } = this.state;
 
-    let defaultPath = getEnvVariable(AUTHORIZED_DEFAULT_PATH) ? getEnvVariable(AUTHORIZED_DEFAULT_PATH) : '/a/';
+    let defaultPath = eventRedirect ? `/a/event/${eventRedirect}` : getEnvVariable(AUTHORIZED_DEFAULT_PATH) ? getEnvVariable(AUTHORIZED_DEFAULT_PATH) : '/a/';
 
     return (
       <nav className={`${styles.navbar} ${styles.userNavbar}`} role="navigation" aria-label="main navigation">
@@ -131,4 +131,8 @@ const UserNavbar = class extends React.Component {
   }
 }
 
-export default connect(null, { updateProfilePicture, updateProfile })(UserNavbar)
+const mapStateToProps = ({ settingState }) => ({  
+  eventRedirect: settingState.siteSettings.eventRedirect,
+});
+
+export default connect(mapStateToProps, { updateProfilePicture, updateProfile })(UserNavbar)

@@ -238,6 +238,7 @@ collections:
                 {label: "Alt", name: "alt", widget: string, required: false},
               ]},
             ]}
+          - {label: "Redirect to event", name: "eventRedirect", widget: number, required: false, hint: "User will be redirected to this event after login"}
           - {label: "Sponsors", name: "sponsors", widget: list, fields: [
               {label: "Name", name: title, widget: hidden},
               {label: "Size", name: size, widget: select, options: [
