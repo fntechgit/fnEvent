@@ -200,7 +200,7 @@
         "tab_edit": "Edit Details",
         "tab_edit_read_only": "Details",
         "tab_notify": "Notify Ticket Holder",
-        "assign_text": "Select the option to assign this ticket before",
+        "assign_text": "Select the option to assign this ticket",
         "assign_or": "Or",
         "assign_me": "Assign to Me",
         "assign_this": "Assign this Ticket",

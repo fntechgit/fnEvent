@@ -254,12 +254,6 @@ export const TicketPopupEditDetailsForm = ({
                                                     {t("ticket_popup.assign_this")}
                                                 </button>
 
-                                                <p>
-                                                    {t("ticket_popup.assign_expire")}{` `}
-                                                    {daysUntilReassignDeadline}{` `}
-                                                    {t("ticket_popup.assign_days")}{` `}
-                                                    ({formattedReassignDate})
-                                                </p>
                                             </>
                                         )}
                                     </span>
@@ -331,12 +325,6 @@ export const TicketPopupEditDetailsForm = ({
                                                     {t("ticket_popup.assign_this")}
                                                 </button>
 
-                                                <p>
-                                                    {t("ticket_popup.assign_expire")}{` `}
-                                                    {daysUntilReassignDeadline}{` `}
-                                                    {t("ticket_popup.assign_days")}{` `}
-                                                    ({formattedReassignDate})
-                                                </p>
                                             </>
                                         )}
                                     </span>

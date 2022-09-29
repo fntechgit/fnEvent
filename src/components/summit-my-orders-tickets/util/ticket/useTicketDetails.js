@@ -29,7 +29,7 @@ export const useTicketDetails = ({ ticket, summit }) => {
 
     const handleClick = () => {
         if (!isActive) return;
-        if (isUnassigned && !isReassignable) return;
+        if (!isUnassigned && !isReassignable) return;
 
         togglePopup();
     };
