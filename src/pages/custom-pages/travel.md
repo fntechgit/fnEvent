@@ -19,11 +19,11 @@ Book your reservations in one of our OCP blocks below!
 
 **Hilton**\
 Rate: $339/night\
-<a href="https://www.hilton.com/en/attend-my-event/sjcshhf-ocp-2a8c3898-8067-47c2-a291-732bae714d59/" target="_blank" style="color:#94C400">Click here</a> to book. Deadline: 9/24
+<a href="https://www.hilton.com/en/attend-my-event/sjcshhf-ocp-2a8c3898-8067-47c2-a291-732bae714d59/" target="_blank" style="color:#94C400">Click here</a> to book. Deadline: 10/1
 
 **Westin**\
 Rate: $319\
-<a href="https://www.marriott.com/event-reservations/reservation-link.mi?id=1654713293711&key=GRP&app=resvlink" target="_blank" style="color:#94C400">Click here</a> to book. Deadline: 9/26
+<a href="https://www.marriott.com/event-reservations/reservation-link.mi?id=1654713293711&key=GRP&app=resvlink" target="_blank" style="color:#94C400">Click here</a> to book. Deadline: 10/3
 
 **Hyatt Place – SOLD OUT!**
 
