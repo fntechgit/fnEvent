@@ -1,68 +1,38 @@
 {
   "items": [
     {
+      "requiresAuth": false,
+      "showOnlyAtShowTime": false,
+      "pageRestriction": [
+        "ANY"
+      ],
+      "title": "Home",
+      "link": "/",
+      "display": true
+    },
+    {
+      "requiresAuth": false,
+      "showOnlyAtShowTime": false,
+      "pageRestriction": [
+        "ANY"
+      ],
+      "title": "Register Now!",
+      "link": "https://globalfrand.com/seminar-registration-form/",
+      "display": true
+    },
+    {
       "title": "Lobby",
       "link": "/a/",
       "display": true,
       "requiresAuth": true,
       "pageRestriction": [
         "ANY"
-      ]
-    },
-    {
-      "title": "My Tickets",
-      "link": "/a/my-tickets",
-      "display": true,
-      "requiresAuth": true,
-      "pageRestriction": [
-        "ANY"
-      ]
+      ],
+      "showOnlyAtShowTime": true
     },
     {
       "title": "Schedule",
       "link": "/a/schedule",
-      "display": true,
-      "requiresAuth": false,
-      "pageRestriction": [
-        "ANY"
-      ]
-    },
-    {
-      "title": "My Schedule",
-      "link": "/a/my-schedule",
-      "display": true,
-      "requiresAuth": false
-    },
-    {
-      "title": "Sponsors ",
-      "link": "/a/sponsors/",
-      "display": true,
-      "requiresAuth": true,
-      "pageRestriction": [
-        "ANY"
-      ]
-    },
-    {
-      "title": "About the event",
-      "link": "/about-event",
-      "display": true,
-      "requiresAuth": false,
-      "pageRestriction": [
-        "ANY"
-      ]
-    },
-    {
-      "title": "Who we are",
-      "link": "/who-we-are",
-      "display": true,
-      "requiresAuth": false,
-      "pageRestriction": [
-        "ANY"
-      ]
-    },
-    {
-      "title": "Past events",
-      "link": "/past-events",
       "display": true,
       "requiresAuth": false,
       "pageRestriction": [
@@ -79,10 +49,10 @@
       ]
     },
     {
-      "title": "Help",
-      "link": "/help",
+      "title": "My Tickets",
+      "link": "/a/my-tickets",
       "display": true,
-      "requiresAuth": false,
+      "requiresAuth": true,
       "pageRestriction": [
         "ANY"
       ]
