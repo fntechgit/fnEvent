@@ -4,7 +4,7 @@
     "subTitle": "",
     "date": "October 21, 2022",
     "time": "",
-    "dateLayout": true,
+    "dateLayout": false,
     "buttons": {
       "registerButton": {
         "text": "Register now",
@@ -18,22 +18,14 @@
     "background": "",
     "images": [
       {
-        "file": "/img/tier1-default-header1.png",
-        "alt": ""
-      },
-      {
-        "file": "/img/tier1-default-header2.png",
-        "alt": ""
-      },
-      {
-        "file": "/img/tier1-default-header3.png",
+        "file": "/img/gf22-fnv-mkg-header2.png",
         "alt": ""
       }
     ]
   },
   "leftColumn": {
     "schedule": {
-      "display": true,
+      "display": false,
       "title": "Full Event Schedule"
     },
     "disqus": {
@@ -43,10 +35,43 @@
     "image": {
       "display": false,
       "title": "Image",
-      "src": ""
+      "src": "/img/gf22-fnv-schedule.png"
     }
   },
-  "sponsors": [],
+  "sponsors": [
+    {
+      "size": 1,
+      "images": [
+        {
+          "image": "/img/gf22-fnv-space3.png"
+        }
+      ]
+    },
+    {
+      "images": [
+        {
+          "image": "/img/gf22-fnv-space1.png"
+        }
+      ],
+      "size": 1
+    },
+    {
+      "size": 2,
+      "images": [
+        {
+          "image": "/img/gf22-fnv-space2.png"
+        }
+      ]
+    },
+    {
+      "size": 2,
+      "images": [
+        {
+          "image": "/img/gf22-fnv-space4.png"
+        }
+      ]
+    }
+  ],
   "countdown": {
     "display": true,
     "text": "Event Kickoff"
