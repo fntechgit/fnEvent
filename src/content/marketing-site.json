@@ -32,7 +32,7 @@
       "title": "Join the conversation"
     },
     "image": {
-      "display": false,
+      "display": true,
       "title": "Image",
       "src": "/img/gf22-fnv-schedule.png"
     }
