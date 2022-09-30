@@ -6,7 +6,7 @@ import URI from "urijs";
 import { handleResetReducers } from '../actions/event-actions'
 import { doLogin } from 'openstack-uicore-foundation/lib/security/methods'
 
-import { getEnvVariable, AUTHORIZED_DEFAULT_PATH } from '../utils/envVariables'
+import { getDefaultLocation } from '../utils/loginUtils';
 
 import HeroComponent from '../components/HeroComponent'
 
@@ -19,7 +19,7 @@ export const TokenExpirePageTemplate = class extends React.Component {
     if (window.authExpired === undefined) {
       window.authExpired = true
 
-      let defaultPath = eventRedirect ? `/a/event/${eventRedirect}` : getEnvVariable(AUTHORIZED_DEFAULT_PATH) ? getEnvVariable(AUTHORIZED_DEFAULT_PATH) : '/a/';
+      let defaultPath = getDefaultLocation(eventRedirect);
       let previousLocation = location.state?.backUrl && location.state.backUrl !== '/auth/expired' ? location.state.backUrl : defaultPath;
       let backUrl = URI.encode(previousLocation);
 
