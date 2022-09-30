@@ -211,6 +211,7 @@
         "assign_days": "days",
         "reassign_text": "Select the option to re-assign this ticket from",
         "reassign_want_text": "I want to reassign this ticket to someone else!",
+        "reassign_before": "before",
         "reassign_enter_email": "Enter the email of the person you would like to assign the ticket to below. Please note! An email will be sent to the below address with instructions on how to complete any additional information required to issue their ticket.",
         "reassign_check": "Clean all fields",
         "reassign_me": "Re-Assign to Me",
