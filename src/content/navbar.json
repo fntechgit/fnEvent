@@ -1,22 +1,23 @@
 {
   "items": [
     {
-      "title": "Lobby",
-      "link": "/a/",
-      "display": false,
-      "requiresAuth": true,
+      "title": "Home",
+      "link": "/",
+      "display": true,
+      "requiresAuth": false,
       "pageRestriction": [
         "ANY"
       ]
     },
     {
-      "title": "My Tickets",
-      "link": "/a/my-tickets",
-      "display": false,
-      "requiresAuth": true,
+      "requiresAuth": false,
+      "showOnlyAtShowTime": false,
       "pageRestriction": [
         "ANY"
-      ]
+      ],
+      "title": "Register Now!",
+      "link": "https://globalfrand.com/seminar-registration-form/",
+      "display": true
     },
     {
       "title": "Schedule",
@@ -28,64 +29,19 @@
       ]
     },
     {
-      "title": "My Schedule",
-      "link": "/a/my-schedule",
-      "display": false,
-      "requiresAuth": false,
-      "pageRestriction": [
-        "ACTIVITY"
-      ]
-    },
-    {
-      "title": "Sponsors ",
-      "link": "/a/sponsors/",
-      "display": false,
-      "requiresAuth": true,
-      "pageRestriction": [
-        "ANY"
-      ]
-    },
-    {
-      "title": "About the event",
-      "link": "/about-event",
-      "display": true,
-      "requiresAuth": false,
-      "pageRestriction": [
-        "ANY"
-      ]
-    },
-    {
-      "title": "Who we are",
-      "link": "/who-we-are",
-      "display": true,
-      "requiresAuth": false,
-      "pageRestriction": [
-        "ANY"
-      ]
-    },
-    {
-      "title": "Past events",
-      "link": "/past-events",
-      "display": false,
-      "requiresAuth": false,
-      "pageRestriction": [
-        "ANY"
-      ]
-    },
-    {
-      "title": "Contact",
-      "link": "/contact",
-      "display": true,
-      "requiresAuth": false,
-      "pageRestriction": [
-        "ANY"
-      ]
-    },
-    {
       "title": "Help",
       "link": "/help",
       "display": true,
       "requiresAuth": false,
+      "pageRestriction": [
+        "ANY"
+      ]
+    },
+    {
+      "title": "My Tickets",
+      "link": "/a/my-tickets",
+      "display": false,
+      "requiresAuth": true,
       "pageRestriction": [
         "ANY"
       ]
