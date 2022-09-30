@@ -5,19 +5,20 @@ import { navigate } from "gatsby"
 import Layout from '../components/Layout'
 import LoginButton from '../components/LoginButton'
 
-import { getEnvVariable, AUTHORIZED_DEFAULT_PATH } from '../utils/envVariables'
+import { getDefaultLocation } from '../utils/loginUtils'
 
-export const LoginPageTemplate = ({ loggedUserState, location }) => {
+
+export const LoginPageTemplate = ({ loggedUserState, eventRedirect, location }) => {
 
   if (loggedUserState.isLoggedUser) {
-    let defaultPath = getEnvVariable(AUTHORIZED_DEFAULT_PATH) ? getEnvVariable(AUTHORIZED_DEFAULT_PATH) : '/a/';
+    let defaultPath = getDefaultLocation(eventRedirect);
     navigate(defaultPath);
     return null
   }
 
   return (
     <React.Fragment>
-      <LoginButton location={location}/>
+      <LoginButton location={location} eventRedirect={eventRedirect} />
     </React.Fragment>
   )
 }
@@ -34,5 +35,6 @@ const LoginPage = ({ loggedUserState, location }) => {
 }
 
 export default connect(state => ({
-  loggedUserState: state.loggedUserState
+  loggedUserState: state.loggedUserState,
+  eventRedirect: state.settingState.siteSettings.eventRedirect,
 }), null)(LoginPage)
