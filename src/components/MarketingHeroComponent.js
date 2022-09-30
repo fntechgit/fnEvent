@@ -4,16 +4,13 @@ import Slider from "react-slick";
 import URI from "urijs";
 import { doLogin } from "openstack-uicore-foundation/lib/security/methods";
 import { PHASES } from "../utils/phasesUtils";
-import {
-  getEnvVariable,
-  AUTHORIZED_DEFAULT_PATH,
-} from "../utils/envVariables";
 import Link from "../components/Link";
 import RegistrationLiteComponent from "./RegistrationLiteComponent";
+import { getDefaultLocation } from "../utils/loginUtils";
 
 import styles from "../styles/marketing-hero.module.scss";
 
-const MarketingHeroComponent = ({ siteSettings, summit_phase, isLoggedUser, summit, location }) => {
+const MarketingHeroComponent = ({ siteSettings, eventRedirect, summit_phase, isLoggedUser, summit, location }) => {
 
   const sliderRef = useRef(null);
   const [sliderHeight, setSliderHeight] = useState(424);
@@ -31,9 +28,7 @@ const MarketingHeroComponent = ({ siteSettings, summit_phase, isLoggedUser, summ
   }, []);
 
   const getBackURL = () => {
-    let defaultLocation = getEnvVariable(AUTHORIZED_DEFAULT_PATH)
-      ? getEnvVariable(AUTHORIZED_DEFAULT_PATH)
-      : "/a/";
+    let defaultLocation = getDefaultLocation(eventRedirect);
     let backUrl = location.state?.backUrl
       ? location.state.backUrl
       : defaultLocation;
@@ -46,7 +41,7 @@ const MarketingHeroComponent = ({ siteSettings, summit_phase, isLoggedUser, summ
 
   const getButtons = () => {
 
-    const path = getEnvVariable(AUTHORIZED_DEFAULT_PATH) || '/a/';
+    const path = getDefaultLocation(eventRedirect);
     const { registerButton, loginButton } = siteSettings.heroBanner.buttons;
 
     if (summit_phase >= PHASES.DURING && isLoggedUser) {
@@ -164,6 +159,7 @@ const mapStateToProps = ({ clockState, settingState, userState, summitState }) =
   summit_phase: clockState.summit_phase,
   summit: summitState.summit,
   siteSettings: settingState.siteSettings,
+  eventRedirect: settingState.siteSettings.eventRedirect,
   userProfile: userState.userProfile
 });
 

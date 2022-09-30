@@ -4,9 +4,9 @@ import LogoutButton from "./LogoutButton";
 import Link from "./Link";
 import ProfilePopupComponent from "./ProfilePopupComponent";
 import { updateProfilePicture, updateProfile } from "../actions/user-actions";
-import { getEnvVariable, AUTHORIZED_DEFAULT_PATH } from "../utils/envVariables";
 import Content from "../content/navbar.json";
 import { PHASES } from "../utils/phasesUtils";
+import { getDefaultLocation } from "../utils/loginUtils";
 
 import styles from "../styles/navbar.module.scss";
 const PAGE_RESTRICTION_ACTIVITY = 'ACTIVITY';
@@ -26,6 +26,7 @@ const Navbar = ({
   updateProfile,
   location,
   summit_phase,
+  eventRedirect
 }) => {
   const [active, setActive] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
@@ -113,9 +114,7 @@ const Navbar = ({
            passPageRestriction;
   };
 
-  const defaultPath = getEnvVariable(AUTHORIZED_DEFAULT_PATH)
-    ? getEnvVariable(AUTHORIZED_DEFAULT_PATH)
-    : "/a/";
+  const defaultPath = getDefaultLocation(eventRedirect);
   const navBarActiveClass = active ? styles.isActive : "";
 
   return (
@@ -188,9 +187,10 @@ const Navbar = ({
   );
 };
 
-const mapStateToProps = ({ summitState, clockState }) => ({
+const mapStateToProps = ({ summitState, clockState, settingState }) => ({
   summit: summitState.summit,
   summit_phase: clockState.summit_phase,
+  eventRedirect: settingState.siteSettings.eventRedirect,
 });
 
 export default connect(mapStateToProps, {
