@@ -13,7 +13,7 @@ Looking for things to do in San Jose? Visit their <a href="https://www.sanjose.
 - - -
 
 **Hotels**\
-**Our discounted OCP hotel room rates have SOLD OUT, however, some hotels below may still have availability.** 
+Our discounted OCP hotel room rates have SOLD OUT, however, some hotels below may still have availability. 
 
  <a href="https://www.marriott.com/en-us/hotels/sjcsj-san-jose-marriott/overview/?scid=f2ae0541-1279-4f24-b197-a979c79310b0" target ="_blank" style="color:#94c400">**Marriott**</a>
 
