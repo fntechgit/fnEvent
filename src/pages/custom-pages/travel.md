@@ -13,19 +13,13 @@ Looking for things to do in San Jose? Visit their <a href="https://www.sanjose.
 - - -
 
 **Hotels**\
-Book your reservations in one of our OCP blocks below!
+**Our discounted OCP hotel room rates have SOLD OUT, however, some hotels below may still have availability.** 
 
-**Marriott – SOLD OUT!**
+ <a href="https://www.marriott.com/en-us/hotels/sjcsj-san-jose-marriott/overview/?scid=f2ae0541-1279-4f24-b197-a979c79310b0" target ="_blank" style="color:#94c400">**Marriott**</a>
 
-**Hilton**\
-Rate: $339/night\
-<a href="https://www.hilton.com/en/attend-my-event/sjcshhf-ocp-2a8c3898-8067-47c2-a291-732bae714d59/" target="_blank" style="color:#94C400">Click here</a> to book. Deadline: 10/1
+ <a href="https://www.hilton.com/en/hotels/sjcshhf-hilton-san-jose/?SEO_id=GMB-AMER-HH-SJCSHHF&y_source=1_MTIyMDg2MC03MTUtbG9jYXRpb24ud2Vic2l0ZQ=" target ="_blank" style="color:#94c400">**Hilton**</a>
 
-**Westin**\
-Rate: $319\
-<a href="https://www.marriott.com/event-reservations/reservation-link.mi?id=1654713293711&key=GRP&app=resvlink" target="_blank" style="color:#94C400">Click here</a> to book. Deadline: 10/3
-
-**Hyatt Place – SOLD OUT!**
+ <a href="https://www.hyatt.com/en-US/hotel/california/hyatt-place-san-jose-downtown/sjczj" target ="_blank" style="color:#94c400">**Hyatt Place</a>**
 
 - - -
 
