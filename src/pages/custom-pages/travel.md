@@ -19,6 +19,10 @@ Our discounted OCP hotel room rates have SOLD OUT, however, some hotels below ma
 
  <a href="https://www.hilton.com/en/hotels/sjcshhf-hilton-san-jose/?SEO_id=GMB-AMER-HH-SJCSHHF&y_source=1_MTIyMDg2MC03MTUtbG9jYXRpb24ud2Vic2l0ZQ=" target ="_blank" style="color:#94c400">**Hilton**</a>
 
+
+
+ <a href="https://www.marriott.com/en-us/hotels/sjcwi-the-westin-san-jose/overview/?scid=f2ae0541-1279-4f24-b197-a979c79310b0" target ="_blank" style="color:#94c400">**Westin</a>**
+
  <a href="https://www.hyatt.com/en-US/hotel/california/hyatt-place-san-jose-downtown/sjczj" target ="_blank" style="color:#94c400">**Hyatt Place</a>**
 
 - - -
@@ -31,3 +35,11 @@ Our discounted OCP hotel room rates have SOLD OUT, however, some hotels below ma
 
 **SFO -** San Francisco International Airport \
 35 miles
+
+
+
+- - -
+
+**Parking**
+
+<a href="https://www.sanjose.org/pdf/convention-center-parking"  target="_blank" style="color:#94c400">Click here</a> for information and pricing on for parking at the Convention Center.
