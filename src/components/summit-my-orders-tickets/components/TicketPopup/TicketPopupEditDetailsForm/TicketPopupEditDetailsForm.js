@@ -77,7 +77,6 @@ export const TicketPopupEditDetailsForm = ({
         })
     }), [changeAttendee]);
 
-    const readOnly = !isReassignable;
     const hasExtraQuestions = extraQuestions.length > 0;
     const isUserTicketOwner = order.owner_id === userProfile.id;
 
@@ -223,14 +222,14 @@ export const TicketPopupEditDetailsForm = ({
                                 {t("ticket_popup.edit_basic_info")}
                             </div>
                             <div className="col-sm-6">
-                                {!readOnly && t("ticket_popup.edit_required")}
+                                {t("ticket_popup.edit_required")}
                             </div>
                         </div>
 
                         <div className="row field-wrapper">
                             <div className="col-sm-4">
                                 {t("ticket_popup.edit_email")}
-                                {!readOnly && t("ticket_popup.edit_required_star")}
+                                {isReassignable && t("ticket_popup.edit_required_star")}
                             </div>
 
                             <div className="col-sm-8">
@@ -283,7 +282,7 @@ export const TicketPopupEditDetailsForm = ({
                                             <span>
                                                 {ticket.owner?.email}
 
-                                                {(shouldEditBasicInfo && isUserTicketOwner) && (
+                                                {(shouldEditBasicInfo && isUserTicketOwner && isReassignable) && (
                                                     <>
                                                         {` `}|{` `}
                                                         <span onClick={() => setChangeAttendee(true)}>
@@ -301,7 +300,7 @@ export const TicketPopupEditDetailsForm = ({
                         <div className="field-wrapper-mobile">
                             <div>
                                 {t("ticket_popup.edit_email")}
-                                {!readOnly && t("ticket_popup.edit_required_star")}
+                                {t("ticket_popup.edit_required_star")}
                             </div>
 
                             <div>
@@ -354,7 +353,7 @@ export const TicketPopupEditDetailsForm = ({
                                             <span>
                                                 {ticket.owner?.email}
 
-                                                {shouldEditBasicInfo && (
+                                                {(shouldEditBasicInfo && isUserTicketOwner && isReassignable) && (
                                                     <>
                                                         {` `}|{` `}
                                                         <span onClick={() => setChangeAttendee(true)}>
@@ -377,11 +376,11 @@ export const TicketPopupEditDetailsForm = ({
                                         {t("ticket_popup.edit_required_star")}
                                     </div>
                                     <div className="col-sm-8">
-                                        {(readOnly || !shouldEditBasicInfo) && (
+                                        {(!shouldEditBasicInfo) && (
                                             <span>{ticket.owner?.first_name}</span>
                                         )}
 
-                                        {(!readOnly && shouldEditBasicInfo) && (
+                                        {(shouldEditBasicInfo) && (
                                             <Input
                                                 id="attendee_first_name"
                                                 name="attendee_first_name"
@@ -401,11 +400,11 @@ export const TicketPopupEditDetailsForm = ({
                                         {t("ticket_popup.edit_required_star")}
                                     </div>
                                     <div>
-                                        {(readOnly || !shouldEditBasicInfo) && (
+                                        {(!shouldEditBasicInfo) && (
                                             <span>{ticket.owner?.first_name}</span>
                                         )}
 
-                                        {(!readOnly && shouldEditBasicInfo) && (
+                                        {(shouldEditBasicInfo) && (
                                             <Input
                                                 id="attendee_first_name"
                                                 name="attendee_first_name"
@@ -425,11 +424,11 @@ export const TicketPopupEditDetailsForm = ({
                                         {t("ticket_popup.edit_required_star")}
                                     </div>
                                     <div className="col-sm-8">
-                                        {(readOnly || !shouldEditBasicInfo) && (
+                                        {(!shouldEditBasicInfo) && (
                                             <span>{ticket.owner?.last_name}</span>
                                         )}
 
-                                        {(!readOnly && shouldEditBasicInfo) && (
+                                        {(shouldEditBasicInfo) && (
                                             <Input
                                                 id="attendee_last_name"
                                                 name="attendee_last_name"
@@ -449,11 +448,11 @@ export const TicketPopupEditDetailsForm = ({
                                         {t("ticket_popup.edit_required_star")}
                                     </div>
                                     <div>
-                                        {(readOnly || !shouldEditBasicInfo) && (
+                                        {(!shouldEditBasicInfo) && (
                                             <span>{ticket.owner?.last_name}</span>
                                         )}
 
-                                        {(!readOnly && shouldEditBasicInfo) && (
+                                        {(shouldEditBasicInfo) && (
                                             <Input
                                                 id="attendee_last_name"
                                                 name="attendee_last_name"
@@ -473,11 +472,11 @@ export const TicketPopupEditDetailsForm = ({
                                         {t("ticket_popup.edit_required_star")}
                                     </div>
                                     <div className="col-sm-8" style={{ position: 'relative' }}>
-                                        {(readOnly || !shouldEditBasicInfo) && (
+                                        {(!shouldEditBasicInfo) && (
                                             <span>{ticket.owner?.company}</span>
                                         )}
 
-                                        {(!readOnly && shouldEditBasicInfo) && (
+                                        {(shouldEditBasicInfo) && (
                                             <RegistrationCompanyInput
                                                 id="attendee_company"
                                                 name="attendee_company"
