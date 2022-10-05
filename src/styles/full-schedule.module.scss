@@ -35,7 +35,8 @@
       @media (max-width: 991px) {
         width: 100%;
         margin-top: 50px;
-
+      }
+      @media (max-width: 768px) {
         :global(#event-info-popup) {
           z-index: 3;
           top: 72px !important;
