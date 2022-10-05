@@ -1,1 +1,17 @@
-{"centerColumn":{"speakers":{"showTodaySpeakers":true,"showFeatureSpeakers":false}},"homeHero":{"title":"Lobby HERO Text","subTitle":"Lobby Subtitle Text","image":{"file":"/img/tier1-default-lobby-header1.png","alt":""},"copy":"<h2><strong>Lobby HERO Text</strong></h2>\n<h2>Lobby Subtitle Text</h2>"}}
+{
+  "centerColumn": {
+    "speakers": {
+      "showTodaySpeakers": true,
+      "showFeatureSpeakers": false
+    }
+  },
+  "homeHero": {
+    "title": "Global Frand & SEP Symposium",
+    "subTitle": "October 21, 2022",
+    "image": {
+      "file": "/img/gf22-fnv-lobby-header1.png",
+      "alt": ""
+    },
+    "copy": ""
+  }
+}
