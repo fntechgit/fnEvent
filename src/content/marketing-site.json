@@ -34,7 +34,7 @@
     "image": {
       "display": true,
       "title": "",
-      "src": "/img/gf22-fnv-schedule.png"
+      "src": "/img/gf22-fnv-schedule-v2.png"
     }
   },
   "sponsors": [
@@ -42,14 +42,14 @@
       "size": 1,
       "images": [
         {
-          "image": "/img/gf22-fnv-space3.png"
+          "image": "/img/gf22-fnv-space3_v2.png"
         }
       ]
     },
     {
       "images": [
         {
-          "image": "/img/gf22-fnv-space1.png"
+          "image": "/img/gf22-fnv-space1_v2.png"
         }
       ],
       "size": 1
@@ -58,7 +58,7 @@
       "size": 2,
       "images": [
         {
-          "image": "/img/gf22-fnv-space2.png"
+          "image": "/img/gf22-fnv-space2_v2.png"
         }
       ]
     },
@@ -66,7 +66,7 @@
       "size": 2,
       "images": [
         {
-          "image": "/img/gf22-fnv-space4.png"
+          "image": "/img/gf22-fnv-space4_v2.png"
         }
       ]
     }
