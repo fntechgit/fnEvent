@@ -3,4 +3,4 @@ templateKey: custom-page
 title: Map
 userRequirement: NONE
 ---
-Map available starting October 18.
+![](/img/ocpglo22_fnv_map.png)
