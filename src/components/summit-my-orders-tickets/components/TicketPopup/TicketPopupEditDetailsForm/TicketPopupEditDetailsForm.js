@@ -20,8 +20,7 @@ export const TicketPopupEditDetailsForm = ({
     summit,
     order,
     allowExtraQuestionsEdit,
-    context,
-    shouldEditBasicInfo = true
+    context    
 }) => {
     const formRef = useRef(null);
     const { t } = useTranslation();
@@ -282,7 +281,7 @@ export const TicketPopupEditDetailsForm = ({
                                             <span>
                                                 {ticket.owner?.email}
 
-                                                {(shouldEditBasicInfo && isUserTicketOwner && isReassignable) && (
+                                                {(isUserTicketOwner && isReassignable) && (
                                                     <>
                                                         {` `}|{` `}
                                                         <span onClick={() => setChangeAttendee(true)}>
@@ -353,7 +352,7 @@ export const TicketPopupEditDetailsForm = ({
                                             <span>
                                                 {ticket.owner?.email}
 
-                                                {(shouldEditBasicInfo && isUserTicketOwner && isReassignable) && (
+                                                {(isUserTicketOwner && isReassignable) && (
                                                     <>
                                                         {` `}|{` `}
                                                         <span onClick={() => setChangeAttendee(true)}>
@@ -376,21 +375,15 @@ export const TicketPopupEditDetailsForm = ({
                                         {t("ticket_popup.edit_required_star")}
                                     </div>
                                     <div className="col-sm-8">
-                                        {(!shouldEditBasicInfo) && (
-                                            <span>{ticket.owner?.first_name}</span>
-                                        )}
-
-                                        {(shouldEditBasicInfo) && (
-                                            <Input
-                                                id="attendee_first_name"
-                                                name="attendee_first_name"
-                                                className="form-control"
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleblur}
-                                                value={formik.values.attendee_first_name}
-                                                error={formik.errors.attendee_first_name}
-                                            />
-                                        )}
+                                        <Input
+                                            id="attendee_first_name"
+                                            name="attendee_first_name"
+                                            className="form-control"
+                                            onChange={formik.handleChange}
+                                            onBlur={formik.handleblur}
+                                            value={formik.values.attendee_first_name}
+                                            error={formik.errors.attendee_first_name}
+                                        />
                                     </div>
                                 </div>
 
@@ -400,21 +393,15 @@ export const TicketPopupEditDetailsForm = ({
                                         {t("ticket_popup.edit_required_star")}
                                     </div>
                                     <div>
-                                        {(!shouldEditBasicInfo) && (
-                                            <span>{ticket.owner?.first_name}</span>
-                                        )}
-
-                                        {(shouldEditBasicInfo) && (
-                                            <Input
-                                                id="attendee_first_name"
-                                                name="attendee_first_name"
-                                                className="form-control"
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleblur}
-                                                value={formik.values.attendee_first_name}
-                                                error={formik.errors.attendee_first_name}
-                                            />
-                                        )}
+                                        <Input
+                                            id="attendee_first_name"
+                                            name="attendee_first_name"
+                                            className="form-control"
+                                            onChange={formik.handleChange}
+                                            onBlur={formik.handleblur}
+                                            value={formik.values.attendee_first_name}
+                                            error={formik.errors.attendee_first_name}
+                                        />
                                     </div>
                                 </div>
 
@@ -424,21 +411,15 @@ export const TicketPopupEditDetailsForm = ({
                                         {t("ticket_popup.edit_required_star")}
                                     </div>
                                     <div className="col-sm-8">
-                                        {(!shouldEditBasicInfo) && (
-                                            <span>{ticket.owner?.last_name}</span>
-                                        )}
-
-                                        {(shouldEditBasicInfo) && (
-                                            <Input
-                                                id="attendee_last_name"
-                                                name="attendee_last_name"
-                                                className="form-control"
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleblur}
-                                                value={formik.values.attendee_last_name}
-                                                error={formik.errors.attendee_last_name}
-                                            />
-                                        )}
+                                        <Input
+                                            id="attendee_last_name"
+                                            name="attendee_last_name"
+                                            className="form-control"
+                                            onChange={formik.handleChange}
+                                            onBlur={formik.handleblur}
+                                            value={formik.values.attendee_last_name}
+                                            error={formik.errors.attendee_last_name}
+                                        />
                                     </div>
                                 </div>
 
@@ -448,21 +429,15 @@ export const TicketPopupEditDetailsForm = ({
                                         {t("ticket_popup.edit_required_star")}
                                     </div>
                                     <div>
-                                        {(!shouldEditBasicInfo) && (
-                                            <span>{ticket.owner?.last_name}</span>
-                                        )}
-
-                                        {(shouldEditBasicInfo) && (
-                                            <Input
-                                                id="attendee_last_name"
-                                                name="attendee_last_name"
-                                                className="form-control"
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleblur}
-                                                value={formik.values.attendee_last_name}
-                                                error={formik.errors.attendee_last_name}
-                                            />
-                                        )}
+                                        <Input
+                                            id="attendee_last_name"
+                                            name="attendee_last_name"
+                                            className="form-control"
+                                            onChange={formik.handleChange}
+                                            onBlur={formik.handleblur}
+                                            value={formik.values.attendee_last_name}
+                                            error={formik.errors.attendee_last_name}
+                                        />
                                     </div>
                                 </div>
 
@@ -472,22 +447,16 @@ export const TicketPopupEditDetailsForm = ({
                                         {t("ticket_popup.edit_required_star")}
                                     </div>
                                     <div className="col-sm-8" style={{ position: 'relative' }}>
-                                        {(!shouldEditBasicInfo) && (
-                                            <span>{ticket.owner?.company}</span>
-                                        )}
-
-                                        {(shouldEditBasicInfo) && (
-                                            <RegistrationCompanyInput
-                                                id="attendee_company"
-                                                name="attendee_company"
-                                                summitId={summit.id}
-                                                className={`dropdown`}
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleblur}
-                                                value={formik.values.attendee_company}
-                                                error={formik.errors.attendee_company?.name}
-                                            />
-                                        )}
+                                        <RegistrationCompanyInput
+                                            id="attendee_company"
+                                            name="attendee_company"
+                                            summitId={summit.id}
+                                            className={`dropdown`}
+                                            onChange={formik.handleChange}
+                                            onBlur={formik.handleblur}
+                                            value={formik.values.attendee_company}
+                                            error={formik.errors.attendee_company?.name}
+                                        />
                                     </div>
                                 </div>
 
