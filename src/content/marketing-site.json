@@ -75,5 +75,6 @@
     "display": true,
     "text": "Event Kickoff"
   },
-  "registration_in_person_disclaimer": ""
+  "registration_in_person_disclaimer": "",
+  "eventRedirect": 3254
 }
