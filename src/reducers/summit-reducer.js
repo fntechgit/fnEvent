@@ -3,6 +3,7 @@ import extraQuestions from '../content/extra-questions.json';
 import { START_LOADING, STOP_LOADING, LOGOUT_USER } from "openstack-uicore-foundation/lib/utils/actions";
 import { RESET_STATE, GET_THIRD_PARTY_PROVIDERS, SYNC_DATA } from "../actions/base-actions";
 import { GET_EXTRA_QUESTIONS } from '../actions/user-actions';
+import { SET_SUMMIT } from '../actions/summit-actions';
 
 const DEFAULT_STATE = {
   loading: false,
@@ -23,6 +24,9 @@ const summitReducer = (state = DEFAULT_STATE, action) => {
       return DEFAULT_STATE;
     case START_LOADING:
       return { ...state, loading: true };
+    case SET_SUMMIT:{
+      return { ...state, summit: payload};
+    }
     case STOP_LOADING:
       return { ...state, loading: false };
     case GET_THIRD_PARTY_PROVIDERS:

@@ -10,6 +10,9 @@ import {
   EVENT_PHASE_BEFORE,
   EVENT_PHASE_ADD
 } from '../actions/clock-actions';
+
+import { SET_SUMMIT } from '../actions/summit-actions';
+
 import summitData from '../content/summit.json';
 import {RESET_STATE, SYNC_DATA} from "../actions/base-actions";
 
@@ -28,6 +31,9 @@ const DEFAULT_STATE = {
 const clockReducer = (state = DEFAULT_STATE, action) => {
   const { type, payload } = action;
   switch (type) {
+    case SET_SUMMIT: {
+       return {...state, summit_phase: getSummitPhase( payload, state.nowUtc)};
+    }
     case RESET_STATE:
     case LOGOUT_USER:
     case SYNC_DATA:

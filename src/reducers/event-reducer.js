@@ -1,6 +1,6 @@
 import { START_LOADING, STOP_LOADING, LOGOUT_USER } from "openstack-uicore-foundation/lib/utils/actions";
 import { GET_EVENT_DATA, GET_EVENT_DATA_ERROR, SET_EVENT_LAST_UPDATE } from '../actions/event-actions'
-import {RESET_STATE, SYNC_DATA} from "../actions/base-actions";
+import { RESET_STATE, SYNC_DATA } from "../actions/base-actions";
 
 const DEFAULT_STATE = {
   loading: false,

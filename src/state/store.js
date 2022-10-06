@@ -12,7 +12,10 @@ import settingReducer from "../reducers/setting-reducer";
 import sponsorReducer from "../reducers/sponsor-reducer";
 import { applyMiddleware, compose, createStore } from "redux";
 import thunk from "redux-thunk";
+import { setSummit } from '../actions/summit-actions';
+import { setEvents } from '../actions/event-actions';
 
+import {CDN_SUMMIT_DATA_SECONDARY_STORAGE_BASE_URL, getEnvVariable, SUMMIT_ID} from "../utils/envVariables";
 // get from process.env bc window is not set yet
 const clientId = process.env.GATSBY_OAUTH2_CLIENT_ID;
 const summitID = process.env.GATSBY_SUMMIT_ID;
@@ -58,7 +61,27 @@ const composeEnhancers = typeof window === 'object' && window.__REDUX_DEVTOOLS_E
 
 const store = createStore(persistedReducers, composeEnhancers(applyMiddleware(appendLoggedUser, thunk)));
 
-const onRehydrateComplete = () => { };
+const onRehydrateComplete = () => {
+
+  const summitId = getEnvVariable(SUMMIT_ID)
+  const cdnBaseUrl = getEnvVariable(CDN_SUMMIT_DATA_SECONDARY_STORAGE_BASE_URL);
+
+  // reload summit data from secondary storage
+  fetch(`${cdnBaseUrl}/${summitId}/summit.json`)
+      .then(response => response.json())
+      .then(json => {
+            let {summit} = json;
+            store.dispatch(setSummit(summit));
+      }).catch(e => console.log(e));
+
+  fetch(`${cdnBaseUrl}/${summitId}/events.json`)
+      .then(response => response.json())
+      .then(json => {
+        let events = json;
+        store.dispatch(setEvents(events));
+      }).catch(e => console.log(e));
+
+};
 
 export const persistor = persistStore(store, null, onRehydrateComplete);
 

@@ -15,6 +15,9 @@ import URI from "urijs";
 import { customErrorHandler } from '../utils/customErrorHandler';
 
 export const GET_EXTRA_QUESTIONS = 'GET_EXTRA_QUESTIONS';
+export const SET_SUMMIT = 'SET_SUMMIT';
+
+export const setSummit = (summit) => async (dispatch) => dispatch(createAction(SET_SUMMIT)(summit))
 
 export const getExtraQuestions = () => async (dispatch, getState) => {
 

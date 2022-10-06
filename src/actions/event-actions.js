@@ -13,10 +13,13 @@ import {
 import {customErrorHandler} from '../utils/customErrorHandler';
 
 import {LOGOUT_USER} from "openstack-uicore-foundation/lib/utils/actions";
-import moment from "moment-timezone";
 export const GET_EVENT_DATA = 'GET_EVENT_DATA';
 export const GET_EVENT_DATA_ERROR = 'GET_EVENT_DATA_ERROR';
 export const SET_EVENT_LAST_UPDATE = 'SET_EVENT_LAST_UPDATE';
+
+export const SET_EVENTS = 'SET_EVENTS';
+
+export const setEvents = (events) => async (dispatch) => dispatch(createAction(SET_EVENTS)(events))
 
 export const handleResetReducers = () => (dispatch) => {
     dispatch(createAction(LOGOUT_USER)({}));
