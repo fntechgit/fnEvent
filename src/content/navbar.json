@@ -30,12 +30,13 @@
     },
     {
       "requiresAuth": false,
-      "showOnlyAtShowTime": true,
+      "showOnlyAtShowTime": false,
       "pageRestriction": [
         "ANY"
       ],
-      "title": "MAP (turn on for show only! 10/18)",
-      "link": "/map"
+      "title": "MAP",
+      "link": "/map",
+      "display": true
     },
     {
       "title": "SCHEDULE",
