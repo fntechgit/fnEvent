@@ -3,6 +3,12 @@ templateKey: custom-page
 title: FAQ
 userRequirement: NONE
 ---
+<a href="https://2022ocpglobal.fnvirtual.app/map/" target="_blank">**Summit Map</a>**
+
+<a href="https://2022ocpglobal.fnvirtual.app/a/schedule" target="_blank">**Summit Schedule</a>**
+
+
+
 **<BR>Q. What internet browsers do you suggest for your platform?**
 
 A. FNvirtual works best in Chrome, Safari, Brave, and Firefox. To ensure you have a fast, safe, and secure internet experience, please verify your preferred browser is up to date.
