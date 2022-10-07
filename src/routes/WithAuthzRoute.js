@@ -1,9 +1,18 @@
 import React, {useEffect, useState, useMemo} from "react";
 import {connect} from "react-redux";
 import {navigate} from "gatsby";
+import { pick }  from "@reach/router/lib/utils";
 import {getUserProfile, requireExtraQuestions} from "../actions/user-actions";
 import HeroComponent from "../components/HeroComponent";
 import {userHasAccessLevel} from "../utils/authorizedGroups";
+
+const pathsRequiringVirtualBadge = [
+    { path: "/a/" },
+    { path: "/a/event/:eventId" },
+    { path: "/a/posters" },
+    { path: "/a/posters/:trackGroupId" },
+    { path: "/a/poster/:presentationId/" },
+];
 
 /**
  *
@@ -18,19 +27,23 @@ import {userHasAccessLevel} from "../utils/authorizedGroups";
  * @constructor
  */
 const WithAuthzRoute = ({
-                           children,
-                           isLoggedIn,
-                           location,
-                           userProfile,
-                           hasTicket,
-                           isAuthorized,
-                           getUserProfile,
-                       }) => {
+   children,
+   isLoggedIn,
+   location,
+   userProfile,
+   hasTicket,
+   isAuthorized,
+   getUserProfile
+}) => {
     const [fetchedUserProfile, setFetchedUserProfile] = useState(false);
+
+    const locationRequiresVirtualBadge = useMemo(() =>
+        !!pick(pathsRequiringVirtualBadge, location.pathname),
+        [location]);
 
     // we store this calculation to use it later
     const hasVirtualBadge = useMemo(() =>
-        userProfile ? userHasAccessLevel(userProfile.summit_tickets, 'VIRTUAL') : false,
+        userProfile ? false : false,
         [userProfile]);
 
     const userIsReady = () => {
@@ -38,7 +51,13 @@ const WithAuthzRoute = ({
         return !!userProfile;
     };
 
-    const userIsAuthz = isAuthorized || (hasTicket && hasVirtualBadge);
+    //const userIsAuthz = isAuthorized || (
+    const userIsAuthz = false || (
+                            hasTicket && (
+                                !locationRequiresVirtualBadge ||
+                                locationRequiresVirtualBadge && hasVirtualBadge
+                            )
+                        );
 
     const checkingCredentials = () => {
         return !userIsAuthz && !fetchedUserProfile;
@@ -72,7 +91,7 @@ const WithAuthzRoute = ({
 
     // has no ticket -> redirect
     if (!userIsAuthz) {
-        const options = {state: {error: hasTicket && !hasVirtualBadge ? 'no-access' : 'no-ticket'}};
+        const options = { state: { error: hasTicket ? 'no-ticket' : 'no-virtual-access' } };
         return <HeroComponent title="Checking credentials..." redirectTo="/authz/ticket" options={options}/>;
     }
 

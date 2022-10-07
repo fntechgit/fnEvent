@@ -25,8 +25,8 @@ export const TicketErrorPageTemplate = class extends React.Component {
             let targetUrl = null;
 
             switch (error) {
-                case 'no-access':
-                    targetUrl = `/auth/logout`;
+                case 'no-virtual-access':
+                    targetUrl = `/`;
                     break
                 case 'no-ticket':
                     targetUrl = `/#registration=1`;
@@ -57,8 +57,8 @@ export const TicketErrorPageTemplate = class extends React.Component {
         let message = '';
 
         switch (error) {
-            case 'no-access':
-                message = 'I’m sorry your badge does not allow access to this event.';
+            case 'no-virtual-access':
+                message = 'I’m sorry your badge does not allow access to this section.';
                 break;
             case 'no-ticket':
                 message = 'I’m sorry you are not registered for this event.';
@@ -77,11 +77,10 @@ export const TicketErrorPageTemplate = class extends React.Component {
         const {error} = this.state;
         let message = '';
         switch (error) {
-            case 'no-access':
-                message = 'You will be logged out.';
+            case 'no-ticket':
+                message = getEnvVariable(REGISTRATION_BASE_URL) ? 'You will be redirected to registration.' : '';
                 break;
             default:
-                message = getEnvVariable(REGISTRATION_BASE_URL) ? 'You will be redirected to registration.' : '';
                 break;
         }
 
