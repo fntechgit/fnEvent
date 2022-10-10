@@ -10,6 +10,7 @@ const pathsRequiringVirtualBadge = [
     { path: "/a/" },
     { path: "/a/event/:eventId" },
     { path: "/a/posters" },
+    { path: "/a/sponsors" },
     { path: "/a/posters/:trackGroupId" },
     { path: "/a/poster/:presentationId/" },
 ];
