@@ -90,7 +90,7 @@ const WithAuthzRoute = ({
 
     // has no ticket -> redirect
     if (!userIsAuthz) {
-        const options = { state: { error: hasTicket ? 'no-ticket' : 'no-virtual-access' } };
+        const options = { state: { error: !hasTicket ? 'no-ticket' : 'no-virtual-access' } };
         return <HeroComponent title="Checking credentials..." redirectTo="/authz/ticket" options={options}/>;
     }
 
