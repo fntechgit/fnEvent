@@ -7,6 +7,7 @@
   NODE_VERSION = "14.20.1" # minimum version required by Gatsby v4
   YARN_VERSION = "1.22.4"
   YARN_FLAGS = "--no-ignore-optional"
+  NODE_OPTIONS = "--max-old-space-size=8192"
 [[plugins]]
   package = "netlify-plugin-gatsby-cache"
 [[headers]]
