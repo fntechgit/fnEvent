@@ -1,8 +1,6 @@
 ---
 templateKey: custom-page
-title: OCP Project Meet & Greet Day1
+title: PMG Day2
 userRequirement: NONE
 ---
-
-
-![](/img/ocp22g-summitmap-pmg-day1.png)
+![](/img/ocp22g-summitmap-pmg-day2.png)
