@@ -4,7 +4,7 @@
 [context.branch-deploy]
   ignore = "bash ./netlify-build-ignore.sh"
 [build.environment]
-  NODE_VERSION = "16.17.1" # minimum version required by Gatsby v4
+  NODE_VERSION = "14.20.1" # minimum version required by Gatsby v4
   YARN_VERSION = "1.22.4"
   YARN_FLAGS = "--no-ignore-optional"
 [[plugins]]
