@@ -33,7 +33,7 @@ export const TicketPopup = ({ ticket, order, summit, onClose, fromTicketList, fr
     const isUserOrderOwner = order.owner_id === userProfile.id;
     const isUserTicketOwner = ticket.owner?.email === userProfile.email;
 
-    const allowExtraQuestionsEdit = (isUserTicketOwner || isUserOrderOwner) && summit.allow_update_attendee_extra_questions;
+    const canEditTicketData = (isUserTicketOwner || isUserOrderOwner) && summit.allow_update_attendee_extra_questions;
 
     useEffect(() => {
         document.body.style.overflow = 'hidden';
@@ -124,7 +124,7 @@ export const TicketPopup = ({ ticket, order, summit, onClose, fromTicketList, fr
                                     ticket={ticket}
                                     summit={summit}
                                     order={order}
-                                    allowExtraQuestionsEdit={allowExtraQuestionsEdit}
+                                    canEditTicketData={canEditTicketData}
                                     context={fromTicketList ? 'ticket-list' : 'order-list'}
                                 />
                             </div>

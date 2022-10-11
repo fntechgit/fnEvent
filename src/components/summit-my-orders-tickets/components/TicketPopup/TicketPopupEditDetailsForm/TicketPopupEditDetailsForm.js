@@ -19,7 +19,7 @@ export const TicketPopupEditDetailsForm = ({
     ticket,
     summit,
     order,
-    allowExtraQuestionsEdit,
+    canEditTicketData,
     context    
 }) => {
     const formRef = useRef(null);
@@ -375,7 +375,7 @@ export const TicketPopupEditDetailsForm = ({
                                         {t("ticket_popup.edit_required_star")}
                                     </div>
                                     <div className="col-sm-8">
-                                        {allowExtraQuestionsEdit ?
+                                        {canEditTicketData ?
                                             <Input
                                                 id="attendee_first_name"
                                                 name="attendee_first_name"
@@ -397,7 +397,7 @@ export const TicketPopupEditDetailsForm = ({
                                         {t("ticket_popup.edit_required_star")}
                                     </div>
                                     <div>
-                                        {allowExtraQuestionsEdit ?
+                                        {canEditTicketData ?
                                             <Input
                                                 id="attendee_first_name"
                                                 name="attendee_first_name"
@@ -419,7 +419,7 @@ export const TicketPopupEditDetailsForm = ({
                                         {t("ticket_popup.edit_required_star")}
                                     </div>
                                     <div className="col-sm-8">
-                                        {allowExtraQuestionsEdit ?
+                                        {canEditTicketData ?
                                             <Input
                                                 id="attendee_last_name"
                                                 name="attendee_last_name"
@@ -441,7 +441,7 @@ export const TicketPopupEditDetailsForm = ({
                                         {t("ticket_popup.edit_required_star")}
                                     </div>
                                     <div>
-                                        {allowExtraQuestionsEdit ?
+                                        {canEditTicketData ?
                                             <Input
                                                 id="attendee_last_name"
                                                 name="attendee_last_name"
@@ -463,7 +463,7 @@ export const TicketPopupEditDetailsForm = ({
                                         {t("ticket_popup.edit_required_star")}
                                     </div>
                                     <div className="col-sm-8" style={{ position: 'relative' }}>
-                                        {allowExtraQuestionsEdit ?
+                                        {canEditTicketData ?
                                             <RegistrationCompanyInput
                                                 id="attendee_company"
                                                 name="attendee_company"
@@ -495,7 +495,7 @@ export const TicketPopupEditDetailsForm = ({
                                             extraQuestions={extraQuestions}
                                             userAnswers={formik.values.extra_questions}
                                             onAnswerChanges={handleExtraQuestionsSubmit}
-                                            allowExtraQuestionsEdit={allowExtraQuestionsEdit}
+                                            allowExtraQuestionsEdit={canEditTicketData}
                                             questionContainerClassName="row form-group"
                                             questionLabelContainerClassName="col-sm-4"
                                             questionControlContainerClassName="col-sm-8 question-control-container"
@@ -559,17 +559,19 @@ export const TicketPopupEditDetailsForm = ({
                         )}
                     </div>
 
-                    <div className="ticket-popup-footer">
-                        <button
-                            type="button"
-                            className="btn btn-primary"
-                            disabled={formik.isSubmitting}
-                            onClick={triggerSubmit}
-                        >
-                            {!formik.isSubmitting && <>{t("ticket_popup.save_changes")}</>}
-                            {formik.isSubmitting && <>{t("ticket_popup.saving_changes")}...</>}
-                        </button>
-                    </div>
+                    {canEditTicketData &&
+                        <div className="ticket-popup-footer">
+                            <button
+                                type="button"
+                                className="btn btn-primary"
+                                disabled={formik.isSubmitting}
+                                onClick={triggerSubmit}
+                            >
+                                {!formik.isSubmitting && <>{t("ticket_popup.save_changes")}</>}
+                                {formik.isSubmitting && <>{t("ticket_popup.saving_changes")}...</>}
+                            </button>
+                        </div>
+                    }
                 </>
         </div >
     );
