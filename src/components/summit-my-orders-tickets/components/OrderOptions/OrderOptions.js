@@ -51,7 +51,17 @@ export const OrderOptions = ({ order, summit, ticket, className }) => {
                     </>
                 </CSSTransition>
 
-                {summit.registration_allowed_refund_request_till_date > now && order && order?.status === 'Paid' && order?.amount > 0 && order?.amount > order?.refunded_amount && (
+                {
+                    
+                    (summit.registration_allowed_refund_request_till_date ? 
+                        summit.registration_allowed_refund_request_till_date > now 
+                        :
+                        summit.start_date > now
+                    ) && 
+                    order && 
+                    order?.status === 'Paid' && 
+                    order?.amount > 0 && 
+                    order?.amount > order?.refunded_amount && (
                     <button onClick={handleCancelClick} className="order-option cancel">
                         {t("order_info.cancel_order")}
                     </button>
