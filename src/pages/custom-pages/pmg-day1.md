@@ -1,6 +1,6 @@
 ---
 templateKey: custom-page
-title: PMG Day1
+title: OCP Project Meet & Greet Day1
 userRequirement: NONE
 ---
 
