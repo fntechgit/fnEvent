@@ -44,8 +44,26 @@ const SSR_getMarketingSettings = async (baseUrl, summitId) => {
     .catch(e => console.log('ERROR: ', e));
 };
 
+const SSR_GetRemainingPages = async (endpoint, params, lastPage) => {
+  // create an array with remaining pages to perform Promise.All
+  const pages = [];
+  for (let i = 2; i <= lastPage; i++) {
+    pages.push(i);
+  }
+
+  let remainingPages = await Promise.all(pages.map(pageIdx => {
+    return axios.get(endpoint ,
+        { params : {
+            ...params,
+            page: pageIdx
+          }
+        }).then(({ data }) => data);
+  }));
+
+  return remainingPages.sort((a, b,) =>   b.current_page - a.current_page ).map(p => p.data).flat();
+}
+
 const SSR_getEvents = async (baseUrl, summitId, accessToken) => {
-  console.log(`SSR_getEvents`);
 
   const endpoint = `${baseUrl}/api/v1/summits/${summitId}/events/published`;
 
@@ -60,28 +78,14 @@ const SSR_getEvents = async (baseUrl, summitId, accessToken) => {
 
     console.log(`SSR_getEvents then data.current_page ${data.current_page} data.last_page ${data.last_page} total ${data.total}`)
 
-    // create an array with remaining pages to perform Promise.All
-    const pages = [];
-    for (let i = 2; i <= data.last_page; i++) {
-      pages.push(i);
-    }
+    let remainingPages = await SSR_GetRemainingPages(endpoint, params, data.last_page);
 
-    let remainingPages = await Promise.all(pages.map(pageIdx => {
-      return axios.get(endpoint ,
-          { params : {
-              ...params,
-              page: pageIdx
-            }
-          }).then(({ data }) => data.data);
-    }));
-
-    return [...data.data, ...remainingPages.flat() ];
+    return [...data.data, ...remainingPages];
 
   }).catch(e => console.log('ERROR: ', e));
 };
 
 const SSR_getSpeakers = async (baseUrl, summitId, accessToken, filter = null) => {
-  console.log(`SSR_getSpeakers`);
 
   const params = {
     access_token: accessToken,
@@ -102,24 +106,15 @@ const SSR_getSpeakers = async (baseUrl, summitId, accessToken, filter = null) =>
     .then(async ({data}) => {
       console.log(`SSR_getSpeakers then data.current_page ${data.current_page} data.last_page ${data.last_page} total ${data.total}`)
 
-      // create an array with remaining pages to perform Promise.All
-      const pages = [];
-      for (let i = 2; i <= data.last_page; i++) {
-        pages.push(i);
-      }
+      let remainingPages = await SSR_GetRemainingPages(endpoint, params, data.last_page);
 
-      let remainingPages = await Promise.all(pages.map(pageIdx => {
-        return axios.get(
-            endpoint,
-            { params: { ...params, page : pageIdx} }).then(({data}) => data.data);
-      }));
-
-      return [ ...data.data, ...remainingPages.flat()];
+      return [ ...data.data, ...remainingPages];
     })
     .catch(e => console.log('ERROR: ', e));
 };
 
 const SSR_getSummit = async (baseUrl, summitId) => {
+
   const params = {
     expand: 'event_types,tracks,track_groups,presentation_levels,locations.rooms,locations.floors,order_extra_questions.values,schedule_settings,schedule_settings.filters,schedule_settings.pre_filters',
     t: Date.now()
@@ -151,7 +146,6 @@ const SSR_getSummitExtraQuestions = async (baseUrl, summitId, accessToken) => {
 
 const SSR_getVoteablePresentations = async (baseUrl, summitId, accessToken) => {
 
-  console.log(`SSR_getVoteablePresentations`);
 
   const endpoint = `${baseUrl}/api/v1/summits/${summitId}/presentations/voteable`;
 
@@ -168,19 +162,9 @@ const SSR_getVoteablePresentations = async (baseUrl, summitId, accessToken) => {
 
     console.log(`SSR_getVoteablePresentations  then data.current_page ${data.current_page} data.last_page ${data.last_page} total ${data.total}`)
 
-    // create an array with remaining pages to perform Promise.All
-    const pages = [];
-    for (let i = 2; i <= data.last_page; i++) {
-      pages.push(i);
-    }
+    let remainingPages = await SSR_GetRemainingPages(endpoint, params, data.last_page);
 
-    let remainingPages = await Promise.all(pages.map(pageIdx => {
-      return axios.get(
-          endpoint,
-          {params: {...params, page: pageIdx}}).then(({data}) => data.data);
-    }));
-
-    return [...data.data, ...remainingPages.flat()];
+    return [...data.data, ...remainingPages];
   })
     .catch(e => console.log('ERROR: ', e));
 };
