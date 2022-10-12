@@ -40,6 +40,7 @@
     "gatsby-plugin-image": "^2.10.1",
     "gatsby-plugin-netlify": "^4.1.0",
     "gatsby-plugin-netlify-cms": "^6.10.0",
+    "gatsby-plugin-no-sourcemaps": "^4.24.0",
     "gatsby-plugin-purgecss": "^6.1.1",
     "gatsby-plugin-react-helmet": "^5.10.0",
     "gatsby-plugin-sass": "^5.10.2",
@@ -133,7 +134,7 @@
     "clean": "find . -name \"node_modules\" -type d -prune -exec rm -rf '{}' + && yarn && yarn gatsby-clean",
     "gatsby-clean": "gatsby clean",
     "start": "npm run develop",
-    "build": "NODE_ENV=production NODE_OPTIONS=--max-old-space-size=8192 cross-env GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES=true gatsby build --log-pages",
+    "build": "NODE_ENV=production NODE_OPTIONS=--max-old-space-size=8192 cross-env GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES=true node --trace-warnings node_modules/.bin/gatsby build --log-pages",
     "develop": "NODE_OPTIONS=--max-old-space-size=8192 npm run gatsby-clean && node --trace-warnings node_modules/.bin/gatsby develop --S -H 0.0.0.0 -o",
     "format": "prettier --trailing-comma es5 --no-semi --single-quote --write \"{gatsby-*.js,src/**/*.js}\"",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -148,6 +149,9 @@
   "resolutions": {
     "mini-css-extract-plugin": "^1.6.2",
     "webpack": "^5.24.2",
-    "lmdb": "^2.6.7"
+    "lmdb": "^2.6.7",
+    "gatsby-plugin-page-creator": "^4.24.1",
+    "gatsby-core-utils": "^3.24.0",
+    "speed-measure-webpack-plugin": "^1.5.0"
   }
 }

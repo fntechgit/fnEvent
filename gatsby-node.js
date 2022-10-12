@@ -29,7 +29,7 @@ const getAccessToken = async (config, scope) => {
 };
 
 const SSR_getMarketingSettings = async (baseUrl, summitId) => {
-  console.log( `SSR_getMarketingSettings .env.${process.env.NODE_ENV}`)
+
   const params = {
     per_page: 100,
   };
@@ -44,51 +44,77 @@ const SSR_getMarketingSettings = async (baseUrl, summitId) => {
     .catch(e => console.log('ERROR: ', e));
 };
 
-const SSR_getEvents = async (baseUrl, summitId, accessToken, page = 1, results = []) => {
-  console.log(`SSR_getEvents page ${page} results ${results.length}`)
-  return await axios.get(
-    `${baseUrl}/api/v1/summits/${summitId}/events/published`,
-    {
-      params: {
+const SSR_getEvents = async (baseUrl, summitId, accessToken) => {
+  console.log(`SSR_getEvents`);
+
+  const endpoint = `${baseUrl}/api/v1/summits/${summitId}/events/published`;
+
+  const params = {
         access_token: accessToken,
         per_page: 50,
-        page: page,
+        page: 1,
         expand: 'slides, links, videos, media_uploads, type, track, track.allowed_access_levels, location, location.venue, location.floor, speakers, moderator, sponsors, current_attendance, groups, rsvp_template, tags',
-      }
-    }).then(({ data }) => {
-      console.log(`SSR_getEvents  then data.current_page ${data.current_page} data.last_page ${data.last_page} total ${data.total}`)
-      if (data.current_page < data.last_page) {
-        return SSR_getEvents(baseUrl, summitId, accessToken, data.current_page + 1, [...results, ...data.data]);
-      }
+  }
 
-      return [...results, ...data.data];
-    })
-    .catch(e => console.log('ERROR: ', e));
+  return await axios.get(endpoint, { params }).then(async ({data}) => {
+
+    console.log(`SSR_getEvents then data.current_page ${data.current_page} data.last_page ${data.last_page} total ${data.total}`)
+
+    // create an array with remaining pages to perform Promise.All
+    const pages = [];
+    for (let i = 2; i <= data.last_page; i++) {
+      pages.push(i);
+    }
+
+    let remainingPages = await Promise.all(pages.map(pageIdx => {
+      return axios.get(endpoint ,
+          { params : {
+              ...params,
+              page: pageIdx
+            }
+          }).then(({ data }) => data.data);
+    }));
+
+    return [...data.data, ...remainingPages.flat() ];
+
+  }).catch(e => console.log('ERROR: ', e));
 };
 
-const SSR_getSpeakers = async (baseUrl, summitId, accessToken, filter = null, page = 1, results = []) => {
-  console.log(`SSR_getSpeakers page ${page} results ${results.length}`)
+const SSR_getSpeakers = async (baseUrl, summitId, accessToken, filter = null) => {
+  console.log(`SSR_getSpeakers`);
+
   const params = {
     access_token: accessToken,
     per_page: 30,
-    page: page,
+    page: 1,
   };
+
+  const endpoint = `${baseUrl}/api/v1/summits/${summitId}/speakers/on-schedule`;
 
   if (filter) {
     params['filter[]'] = filter;
   }
 
   return await axios.get(
-    `${baseUrl}/api/v1/summits/${summitId}/speakers/on-schedule`,
+      endpoint,
     { params }
   )
-    .then(({ data }) => {
-      console.log(`SSR_getSpeakers  then data.current_page ${data.current_page} data.last_page ${data.last_page} total ${data.total}`)
-      if (data.current_page < data.last_page) {
-        return SSR_getSpeakers(baseUrl, summitId, accessToken, filter, data.current_page + 1, [...results, ...data.data]);
+    .then(async ({data}) => {
+      console.log(`SSR_getSpeakers then data.current_page ${data.current_page} data.last_page ${data.last_page} total ${data.total}`)
+
+      // create an array with remaining pages to perform Promise.All
+      const pages = [];
+      for (let i = 2; i <= data.last_page; i++) {
+        pages.push(i);
       }
 
-      return [...results, ...data.data];
+      let remainingPages = await Promise.all(pages.map(pageIdx => {
+        return axios.get(
+            endpoint,
+            { params: { ...params, page : pageIdx} }).then(({data}) => data.data);
+      }));
+
+      return [ ...data.data, ...remainingPages.flat()];
     })
     .catch(e => console.log('ERROR: ', e));
 };
@@ -123,30 +149,44 @@ const SSR_getSummitExtraQuestions = async (baseUrl, summitId, accessToken) => {
         .catch(e => console.log('ERROR: ', e));
 };
 
-const SSR_getVoteablePresentations = async (baseUrl, summitId, accessToken, page = 1, results = []) => {
-  console.log(`SSR_getVoteablePresentations page ${page} results ${results.length}`)
-  return await axios.get(
-    `${baseUrl}/api/v1/summits/${summitId}/presentations/voteable`,
-    {
-      params: {
-        access_token: accessToken,
-        per_page: 50,
-        page: page,
-        filter: 'published==1',
-        expand: 'slides, links, videos, media_uploads, type, track, track.allowed_access_levels, location, location.venue, location.floor, speakers, moderator, sponsors, current_attendance, groups, rsvp_template, tags',
-      }
-    }).then(({ data }) => {
-      console.log(`SSR_getVoteablePresentations  then data.current_page ${data.current_page} data.last_page ${data.last_page} total ${data.total}`)
+const SSR_getVoteablePresentations = async (baseUrl, summitId, accessToken) => {
 
-      if (data.current_page < data.last_page) {
-        return SSR_getVoteablePresentations(baseUrl, summitId, accessToken, data.current_page + 1, [...results, ...data.data]);
-      }
-      return [...results, ...data.data];
-    })
+  console.log(`SSR_getVoteablePresentations`);
+
+  const endpoint = `${baseUrl}/api/v1/summits/${summitId}/presentations/voteable`;
+
+  const params = {
+    access_token: accessToken,
+    per_page: 50,
+    page: 1,
+    filter: 'published==1',
+    expand: 'slides, links, videos, media_uploads, type, track, track.allowed_access_levels, location, location.venue, location.floor, speakers, moderator, sponsors, current_attendance, groups, rsvp_template, tags',
+  };
+
+  return await axios.get(endpoint,
+    { params }).then(async ({data}) => {
+
+    console.log(`SSR_getVoteablePresentations  then data.current_page ${data.current_page} data.last_page ${data.last_page} total ${data.total}`)
+
+    // create an array with remaining pages to perform Promise.All
+    const pages = [];
+    for (let i = 2; i <= data.last_page; i++) {
+      pages.push(i);
+    }
+
+    let remainingPages = await Promise.all(pages.map(pageIdx => {
+      return axios.get(
+          endpoint,
+          {params: {...params, page: pageIdx}}).then(({data}) => data.data);
+    }));
+
+    return [...data.data, ...remainingPages.flat()];
+  })
     .catch(e => console.log('ERROR: ', e));
 };
 
 exports.onPreBootstrap = async () => {
+
   const summitId = process.env.GATSBY_SUMMIT_ID;
   const summitApiBaseUrl = process.env.GATSBY_SUMMIT_API_BASE_URL;
   const marketingData = await SSR_getMarketingSettings(process.env.GATSBY_MARKETING_API_BASE_URL, process.env.GATSBY_SUMMIT_ID);

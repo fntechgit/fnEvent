@@ -6,6 +6,9 @@ module.exports = {
   plugins: [
     'gatsby-plugin-react-helmet',
     {
+      resolve: "gatsby-plugin-no-sourcemaps"
+    } ,
+    {
       /**
        * Gatsby v4 uses ES Modules for importing cssModules by default.
        * Disabling this to avoid needing to update in all files and for compatibility
