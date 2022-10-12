@@ -130,14 +130,14 @@ export const SponsorPageTemplate = class extends React.Component {
                       streamThumbnailGifCaptureStarts={parseInt(getEnvVariable(LIVE_EVENT_THUMBNAIL_GIF_CAPTURE_STARTS))}
                   />
                   }
-                  {schedule &&
+                  {/* {schedule &&
                   <UpcomingEventsComponent
                       eventCount={3}
                       sponsorId={sponsor.companyId}
                       renderEventLink={(event) => <Link to={`/a/event/${event.id}`}>{event.title}</Link>}
                       allEventsLink={<Link to={`/a/schedule#company=${encodeURIComponent(sponsor.name)}`}>View all <span className="sr-only">events</span></Link>}
                   />
-                  }
+                  } */}
                   {banner && <SponsorBanner sponsor={sponsor} bgColor={sponsor.sponsorColor} scanBadge={() => this.onBadgeScan()} />}
                 </div>
                 <div className="column is-one-quarter px-5 py-0">
