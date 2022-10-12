@@ -3,7 +3,7 @@ const path = require('path');
 const fs = require("fs");
 const webpack = require('webpack');
 const {createFilePath} = require('gatsby-source-filesystem');
-const {fmImagesToRelative} = require('gatsby-remark-relative-images');
+
 const {ClientCredentials} = require('simple-oauth2');
 const URI = require('urijs');
 const sizeOf = require('image-size');
@@ -29,6 +29,7 @@ const getAccessToken = async (config, scope) => {
 };
 
 const SSR_getMarketingSettings = async (baseUrl, summitId) => {
+  console.log( `SSR_getMarketingSettings .env.${process.env.NODE_ENV}`)
   const params = {
     per_page: 100,
   };

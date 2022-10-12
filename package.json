@@ -134,7 +134,7 @@
     "clean": "find . -name \"node_modules\" -type d -prune -exec rm -rf '{}' + && yarn && yarn gatsby-clean",
     "gatsby-clean": "gatsby clean",
     "start": "npm run develop",
-    "build": "NODE_OPTIONS=--max-old-space-size=8192 cross-env GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES=true gatsby build --log-pages",
+    "build": "NODE_ENV=production NODE_OPTIONS=--max-old-space-size=8192 cross-env GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES=true gatsby build --log-pages",
     "develop": "NODE_OPTIONS=--max-old-space-size=8192 npm run gatsby-clean && gatsby develop --S -H 0.0.0.0 -o",
     "format": "prettier --trailing-comma es5 --no-semi --single-quote --write \"{gatsby-*.js,src/**/*.js}\"",
     "test": "echo \"Error: no test specified\" && exit 1",
