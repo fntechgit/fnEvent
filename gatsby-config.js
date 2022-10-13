@@ -4,7 +4,11 @@ module.exports = {
     description: 'Virtual event',
   },
   plugins: [
+    `gatsby-plugin-remove-fingerprints`,
     'gatsby-plugin-react-helmet',
+    {
+      resolve: "gatsby-plugin-no-sourcemaps"
+    } ,
     {
       /**
        * Gatsby v4 uses ES Modules for importing cssModules by default.

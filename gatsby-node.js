@@ -3,7 +3,7 @@ const path = require('path');
 const fs = require("fs");
 const webpack = require('webpack');
 const {createFilePath} = require('gatsby-source-filesystem');
-const {fmImagesToRelative} = require('gatsby-remark-relative-images');
+
 const {ClientCredentials} = require('simple-oauth2');
 const URI = require('urijs');
 const sizeOf = require('image-size');
@@ -29,6 +29,7 @@ const getAccessToken = async (config, scope) => {
 };
 
 const SSR_getMarketingSettings = async (baseUrl, summitId) => {
+
   const params = {
     per_page: 100,
   };
@@ -43,56 +44,77 @@ const SSR_getMarketingSettings = async (baseUrl, summitId) => {
     .catch(e => console.log('ERROR: ', e));
 };
 
-const SSR_getEvents = async (baseUrl, summitId, accessToken, page = 1, results = []) => {
-  console.log(`SSR_getEvents page ${page} results ${results.length}`)
-  return await axios.get(
-    `${baseUrl}/api/v1/summits/${summitId}/events/published`,
-    {
-      params: {
+const SSR_GetRemainingPages = async (endpoint, params, lastPage) => {
+  // create an array with remaining pages to perform Promise.All
+  const pages = [];
+  for (let i = 2; i <= lastPage; i++) {
+    pages.push(i);
+  }
+
+  let remainingPages = await Promise.all(pages.map(pageIdx => {
+    return axios.get(endpoint ,
+        { params : {
+            ...params,
+            page: pageIdx
+          }
+        }).then(({ data }) => data);
+  }));
+
+  return remainingPages.sort((a, b,) =>   b.current_page - a.current_page ).map(p => p.data).flat();
+}
+
+const SSR_getEvents = async (baseUrl, summitId, accessToken) => {
+
+  const endpoint = `${baseUrl}/api/v1/summits/${summitId}/events/published`;
+
+  const params = {
         access_token: accessToken,
         per_page: 50,
-        page: page,
+        page: 1,
         expand: 'slides, links, videos, media_uploads, type, track, track.allowed_access_levels, location, location.venue, location.floor, speakers, moderator, sponsors, current_attendance, groups, rsvp_template, tags',
-      }
-    }).then(({ data }) => {
-      console.log(`SSR_getEvents  then data.current_page ${data.current_page} data.last_page ${data.last_page} total ${data.total}`)
-      if (data.current_page < data.last_page) {
-        return SSR_getEvents(baseUrl, summitId, accessToken, data.current_page + 1, [...results, ...data.data]);
-      }
+  }
 
-      return [...results, ...data.data];
-    })
-    .catch(e => console.log('ERROR: ', e));
+  return await axios.get(endpoint, { params }).then(async ({data}) => {
+
+    console.log(`SSR_getEvents then data.current_page ${data.current_page} data.last_page ${data.last_page} total ${data.total}`)
+
+    let remainingPages = await SSR_GetRemainingPages(endpoint, params, data.last_page);
+
+    return [...data.data, ...remainingPages];
+
+  }).catch(e => console.log('ERROR: ', e));
 };
 
-const SSR_getSpeakers = async (baseUrl, summitId, accessToken, filter = null, page = 1, results = []) => {
-  console.log(`SSR_getSpeakers page ${page} results ${results.length}`)
+const SSR_getSpeakers = async (baseUrl, summitId, accessToken, filter = null) => {
+
   const params = {
     access_token: accessToken,
     per_page: 30,
-    page: page,
+    page: 1,
   };
+
+  const endpoint = `${baseUrl}/api/v1/summits/${summitId}/speakers/on-schedule`;
 
   if (filter) {
     params['filter[]'] = filter;
   }
 
   return await axios.get(
-    `${baseUrl}/api/v1/summits/${summitId}/speakers/on-schedule`,
+      endpoint,
     { params }
   )
-    .then(({ data }) => {
-      console.log(`SSR_getSpeakers  then data.current_page ${data.current_page} data.last_page ${data.last_page} total ${data.total}`)
-      if (data.current_page < data.last_page) {
-        return SSR_getSpeakers(baseUrl, summitId, accessToken, filter, data.current_page + 1, [...results, ...data.data]);
-      }
+    .then(async ({data}) => {
+      console.log(`SSR_getSpeakers then data.current_page ${data.current_page} data.last_page ${data.last_page} total ${data.total}`)
 
-      return [...results, ...data.data];
+      let remainingPages = await SSR_GetRemainingPages(endpoint, params, data.last_page);
+
+      return [ ...data.data, ...remainingPages];
     })
     .catch(e => console.log('ERROR: ', e));
 };
 
 const SSR_getSummit = async (baseUrl, summitId) => {
+
   const params = {
     expand: 'event_types,tracks,track_groups,presentation_levels,locations.rooms,locations.floors,order_extra_questions.values,schedule_settings,schedule_settings.filters,schedule_settings.pre_filters',
     t: Date.now()
@@ -122,30 +144,33 @@ const SSR_getSummitExtraQuestions = async (baseUrl, summitId, accessToken) => {
         .catch(e => console.log('ERROR: ', e));
 };
 
-const SSR_getVoteablePresentations = async (baseUrl, summitId, accessToken, page = 1, results = []) => {
-  console.log(`SSR_getVoteablePresentations page ${page} results ${results.length}`)
-  return await axios.get(
-    `${baseUrl}/api/v1/summits/${summitId}/presentations/voteable`,
-    {
-      params: {
-        access_token: accessToken,
-        per_page: 50,
-        page: page,
-        filter: 'published==1',
-        expand: 'slides, links, videos, media_uploads, type, track, track.allowed_access_levels, location, location.venue, location.floor, speakers, moderator, sponsors, current_attendance, groups, rsvp_template, tags',
-      }
-    }).then(({ data }) => {
-      console.log(`SSR_getVoteablePresentations  then data.current_page ${data.current_page} data.last_page ${data.last_page} total ${data.total}`)
+const SSR_getVoteablePresentations = async (baseUrl, summitId, accessToken) => {
 
-      if (data.current_page < data.last_page) {
-        return SSR_getVoteablePresentations(baseUrl, summitId, accessToken, data.current_page + 1, [...results, ...data.data]);
-      }
-      return [...results, ...data.data];
-    })
+
+  const endpoint = `${baseUrl}/api/v1/summits/${summitId}/presentations/voteable`;
+
+  const params = {
+    access_token: accessToken,
+    per_page: 50,
+    page: 1,
+    filter: 'published==1',
+    expand: 'slides, links, videos, media_uploads, type, track, track.allowed_access_levels, location, location.venue, location.floor, speakers, moderator, sponsors, current_attendance, groups, rsvp_template, tags',
+  };
+
+  return await axios.get(endpoint,
+    { params }).then(async ({data}) => {
+
+    console.log(`SSR_getVoteablePresentations  then data.current_page ${data.current_page} data.last_page ${data.last_page} total ${data.total}`)
+
+    let remainingPages = await SSR_GetRemainingPages(endpoint, params, data.last_page);
+
+    return [...data.data, ...remainingPages];
+  })
     .catch(e => console.log('ERROR: ', e));
 };
 
 exports.onPreBootstrap = async () => {
+
   const summitId = process.env.GATSBY_SUMMIT_ID;
   const summitApiBaseUrl = process.env.GATSBY_SUMMIT_API_BASE_URL;
   const marketingData = await SSR_getMarketingSettings(process.env.GATSBY_MARKETING_API_BASE_URL, process.env.GATSBY_SUMMIT_ID);
