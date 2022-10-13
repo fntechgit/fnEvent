@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, {useMemo, useState} from "react";
 import { connect } from "react-redux";
 import LogoutButton from "./LogoutButton";
 import Link from "./Link";
 import ProfilePopupComponent from "./ProfilePopupComponent";
 import { updateProfilePicture, updateProfile } from "../actions/user-actions";
-import { getEnvVariable, AUTHORIZED_DEFAULT_PATH } from "../utils/envVariables";
+import { getDefaultLocation } from "../utils/loginUtils";
 import Content from "../content/navbar.json";
 import { PHASES } from "../utils/phasesUtils";
 
 import styles from "../styles/navbar.module.scss";
+import { userHasAccessLevel, VirtualAccessLevel } from "../utils/authorizedGroups";
 const PAGE_RESTRICTION_ACTIVITY = 'ACTIVITY';
 const PAGE_RESTRICTION_MARKETING = 'MARKETING';
 const PAGE_RESTRICTION_LOBBY = 'LOBBY';
@@ -26,6 +27,8 @@ const Navbar = ({
   updateProfile,
   location,
   summit_phase,
+  eventRedirect,
+  userProfile,
 }) => {
   const [active, setActive] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
@@ -43,6 +46,11 @@ const Navbar = ({
     }
     setShowProfile(!showProfile);
   };
+
+  // we store this calculation to use it later
+  const hasVirtualBadge = useMemo(() =>
+          userProfile ? userHasAccessLevel(userProfile.summit_tickets, VirtualAccessLevel) : false,
+      [userProfile]);
 
   const isCustomPage = (path) => {
     return !isMarketingPage(path) &&
@@ -113,9 +121,8 @@ const Navbar = ({
            passPageRestriction;
   };
 
-  const defaultPath = getEnvVariable(AUTHORIZED_DEFAULT_PATH)
-    ? getEnvVariable(AUTHORIZED_DEFAULT_PATH)
-    : "/a/";
+
+  const defaultPath = getDefaultLocation(eventRedirect, hasVirtualBadge);
   const navBarActiveClass = active ? styles.isActive : "";
 
   return (
@@ -188,9 +195,11 @@ const Navbar = ({
   );
 };
 
-const mapStateToProps = ({ summitState, clockState }) => ({
+const mapStateToProps = ({ summitState, clockState, settingState, userState }) => ({
   summit: summitState.summit,
   summit_phase: clockState.summit_phase,
+  eventRedirect: settingState.siteSettings.eventRedirect,
+  userProfile: userState.userProfile,
 });
 
 export default connect(mapStateToProps, {

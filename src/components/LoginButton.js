@@ -3,14 +3,14 @@ import URI from "urijs"
 
 import { doLogin } from 'openstack-uicore-foundation/lib/security/methods'
 
-import { getEnvVariable, AUTHORIZED_DEFAULT_PATH } from '../utils/envVariables'
+import { getDefaultLocation } from "../utils/loginUtils";
 
 const LoginButton = class extends React.Component {
 
   getBackURL() {
-    let { location } = this.props;
-    let defaultLocation = getEnvVariable(AUTHORIZED_DEFAULT_PATH) ? getEnvVariable(AUTHORIZED_DEFAULT_PATH) : '/a/';
-    let backUrl = location.state?.backUrl ? location.state.backUrl : defaultLocation;    
+    let { location, eventRedirect, hasVirtualBadge } = this.props;
+    let defaultLocation = getDefaultLocation(eventRedirect, hasVirtualBadge);
+    let backUrl = location.state?.backUrl ? location.state.backUrl : defaultLocation;
     return URI.encode(backUrl);
   }
 

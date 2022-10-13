@@ -8,9 +8,11 @@ import ProfilePopupComponent from './ProfilePopupComponent';
 
 import { updateProfilePicture, updateProfile } from '../actions/user-actions'
 
-import { getEnvVariable, AUTHORIZED_DEFAULT_PATH } from '../utils/envVariables'
+import { getDefaultLocation } from '../utils/loginUtils';
+import {userHasAccessLevel, VirtualAccessLevel} from "../utils/authorizedGroups";
 
 const UserNavbar = class extends React.Component {
+
   constructor(props) {
     super(props)
     this.state = {
@@ -62,7 +64,11 @@ const UserNavbar = class extends React.Component {
     let { isLoggedUser, userProfile } = this.props;
     let { showProfile } = this.state;
 
-    let defaultPath = getEnvVariable(AUTHORIZED_DEFAULT_PATH) ? getEnvVariable(AUTHORIZED_DEFAULT_PATH) : '/a/';
+    // we store this calculation to use it later
+    const hasVirtualBadge =
+        userProfile ? userHasAccessLevel(userProfile.summit_tickets, VirtualAccessLevel) : false;
+
+    let defaultPath = getDefaultLocation(eventRedirect, hasVirtualBadge);
 
     return (
       <nav className={`${styles.navbar} ${styles.userNavbar}`} role="navigation" aria-label="main navigation">
@@ -131,4 +137,9 @@ const UserNavbar = class extends React.Component {
   }
 }
 
-export default connect(null, { updateProfilePicture, updateProfile })(UserNavbar)
+const mapStateToProps = ({ settingState, userState }) => ({
+  eventRedirect: settingState.siteSettings.eventRedirect,
+  userProfile: userState.userProfile,
+});
+
+export default connect(mapStateToProps, { updateProfilePicture, updateProfile })(UserNavbar)

@@ -1,19 +1,19 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, {useEffect, useState, useRef, useMemo} from "react";
 import { connect } from "react-redux";
 import Slider from "react-slick";
 import URI from "urijs";
 import { doLogin } from "openstack-uicore-foundation/lib/security/methods";
 import { PHASES } from "../utils/phasesUtils";
-import {
-  getEnvVariable,
-  AUTHORIZED_DEFAULT_PATH,
-} from "../utils/envVariables";
+
 import Link from "../components/Link";
 import RegistrationLiteComponent from "./RegistrationLiteComponent";
 
 import styles from "../styles/marketing-hero.module.scss";
+import {userHasAccessLevel, VirtualAccessLevel} from "../utils/authorizedGroups";
 
-const MarketingHeroComponent = ({ siteSettings, summit_phase, isLoggedUser, summit, location }) => {
+import { getDefaultLocation } from "../utils/loginUtils";
+
+const MarketingHeroComponent = ({ siteSettings, eventRedirect, summit_phase, isLoggedUser, summit, location, userProfile }) => {
 
   const sliderRef = useRef(null);
   const [sliderHeight, setSliderHeight] = useState(424);
@@ -21,6 +21,11 @@ const MarketingHeroComponent = ({ siteSettings, summit_phase, isLoggedUser, summ
   const onResize = () => {
     setSliderHeight(sliderRef.current.clientHeight);
   };
+
+  // we store this calculation to use it later
+  const hasVirtualBadge = useMemo(() =>
+          userProfile ? userHasAccessLevel(userProfile.summit_tickets, VirtualAccessLevel) : false,
+      [userProfile]);
 
   useEffect(() => {
     onResize();
@@ -31,9 +36,7 @@ const MarketingHeroComponent = ({ siteSettings, summit_phase, isLoggedUser, summ
   }, []);
 
   const getBackURL = () => {
-    let defaultLocation = getEnvVariable(AUTHORIZED_DEFAULT_PATH)
-      ? getEnvVariable(AUTHORIZED_DEFAULT_PATH)
-      : "/a/";
+    let defaultLocation = getDefaultLocation(eventRedirect, hasVirtualBadge);
     let backUrl = location.state?.backUrl
       ? location.state.backUrl
       : defaultLocation;
@@ -45,8 +48,7 @@ const MarketingHeroComponent = ({ siteSettings, summit_phase, isLoggedUser, summ
   };
 
   const getButtons = () => {
-
-    const path = getEnvVariable(AUTHORIZED_DEFAULT_PATH) || '/a/';
+    const path = getDefaultLocation(eventRedirect, hasVirtualBadge);
     const { registerButton, loginButton } = siteSettings.heroBanner.buttons;
 
     if (summit_phase >= PHASES.DURING && isLoggedUser) {
@@ -58,12 +60,14 @@ const MarketingHeroComponent = ({ siteSettings, summit_phase, isLoggedUser, summ
                 <RegistrationLiteComponent location={location} />
               </span>
             )}
-          <Link className={styles.link} to={path}>
-            <button className={`${styles.button} button is-large`}>
-              <i className={`fa fa-2x fa-sign-in icon is-large`} />
-              <b>Enter</b>
-            </button>
-          </Link>
+          {hasVirtualBadge && /* only show button if we have virtual access */
+              <Link className={styles.link} to={path}>
+                <button className={`${styles.button} button is-large`}>
+                  <i className={`fa fa-2x fa-sign-in icon is-large`}/>
+                  <b>Enter</b>
+                </button>
+              </Link>
+          }
         </>
       );
     }
@@ -164,7 +168,8 @@ const mapStateToProps = ({ clockState, settingState, userState, summitState }) =
   summit_phase: clockState.summit_phase,
   summit: summitState.summit,
   siteSettings: settingState.siteSettings,
-  userProfile: userState.userProfile
+  eventRedirect: settingState.siteSettings.eventRedirect,
+  userProfile: userState.userProfile,
 });
 
 export default connect(mapStateToProps, null)(MarketingHeroComponent);

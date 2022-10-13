@@ -1,38 +1,48 @@
-import React from 'react'
+import React, {useMemo} from 'react'
 import { connect } from 'react-redux'
 import { navigate } from "gatsby"
 
 import Layout from '../components/Layout'
 import LoginButton from '../components/LoginButton'
 
-import { getEnvVariable, AUTHORIZED_DEFAULT_PATH } from '../utils/envVariables'
+import { getDefaultLocation } from '../utils/loginUtils'
+import {userHasAccessLevel, VirtualAccessLevel} from "../utils/authorizedGroups";
 
-export const LoginPageTemplate = ({ loggedUserState, location }) => {
+
+export const LoginPageTemplate = ({ loggedUserState, eventRedirect, location, userProfile }) => {
+
+  // we store this calculation to use it later
+  const hasVirtualBadge = useMemo(() =>
+          userProfile ? userHasAccessLevel(userProfile.summit_tickets, VirtualAccessLevel) : false,
+      [userProfile]);
 
   if (loggedUserState.isLoggedUser) {
-    let defaultPath = getEnvVariable(AUTHORIZED_DEFAULT_PATH) ? getEnvVariable(AUTHORIZED_DEFAULT_PATH) : '/a/';
+    let defaultPath = getDefaultLocation(eventRedirect, hasVirtualBadge);
     navigate(defaultPath);
     return null
   }
 
   return (
     <React.Fragment>
-      <LoginButton location={location}/>
+      <LoginButton location={location} eventRedirect={eventRedirect} hasVirtualBadge={hasVirtualBadge}/>
     </React.Fragment>
   )
 }
 
-const LoginPage = ({ loggedUserState, location }) => {
+const LoginPage = ({ loggedUserState, location, userProfile }) => {
   return (
     <Layout>
       <LoginPageTemplate
         loggedUserState={loggedUserState}
         location={location}
+        userProfile={userProfile}
       />
     </Layout>
   )
 }
 
 export default connect(state => ({
-  loggedUserState: state.loggedUserState
+  loggedUserState: state.loggedUserState,
+  eventRedirect: state.settingState.siteSettings.eventRedirect,
+  userProfile: state.userState.userProfile,
 }), null)(LoginPage)
