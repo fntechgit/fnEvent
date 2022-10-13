@@ -23,6 +23,7 @@ import { getEnvVariable, IDP_BASE_URL, OAUTH2_CLIENT_ID } from '../utils/envVari
 import { getPendingAction } from '../utils/schedule';
 
 import '../styles/bulma.scss';
+import {userHasAccessLevel, VirtualAccessLevel} from "../utils/authorizedGroups";
 
 class AuthorizationCallbackRoute extends AbstractAuthorizationCallbackRoute {
 
@@ -31,13 +32,20 @@ class AuthorizationCallbackRoute extends AbstractAuthorizationCallbackRoute {
   }
 
   _callback(backUrl) {
+
     this.props.getUserProfile().then(() => {
         const pendingAction = getPendingAction();
         if (pendingAction) {
             const { action, event } = pendingAction;
             action === 'ADD_EVENT' ? this.props.addToSchedule(event) : this.props.removeFromSchedule(event);
         }
-        navigate(URI.decode(backUrl));
+        backUrl = URI.decode(backUrl);
+        let { userProfile } = this.props;
+        // if redirect to lobby first time if we have virtual access
+        if(backUrl == '/' && userProfile && userHasAccessLevel(userProfile.summit_tickets, VirtualAccessLevel)){
+              backUrl = '/a/';
+        }
+        navigate(backUrl);
     });
   }
   
@@ -68,7 +76,12 @@ class AuthorizationCallbackRoute extends AbstractAuthorizationCallbackRoute {
   }
 }
 
-export default connect(null, {
+
+const mapStateToProps = ({ userState }) => ({
+    userProfile: userState.userProfile,
+});
+
+export default connect(mapStateToProps, {
     getUserProfile,
     addToSchedule,
     removeFromSchedule,
