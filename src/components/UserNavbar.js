@@ -9,8 +9,10 @@ import ProfilePopupComponent from './ProfilePopupComponent';
 import { updateProfilePicture, updateProfile } from '../actions/user-actions'
 
 import { getDefaultLocation } from '../utils/loginUtils';
+import {userHasAccessLevel, VirtualAccessLevel} from "../utils/authorizedGroups";
 
 const UserNavbar = class extends React.Component {
+
   constructor(props) {
     super(props)
     this.state = {
@@ -62,7 +64,11 @@ const UserNavbar = class extends React.Component {
     let { isLoggedUser, userProfile, eventRedirect } = this.props;
     let { showProfile } = this.state;
 
-    let defaultPath = getDefaultLocation(eventRedirect);
+    // we store this calculation to use it later
+    const hasVirtualBadge =
+        userProfile ? userHasAccessLevel(userProfile.summit_tickets, VirtualAccessLevel) : false;
+
+    let defaultPath = getDefaultLocation(eventRedirect, hasVirtualBadge);
 
     return (
       <nav className={`${styles.navbar} ${styles.userNavbar}`} role="navigation" aria-label="main navigation">
@@ -131,8 +137,9 @@ const UserNavbar = class extends React.Component {
   }
 }
 
-const mapStateToProps = ({ settingState }) => ({  
+const mapStateToProps = ({ settingState, userState }) => ({
   eventRedirect: settingState.siteSettings.eventRedirect,
+  userProfile: userState.userProfile,
 });
 
 export default connect(mapStateToProps, { updateProfilePicture, updateProfile })(UserNavbar)

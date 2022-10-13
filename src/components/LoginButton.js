@@ -8,8 +8,8 @@ import { getDefaultLocation } from '../utils/loginUtils'
 const LoginButton = class extends React.Component {
 
   getBackURL() {
-    let { location, eventRedirect } = this.props;
-    let defaultLocation = getDefaultLocation(eventRedirect);
+    let { location, eventRedirect, hasVirtualBadge } = this.props;
+    let defaultLocation = getDefaultLocation(eventRedirect, hasVirtualBadge);
     let backUrl = location.state?.backUrl ? location.state.backUrl : defaultLocation;    
     return URI.encode(backUrl);
   }

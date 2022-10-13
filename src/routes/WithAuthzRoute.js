@@ -2,9 +2,9 @@ import React, {useEffect, useState, useMemo} from "react";
 import {connect} from "react-redux";
 import {navigate} from "gatsby";
 import { pick }  from "@reach/router/lib/utils";
-import {getUserProfile, requireExtraQuestions} from "../actions/user-actions";
+import { getUserProfile, requireExtraQuestions } from "../actions/user-actions";
 import HeroComponent from "../components/HeroComponent";
-import {userHasAccessLevel} from "../utils/authorizedGroups";
+import { userHasAccessLevel, VirtualAccessLevel } from "../utils/authorizedGroups";
 
 const pathsRequiringVirtualBadge = [
     { path: "/a/" },
@@ -44,7 +44,7 @@ const WithAuthzRoute = ({
 
     // we store this calculation to use it later
     const hasVirtualBadge = useMemo(() =>
-        userProfile ? userHasAccessLevel(userProfile.summit_tickets, 'VIRTUAL') : false,
+        userProfile ? userHasAccessLevel(userProfile.summit_tickets, VirtualAccessLevel) : false,
         [userProfile]);
 
     const userIsReady = () => {
