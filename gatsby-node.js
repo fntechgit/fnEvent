@@ -60,7 +60,7 @@ const SSR_GetRemainingPages = async (endpoint, params, lastPage) => {
         }).then(({ data }) => data);
   }));
 
-  return remainingPages.sort((a, b,) =>   b.current_page - a.current_page ).map(p => p.data).flat();
+  return remainingPages.sort((a, b,) =>   a.current_page - b.current_page ).map(p => p.data).flat();
 }
 
 const SSR_getEvents = async (baseUrl, summitId, accessToken) => {
