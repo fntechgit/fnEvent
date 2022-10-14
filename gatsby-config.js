@@ -4,7 +4,6 @@ module.exports = {
     description: 'Virtual event',
   },
   plugins: [
-    `gatsby-plugin-remove-fingerprints`,
     'gatsby-plugin-react-helmet',
     {
       resolve: "gatsby-plugin-no-sourcemaps"
