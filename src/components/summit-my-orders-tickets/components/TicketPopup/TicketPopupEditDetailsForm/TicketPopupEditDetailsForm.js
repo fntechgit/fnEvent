@@ -381,6 +381,12 @@ export const TicketPopupEditDetailsForm = ({
                             </div>
                         </div>
 
+                        <div className='row field-wrapper assign-note'>
+                            <div className='col-sm-12'>
+                                {t("ticket_popup.assign_note")}                            
+                            </div>
+                        </div>
+
                         {(!changeAttendee) && (
                             <>
                                 <div className="row field-wrapper">

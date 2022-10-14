@@ -96,6 +96,11 @@
     }
   }
 
+  .field-wrapper.assign-note {
+    display: flex;
+    color: red;
+  }
+
   .form-group {
     input {
       background-color: $color-primary-contrast;
