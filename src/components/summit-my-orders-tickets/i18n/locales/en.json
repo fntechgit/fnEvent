@@ -218,6 +218,7 @@
         "edit_basic_info": "Attendee Information",
         "edit_required": "* Required Fields",
         "edit_email": "Ticket assigned to email:",
+        "assign_note": "NOTE: Changing the name below will not reassign the ticket.  You must change the email address.",
         "edit_first_name": "First Name",
         "edit_last_name": "Last Name",
         "edit_company": "Company",
