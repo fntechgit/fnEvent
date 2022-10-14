@@ -43,9 +43,9 @@
       "title": "Mid Left",
       "images": [
         {
-          "image": "/img/ocpglo22-fnv-marketing-space3_v2.png",
+          "image": "/img/ocpglo22-fnv-marketing-space1_v4.png",
           "alt": "",
-          "link": "https://www.opencompute.org/membership/how-to-join"
+          "link": "https://2022ocpglobal.fnvirtual.app/map"
         }
       ],
       "size": 1
@@ -54,7 +54,7 @@
       "title": "Top Left",
       "images": [
         {
-          "image": "/img/ocpglo22-fnv-marketing-space1_v2.png",
+          "image": "/img/ocpglo22-fnv-marketing-space2_v4.png",
           "link": "https://www.opencompute.org/summit/regional-summit",
           "alt": ""
         }
@@ -65,8 +65,8 @@
       "title": "Top Right",
       "images": [
         {
-          "image": "/img/ocpglo22-fnv-marketing-space3_v3.png",
-          "link": "https://2022ocpglobal.fnvirtual.app/travel",
+          "image": "/img/ocpglo22-fnv-marketing-space3_v4.png",
+          "link": "https://www.opencompute.org/membership/how-to-join ",
           "alt": ""
         }
       ],
@@ -75,7 +75,7 @@
     {
       "images": [
         {
-          "image": "/img/ocpglo22-fnv-marketing-space4_v3.png",
+          "image": "/img/ocpglo22-fnv-marketing-space4_v4.png",
           "alt": "",
           "link": "https://www.opencompute.org/events/past-events/2021-ocp-global-summit"
         }
