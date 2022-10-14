@@ -222,7 +222,7 @@
         "edit_first_name": "First Name",
         "edit_last_name": "Last Name",
         "edit_company": "Company",
-        "edit_required_star": " *",
+        "edit_required_star": "*",
         "edit_preferences": "Additional Details",
         "notify_text_1": "All required details must be completed before",
         "notify_text_2": "Email will be sent to",
