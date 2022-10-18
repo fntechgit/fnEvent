@@ -19,9 +19,8 @@ export const TicketPopupEditDetailsForm = ({
     ticket,
     summit,
     order,
-    allowExtraQuestionsEdit,
-    context,
-    shouldEditBasicInfo = true
+    canEditTicketData,
+    context    
 }) => {
     const formRef = useRef(null);
     const { t } = useTranslation();
@@ -77,7 +76,6 @@ export const TicketPopupEditDetailsForm = ({
         })
     }), [changeAttendee]);
 
-    const readOnly = !isReassignable;
     const hasExtraQuestions = extraQuestions.length > 0;
     const isUserTicketOwner = order.owner_id === userProfile.id;
 
@@ -223,14 +221,14 @@ export const TicketPopupEditDetailsForm = ({
                                 {t("ticket_popup.edit_basic_info")}
                             </div>
                             <div className="col-sm-6">
-                                {!readOnly && t("ticket_popup.edit_required")}
+                                {t("ticket_popup.edit_required")}
                             </div>
                         </div>
 
                         <div className="row field-wrapper">
                             <div className="col-sm-4">
                                 {t("ticket_popup.edit_email")}
-                                {!readOnly && t("ticket_popup.edit_required_star")}
+                                {isReassignable && t("ticket_popup.edit_required_star")}
                             </div>
 
                             <div className="col-sm-8">
@@ -254,12 +252,6 @@ export const TicketPopupEditDetailsForm = ({
                                                     {t("ticket_popup.assign_this")}
                                                 </button>
 
-                                                <p>
-                                                    {t("ticket_popup.assign_expire")}{` `}
-                                                    {daysUntilReassignDeadline}{` `}
-                                                    {t("ticket_popup.assign_days")}{` `}
-                                                    ({formattedReassignDate})
-                                                </p>
                                             </>
                                         )}
                                     </span>
@@ -289,7 +281,7 @@ export const TicketPopupEditDetailsForm = ({
                                             <span>
                                                 {ticket.owner?.email}
 
-                                                {(shouldEditBasicInfo && isUserTicketOwner) && (
+                                                {(isUserTicketOwner && isReassignable) && (
                                                     <>
                                                         {` `}|{` `}
                                                         <span onClick={() => setChangeAttendee(true)}>
@@ -307,7 +299,7 @@ export const TicketPopupEditDetailsForm = ({
                         <div className="field-wrapper-mobile">
                             <div>
                                 {t("ticket_popup.edit_email")}
-                                {!readOnly && t("ticket_popup.edit_required_star")}
+                                {t("ticket_popup.edit_required_star")}
                             </div>
 
                             <div>
@@ -331,12 +323,6 @@ export const TicketPopupEditDetailsForm = ({
                                                     {t("ticket_popup.assign_this")}
                                                 </button>
 
-                                                <p>
-                                                    {t("ticket_popup.assign_expire")}{` `}
-                                                    {daysUntilReassignDeadline}{` `}
-                                                    {t("ticket_popup.assign_days")}{` `}
-                                                    ({formattedReassignDate})
-                                                </p>
                                             </>
                                         )}
                                     </span>
@@ -366,7 +352,7 @@ export const TicketPopupEditDetailsForm = ({
                                             <span>
                                                 {ticket.owner?.email}
 
-                                                {shouldEditBasicInfo && (
+                                                {(isUserTicketOwner && isReassignable) && (
                                                     <>
                                                         {` `}|{` `}
                                                         <span onClick={() => setChangeAttendee(true)}>
@@ -395,11 +381,7 @@ export const TicketPopupEditDetailsForm = ({
                                         {t("ticket_popup.edit_required_star")}
                                     </div>
                                     <div className="col-sm-8">
-                                        {(readOnly || !shouldEditBasicInfo) && (
-                                            <span>{ticket.owner?.first_name}</span>
-                                        )}
-
-                                        {(!readOnly && shouldEditBasicInfo) && (
+                                        {canEditTicketData ?
                                             <Input
                                                 id="attendee_first_name"
                                                 name="attendee_first_name"
@@ -409,7 +391,9 @@ export const TicketPopupEditDetailsForm = ({
                                                 value={formik.values.attendee_first_name}
                                                 error={formik.errors.attendee_first_name}
                                             />
-                                        )}
+                                            :
+                                            <span>{ticket.owner?.first_name}</span>
+                                        }
                                     </div>
                                 </div>
 
@@ -419,11 +403,7 @@ export const TicketPopupEditDetailsForm = ({
                                         {t("ticket_popup.edit_required_star")}
                                     </div>
                                     <div>
-                                        {(readOnly || !shouldEditBasicInfo) && (
-                                            <span>{ticket.owner?.first_name}</span>
-                                        )}
-
-                                        {(!readOnly && shouldEditBasicInfo) && (
+                                        {canEditTicketData ?
                                             <Input
                                                 id="attendee_first_name"
                                                 name="attendee_first_name"
@@ -433,7 +413,9 @@ export const TicketPopupEditDetailsForm = ({
                                                 value={formik.values.attendee_first_name}
                                                 error={formik.errors.attendee_first_name}
                                             />
-                                        )}
+                                            :
+                                            <span>{ticket.owner?.first_name}</span>
+                                        }
                                     </div>
                                 </div>
 
@@ -443,11 +425,7 @@ export const TicketPopupEditDetailsForm = ({
                                         {t("ticket_popup.edit_required_star")}
                                     </div>
                                     <div className="col-sm-8">
-                                        {(readOnly || !shouldEditBasicInfo) && (
-                                            <span>{ticket.owner?.last_name}</span>
-                                        )}
-
-                                        {(!readOnly && shouldEditBasicInfo) && (
+                                        {canEditTicketData ?
                                             <Input
                                                 id="attendee_last_name"
                                                 name="attendee_last_name"
@@ -457,7 +435,9 @@ export const TicketPopupEditDetailsForm = ({
                                                 value={formik.values.attendee_last_name}
                                                 error={formik.errors.attendee_last_name}
                                             />
-                                        )}
+                                            :
+                                            <span>{ticket.owner?.last_name}</span>
+                                        }                                        
                                     </div>
                                 </div>
 
@@ -467,11 +447,7 @@ export const TicketPopupEditDetailsForm = ({
                                         {t("ticket_popup.edit_required_star")}
                                     </div>
                                     <div>
-                                        {(readOnly || !shouldEditBasicInfo) && (
-                                            <span>{ticket.owner?.last_name}</span>
-                                        )}
-
-                                        {(!readOnly && shouldEditBasicInfo) && (
+                                        {canEditTicketData ?
                                             <Input
                                                 id="attendee_last_name"
                                                 name="attendee_last_name"
@@ -481,7 +457,9 @@ export const TicketPopupEditDetailsForm = ({
                                                 value={formik.values.attendee_last_name}
                                                 error={formik.errors.attendee_last_name}
                                             />
-                                        )}
+                                            :
+                                            <span>{ticket.owner?.last_name}</span>
+                                        }
                                     </div>
                                 </div>
 
@@ -491,11 +469,7 @@ export const TicketPopupEditDetailsForm = ({
                                         {t("ticket_popup.edit_required_star")}
                                     </div>
                                     <div className="col-sm-8" style={{ position: 'relative' }}>
-                                        {(readOnly || !shouldEditBasicInfo) && (
-                                            <span>{ticket.owner?.company}</span>
-                                        )}
-
-                                        {(!readOnly && shouldEditBasicInfo) && (
+                                        {canEditTicketData ?
                                             <RegistrationCompanyInput
                                                 id="attendee_company"
                                                 name="attendee_company"
@@ -506,7 +480,9 @@ export const TicketPopupEditDetailsForm = ({
                                                 value={formik.values.attendee_company}
                                                 error={formik.errors.attendee_company?.name}
                                             />
-                                        )}
+                                            :
+                                            <span>{ticket.owner?.company}</span>
+                                        }
                                     </div>
                                 </div>
 
@@ -525,7 +501,7 @@ export const TicketPopupEditDetailsForm = ({
                                             extraQuestions={extraQuestions}
                                             userAnswers={formik.values.extra_questions}
                                             onAnswerChanges={handleExtraQuestionsSubmit}
-                                            allowExtraQuestionsEdit={allowExtraQuestionsEdit}
+                                            allowExtraQuestionsEdit={canEditTicketData}
                                             questionContainerClassName="row form-group"
                                             questionLabelContainerClassName="col-sm-4"
                                             questionControlContainerClassName="col-sm-8 question-control-container"
@@ -589,17 +565,19 @@ export const TicketPopupEditDetailsForm = ({
                         )}
                     </div>
 
-                    <div className="ticket-popup-footer">
-                        <button
-                            type="button"
-                            className="btn btn-primary"
-                            disabled={formik.isSubmitting}
-                            onClick={triggerSubmit}
-                        >
-                            {!formik.isSubmitting && <>{t("ticket_popup.save_changes")}</>}
-                            {formik.isSubmitting && <>{t("ticket_popup.saving_changes")}...</>}
-                        </button>
-                    </div>
+                    {canEditTicketData &&
+                        <div className="ticket-popup-footer">
+                            <button
+                                type="button"
+                                className="btn btn-primary"
+                                disabled={formik.isSubmitting}
+                                onClick={triggerSubmit}
+                            >
+                                {!formik.isSubmitting && <>{t("ticket_popup.save_changes")}</>}
+                                {formik.isSubmitting && <>{t("ticket_popup.saving_changes")}...</>}
+                            </button>
+                        </div>
+                    }
                 </>
         </div >
     );

@@ -33,8 +33,7 @@ export const TicketPopup = ({ ticket, order, summit, onClose, fromTicketList, fr
     const isUserOrderOwner = order.owner_id === userProfile.id;
     const isUserTicketOwner = ticket.owner?.email === userProfile.email;
 
-    // If the user is purchasing a ticket, allow to edit the extra questions (fromTicketList === undefined && fromOrderList === undefined)
-    const allowExtraQuestionsEdit = (fromTicketList === undefined && fromOrderList === undefined) || isUserOrderOwner && summit.allow_update_attendee_extra_questions;
+    const canEditTicketData = (isUserTicketOwner || isUserOrderOwner) && summit.allow_update_attendee_extra_questions;
 
     useEffect(() => {
         document.body.style.overflow = 'hidden';
@@ -98,11 +97,11 @@ export const TicketPopup = ({ ticket, order, summit, onClose, fromTicketList, fr
 
                             <Tab>{t("ticket_popup.tab_edit")}</Tab>
 
-                            {!isUnassigned && isReassignable && (!fromTicketList || (fromTicketList && isUserOrderOwner)) && (
+                            {!isUnassigned && isReassignable && isUserOrderOwner && (
                                 <Tab>{t("ticket_popup.tab_reassign")}</Tab>
                             )}
 
-                            {!isUnassigned && (!fromTicketList && isReassignable && !isUserTicketOwner) && (
+                            {!isUnassigned && (isReassignable && !isUserTicketOwner && isUserOrderOwner) && (
                                 <Tab>{t("ticket_popup.tab_notify")}</Tab>
                             )}
 
@@ -125,13 +124,13 @@ export const TicketPopup = ({ ticket, order, summit, onClose, fromTicketList, fr
                                     ticket={ticket}
                                     summit={summit}
                                     order={order}
-                                    allowExtraQuestionsEdit={allowExtraQuestionsEdit}
+                                    canEditTicketData={canEditTicketData}
                                     context={fromTicketList ? 'ticket-list' : 'order-list'}
                                 />
                             </div>
                         </TabPanel>
 
-                        {!isUnassigned && isReassignable && (!fromTicketList || (fromTicketList && isUserOrderOwner)) && (
+                        {!isUnassigned && isReassignable && isUserOrderOwner && (
                             <TabPanel className="ticket-popup-panel ticket-popup-panel--reassign">
                                 <div className="ticket-popup-scroll">
                                     <TicketPopupReassignForm ticket={ticket} summit={summit} order={order} />
@@ -139,7 +138,7 @@ export const TicketPopup = ({ ticket, order, summit, onClose, fromTicketList, fr
                             </TabPanel>
                         )}
 
-                        {!isUnassigned && (!fromTicketList && isReassignable && !isUserTicketOwner) && (
+                        {!isUnassigned && (isReassignable && !isUserTicketOwner && isUserOrderOwner) && (
                             <TabPanel className="ticket-popup-panel ticket-popup-panel--notify">
                                 <div className="ticket-popup-scroll">
                                     <TicketPopupNotifyForm ticket={ticket} summit={summit} order={order} />

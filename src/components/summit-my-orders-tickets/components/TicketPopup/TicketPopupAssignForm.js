@@ -81,8 +81,7 @@ export const TicketPopupAssignForm = ({ ticket, summit, order }) => {
                 )}
 
                 <p>
-                    {t("ticket_popup.assign_text")}{` `}
-                    {getSummitFormattedReassignDate(summit)}
+                    {t("ticket_popup.assign_text")}
                 </p>
                 <button className="btn btn-primary" onClick={assignTicketToSelf} type="button">
                     {t("ticket_popup.assign_me")}
