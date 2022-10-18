@@ -73,7 +73,7 @@ const SchedulePage = ({ summit, scheduleState, summitPhase, isLoggedUser, locati
   if (isLoggedUser && summitPhase !== PHASES.BEFORE) {
     schedProps = {
       ...schedProps,
-      onEventClick: (ev) => navigate(`/a/event/${ev.id}`, { state: { previousUrl: location.pathname } }),
+      //onEventClick: (ev) => navigate(`/a/event/${ev.id}`, { state: { previousUrl: location.pathname } }),
       onStartChat: null,
     };
   }
