@@ -8,6 +8,7 @@ import * as Yup from 'yup';
 import { Input } from 'openstack-uicore-foundation/lib/components'
 import { removeAttendee } from "../../store/actions/ticket-actions";
 import { ConfirmPopup, CONFIRM_POPUP_CASE } from "../ConfirmPopup/ConfirmPopup";
+import { getSummitFormattedReassignDate } from "../../util";
 
 const initialValues = {
     attendee_email: '',
@@ -17,7 +18,7 @@ const validationSchema = Yup.object().shape({
     attendee_email: Yup.string().email('Please enter a valid email.').required('Email is required.'),
 });
 
-export const TicketPopupReassignForm = ({ ticket, order }) => {
+export const TicketPopupReassignForm = ({ ticket, summit, order }) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
     const userProfile = useSelector(state => state.userState.userProfile);
@@ -103,7 +104,10 @@ export const TicketPopupReassignForm = ({ ticket, order }) => {
                         </>
                     )}
 
-                    <p>{t("ticket_popup.reassign_want_text")}</p>
+                    <p>
+                        {t("ticket_popup.reassign_want_text")}
+                        {` (${t("ticket_popup.reassign_before")} ${getSummitFormattedReassignDate(summit)})`}
+                    </p>
                     <span>{t("ticket_popup.reassign_enter_email")}</span>
 
                     <Input
