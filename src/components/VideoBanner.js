@@ -1,6 +1,6 @@
 import React from "react"
 
-const VideoBanner = ({ event }) => {
+const VideoBanner = ({ event, ctaText }) => {
 
   return (
     <div className="join-zoom-container">
@@ -9,11 +9,15 @@ const VideoBanner = ({ event }) => {
       </span>
       <a className="zoom-link" href={event.meeting_url} target="_blank" rel="noreferrer">
         <button className="zoom-button button">
-          <b>Join now</b>
+          <b dangerouslySetInnerHTML={{ __html: ctaText }} />
         </button>
       </a>
     </div>
   )
+}
+
+VideoBanner.defaultProps = {
+  ctaText: 'Join Now'
 }
 
 export default VideoBanner;

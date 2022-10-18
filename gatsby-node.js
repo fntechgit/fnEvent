@@ -204,6 +204,7 @@ exports.onPreBootstrap = async () => {
 
     if (key === 'schedule_default_image') homeSettings.schedule_default_image = value;
     if (key === 'registration_in_person_disclaimer') marketingSite[key] = value;
+    if (key === 'ACTIVITY_CTA_TEXT') marketingSite[key] = value;
   });
 
   // Set the size property on marketing settings masonry if it's needed

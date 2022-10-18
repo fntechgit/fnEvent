@@ -3,7 +3,7 @@ import { navigate } from "gatsby";
 
 import styles from '../styles/poster-components.module.scss'
 
-const PosterLiveSession = ({ poster }) => {
+const PosterLiveSession = ({ poster, ctaText }) => {
 
     const goToLiveSession = (url) => {
         const internal = /^\/(?!\/)/.test(url);
@@ -19,10 +19,14 @@ const PosterLiveSession = ({ poster }) => {
                 Live session with authors
             </span>
             <button onClick={() => goToLiveSession(poster.meeting_url)} className="poster-button button">
-                <b>Join now</b>
+                <b dangerouslySetInnerHTML={{ __html: ctaText }} />
             </button>
         </div>
     )
+}
+
+PosterLiveSession.defaultProps = {
+    ctaText: 'Join Now'
 }
 
 export default PosterLiveSession;
