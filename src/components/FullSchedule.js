@@ -34,7 +34,7 @@ const FullSchedule = ({
     shareLink: getShareLink(filters, view),
     filters,
     view,
-    onEventClick: () => {},
+    //onEventClick: () => {},
     needsLogin: needsLogin,
     triggerAction: (action, payload) => {
       switch (action) {
