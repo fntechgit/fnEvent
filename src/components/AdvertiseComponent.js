@@ -4,7 +4,7 @@ import Ad from "./Ad";
 
 import styles from '../styles/advertise.module.scss'
 
-const AdvertiseComponent = ({ section, column, id }) => {
+const AdvertiseComponent = ({ section, column, id = null }) => {
     const sectionAds = Content.ads.find(ad => ad.section === section)?.columnAds.filter(c => c.column === column) || [];
 
     if (sectionAds.length === 0) return null;
