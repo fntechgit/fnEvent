@@ -31,7 +31,7 @@ const AdvertiseComponent = ({ section, column, id }) => {
                 )
             }
 
-            if (ad.id !== id || column === 'center') return null;
+            if((ad.hasOwnProperty('id') && id && ad.id && ad.id !== id) || column === 'center') return null
 
             const wrapperClass =`${index === 0 ? styles.firstSponsorContainer : styles.sponsorContainer} sponsor-container`;
 
