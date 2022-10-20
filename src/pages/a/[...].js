@@ -20,7 +20,7 @@ import PosterDetailPage from "../../templates/poster-detail-page";
 import MyTicketsPage from '../../templates/my-tickets-page';
 import WithTicketRoute from "../../routes/WithTicketRoute";
 
-const App = ({ isLoggedUser, user, summit_phase, lastBuild, syncData }) => {
+const App = ({ isLoggedUser, user, summit_phase, lastBuild, syncData, allowClick }) => {
 
   useEffect(() => {
     syncData();
@@ -53,6 +53,7 @@ const App = ({ isLoggedUser, user, summit_phase, lastBuild, syncData }) => {
                   user={user}
                   scheduleProps={{ title: 'My Schedule', showSync: true, subtitle: <a href="/a/schedule">Show Schedule</a> }}
                   schedKey="my-schedule-main"
+                  allowClick={allowClick}
                 />
                 <FullProfilePage path="/profile" summit_phase={summit_phase} isLoggedIn={isLoggedUser} user={user} location={location} />
                 <ShowOpenRoute path="/" summit_phase={summit_phase} isLoggedIn={isLoggedUser} user={user} location={location}>
@@ -75,7 +76,8 @@ const mapStateToProps = ({ loggedUserState, userState, clockState, settingState 
   isLoggedUser: loggedUserState.isLoggedUser,
   summit_phase: clockState.summit_phase,
   user: userState,
-  lastBuild: settingState.lastBuild
+  lastBuild: settingState.lastBuild,
+  allowClick: settingState.widgets.schedule.allowClick
 });
 
 export default connect(mapStateToProps, { syncData })(App)

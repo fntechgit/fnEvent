@@ -15,7 +15,7 @@ import NotFoundPage from "../pages/404";
 import withScheduleData from '../utils/withScheduleData'
 import styles from "../styles/full-schedule.module.scss";
 
-const SchedulePage = ({ summit, scheduleState, summitPhase, isLoggedUser, location, colorSettings, updateFilter, scheduleProps, schedKey }) => {
+const SchedulePage = ({ summit, scheduleState, summitPhase, isLoggedUser, location, colorSettings, updateFilter, scheduleProps, schedKey, allowClick }) => {
 
   const [showFilters, setShowfilters] = useState(false);
 
@@ -73,7 +73,7 @@ const SchedulePage = ({ summit, scheduleState, summitPhase, isLoggedUser, locati
   if (isLoggedUser && summitPhase !== PHASES.BEFORE) {
     schedProps = {
       ...schedProps,
-      onEventClick: (ev) => navigate(`/a/event/${ev.id}`, { state: { previousUrl: location.pathname } }),
+      onEventClick: allowClick ? (ev) => navigate(`/a/event/${ev.id}`, { state: { previousUrl: location.pathname } }) : null,
       onStartChat: null,
     };
   }
