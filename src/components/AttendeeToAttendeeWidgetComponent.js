@@ -28,7 +28,7 @@ const sbAuthProps = {
 
 const adminGroups = ["administrators", "super-admins"];
 
-export const AttendeesWidget = ({ user, event }) => {
+export const AttendeesWidget = ({ user, event, chatSettings }) => {
   const [loading, setLoading] = useState(true);
 
   //Deep linking support
@@ -154,7 +154,7 @@ export const AttendeesWidget = ({ user, event }) => {
     },
     summitId: parseInt(getEnvVariable(SUMMIT_ID)),
     height: 400,
-    defaultScope: scopes.PAGE,  //Default attendees filter scope (scopes.PAGE | scopes.SHOW)
+    defaultScope: chatSettings?.defaultScope || scopes.PAGE,  //Default attendees filter scope (scopes.PAGE | scopes.SHOW)
     ...chatProps,
     ...sbAuthProps,
   };
@@ -247,10 +247,11 @@ const AccessTracker = ({ user, isLoggedUser, summitPhase }) => {
   return <Tracker {...widgetProps} ref={trackerRef} />;
 };
 
-const mapStateToProps = ({ loggedUserState, userState, clockState }) => ({
+const mapStateToProps = ({ loggedUserState, userState, clockState, settingState }) => ({
   isLoggedUser: loggedUserState.isLoggedUser,
   user: userState,
   summitPhase: clockState.summit_phase,
+  chatSettings: settingState.widgets.chat
 });
 
 export default connect(mapStateToProps)(AccessTracker);
