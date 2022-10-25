@@ -35,6 +35,7 @@ export const REMOVE_TICKET_ATTENDEE = 'REMOVE_TICKET_ATTENDEE';
 export const REFUND_TICKET = 'REFUND_TICKET';
 export const RESEND_NOTIFICATION = 'RESEND_NOTIFICATION';
 export const GET_TICKETS_BY_ORDER = 'GET_TICKETS_BY_ORDER';
+export const GET_TICKET_DETAILS = 'GET_TICKET_DETAILS';
 
 const customFetchErrorHandler = (response) => {
     let code = response.status;
@@ -76,9 +77,11 @@ export const getUserTickets = ({ page = 1, perPage = 5 }) => async (dispatch, ge
 
     const params = {
         access_token: accessToken,
-        expand: 'order, owner, owner.extra_questions, order, badge, badge.features, refund_requests',
+        expand: 'order, owner',
         order: '-id',
-        'filter[]': [`status==Paid`, `order_owner_id<>${userProfile.id}`],
+        fields: 'order.id,order.owner_first_name,order.owner_last_name,order.owner_email,owner.first_name,owner.last_name,owner.status',
+        'filter[]': [`status==Paid`, `order_owner_id<>${userProfile.id}`],        
+        relations: 'none',
         page: page,
         per_page: perPage,
     };
@@ -87,6 +90,36 @@ export const getUserTickets = ({ page = 1, perPage = 5 }) => async (dispatch, ge
         null,
         createAction(GET_TICKETS),
         `${apiBaseUrl}/api/v1/summits/${summit.id}/orders/all/tickets/me`,
+        authErrorHandler
+    )(params)(dispatch).then(() => {
+        dispatch(stopLoading());
+    }).catch(e => {
+        dispatch(stopLoading());
+        return (e);
+    });
+};
+
+export const getTicketById = (orderId, ticketId) => async (dispatch, getState, { getAccessToken, apiBaseUrl, loginUrl }) => {
+    const { userState: { userProfile }, summitState: { summit } } = getState();
+
+    if (!summit) return
+
+    const accessToken = await getAccessToken().catch(_ => history.replace(loginUrl));
+
+    if (!accessToken) return;
+
+    dispatch(startLoading());
+
+    const params = {
+        access_token: accessToken,
+        expand: 'order, owner, owner.extra_questions, badge, badge.features, refund_requests',
+        'filter[]': [`status==Paid`, `order_owner_id<>${userProfile.id}`],
+    };
+
+    return getRequest(
+        null,
+        createAction(GET_TICKET_DETAILS),
+        `${apiBaseUrl}/api/v1/summits/all/orders/${orderId}/tickets/${ticketId}`,
         authErrorHandler
     )(params)(dispatch).then(() => {
         dispatch(stopLoading());

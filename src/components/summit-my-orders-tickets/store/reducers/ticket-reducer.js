@@ -17,16 +17,17 @@ import {
     GET_TICKETS,
     REMOVE_TICKET_ATTENDEE,
     ASSIGN_TICKET,
-    GET_TICKETS_BY_ORDER
+    GET_TICKETS_BY_ORDER,
+    GET_TICKET_DETAILS
 } from "../actions/ticket-actions";
 
 const DEFAULT_STATE = {
     loading: false,
     orderTickets: {
-        total: 0, 
-        per_page: 5, 
-        current_page: 1, 
-        last_page: 1, 
+        total: 0,
+        per_page: 5,
+        current_page: 1,
+        last_page: 1,
         tickets: []
     },
     memberTickets: [],
@@ -60,6 +61,13 @@ const ticketReducer = (state = DEFAULT_STATE, action) => {
         case GET_TICKETS_BY_ORDER: {
             const { total, per_page, current_page, last_page, data } = payload.response
             return { ...state, orderTickets: { total, per_page, current_page, last_page, tickets: data } }
+        }
+        case GET_TICKET_DETAILS: {
+            const ticket = payload.response;
+            const oldTicket = state.memberTickets.find(t => t.id === ticket.id);
+            const updatedTicket = { ...oldTicket, ...ticket };
+            const memberTickets = [...state.memberTickets.filter(t => t.id !== ticket.id), updatedTicket].sort((a, b) => b.id - a.id);
+            return { ...state, memberTickets }
         }
         default:
             return state;
