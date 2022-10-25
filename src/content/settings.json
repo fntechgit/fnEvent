@@ -3,7 +3,8 @@
   "widgets": {
     "chat": {
       "showQA": false,
-      "showHelp": false
+      "showHelp": false,
+      "defaultScope": "page"
     }
   },
   "lastBuild": 1654094591029,
