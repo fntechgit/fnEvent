@@ -16,11 +16,19 @@ import { RESET_STATE } from "../actions/base-actions";
 import {
     GET_TICKETS,
     REMOVE_TICKET_ATTENDEE,
-    ASSIGN_TICKET
+    ASSIGN_TICKET,
+    GET_TICKETS_BY_ORDER
 } from "../actions/ticket-actions";
 
 const DEFAULT_STATE = {
     loading: false,
+    orderTickets: {
+        total: 0, 
+        per_page: 5, 
+        current_page: 1, 
+        last_page: 1, 
+        tickets: []
+    },
     memberTickets: [],
     errors: {},
     current_page: 1,
@@ -49,6 +57,10 @@ const ticketReducer = (state = DEFAULT_STATE, action) => {
             return { ...state, selectedTicket: payload.response };
         case REMOVE_TICKET_ATTENDEE:
             return { ...state, selectedTicket: payload.response };
+        case GET_TICKETS_BY_ORDER: {
+            const { total, per_page, current_page, last_page, data } = payload.response
+            return { ...state, orderTickets: { total, per_page, current_page, last_page, tickets: data } }
+        }
         default:
             return state;
     }

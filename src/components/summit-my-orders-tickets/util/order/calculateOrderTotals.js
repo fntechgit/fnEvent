@@ -1,5 +1,5 @@
-export const calculateOrderTotals = ({ order, summit }) => {
-    if (!order || !summit) return {};
+export const calculateOrderTotals = ({ order, summit, tickets }) => {
+    if (!order || !summit || !tickets) return {};
 
     const { refunded_amount, discount_amount, taxes_amount, amount, reservation } = order;
     const { ticket_types } = summit;
@@ -7,7 +7,7 @@ export const calculateOrderTotals = ({ order, summit }) => {
     const ticketSummary = [];
     let purchaseTicketTotal = 0;
 
-    order.tickets.forEach(ticket => {
+    tickets.forEach(ticket => {
         let idx = ticketSummary.findIndex(o => o.ticket_type_id == (ticket.type_id ? ticket.type_id : ticket.ticket_type_id));
         let ticketType = ticket_types.find(tt => tt.id == (ticket.type_id ? ticket.type_id : ticket.ticket_type_id));
 

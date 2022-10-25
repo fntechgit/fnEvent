@@ -34,6 +34,7 @@ export const ASSIGN_TICKET = 'ASSIGN_TICKET';
 export const REMOVE_TICKET_ATTENDEE = 'REMOVE_TICKET_ATTENDEE';
 export const REFUND_TICKET = 'REFUND_TICKET';
 export const RESEND_NOTIFICATION = 'RESEND_NOTIFICATION';
+export const GET_TICKETS_BY_ORDER = 'GET_TICKETS_BY_ORDER';
 
 const customFetchErrorHandler = (response) => {
     let code = response.status;
@@ -94,6 +95,35 @@ export const getUserTickets = ({ page = 1, perPage = 5 }) => async (dispatch, ge
         return (e);
     });
 };
+
+export const getTicketsByOrder = ({ orderId, page = 1, perPage = 5 }) => async (dispatch, getState, { getAccessToken, apiBaseUrl, loginUrl }) => {
+    
+    const accessToken = await getAccessToken().catch(_ => history.replace(loginUrl));
+
+    if (!accessToken) return;
+
+    dispatch(startLoading());
+
+    const params = {
+        access_token: accessToken,        
+        expand: 'refund_requests, owner, owner.extra_questions, badge, badge.features',
+        order: '-id',
+        page: page,
+        per_page: perPage
+    };
+
+    return getRequest(
+        null,
+        createAction(GET_TICKETS_BY_ORDER),
+        `${apiBaseUrl}/api/v1/summits/all/orders/${orderId}/tickets`,        
+        authErrorHandler
+    )(params)(dispatch).then(() => {
+        dispatch(stopLoading());
+    }).catch(e => {
+        dispatch(stopLoading());
+        return (e);
+    });
+}
 
 export const assignAttendee = ({
     ticket,

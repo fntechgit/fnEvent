@@ -6,11 +6,11 @@ import { OrderSummaryTable } from './OrderSummaryTable';
 
 import './order-summary.scss';
 
-export const OrderSummary = ({ type = 'desktop', order, summit, className }) => {
+export const OrderSummary = ({ type = 'desktop', order, summit, tickets, className }) => {
     const previousScrollPosition = useRef(getWindowScroll());
     const { t } = useTranslation();
     const [showTable, setShowTable] = useState(false);
-    const { amountTotal } = calculateOrderTotals({ order, summit });
+    const { amountTotal } = calculateOrderTotals({ order, summit, tickets });
 
     const isMobile = type === 'mobile';
 
@@ -55,7 +55,7 @@ export const OrderSummary = ({ type = 'desktop', order, summit, className }) => 
 
             {(!isMobile || showTable) && (
                 <div className="order-summary-content">
-                    <OrderSummaryTable order={order} summit={summit} />
+                    <OrderSummaryTable order={order} summit={summit} tickets={tickets} />
                 </div>
             )}
         </div>
