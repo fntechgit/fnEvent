@@ -51,7 +51,7 @@ export const OrderListItem = ({ order, className, changeTicketsPage }) => {
                                 <div className="order-list__pagination">
 
                                     <div className="row">
-                                        <div className="col-md-8">
+                                        <div className="col-md-12">
                                             <Pager
                                                 totPages={last_page}
                                                 currentPage={current_page}

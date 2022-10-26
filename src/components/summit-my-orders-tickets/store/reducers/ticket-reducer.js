@@ -60,7 +60,7 @@ const ticketReducer = (state = DEFAULT_STATE, action) => {
         case REMOVE_TICKET_ATTENDEE:
             return { ...state, selectedTicket: payload.response };
         case GET_TICKETS_BY_ORDER: {
-            const { total, per_page, current_page, last_page, data } = payload.response
+            const { total, per_page, current_page, last_page, data } = payload.response;
             return { ...state, orderTickets: { total, per_page, current_page, last_page, tickets: data } }
         }
         case GET_ORDER_TICKET_DETAILS: {

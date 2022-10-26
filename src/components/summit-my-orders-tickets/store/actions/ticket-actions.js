@@ -186,7 +186,7 @@ export const assignAttendee = ({
 
     const {
         orderState: { current_page: orderPage },
-        ticketState: { current_page: ticketPage }
+        ticketState: { current_page: ticketPage, orderTickets: { current_page : orderTicketsCurrentPage } }
     } = getState();
 
     const params = {
@@ -219,6 +219,7 @@ export const assignAttendee = ({
             dispatch(getUserTickets({ page: ticketPage }));
         } else {
             dispatch(getUserOrders({ page: orderPage }));
+            dispatch(getTicketsByOrder({ orderId, page: orderTicketsCurrentPage }));
         }
     }).catch(e => {
         dispatch(stopLoading());

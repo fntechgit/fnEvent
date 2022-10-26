@@ -22,6 +22,12 @@ export const OrderList = ({ className }) => {
         total
     } = useSelector(state => state.orderState || {});
 
+    const {
+        orderTickets: {
+            current_page: orderTicketsCurrentPage,
+        }        
+    } = useSelector(state => state.ticketState || {});
+
     const { state : { activeOrderId } } = useOrderListContext();
 
     const handlePageChange = (page) => dispatch(getUserOrders({ page, perPage }));
@@ -39,7 +45,7 @@ export const OrderList = ({ className }) => {
 
 
     const fetchData = async (orderId) => {
-        await dispatch(getTicketsByOrder({ orderId }));
+        await dispatch(getTicketsByOrder({ orderId, orderTicketsCurrentPage }));
     };
 
     return (
