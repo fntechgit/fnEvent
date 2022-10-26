@@ -9,7 +9,7 @@ import { Input, RegistrationCompanyInput, RawHTML } from 'openstack-uicore-found
 import ExtraQuestionsForm from 'openstack-uicore-foundation/lib/components/extra-questions';
 import QuestionsSet from 'openstack-uicore-foundation/lib/utils/questions-set';
 import { getMainOrderExtraQuestions } from '../../../store/actions/summit-actions';
-import { assignAttendee, editOwnedTicket, getTicketById, removeAttendee } from '../../../store/actions/ticket-actions';
+import { assignAttendee, editOwnedTicket, removeAttendee } from '../../../store/actions/ticket-actions';
 import { useTicketDetails } from '../../../util';
 
 import './ticket-popup-edit-details-form.scss';
@@ -82,10 +82,6 @@ export const TicketPopupEditDetailsForm = ({
     useEffect(() => {
         dispatch(getMainOrderExtraQuestions({ summit }));
     }, [ticket]);
-
-    useEffect(() => {
-        dispatch(getTicketById(order.id, ticket.id));
-    }, []);
 
     const toggleSaveMessage = () => {
         setTimeout(() => setShowSaveMessage(true), 50);

@@ -27,7 +27,7 @@ export const OrderListItem = ({ order, className, changeTicketsPage }) => {
                 <div className="col-md-8">
                     <OrderDetails order={order} summit={summit} />
 
-                    {isActive && !loading && tickets.length > 0 && (
+                    {isActive && tickets.length > 0 && (
                         <>
                             <OrderSummary type="mobile" order={order} summit={summit} />
 
@@ -47,7 +47,7 @@ export const OrderListItem = ({ order, className, changeTicketsPage }) => {
                                 )
                             })}
 
-                            {tickets.length > 5 &&(
+                            {total > 5 &&(
                                 <div className="order-list__pagination">
 
                                     <div className="row">

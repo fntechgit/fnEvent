@@ -35,6 +35,7 @@ export const REMOVE_TICKET_ATTENDEE = 'REMOVE_TICKET_ATTENDEE';
 export const REFUND_TICKET = 'REFUND_TICKET';
 export const RESEND_NOTIFICATION = 'RESEND_NOTIFICATION';
 export const GET_TICKETS_BY_ORDER = 'GET_TICKETS_BY_ORDER';
+export const GET_ORDER_TICKET_DETAILS = 'GET_ORDER_TICKET_DETAILS';
 export const GET_TICKET_DETAILS = 'GET_TICKET_DETAILS';
 
 const customFetchErrorHandler = (response) => {
@@ -80,7 +81,7 @@ export const getUserTickets = ({ page = 1, perPage = 5 }) => async (dispatch, ge
         expand: 'order, owner',
         order: '-id',
         fields: 'order.id,order.owner_first_name,order.owner_last_name,order.owner_email,owner.first_name,owner.last_name,owner.status',
-        'filter[]': [`status==Paid`, `order_owner_id<>${userProfile.id}`],        
+        'filter[]': [`status==Paid`, `order_owner_id<>${userProfile.id}`],
         relations: 'none',
         page: page,
         per_page: perPage,
@@ -99,8 +100,13 @@ export const getUserTickets = ({ page = 1, perPage = 5 }) => async (dispatch, ge
     });
 };
 
-export const getTicketById = (orderId, ticketId) => async (dispatch, getState, { getAccessToken, apiBaseUrl, loginUrl }) => {
+export const getTicketById = ({order, ticket}) => async (dispatch, getState, { getAccessToken, apiBaseUrl, loginUrl }) => {
     const { userState: { userProfile }, summitState: { summit } } = getState();
+
+    const { id: orderId } = order;
+    const { id: ticketId } = ticket;
+
+    const fromOrderList = order.hasOwnProperty('tickets_excerpt_by_ticket_type');
 
     if (!summit) return
 
@@ -112,12 +118,13 @@ export const getTicketById = (orderId, ticketId) => async (dispatch, getState, {
 
     const params = {
         access_token: accessToken,
-        expand: 'owner, owner.extra_questions, badge, badge.features, refund_requests',
+        expand: `${fromOrderList ? 'order' : ''}, owner, owner.extra_questions, badge, badge.features, refund_requests`,
+        fields: 'order.owner_first_name, order.owner_last_name, order.owner_email'
     };
 
     return getRequest(
         null,
-        createAction(GET_TICKET_DETAILS),
+        createAction(fromOrderList ? GET_ORDER_TICKET_DETAILS : GET_TICKET_DETAILS),
         `${apiBaseUrl}/api/v1/summits/all/orders/${orderId}/tickets/${ticketId}`,
         authErrorHandler
     )(params)(dispatch).then(() => {

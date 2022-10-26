@@ -7,19 +7,11 @@ export const calculateOrderTotals = ({ order, summit, tickets }) => {
     const ticketSummary = [];
     let purchaseTicketTotal = 0;
 
-    tickets.forEach(ticket => {
-        let idx = ticketSummary.findIndex(o => o.ticket_type_id == (ticket.type_id ? ticket.type_id : ticket.ticket_type_id));
-        let ticketType = ticket_types.find(tt => tt.id == (ticket.type_id ? ticket.type_id : ticket.ticket_type_id));
-
-        if (idx >= 0) {
-            ticketSummary[idx].qty++;
-        } else {
-            let name = ticket_types.find(q => q.id === (ticket.type_id ? ticket.type_id : ticket.ticket_type_id)).name;
-            ticketSummary.push({ ticket_type_id: (ticket.type_id ? ticket.type_id : ticket.ticket_type_id), ticket_type: ticketType, name, qty: 1 })
-        }
-
-        purchaseTicketTotal = purchaseTicketTotal + ticketType.cost;
-    });
+    Object.keys(order.tickets_excerpt_by_ticket_type).map((ticket) => {
+        let ticketType = ticket_types.find(tt => tt.name === ticket);
+        ticketSummary.push({ ticket_type_id: ticketType.id, ticket_type: ticketType, name: ticket, qty: order.tickets_excerpt_by_ticket_type[ticket] })
+        purchaseTicketTotal = purchaseTicketTotal + (ticketType.cost * order.tickets_excerpt_by_ticket_type[ticket]);
+    })
 
     const purchaseTotal = purchaseTicketTotal;
     const discountTotal = reservation?.discount_amount ? reservation.discount_amount.toFixed(2) : discount_amount?.toFixed(2);
