@@ -112,8 +112,7 @@ export const getTicketById = (orderId, ticketId) => async (dispatch, getState, {
 
     const params = {
         access_token: accessToken,
-        expand: 'order, owner, owner.extra_questions, badge, badge.features, refund_requests',
-        'filter[]': [`status==Paid`, `order_owner_id<>${userProfile.id}`],
+        expand: 'owner, owner.extra_questions, badge, badge.features, refund_requests',
     };
 
     return getRequest(
