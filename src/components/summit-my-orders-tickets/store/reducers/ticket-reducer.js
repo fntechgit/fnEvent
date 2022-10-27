@@ -31,6 +31,7 @@ const DEFAULT_STATE = {
         last_page: 1,
         tickets: []
     },
+    selectedTicket: null,
     memberTickets: [],
     errors: {},
     current_page: 1,
@@ -54,7 +55,12 @@ const ticketReducer = (state = DEFAULT_STATE, action) => {
             return { ...state, loading: false };
         case GET_TICKETS:
             let { data, current_page, total, last_page } = payload.response;
-            return { ...state, memberTickets: data, current_page, total, last_page };
+            const lastEditedTicket = state.selectedTicket;
+            if (lastEditedTicket) {
+                const ticketToUpdate = data.find(t => t.id === lastEditedTicket.id)
+                data = [...data.filter(t => t.id !== lastEditedTicket.id), {...ticketToUpdate, ...lastEditedTicket}];
+            }
+            return { ...state, memberTickets: data, current_page, total, last_page, selectedTicket: null };
         case ASSIGN_TICKET:
             return { ...state, selectedTicket: payload.response };
         case REMOVE_TICKET_ATTENDEE:
