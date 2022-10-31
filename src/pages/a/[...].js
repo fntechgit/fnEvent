@@ -20,7 +20,7 @@ import PosterDetailPage from "../../templates/poster-detail-page";
 import MyTicketsPage from '../../templates/my-tickets-page';
 import WithTicketRoute from "../../routes/WithTicketRoute";
 
-const App = ({ isLoggedUser, user, summit_phase, lastBuild, syncData, allowClick }) => {
+const App = ({ isLoggedUser, user, summit_phase, lastBuild, syncData, allowClick = true }) => {
 
   useEffect(() => {
     syncData();

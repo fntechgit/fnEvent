@@ -19,7 +19,7 @@ const FullSchedule = ({
   callAction,
   filters,
   view,
-  allowClick,
+  allowClick = true,
     schedKey,
   ...rest
 }) => {
