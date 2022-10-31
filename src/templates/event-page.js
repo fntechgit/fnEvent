@@ -74,7 +74,6 @@ export const EventPageTemplate = class extends React.Component {
 
         const {event, user, loading, nowUtc, summit, eventsPhases, eventId, location, activityCtaText} = this.props;
 
-        console.log('activityCtaText', activityCtaText);
         // get current event phase
         const currentPhase = eventsPhases.find((e) => parseInt(e.id) === parseInt(eventId))?.phase;
         const firstHalf = currentPhase === PHASES.DURING ? nowUtc < ((event?.start_date + event?.end_date) / 2) : false;
@@ -117,7 +116,7 @@ export const EventPageTemplate = class extends React.Component {
                                     autoPlay={autoPlay}
                                     start={startTime}
                                 />
-                                {!event.meeting_url && <VideoBanner event={event} ctaText={activityCtaText} />}
+                                {event.meeting_url && <VideoBanner event={event} ctaText={activityCtaText} />}
                             </div>
                         ) : (
                             <div className="column is-three-quarters px-0 py-0 is-full-mobile">
