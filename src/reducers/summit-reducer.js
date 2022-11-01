@@ -17,6 +17,9 @@ const summitReducer = (state = DEFAULT_STATE, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case 'CHANGE_TITLE': {
+      return {...state, summit: {...state.summit, name: 'SANTI'}}
+    }
     case RESET_STATE:
     case SYNC_DATA:
     case LOGOUT_USER:

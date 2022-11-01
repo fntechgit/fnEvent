@@ -51,3 +51,7 @@ export const getExtraQuestions = () => async (dispatch, getState) => {
         return Promise.reject(e);
     });
 }
+
+export const changeSummitTitle = () => (dispatch, getState) => {
+    dispatch(createAction('CHANGE_TITLE')({}));
+}

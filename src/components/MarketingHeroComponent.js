@@ -7,11 +7,12 @@ import { PHASES } from "../utils/phasesUtils";
 import Link from "../components/Link";
 import RegistrationLiteComponent from "./RegistrationLiteComponent";
 import { getDefaultLocation } from "../utils/loginUtils";
-
-import styles from "../styles/marketing-hero.module.scss";
+import { changeSummitTitle } from "../actions/summit-actions";
 import {userHasAccessLevel, VirtualAccessLevel} from "../utils/authorizedGroups";
 
-const MarketingHeroComponent = ({ siteSettings, eventRedirect, summit_phase, isLoggedUser, summit, location, userProfile }) => {
+import styles from "../styles/marketing-hero.module.scss";
+
+const MarketingHeroComponent = ({ siteSettings, eventRedirect, summit_phase, isLoggedUser, summit, location, userProfile, changeSummitTitle }) => {
 
   const sliderRef = useRef(null);
   const [sliderHeight, setSliderHeight] = useState(424);
@@ -139,6 +140,11 @@ const MarketingHeroComponent = ({ siteSettings, eventRedirect, summit_phase, isL
               <div className={styles.heroButtons}>
                 {getButtons()}
               </div>
+              {/* TEST */}
+              <div>
+                {summit?.name}
+                <button onClick={changeSummitTitle}>change</button>
+              </div>
             </div>
           </div>
         </div>
@@ -171,4 +177,4 @@ const mapStateToProps = ({ clockState, settingState, userState, summitState }) =
   userProfile: userState.userProfile,
 });
 
-export default connect(mapStateToProps, null)(MarketingHeroComponent);
+export default connect(mapStateToProps, {changeSummitTitle})(MarketingHeroComponent);
