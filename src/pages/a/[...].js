@@ -20,6 +20,19 @@ import PosterDetailPage from "../../templates/poster-detail-page";
 import MyTicketsPage from '../../templates/my-tickets-page';
 import WithTicketRoute from "../../routes/WithTicketRoute";
 
+/**
+ * Returns the total amount of disk space used (in MB) by localStorage for the current domain.
+ */
+const getLocalStorageSize = function() {
+  var total = 0;
+  for (var x in localStorage) {
+    // Value is multiplied by 2 due to data being stored in `utf-16` format, which requires twice the space.
+    var amount = (localStorage[x].length * 2) / 1024 / 1024;
+    total += amount;
+  }
+  return total.toFixed(2);
+};
+
 const App = ({ isLoggedUser, user, summit_phase, lastBuild, syncData }) => {
 
   useEffect(() => {
@@ -27,6 +40,8 @@ const App = ({ isLoggedUser, user, summit_phase, lastBuild, syncData }) => {
       syncData();
     }
   }, [lastBuild, syncData]);
+
+  console.log(`LOCAL STORAGE: ${getLocalStorageSize()}`);
 
   return (
     <Location>
