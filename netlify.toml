@@ -19,4 +19,29 @@
   for = "/fonts/*"
     [headers.values]
      Access-Control-Allow-Origin = "*"
-     
+
+ # Deploy Preview context: all deploys resulting from a pull/merge request will
+ # inherit these settings.
+[context.deploy-preview.environment]
+  GATSBY_AUTHZ_USER_GROUPS="tester-groups administrators super-admins virtual-early-access"
+  GATSBY_BUILD_SCOPES="https://api.dev.fnopen.com/summits/read"
+  GATSBY_CHAT_API_BASE_URL="https://chat-api.dev.fnopen.com"
+  GATSBY_IDP_BASE_URL="https://idp.dev.fnopen.com"
+  GATSBY_LIVE_EVENT_THUMBNAIL_GIF_CAPTURE_STARTS="5"
+  GATSBY_MARKETING_API_BASE_URL="https://marketing-api.dev.fnopen.com"
+  GATSBY_MUX_ENV_KEY="uql8is93gn51ofmt0lu85jb08"
+  GATSBY_OAUTH2_CLIENT_ID="B6a.57h4NX8ns7Un-JCkJdf~WrGzt4c2.openstack.client"
+  GATSBY_OAUTH2_CLIENT_ID_BUILD="sZPIWV8uSWSY3rdFrzZ63~-gzXvwwSnM.openstack.client"
+  GATSBY_OAUTH2_CLIENT_SECRET_BUILD="yRprGkEmBEWE08sTquNyr~Nba.Srboc-QsZvvKjLkeALIh6-7uP2URFUL3riPvZG"
+  GATSBY_OAUTH2_FLOW="code"
+  GATSBY_OAUTH_TOKEN_PATH="/oauth2/token"
+  GATSBY_REGISTRATION_BASE_URL="https://registration.dev.fnopen.com"
+  GATSBY_SCHEDULE_EXCLUDING_TAGS="vod"
+  GATSBY_SCOPES="openid offline_access profile email address sso https://api.dev.fnopen.com/members/read/me https://api.dev.fnopen.com/me/read https://api.dev.fnopen.com/me/summits/events/favorites/add https://api.dev.fnopen.com/me/summits/events/favorites/delete https://api.dev.fnopen.com/me/summits/events/schedule/mail https://api.dev.fnopen.com/me/summits/events/schedule/add https://api.dev.fnopen.com/me/summits/events/schedule/delete https://api.dev.fnopen.com/me/summits/events/schedule/shareable/add https://api.dev.fnopen.com/me/summits/events/schedule/shareable/delete https://api.dev.fnopen.com/summits/read https://api.dev.fnopen.com/me/summits/events/enter https://api.dev.fnopen.com/me/summits/events/leave https://api.dev.fnopen.com/summits/registration-orders/read/me https://api.dev.fnopen.com/summits/registration-orders/create https://api.dev.fnopen.com/summits/registration-orders/update/me https://api.dev.fnopen.com/summits/registration-orders/delete/me me/read me/write channel-types/seed https://api.dev.fnopen.com/summits/registration/virtual-checkin"
+  GATSBY_STREAM_IO_API_KEY="29gtgpyz5hht"
+  GATSBY_STREAM_IO_SSO_SLUG="fnvirtual-poc"
+  GATSBY_SUMMIT_API_BASE_URL="https://api.dev.fnopen.com"
+  GATSBY_SUMMIT_ID="31"
+  GATSBY_SUPABASE_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYxMjMwMTM1MCwiZXhwIjoxOTI3ODc3MzUwfQ.tCmldZTOpxAJOdAAPOfS5SLouYKqyJ16EOJ5iRKD7mA"
+  GATSBY_SUPABASE_URL="https://cjzxafgwykoupwadhqjx.supabase.co"
+  GATSBY_DISQUS_SHORTNAME="fnvirtual-poc"
