@@ -98,6 +98,7 @@
     "react-useportal": "^1.0.16",
     "redux": "^4.1.2",
     "redux-persist": "^6.0.0",
+    "redux-persist-transform-compress": "^4.2.0",
     "redux-thunk": "^2.4.1",
     "sanitize-html": "^2.7.0",
     "sass": "^1.49.9",

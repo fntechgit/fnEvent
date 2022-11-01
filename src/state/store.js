@@ -1,5 +1,6 @@
 import storage from './reduxPersistStorage';
 import { persistCombineReducers, persistStore } from "redux-persist";
+import createCompressor from "redux-persist-transform-compress";
 import { loggedUserReducer } from "openstack-uicore-foundation/lib/security/reducers";
 import eventReducer from "../reducers/event-reducer";
 import presentationsReducer from "../reducers/presentations-reducer";
@@ -17,19 +18,12 @@ import thunk from "redux-thunk";
 const clientId = process.env.GATSBY_OAUTH2_CLIENT_ID;
 const summitID = process.env.GATSBY_SUMMIT_ID;
 
+const compressor = createCompressor();
+
 const config = {
   key: `root_${clientId}_${summitID}`,
   storage: storage,
-  blacklist: [
-    // this will be not saved to persistent storage see
-    // https://github.com/rt2zz/redux-persist#blacklist--whitelist
-    'sponsorState',
-    'speakerState',
-    'eventState',
-    'presentationsState',
-    'summitState',
-    'allSchedulesState',
-  ]
+  transforms: [compressor]
 };
 
 const persistedReducers = persistCombineReducers(config, {
