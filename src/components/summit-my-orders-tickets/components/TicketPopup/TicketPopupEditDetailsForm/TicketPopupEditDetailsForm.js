@@ -13,7 +13,6 @@ import { assignAttendee, editOwnedTicket, removeAttendee } from '../../../store/
 import { useTicketDetails } from '../../../util';
 
 import './ticket-popup-edit-details-form.scss';
-import { number } from 'prop-types';
 
 export const TicketPopupEditDetailsForm = ({
     ticket,
@@ -193,8 +192,9 @@ export const TicketPopupEditDetailsForm = ({
     };
 
     const canSubmitChanges = () => {
-        const unasweredExtraQuestions = ticket.owner.extra_questions.length < extraQuestions.length;
-        return canEditTicketData || isReassignable || unasweredExtraQuestions;
+        const qs = new QuestionsSet(extraQuestions, ticket.owner.extra_questions);        
+        const unansweredExtraQuestions = !qs.completed();        
+        return canEditTicketData || isReassignable || unansweredExtraQuestions;
     }    
 
     return (
