@@ -326,6 +326,9 @@ h2 {
     padding-left: 4em;
     padding-right: 4em;
     text-transform: uppercase;
+    &:focus,&:active {
+      color: $color_secondary !important;
+    }
   }
 }
 
