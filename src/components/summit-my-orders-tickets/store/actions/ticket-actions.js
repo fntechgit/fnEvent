@@ -275,7 +275,7 @@ export const resendNotification = ({ ticket }) => async (dispatch, getState, { g
     });
 };
 
-export const removeAttendee = ({
+export const changeTicketAttendee = ({
     ticket,
     order,
     context,
@@ -320,6 +320,45 @@ export const removeAttendee = ({
         dispatch(stopLoading());
         return (e);
     });
+};
+
+export const removeAttendee = ({ticket, context}) => async (dispatch, getState, { getAccessToken, apiBaseUrl, loginUrl }) => {
+
+    const {
+        orderState: { current_page: orderPage },
+        ticketState: { current_page: ticketPage }
+    } = getState();
+
+    const accessToken = await getAccessToken().catch(_ => history.replace(loginUrl));
+
+    if (!accessToken) return;
+
+    dispatch(startLoading());
+
+    const params = {
+        access_token: accessToken,
+        expand: 'order, owner, owner.extra_questions, order.summit'
+    };
+
+    const orderId = ticket.order ? ticket.order.id : ticket.order_id;
+
+    return deleteRequest(
+        null,
+        createAction(REMOVE_TICKET_ATTENDEE),
+        `${apiBaseUrl}/api/v1/summits/all/orders/${orderId}/tickets/${ticket.id}/attendee`,
+        {},
+        authErrorHandler
+    )(params)(dispatch).then(() => {
+        if (context === 'ticket-list') {
+            dispatch(getUserTickets({ page: ticketPage }));
+        } else {
+            dispatch(getUserOrders({ page: orderPage }));
+        }
+        }).catch((e) => {
+            console.log('error', e)
+            dispatch(stopLoading());
+        return (e);
+        });
 };
 
 export const getTicketPDF = ({ ticket }) => async (dispatch, getState, { getAccessToken, apiBaseUrl, loginUrl }) => {
