@@ -19,6 +19,7 @@ import { scanBadge } from '../actions/user-actions'
 import MarkdownIt from "markdown-it";
 import { getEnvVariable, LIVE_EVENT_THUMBNAIL_GIF_CAPTURE_STARTS } from "../utils/envVariables";
 import styles from '../styles/sponsor-page.module.scss'
+import SponsorNavigation from '../components/SponsorNavigation'
 
 
 export const SponsorPageTemplate = class extends React.Component {
@@ -82,7 +83,7 @@ export const SponsorPageTemplate = class extends React.Component {
   }
 
   render() {
-    const { user, summit } = this.props;
+    const { user, summit, sponsors } = this.props;
     const { sponsor, tier, notFound, parsedIntro } = this.state;
 
     if (notFound) {
@@ -98,6 +99,7 @@ export const SponsorPageTemplate = class extends React.Component {
             />
             <AccessTracker />
             <SponsorHeader sponsor={sponsor} tier={tier} scanBadge={() => this.onBadgeScan()} />
+            <SponsorNavigation currentSponsor={sponsor} sponsors={sponsors} />
             <section className={`section px-0 ${tier.sponsorPage.sponsorTemplate === 'big-header' ? 'pt-5' : 'pt-0'} pb-0`}>
               {sponsor.sideImage && sponsor?.sideImage?.file &&
               <div className="columns mx-0 mt-0 mb-6">
