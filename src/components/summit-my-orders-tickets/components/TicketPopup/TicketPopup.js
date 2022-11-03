@@ -95,7 +95,9 @@ export const TicketPopup = ({ ticket, order, summit, onClose, fromTicketList, fr
                                 <Tab>{t("ticket_popup.tab_assign")}</Tab>
                             )}
 
-                            <Tab>{t("ticket_popup.tab_edit")}</Tab>
+                            {!isUnassigned && (
+                                <Tab>{t("ticket_popup.tab_edit")}</Tab>
+                            )}
 
                             {!isUnassigned && isReassignable && isUserOrderOwner && (
                                 <Tab>{t("ticket_popup.tab_reassign")}</Tab>
