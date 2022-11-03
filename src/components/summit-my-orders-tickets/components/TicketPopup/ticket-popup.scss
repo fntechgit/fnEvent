@@ -68,10 +68,22 @@
 
   .ticket-popup-icons {
     display: flex;
-    justify-content: flex-end;
     gap: 15px;
-    width: 10%;
+    width: 90px;
     color: $color-primary-contrast;
+    flex-direction: column;    
+
+    .ticket-popup-row-icon {
+      display: flex;
+      gap: 15px;
+      justify-content: end;
+    }
+
+    .ticket-popup-qr {
+      width: 90px;
+      margin-left: auto;
+      display: flex;
+    }
 
     i {
       font-size: 1.5em;
@@ -350,7 +362,7 @@
 
   .ticket-popup-header {
     .ticket-popup-icons {
-      width: 20%;
+      width: 90px;
 
       i {
         margin-left: 10px;

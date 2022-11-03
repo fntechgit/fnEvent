@@ -11,6 +11,8 @@ import { TicketPopupNotifyForm } from './TicketPopupNotifyForm';
 import { TicketPopupRefundForm } from './TicketPopupRefundForm';
 import { TicketPopupEditDetailsForm } from './TicketPopupEditDetailsForm/TicketPopupEditDetailsForm';
 
+import QRCode from "react-qr-code";
+
 import './ticket-popup.scss';
 
 export const TicketPopup = ({ ticket, order, summit, onClose, fromTicketList, fromOrderList, className }) => {
@@ -80,11 +82,23 @@ export const TicketPopup = ({ ticket, order, summit, onClose, fromTicketList, fr
                     </div>
 
                     <div className="ticket-popup-icons">
-                        {!summit.is_virtual && (
+                        <div className='ticket-popup-row-icon'>
+                        {!summit.is_virtual && statusData.type === 'STATUS_COMPLETE' && (
                             <i onClick={handleDownloadClick} className="fa fa-file-pdf-o" />
                         )}
 
                         <i onClick={handleCloseClick} className="fa fa-times" />
+                        </div>
+                        {statusData.type === 'STATUS_COMPLETE' &&
+                            <div className='ticket-popup-qr'>
+                                <QRCode
+                                    size={256}
+                                    style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+                                    value={ticket.qr_code}
+                                    viewBox={`0 0 256 256`}
+                                />
+                            </div>
+                        }
                     </div>
                 </header>
 
