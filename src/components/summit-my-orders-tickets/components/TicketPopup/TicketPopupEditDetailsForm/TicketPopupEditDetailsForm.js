@@ -9,8 +9,9 @@ import { Input, RegistrationCompanyInput, RawHTML } from 'openstack-uicore-found
 import ExtraQuestionsForm from 'openstack-uicore-foundation/lib/components/extra-questions';
 import QuestionsSet from 'openstack-uicore-foundation/lib/utils/questions-set';
 import { getMainOrderExtraQuestions } from '../../../store/actions/summit-actions';
-import { assignAttendee, editOwnedTicket, removeAttendee } from '../../../store/actions/ticket-actions';
+import { assignAttendee, editOwnedTicket, changeTicketAttendee, removeAttendee } from '../../../store/actions/ticket-actions';
 import { useTicketDetails } from '../../../util';
+import { ConfirmPopup, CONFIRM_POPUP_CASE } from "../../ConfirmPopup/ConfirmPopup";
 
 import './ticket-popup-edit-details-form.scss';
 
@@ -19,6 +20,7 @@ export const TicketPopupEditDetailsForm = ({
     summit,
     order,
     canEditTicketData,
+    goToReassignPanel,
     context    
 }) => {
     const formRef = useRef(null);
@@ -30,6 +32,8 @@ export const TicketPopupEditDetailsForm = ({
     const [changeAttendee, setChangeAttendee] = useState(false);
     const [changingAttendee, setChangingAttendee] = useState(false);
     const [showSaveMessage, setShowSaveMessage] = useState(false);
+    const [showConfirm, setShowConfirm] = useState(false);
+    const [showUnassignMessage, setShowUnassignMessage] = useState(false);
     const {
         isUnassigned,
         isReassignable,
@@ -87,6 +91,11 @@ export const TicketPopupEditDetailsForm = ({
         setTimeout(() => setShowSaveMessage(false), 5000);
     };
 
+    const toggleUnassignMessage = () => {
+        setTimeout(() => setShowUnassignMessage(true), 50);
+        setTimeout(() => setShowUnassignMessage(false), 5000);
+    };
+
     const updateTicket = (values, formikHelpers) => {
         formikHelpers.setSubmitting(true);
 
@@ -119,7 +128,7 @@ export const TicketPopupEditDetailsForm = ({
         if (ticket.owner?.email !== values.attendee_email) {
             setChangingAttendee(true);
 
-            return dispatch(removeAttendee(params))
+            return dispatch(changeTicketAttendee(params))
                 .then(() => {
                     setChangeAttendee(false);
                     toggleSaveMessage();
@@ -139,6 +148,15 @@ export const TicketPopupEditDetailsForm = ({
                 formikHelpers.resetForm({ values });
                 formikHelpers.setSubmitting(false);
             });
+    };
+
+    const handleConfirmAccept = async () => {
+        setShowConfirm(false);        
+        dispatch(removeAttendee({ticket, context})).then(() => toggleUnassignMessage());
+    };
+
+    const handleConfirmReject = () => {
+        setShowConfirm(false);        
     };
 
     const handleSubmit = (values, formikHelpers) => updateTicket(values, formikHelpers);
@@ -208,6 +226,19 @@ export const TicketPopupEditDetailsForm = ({
                 >
                     <Alert bsStyle="success" className="ticket-popup-form-alert text-center">
                         {t("tickets.save_message")}
+                    </Alert>
+                </CSSTransition>
+            )}
+
+            {showUnassignMessage && (
+                <CSSTransition
+                    unmountOnExit
+                    in={showUnassignMessage}
+                    timeout={2000}
+                    classNames="fade-in-out"
+                >
+                    <Alert bsStyle="success" className="ticket-popup-form-alert text-center">
+                        {t("tickets.unassign_success_message")}
                     </Alert>
                 </CSSTransition>
             )}
@@ -288,9 +319,13 @@ export const TicketPopupEditDetailsForm = ({
 
                                                 {(isUserTicketOwner && isReassignable) && (
                                                     <>
-                                                        {` `}|{` `}
-                                                        <span onClick={() => setChangeAttendee(true)}>
-                                                            <u>Change</u>
+                                                        <br />
+                                                        <span onClick={() => goToReassignPanel()}>
+                                                            <u>Reassign</u>
+                                                        </span>
+                                                        {` | `}
+                                                        <span onClick={() => setShowConfirm(true)}>
+                                                            <u>Unassign</u>
                                                         </span>
                                                     </>
                                                 )}
@@ -359,9 +394,13 @@ export const TicketPopupEditDetailsForm = ({
 
                                                 {(isUserTicketOwner && isReassignable) && (
                                                     <>
-                                                        {` `}|{` `}
-                                                        <span onClick={() => setChangeAttendee(true)}>
-                                                            <u>Change</u>
+                                                        <br />
+                                                        <span onClick={() => goToReassignPanel()}>
+                                                            <u>Reassign</u>
+                                                        </span>
+                                                        {` | `}
+                                                        <span onClick={() => setShowConfirm(true)}>
+                                                            <u>Unassign</u>
                                                         </span>
                                                     </>
                                                 )}
@@ -584,6 +623,12 @@ export const TicketPopupEditDetailsForm = ({
                         </div>
                     }
                 </>
+                <ConfirmPopup
+                    isOpen={showConfirm}
+                    popupCase={CONFIRM_POPUP_CASE.REASSIGN_TICKET}
+                    onAccept={handleConfirmAccept}
+                    onReject={handleConfirmReject}
+                />
         </div >
     );
 };

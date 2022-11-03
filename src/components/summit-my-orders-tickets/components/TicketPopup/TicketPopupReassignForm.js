@@ -6,7 +6,7 @@ import Alert from 'react-bootstrap/lib/Alert';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Input } from 'openstack-uicore-foundation/lib/components'
-import { removeAttendee } from "../../store/actions/ticket-actions";
+import { changeTicketAttendee } from "../../store/actions/ticket-actions";
 import { ConfirmPopup, CONFIRM_POPUP_CASE } from "../ConfirmPopup/ConfirmPopup";
 import { getSummitFormattedReassignDate } from "../../util";
 
@@ -56,7 +56,7 @@ export const TicketPopupReassignForm = ({ ticket, summit, order }) => {
         formik.resetForm();
         setNewAttendeeEmail('');
 
-        dispatch(removeAttendee({
+        dispatch(changeTicketAttendee({
             ticket,
             order,
             data: { attendee_email: newAttendeeEmail }
