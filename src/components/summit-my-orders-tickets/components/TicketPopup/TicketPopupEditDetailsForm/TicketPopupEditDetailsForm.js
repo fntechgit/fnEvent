@@ -13,7 +13,6 @@ import { assignAttendee, editOwnedTicket, removeAttendee } from '../../../store/
 import { useTicketDetails } from '../../../util';
 
 import './ticket-popup-edit-details-form.scss';
-import { number } from 'prop-types';
 
 export const TicketPopupEditDetailsForm = ({
     ticket,
@@ -191,6 +190,12 @@ export const TicketPopupEditDetailsForm = ({
         // Submit the formik form only after setting the extra_questions field values.
         formik.handleSubmit();
     };
+
+    const canSubmitChanges = () => {
+        const qs = new QuestionsSet(extraQuestions, ticket.owner.extra_questions);        
+        const unansweredExtraQuestions = !qs.completed();        
+        return canEditTicketData || isReassignable || unansweredExtraQuestions;
+    }    
 
     return (
         <div className="ticket-popup-form ticket-popup-edit-details-form">
@@ -381,7 +386,7 @@ export const TicketPopupEditDetailsForm = ({
                                         {t("ticket_popup.edit_required_star")}
                                     </div>
                                     <div className="col-sm-8">
-                                        {canEditTicketData ?
+                                        {canEditTicketData || !ticket.owner.first_name ?
                                             <Input
                                                 id="attendee_first_name"
                                                 name="attendee_first_name"
@@ -403,7 +408,7 @@ export const TicketPopupEditDetailsForm = ({
                                         {t("ticket_popup.edit_required_star")}
                                     </div>
                                     <div>
-                                        {canEditTicketData ?
+                                        {canEditTicketData || !ticket.owner.first_name ?
                                             <Input
                                                 id="attendee_first_name"
                                                 name="attendee_first_name"
@@ -425,7 +430,7 @@ export const TicketPopupEditDetailsForm = ({
                                         {t("ticket_popup.edit_required_star")}
                                     </div>
                                     <div className="col-sm-8">
-                                        {canEditTicketData ?
+                                        {canEditTicketData || !ticket.owner.last_name ?
                                             <Input
                                                 id="attendee_last_name"
                                                 name="attendee_last_name"
@@ -447,7 +452,7 @@ export const TicketPopupEditDetailsForm = ({
                                         {t("ticket_popup.edit_required_star")}
                                     </div>
                                     <div>
-                                        {canEditTicketData ?
+                                        {canEditTicketData || !ticket.owner.last_name ?
                                             <Input
                                                 id="attendee_last_name"
                                                 name="attendee_last_name"
@@ -469,7 +474,7 @@ export const TicketPopupEditDetailsForm = ({
                                         {t("ticket_popup.edit_required_star")}
                                     </div>
                                     <div className="col-sm-8" style={{ position: 'relative' }}>
-                                        {canEditTicketData ?
+                                        {canEditTicketData || !ticket.owner.company ?
                                             <RegistrationCompanyInput
                                                 id="attendee_company"
                                                 name="attendee_company"
@@ -565,7 +570,7 @@ export const TicketPopupEditDetailsForm = ({
                         )}
                     </div>
 
-                    {canEditTicketData &&
+                    {canSubmitChanges() &&
                         <div className="ticket-popup-footer">
                             <button
                                 type="button"
