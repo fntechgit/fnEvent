@@ -43,7 +43,7 @@ export const OrderTicketDetails = ({ ticket, summit, order, className }) => {
                     <div className="order-ticket-details__header">
                         <div>
                             <h4 className="order-ticket-details__role">
-                                {role}
+                                Attendee
                             </h4>
 
                             {ticket.discount > 0 && (
@@ -71,6 +71,15 @@ export const OrderTicketDetails = ({ ticket, summit, order, className }) => {
                             {ticket.number}
                         </h5>
                     </div>
+
+                    {role && 
+                        <div className="order-ticket-details__badge">
+                            <h5 className="order-ticket-details__number">
+                                Badge Features: {role}
+                            </h5>
+                        </div>
+                    }
+
                 </div>
 
                 <div className="order-ticket-details__footer">
