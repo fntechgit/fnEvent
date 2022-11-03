@@ -179,6 +179,7 @@
         "save_message": "Thank you! Your information has been saved and ticket updated.",
         "assign_success_message": "The ticket was successfully assigned.",
         "reassign_success_message": "The ticket was successfully reassigned.",
+        "unassign_success_message": "The ticket was successfully unassigned.",
         "notify_success_message": "Notification was sent to ticket holder.",
         "refund_request_success_message": "Your refund request has been received. Please allow 24 - 48 hours for a response."
     },
@@ -195,7 +196,7 @@
     },
     "ticket_popup": {
         "tab_assign": "Assign",
-        "tab_reassign": "Re-Assign",
+        "tab_reassign": "Reassign",
         "tab_refund": "Refund",
         "tab_edit": "Edit Details",
         "tab_edit_read_only": "Details",

@@ -21,6 +21,7 @@ export const CONFIRM_POPUP_CASE = {
     CANCEL_TICKET: 'CANCEL_TICKET',
     ASSIGN_TICKET: 'ASSIGN_TICKET',
     REASSIGN_TICKET: 'REASSIGN_TICKET',
+    UNASSIGN_TICKET: 'UNASSIGN_TICKET',
     SAVE: 'SAVE',
     NOTIFICATION: 'NOTIFICATION',
 }
@@ -42,6 +43,10 @@ export const getConfirmPopupContent = ({ popupCase, cleanFields }) => {
         [CONFIRM_POPUP_CASE.REASSIGN_TICKET]: {
             title: 'confirm_popup.question_title_reassign',
             text: cleanFields ? 'confirm_popup.question_text_reassign' : 'confirm_popup.question_text_confirm'
+        },
+        [CONFIRM_POPUP_CASE.REASSIGN_TICKET]: {
+            title: 'confirm_popup.question_title_unassign',
+            text: 'confirm_popup.question_text_unassign'
         },
         [CONFIRM_POPUP_CASE.SAVE]: {
             title: 'confirm_popup.question_title_save',
