@@ -11,6 +11,7 @@ export const TicketDetails = ({ ticket, className }) => {
     const {
         status,
         type,
+        role,
         isActive,
         isUnassigned,
         handleClick,
@@ -59,6 +60,12 @@ export const TicketDetails = ({ ticket, className }) => {
                         <p className="ticket-details__owner">
                             Purchased By {ticket.order.owner_first_name} {ticket.order.owner_last_name} ({ticket.order.owner_email})
                         </p>
+
+                        {role && 
+                            <p className="ticket-details__badge">
+                                Badge Features: {role}
+                            </p>
+                        }
                     </div>
                 </div>
 

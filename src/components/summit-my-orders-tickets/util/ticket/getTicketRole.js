@@ -7,5 +7,5 @@ export const getTicketRole = (ticket) => {
     if (features.length > 0)
         return features.map(feature => feature.name).join(', ');
 
-    return 'Attendee';
+    return null;
 };
