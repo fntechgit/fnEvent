@@ -21,6 +21,7 @@ export const TicketPopupEditDetailsForm = ({
     summit,
     order,
     canEditTicketData,
+    goToReassignPanel,
     context    
 }) => {
     const formRef = useRef(null);
@@ -157,7 +158,7 @@ export const TicketPopupEditDetailsForm = ({
 
     const handleConfirmReject = () => {
         setShowConfirm(false);        
-    };    
+    };
 
     const handleSubmit = (values, formikHelpers) => updateTicket(values, formikHelpers);
 
@@ -314,7 +315,7 @@ export const TicketPopupEditDetailsForm = ({
                                                 {(isUserTicketOwner && isReassignable) && (
                                                     <>
                                                         <br />
-                                                        <span onClick={() => setChangeAttendee(true)}>
+                                                        <span onClick={() => goToReassignPanel()}>
                                                             <u>Reassign</u>
                                                         </span>
                                                         {` | `}
@@ -389,7 +390,7 @@ export const TicketPopupEditDetailsForm = ({
                                                 {(isUserTicketOwner && isReassignable) && (
                                                     <>
                                                         <br />
-                                                        <span onClick={() => setChangeAttendee(true)}>
+                                                        <span onClick={() => goToReassignPanel()}>
                                                             <u>Reassign</u>
                                                         </span>
                                                         {` | `}

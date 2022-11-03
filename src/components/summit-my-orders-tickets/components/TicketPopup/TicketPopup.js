@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Tabs, TabList, Tab, TabPanel } from 'react-tabs';
 import { useTranslation } from "react-i18next";
@@ -34,6 +34,8 @@ export const TicketPopup = ({ ticket, order, summit, onClose, fromTicketList, fr
     const isUserTicketOwner = ticket.owner?.email === userProfile.email;
 
     const canEditTicketData = (isUserTicketOwner || isUserOrderOwner) && summit.allow_update_attendee_extra_questions;
+
+    const [tabIndex, setTabIndex] = useState(0);
 
     useEffect(() => {
         document.body.style.overflow = 'hidden';
@@ -89,7 +91,7 @@ export const TicketPopup = ({ ticket, order, summit, onClose, fromTicketList, fr
                 </header>
 
                 <section className="ticket-popup-body">
-                    <Tabs selectedTabClassName="ticket-popup-tabs--active">
+                    <Tabs selectedIndex={tabIndex} onSelect={(index) => setTabIndex(index)} selectedTabClassName="ticket-popup-tabs--active">
                         <TabList className="ticket-popup-tabs">
                             {isUnassigned && (
                                 <Tab>{t("ticket_popup.tab_assign")}</Tab>
@@ -125,6 +127,7 @@ export const TicketPopup = ({ ticket, order, summit, onClose, fromTicketList, fr
                                     summit={summit}
                                     order={order}
                                     canEditTicketData={canEditTicketData}
+                                    goToReassignPanel={() => setTabIndex(1)}
                                     context={fromTicketList ? 'ticket-list' : 'order-list'}
                                 />
                             </div>
