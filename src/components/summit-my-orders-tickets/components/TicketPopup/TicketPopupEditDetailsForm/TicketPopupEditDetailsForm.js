@@ -386,7 +386,7 @@ export const TicketPopupEditDetailsForm = ({
                                         {t("ticket_popup.edit_required_star")}
                                     </div>
                                     <div className="col-sm-8">
-                                        {canEditTicketData || !ticket.owner.first_name ?
+                                        {!ticket.owner?.first_name ?
                                             <Input
                                                 id="attendee_first_name"
                                                 name="attendee_first_name"
@@ -408,7 +408,7 @@ export const TicketPopupEditDetailsForm = ({
                                         {t("ticket_popup.edit_required_star")}
                                     </div>
                                     <div>
-                                        {canEditTicketData || !ticket.owner.first_name ?
+                                        {!ticket.owner?.first_name ?
                                             <Input
                                                 id="attendee_first_name"
                                                 name="attendee_first_name"
@@ -430,7 +430,7 @@ export const TicketPopupEditDetailsForm = ({
                                         {t("ticket_popup.edit_required_star")}
                                     </div>
                                     <div className="col-sm-8">
-                                        {canEditTicketData || !ticket.owner.last_name ?
+                                        {!ticket.owner?.last_name ?
                                             <Input
                                                 id="attendee_last_name"
                                                 name="attendee_last_name"
@@ -452,7 +452,7 @@ export const TicketPopupEditDetailsForm = ({
                                         {t("ticket_popup.edit_required_star")}
                                     </div>
                                     <div>
-                                        {canEditTicketData || !ticket.owner.last_name ?
+                                        {!ticket.owner?.last_name ?
                                             <Input
                                                 id="attendee_last_name"
                                                 name="attendee_last_name"
@@ -474,7 +474,7 @@ export const TicketPopupEditDetailsForm = ({
                                         {t("ticket_popup.edit_required_star")}
                                     </div>
                                     <div className="col-sm-8" style={{ position: 'relative' }}>
-                                        {canEditTicketData || !ticket.owner.company ?
+                                        {!ticket.owner?.company ?
                                             <RegistrationCompanyInput
                                                 id="attendee_company"
                                                 name="attendee_company"
