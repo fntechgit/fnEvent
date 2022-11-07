@@ -1,4 +1,4 @@
-import summit from '../content/summit.json';
+import summitData from '../content/summit.json';
 import extraQuestions from '../content/extra-questions.json';
 import { START_LOADING, STOP_LOADING, LOGOUT_USER } from "openstack-uicore-foundation/lib/utils/actions";
 import { RESET_STATE, GET_THIRD_PARTY_PROVIDERS, SYNC_DATA } from "../actions/base-actions";
@@ -7,7 +7,7 @@ import { GET_EXTRA_QUESTIONS } from '../actions/user-actions';
 const DEFAULT_STATE = {
   loading: false,
   third_party_providers: [],
-  summit: summit.summit,
+  summit: summitData,
   allows_native_auth: true,
   allows_otp_auth: true,
   extra_questions: extraQuestions
@@ -18,9 +18,12 @@ const summitReducer = (state = DEFAULT_STATE, action) => {
 
   switch (type) {
     case RESET_STATE:
-    case SYNC_DATA:
     case LOGOUT_USER:
       return DEFAULT_STATE;
+    case SYNC_DATA: {
+      const {extraQuestionsData} = payload;
+      return {...DEFAULT_STATE, extra_questions: extraQuestionsData}
+    }
     case START_LOADING:
       return { ...state, loading: true };
     case STOP_LOADING:

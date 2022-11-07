@@ -1,5 +1,4 @@
 import scheduleReducer from './schedule-reducer';
-import summitData from '../content/summit.json';
 import eventsData from '../content/events.json';
 import {filterEventsByTags} from '../utils/schedule';
 import {LOGOUT_USER} from "openstack-uicore-foundation/lib/utils/actions";
@@ -42,10 +41,8 @@ const allSchedulesReducer = (state = DEFAULT_STATE, action) => {
         case SYNC_DATA:
         case RELOAD_SCHED_DATA:
         {
-            const {allScheduleEvents} = DEFAULT_STATE;
-            const {summit} = summitData;
-
-            const schedules = summit?.schedule_settings.map(sched => {
+            const {eventsData: allScheduleEvents, summitData, isLoggedUser, userProfile } = payload;
+            const schedules = summitData?.schedule_settings.map(sched => {
                 const {key} = sched;
                 const scheduleState = state.schedules.find(s => s.key === key);
 
@@ -62,7 +59,7 @@ const allSchedulesReducer = (state = DEFAULT_STATE, action) => {
 
                 const newData = {...sched, all_events: allScheduleEvents, filters: newFilters, pre_filters: newPreFilters};
 
-                const schedState = scheduleReducer(scheduleState, {type: `SCHED_${type}`, payload: {...newData, ...payload}});
+                const schedState = scheduleReducer(scheduleState, {type: `SCHED_${type}`, payload: {...newData, isLoggedUser, userProfile }});
 
                 return {
                     key,

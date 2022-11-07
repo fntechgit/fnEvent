@@ -5,6 +5,18 @@ import {
   stopLoading
 } from 'openstack-uicore-foundation/lib/utils/actions';
 import { customErrorHandler } from '../utils/customErrorHandler';
+import summitBuildJson from '../content/summit.json';
+import eventsBuildJson from '../content/events.json';
+import speakersBuildJson from '../content/speakers.json';
+import extraQuestionsBuildJson from '../content/extra-questions.json';
+import {
+  bucket_getEvents,
+  bucket_getExtraQuestions,
+  bucket_getSummit,
+  bucket_getSpeakers
+} from "./update-data-actions";
+import {RELOAD_SCHED_DATA, RELOAD_USER_PROFILE} from "./schedule-actions";
+import { GET_EXTRA_QUESTIONS } from './user-actions';
 
 export const RESET_STATE = 'RESET_STATE';
 export const SYNC_DATA = 'SYNC_DATA';
@@ -14,12 +26,45 @@ export const resetState = () => (dispatch) => {
   dispatch(createAction(RESET_STATE)({}));
 };
 
-export const syncData = () => (dispatch, getState) => {
-  const { userState, loggedUserState } = getState();
+export const syncData = () => async (dispatch, getState) => {
+  const { userState, loggedUserState, summitState } = getState();
   const { isLoggedUser } = loggedUserState;
   const { userProfile } = userState;
+  const { summit } = summitState;
 
-  dispatch(createAction(SYNC_DATA)({ isLoggedUser, userProfile }));
+  // events
+  let eventsData = await bucket_getEvents(summit.id);
+  if (!eventsData) eventsData = eventsBuildJson;
+  // summit
+  let summitData = await bucket_getSummit(summit.id);
+  if (!summitData) summitData = summitBuildJson;
+  //speakers
+  let speakersData = await bucket_getSpeakers(summit.id);
+  if (!speakersData) speakersData = speakersBuildJson;
+  // extra questions
+  let extraQuestionsData = await bucket_getExtraQuestions(summit.id);
+  if (!extraQuestionsData) extraQuestionsData = extraQuestionsBuildJson;
+
+  // update summit, events, speakers, extra questions
+  const syncPayload = { isLoggedUser, userProfile, eventsData, summitData, speakersData, extraQuestionsData };
+  dispatch(createAction(SYNC_DATA)(syncPayload));
+};
+
+export const reloadScheduleData = () => async (dispatch, getState) => {
+  const { userState, loggedUserState, summitState } = getState();
+  const { isLoggedUser } = loggedUserState;
+  const { userProfile } = userState;
+  const { summit } = summitState;
+
+  let eventsData = await bucket_getEvents(summit.id);
+  if (!eventsData) eventsData = eventsBuildJson;
+  let summitData = await bucket_getSummit(summit.id);
+  if (!summitData) summitData = summitBuildJson;
+
+  dispatch(createAction(RELOAD_SCHED_DATA)({ isLoggedUser, userProfile, eventsData, summitData }));
+
+  if(isLoggedUser)
+    dispatch(createAction(RELOAD_USER_PROFILE)({ isLoggedUser, userProfile }));
 };
 
 export const getThirdPartyProviders = () => (dispatch) => {
