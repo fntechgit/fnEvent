@@ -42,11 +42,11 @@ export const syncData = () => async (dispatch, getState) => {
   let speakersData = await bucket_getSpeakers(summit.id);
   if (!speakersData) speakersData = speakersBuildJson;
   // extra questions
-  let extraQuestionsData = await bucket_getExtraQuestions(summit.id);
-  if (!extraQuestionsData) extraQuestionsData = extraQuestionsBuildJson;
+  // let extraQuestionsData = await bucket_getExtraQuestions(summit.id);
+  // if (!extraQuestionsData) extraQuestionsData = extraQuestionsBuildJson;
 
   // update summit, events, speakers, extra questions
-  const syncPayload = { isLoggedUser, userProfile, eventsData, summitData, speakersData, extraQuestionsData };
+  const syncPayload = { isLoggedUser, userProfile, eventsData, summitData, speakersData };
   dispatch(createAction(SYNC_DATA)(syncPayload));
 };
 

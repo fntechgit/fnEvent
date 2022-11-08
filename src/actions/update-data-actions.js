@@ -1,4 +1,5 @@
 import { compress, decompress } from 'lz-string';
+import { getFromLocalStorage, putOnLocalStorage} from "openstack-uicore-foundation/lib/utils/methods";
 
 const BUCKET_BASE_URL = 'https://show-feeds-dev.sfo2.cdn.digitaloceanspaces.com';
 const BUCKET_EVENTS_ETAG_KEY = 'eventsETAG';
@@ -11,19 +12,6 @@ const BUCKET_EXTRA_QUESTIONS_ETAG_KEY = 'extraQuestionsETAG';
 const BUCKET_EXTRA_QUESTIONS_DATA_KEY = 'extraQuestionsJSON';
 const BUCKET_VOTABLE_PRES_ETAG_KEY = 'votablePresETAG';
 const BUCKET_VOTABLE_PRES_DATA_KEY = 'votablePresJSON';
-
-export const getFromLocalStorage = (key) => {
-  if (typeof window !== 'undefined') {
-    return window.localStorage.getItem(key);
-  }
-  return null;
-};
-
-export const storeLocalStorage = (key, value) => {
-  if (typeof window !== 'undefined') {
-    window.localStorage.setItem(key, value);
-  }
-};
 
 const getKey = (summitId, tag) => {
   return `${tag}_${summitId}`;
@@ -39,7 +27,7 @@ const fetchBucket = (etagKeyPre, dataKeyPre, fileName, summitId) => {
   const eTagKey = getKey(summitId, etagKeyPre);
   const dataKey = getKey(summitId, dataKeyPre);
 
-  const eTag = getFromLocalStorage(eTagKey);
+  const eTag = getFromLocalStorage(eTagKey, false);
 
   if (eTag) headers.headers = {'If-None-Match': eTag};
 
@@ -47,13 +35,13 @@ const fetchBucket = (etagKeyPre, dataKeyPre, fileName, summitId) => {
     method: 'GET',
     ...headers
   }).then(async (response) => {
-    if (response.status === 304) {
+    if ([304, 404].includes(response.status)) {
       // retrieve data from localStorage
-      const storedData = getFromLocalStorage(dataKey);
+      const storedData = getFromLocalStorage(dataKey, false);
       if (storedData) {
         return JSON.parse(decompress(storedData));
       } else {
-        console.log('Error fetching updates: no data found in localStorage.')
+        console.log(`Fetching updates: no data found in localStorage for ${fileName}.`)
       }
     } else if (response.status === 200) {
       const data = await response.json();
@@ -61,13 +49,13 @@ const fetchBucket = (etagKeyPre, dataKeyPre, fileName, summitId) => {
       // store etag
       const resETag = response.headers.get('etag');
       if (resETag) {
-        storeLocalStorage(eTagKey, resETag);
+        putOnLocalStorage(eTagKey, resETag);
       }
 
       if (data) {
         // store data
         const compressedData = compress(JSON.stringify(data));
-        storeLocalStorage(dataKey, compressedData);
+        putOnLocalStorage(dataKey, compressedData);
         return data;
       } else {
         console.log('Error fetching updates: no data in response.');

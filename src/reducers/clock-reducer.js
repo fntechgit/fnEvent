@@ -29,8 +29,11 @@ const clockReducer = (state = DEFAULT_STATE, action) => {
   switch (type) {
     case RESET_STATE:
     case LOGOUT_USER:
-    case SYNC_DATA:
       return DEFAULT_STATE;
+    case SYNC_DATA: {
+      const {summitData} = payload;
+      return {...DEFAULT_STATE, summit_phase: getSummitPhase(summitData, localNowUtc)};
+    }
     case START_LOADING:
       return { ...state, loading: true };
     case STOP_LOADING:

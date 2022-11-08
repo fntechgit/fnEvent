@@ -23,10 +23,8 @@ import WithTicketRoute from "../../routes/WithTicketRoute";
 const App = ({ isLoggedUser, user, summit_phase, lastBuild, syncData }) => {
 
   useEffect(() => {
-    if (!lastBuild || settings.lastBuild > lastBuild) {
-      syncData();
-    }
-  }, [lastBuild, syncData]);
+    syncData();
+  }, [syncData]);
 
   return (
     <Location>
