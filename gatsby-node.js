@@ -298,8 +298,7 @@ exports.sourceNodes = async ({
 
   const summit = await SSR_getSummit(process.env.GATSBY_SUMMIT_API_BASE_URL, process.env.GATSBY_SUMMIT_ID);
 
-  const summitObject = { summit };
-  fs.writeFileSync('src/content/summit.json', JSON.stringify(summitObject), 'utf8');
+  fs.writeFileSync('src/content/summit.json', JSON.stringify(summit), 'utf8');
 
   const nodeContent = JSON.stringify(summit);
 

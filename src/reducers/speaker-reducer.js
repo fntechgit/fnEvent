@@ -10,13 +10,16 @@ const DEFAULT_STATE = {
 };
 
 const speakerReducer = (state = DEFAULT_STATE, action) => {
-  const { type } = action;
+  const { type, payload } = action;
 
   switch (type) {
     case RESET_STATE:
-    case SYNC_DATA:
     case LOGOUT_USER:
       return DEFAULT_STATE;
+    case SYNC_DATA: {
+      const {speakersData} = payload;
+      return {...DEFAULT_STATE, speakers: speakersData}
+    }
     case START_LOADING:
       return { ...state, loading: true };
     case STOP_LOADING:

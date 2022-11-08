@@ -99,19 +99,15 @@ const withRealTimeSingleEventUpdate = WrappedComponent => {
          * @param lastUpdate
          */
         createRealTimeSubscription(summit, event, eventId, lastUpdate){
-
-            console.log("withRealTimeSingleEventUpdate::createRealTimeSubscription");
-
             try {
-                this._currentStrategy.create(summit, event, eventId, lastUpdate);
+                this._currentStrategy?.create(summit, event, eventId, lastUpdate);
                 // always check for novelty bc to avoid former updates emitted before RT subscription
-                if(event && eventId) {
+                if (event && eventId) {
                     this._checkForPastNoveltiesDebounced(summit.id, event, eventId, lastUpdate);
                 }
             }
             catch (e){
-                console.log("withRealTimeSingleEventUpdate::createRealTimeSubscription ERROR");
-                console.log(e);
+                console.log('withRealTimeSingleEventUpdate::createRealTimeSubscription', e);
             }
         }
 
@@ -150,12 +146,9 @@ const withRealTimeSingleEventUpdate = WrappedComponent => {
                this._currentStrategy.close();
         }
 
-        onVisibilityChange(){
-
+        onVisibilityChange() {
             const {eventId, event, summit, lastUpdate} = this.props;
             const visibilityState = document.visibilityState;
-
-            console.log(`withRealTimeSingleEventUpdate::onVisibilityChange visibilityState ${visibilityState}`);
 
             if(visibilityState === "visible" && this._currentStrategy && this._currentStrategy.manageBackgroundErrors()){
 

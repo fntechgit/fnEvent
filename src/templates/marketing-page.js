@@ -28,14 +28,8 @@ import '../styles/style.scss'
 export const MarketingPageTemplate = class extends React.Component {
 
   componentWillMount() {
-    const {siteSettings} = this.props;
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    const {lastBuild, syncData} = this.props;
-    if (!lastBuild || settings.lastBuild > lastBuild) {
-      syncData();
-    }
+    const {syncData} = this.props;
+    syncData();
   }
 
   render() {
