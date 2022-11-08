@@ -87,7 +87,7 @@ const Footer = ({ summit, marketing }) => {
                             </h4>
                             <ul>
                               {col.items.map((item, index) => (
-                                <li>
+                                <li key={`item-${index}`}>
                                   <Link to={item.link} className={styles.link} key={index}>
                                     <h5>{item.title}</h5>
                                   </Link>

@@ -1,7 +1,7 @@
 import summitData from '../content/summit.json';
 import {filterEventsByAccessLevel, getFilteredEvents, preFilterEvents, syncFilters} from '../utils/schedule';
 
-const summitTimeZoneId = summitData.summit.time_zone_id;  // TODO use reducer data
+const summitTimeZoneId = summitData.time_zone_id;  // TODO use reducer data
 
 const INITIAL_STATE = {
     events: [],
