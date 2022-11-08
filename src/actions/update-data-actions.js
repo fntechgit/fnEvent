@@ -1,7 +1,6 @@
 import { compress, decompress } from 'lz-string';
 import { getFromLocalStorage, putOnLocalStorage} from "openstack-uicore-foundation/lib/utils/methods";
 
-const BUCKET_BASE_URL = 'https://show-feeds-dev.sfo2.cdn.digitaloceanspaces.com';
 const BUCKET_EVENTS_ETAG_KEY = 'eventsETAG';
 const BUCKET_EVENTS_DATA_KEY = 'eventsJSON';
 const BUCKET_SUMMIT_ETAG_KEY = 'summitETAG';
@@ -18,7 +17,7 @@ const getKey = (summitId, tag) => {
 }
 
 const getUrl = (summitId, fileName) => {
-  return `${BUCKET_BASE_URL}/${summitId}/${fileName}`;
+  return `${process.env.GATSBY_BUCKET_BASE_URL}/${summitId}/${fileName}`;
 }
 
 const fetchBucket = (etagKeyPre, dataKeyPre, fileName, summitId) => {

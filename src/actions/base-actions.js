@@ -16,7 +16,6 @@ import {
   bucket_getSpeakers
 } from "./update-data-actions";
 import {RELOAD_SCHED_DATA, RELOAD_USER_PROFILE} from "./schedule-actions";
-import { GET_EXTRA_QUESTIONS } from './user-actions';
 
 export const RESET_STATE = 'RESET_STATE';
 export const SYNC_DATA = 'SYNC_DATA';
@@ -42,8 +41,8 @@ export const syncData = () => async (dispatch, getState) => {
   let speakersData = await bucket_getSpeakers(summit.id);
   if (!speakersData) speakersData = speakersBuildJson;
   // extra questions
-  // let extraQuestionsData = await bucket_getExtraQuestions(summit.id);
-  // if (!extraQuestionsData) extraQuestionsData = extraQuestionsBuildJson;
+  let extraQuestionsData = await bucket_getExtraQuestions(summit.id);
+  if (!extraQuestionsData) extraQuestionsData = extraQuestionsBuildJson;
 
   // update summit, events, speakers, extra questions
   const syncPayload = { isLoggedUser, userProfile, eventsData, summitData, speakersData };
