@@ -625,7 +625,7 @@ export const TicketPopupEditDetailsForm = ({
                 </>
                 <ConfirmPopup
                     isOpen={showConfirm}
-                    popupCase={CONFIRM_POPUP_CASE.REASSIGN_TICKET}
+                    popupCase={CONFIRM_POPUP_CASE.UNASSIGN_TICKET}
                     onAccept={handleConfirmAccept}
                     onReject={handleConfirmReject}
                 />
