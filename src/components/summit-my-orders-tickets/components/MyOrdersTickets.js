@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { useTranslation } from "react-i18next";
 import classNames from 'classnames';
 import { AjaxLoader } from "openstack-uicore-foundation/lib/components";
@@ -12,13 +12,12 @@ import { TicketList } from './TicketList/TicketList';
 export const MyOrdersTickets = ({ className }) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
-    const {
-        userState,
-        orderState,
-        ticketState,
-        summitState,
-        globalState
-    } = useSelector(state => state || {});
+
+    const userState = useSelector(state => state.userState || {}, shallowEqual);
+    const orderState = useSelector(state => state.orderState || {}, shallowEqual);
+    const ticketState = useSelector(state => state.ticketState || {}, shallowEqual);
+    const summitState = useSelector(state => state.summitState || {}, shallowEqual);
+    const globalState = useSelector(state => state.globalState || {}, shallowEqual);
 
     const [isInitializing, setIsInitializing] = useState(true);
 
