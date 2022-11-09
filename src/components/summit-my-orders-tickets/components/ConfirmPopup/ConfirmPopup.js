@@ -44,7 +44,7 @@ export const getConfirmPopupContent = ({ popupCase, cleanFields }) => {
             title: 'confirm_popup.question_title_reassign',
             text: cleanFields ? 'confirm_popup.question_text_reassign' : 'confirm_popup.question_text_confirm'
         },
-        [CONFIRM_POPUP_CASE.REASSIGN_TICKET]: {
+        [CONFIRM_POPUP_CASE.UNASSIGN_TICKET]: {
             title: 'confirm_popup.question_title_unassign',
             text: 'confirm_popup.question_text_unassign'
         },
