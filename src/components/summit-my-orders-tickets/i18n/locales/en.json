@@ -210,6 +210,7 @@
         "assign_ticket": "Assign this Ticket",
         "assign_expire": "Ability to assign ticket expires in ",
         "assign_days": "days",
+        "reassign_printed_ticket": "Ticket may not be reassigned because this badge has already been printed.",
         "reassign_text": "Select the option to re-assign this ticket from",
         "reassign_want_text": "I want to reassign this ticket to someone else!",
         "reassign_before": "before",
