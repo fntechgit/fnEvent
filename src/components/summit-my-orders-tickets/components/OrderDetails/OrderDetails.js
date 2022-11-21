@@ -8,7 +8,6 @@ import {
     getDocumentOffset,
     getFormattedDate,
     getOrderStatusData,
-    getOrderTicketQuantities,
     getSummitFormattedDate
 } from "../../util";
 import { useOrderListContext } from "../OrderList/OrderList.helpers";
@@ -22,7 +21,6 @@ export const OrderDetails = ({ order, summit, className }) => {
     const dispatch = useDispatch();
     const { state, actions } = useOrderListContext();
 
-    const ticketQuantities = getOrderTicketQuantities(order, summit);
     const isSummitPast = checkSummitPast(summit, dispatch(getNow()));
     const statusData = getOrderStatusData(order, isSummitPast);
     const isActive = state.activeOrderId === order.id;
@@ -78,11 +76,13 @@ export const OrderDetails = ({ order, summit, className }) => {
                     </h5>
 
                     <ul className="order-details__tickets">
-                        {Object.values(ticketQuantities).map(ticket => (
-                            <li key={ticket.ticket_type_id}>
-                                x{ticket.quantity} {ticket.name}
-                            </li>
-                        ))}
+                        {Object.keys(order.tickets_excerpt_by_ticket_type).map((ticket, index) => {
+                            return (
+                                <li key={index}>
+                                    x{order.tickets_excerpt_by_ticket_type[ticket]} {ticket}
+                                </li>
+                            )
+                        })}
                     </ul>
 
                     <div className="order-details__number">

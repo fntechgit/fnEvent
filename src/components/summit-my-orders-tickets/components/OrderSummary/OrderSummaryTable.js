@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { calculateOrderTotals } from '../../util';
 
-export const OrderSummaryTable = ({ order, summit }) => {
+export const OrderSummaryTable = ({ order, summit, tickets }) => {
     const { t } = useTranslation();
     const {
         discountTotal,
@@ -10,7 +10,7 @@ export const OrderSummaryTable = ({ order, summit }) => {
         taxesTotal,
         amountTotal,
         ticketSummary
-    } = calculateOrderTotals({ order, summit });
+    } = calculateOrderTotals({ order, summit, tickets });
 
     return (
         <div className="order-summary-table">
