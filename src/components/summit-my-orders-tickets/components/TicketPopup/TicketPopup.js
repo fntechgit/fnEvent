@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Tabs, TabList, Tab, TabPanel } from 'react-tabs';
 import { useTranslation } from "react-i18next";
 import classNames from 'classnames';
-import { getTicketPDF } from '../../store/actions/ticket-actions';
+import { getTicketById, getTicketPDF } from '../../store/actions/ticket-actions';
 import { getWindowScroll, useTicketDetails } from '../../util';
 import { TicketPopupReassignForm } from './TicketPopupReassignForm';
 import { TicketPopupAssignForm } from './TicketPopupAssignForm';
@@ -36,6 +36,10 @@ export const TicketPopup = ({ ticket, order, summit, onClose, fromTicketList, fr
     const isUserTicketOwner = ticket.owner?.email === userProfile.email;
 
     const canEditTicketData = (isUserTicketOwner || isUserOrderOwner) && summit.allow_update_attendee_extra_questions;
+
+    useEffect(() => {
+        dispatch(getTicketById({order, ticket}));
+    }, []);
 
     useEffect(() => {
         document.body.style.overflow = 'hidden';

@@ -8,8 +8,6 @@ export default function Pager(props) {
     var totPages = parseInt(props.totPages);
     var currentPage = parseInt(props.currentPage);
 
-    console.log('first', totPages, currentPage)
-
     var pageArr = [];
     if (totPages > 1) {
       if (totPages <= 9) {

@@ -62,7 +62,7 @@ export const getOrderStatusKey = (order, isSummitPast) => {
 
     if (status !== 'Paid') return statusToKeyMap[status];
 
-    if (order.tickets.some(ticket => (!ticket.owner || ticket.owner.status === "Incomplete"))) return STATUS_INCOMPLETE
+    if (order.attendees_status === "Incomplete") return STATUS_INCOMPLETE
 
     return STATUS_COMPLETE;
 

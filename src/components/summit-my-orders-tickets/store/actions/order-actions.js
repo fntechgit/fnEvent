@@ -35,9 +35,9 @@ export const getUserOrders = ({ page = 1, perPage = 5 }) => async (dispatch, get
 
     const params = {
         access_token: accessToken,
-        expand: 'extra_questions, tickets, tickets.refund_requests, tickets.owner, tickets.owner.extra_questions, tickets.badge, tickets.badge.features',
         order: '-id',
         filter: 'status==Paid',
+        relations: 'none',
         page: page,
         per_page: perPage
     };

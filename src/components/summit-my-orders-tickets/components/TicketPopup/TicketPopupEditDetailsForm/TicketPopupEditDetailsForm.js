@@ -26,7 +26,7 @@ export const TicketPopupEditDetailsForm = ({
     const dispatch = useDispatch();
     const userProfile = useSelector(state => state.userState.userProfile);
     const extraQuestions = useSelector(state => state.summitState.extra_questions || []);
-    const isLoading = useSelector(state => state.orderState.loading || state.summitState.loading);
+    const isLoading = useSelector(state => state.orderState.loading || state.summitState.loading || state.ticketState.loading);
     const [changeAttendee, setChangeAttendee] = useState(false);
     const [changingAttendee, setChangingAttendee] = useState(false);
     const [showSaveMessage, setShowSaveMessage] = useState(false);
