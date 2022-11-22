@@ -249,10 +249,12 @@ export const editOwnedTicket = ({
     });
 };
 
-export const resendNotification = ({ ticket }) => async (dispatch, getState, { getAccessToken, apiBaseUrl, loginUrl }) => {
+export const resendNotification = (ticket) => async (dispatch, getState, { getAccessToken, apiBaseUrl, loginUrl }) => {
     const accessToken = await getAccessToken().catch(_ => history.replace(loginUrl));
 
     if (!accessToken) return;
+
+    const { message } = ticket;
 
     dispatch(startLoading());
 
@@ -266,6 +268,7 @@ export const resendNotification = ({ ticket }) => async (dispatch, getState, { g
         null,
         createAction(RESEND_NOTIFICATION),
         `${apiBaseUrl}/api/v1/summits/all/orders/${orderId}/tickets/${ticket.id}/attendee/reinvite`,
+        {message},
         authErrorHandler
     )(params)(dispatch).then(() => {
         dispatch(stopLoading());
