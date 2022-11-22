@@ -2,7 +2,6 @@ import React, { useEffect } from "react"
 import { Router, Location } from "@reach/router"
 import { connect } from 'react-redux'
 import { syncData } from '../../actions/base-actions';
-import settings from '../../content/settings';
 
 import HomePage from "../../templates/home-page"
 import EventPage from "../../templates/event-page"
@@ -19,12 +18,22 @@ import WithBadgeRoute from "../../routes/WithBadgeRoute";
 import PosterDetailPage from "../../templates/poster-detail-page";
 import MyTicketsPage from '../../templates/my-tickets-page';
 import WithTicketRoute from "../../routes/WithTicketRoute";
+import withRealTimeUpdates from "../../utils/real_time_updates/withRealTimeUpdates";
 
-const App = ({ isLoggedUser, user, summit_phase, lastBuild, syncData, allowClick = true }) => {
+const App = ({ isLoggedUser, user, summit_phase, summitId , syncData, allowClick = true }) => {
 
   useEffect(() => {
-    syncData();
-  }, [syncData]);
+    const worker = new Worker(new URL('../../workers/feeds.worker.js', import.meta.url), {type: 'module'});
+
+    worker.postMessage({
+      summitId
+    });
+
+    worker.onmessage = ({ data: {  eventsData, summitData, speakersData, extraQuestionsData } }) => {
+      syncData( eventsData, summitData, speakersData, extraQuestionsData);
+    };
+
+  }, []);
 
   return (
     <Location>
@@ -72,12 +81,12 @@ const App = ({ isLoggedUser, user, summit_phase, lastBuild, syncData, allowClick
   )
 };
 
-const mapStateToProps = ({ loggedUserState, userState, clockState, settingState }) => ({
+const mapStateToProps = ({ loggedUserState, userState, clockState, settingState, summitState }) => ({
   isLoggedUser: loggedUserState.isLoggedUser,
   summit_phase: clockState.summit_phase,
   user: userState,
-  lastBuild: settingState.lastBuild,
-  allowClick: settingState.widgets.schedule.allowClick
+  allowClick: settingState.widgets.schedule.allowClick,
+  summitId: summitState?.summit?.id,
 });
 
-export default connect(mapStateToProps, { syncData })(App)
+export default connect(mapStateToProps, { syncData })(withRealTimeUpdates(App))

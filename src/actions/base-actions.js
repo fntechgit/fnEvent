@@ -25,27 +25,19 @@ export const resetState = () => (dispatch) => {
   dispatch(createAction(RESET_STATE)({}));
 };
 
-export const syncData = () => async (dispatch, getState) => {
-  const { userState, loggedUserState, summitState } = getState();
+/**
+ *
+ * @param eventsData
+ * @param summitData
+ * @param speakersData
+ * @param extraQuestionsData
+ * @returns {(function(*, *): Promise<void>)|*}
+ */
+export const syncData = ( eventsData, summitData, speakersData, extraQuestionsData ) => async (dispatch, getState) => {
+  const { userState, loggedUserState } = getState();
   const { isLoggedUser } = loggedUserState;
   const { userProfile } = userState;
-  const { summit } = summitState;
-
-  // events
-  let eventsData = await bucket_getEvents(summit.id);
-  if (!eventsData) eventsData = eventsBuildJson;
-  // summit
-  let summitData = await bucket_getSummit(summit.id);
-  if (!summitData) summitData = summitBuildJson;
-  //speakers
-  let speakersData = await bucket_getSpeakers(summit.id);
-  if (!speakersData) speakersData = speakersBuildJson;
-  // extra questions
-  let extraQuestionsData = await bucket_getExtraQuestions(summit.id);
-  if (!extraQuestionsData) extraQuestionsData = extraQuestionsBuildJson;
-
-  // update summit, events, speakers, extra questions
-  const syncPayload = { isLoggedUser, userProfile, eventsData, summitData, speakersData };
+  const syncPayload = { isLoggedUser, userProfile, eventsData, summitData, speakersData, extraQuestionsData };
   dispatch(createAction(SYNC_DATA)(syncPayload));
 };
 
