@@ -54,9 +54,10 @@ const withRealTimeUpdates = WrappedComponent => {
         /**
          *
          * @param summitId
-         * @returns {Promise<boolean|any>}
+         * @param lastBuild
+         * @returns {Promise<*|boolean>}
          */
-        async queryRealTimeDB(summitId) {
+        async queryRealTimeDB(summitId, lastBuild) {
 
             if(!this._supabase) return Promise.resolve(false);
 
@@ -65,10 +66,12 @@ const withRealTimeUpdates = WrappedComponent => {
                     .from('summit_entity_updates')
                     .select('id,created_at,summit_id,entity_id,entity_type,entity_op')
                     .eq('summit_id', summitId)
+                    .gte('created_at', new Date(lastBuild).toUTCString())
                     .order('id', {ascending: false})
                     .limit(1);
 
-                if (res.error) throw new Error(res.error)
+                if (res.error)
+                    throw new Error(res.error)
 
                 if (res.data && res.data.length > 0) {
                     return res.data[0];
@@ -83,14 +86,14 @@ const withRealTimeUpdates = WrappedComponent => {
 
 
         /**
-         *
          * @param summitId
+         * @param lastBuild
          */
-        createRealTimeSubscription(summitId){
+        createRealTimeSubscription(summitId, lastBuild){
             try {
-                this._currentStrategy?.create(summitId);
+                this._currentStrategy?.create(summitId, lastBuild);
                 // always check for novelty bc to avoid former updates emitted before RT subscription
-                this._checkForPastNoveltiesDebounced(summitId);
+                this._checkForPastNoveltiesDebounced(summitId, lastBuild);
             }
             catch (e){
                 console.log('withRealTimeUpdates::createRealTimeSubscription', e);
@@ -101,9 +104,9 @@ const withRealTimeUpdates = WrappedComponent => {
          *
          * @param summitId
          */
-        checkForPastNovelties(summitId){
-            console.log("withRealTimeUpdates::checkForPastNovelties", summitId);
-            this.queryRealTimeDB(summitId).then((res) => {
+        checkForPastNovelties(summitId, lastBuild){
+            console.log("withRealTimeUpdates::checkForPastNovelties", summitId, lastBuild);
+            this.queryRealTimeDB(summitId, lastBuild).then((res) => {
                 if(!res) return;
                 let {created_at: lastUpdateNovelty} = res;
                 if (lastUpdateNovelty) {
@@ -124,24 +127,24 @@ const withRealTimeUpdates = WrappedComponent => {
         }
 
         onVisibilityChange() {
-            const {summitId} = this.props;
+            const { summitId , lastBuild } = this.props;
             const visibilityState = document.visibilityState;
 
             if(visibilityState === "visible" && this._currentStrategy && this._currentStrategy.manageBackgroundErrors()){
 
                 if(this._currentStrategy.hasBackgroundError()) {
-                    this.createRealTimeSubscription(summitId);
+                    this.createRealTimeSubscription(summitId, lastBuild);
                     return;
                 }
 
-                this._checkForPastNoveltiesDebounced(summitId);
+                this._checkForPastNoveltiesDebounced(summitId, lastBuild);
             }
         }
 
         componentDidMount() {
-            const {summitId} = this.props;
+            const { summitId, lastBuild } = this.props;
 
-            this.createRealTimeSubscription(summitId);
+            this.createRealTimeSubscription(summitId, lastBuild);
 
             document.addEventListener( "visibilitychange", this.onVisibilityChange, false)
         }

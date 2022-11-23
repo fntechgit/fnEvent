@@ -21,7 +21,16 @@ const getUrl = (summitId, fileName) => {
   return `${process.env.GATSBY_BUCKET_BASE_URL}/${summitId}/${fileName}`;
 }
 
-const fetchBucket = (etagKeyPre, dataKeyPre, fileName, summitId) => {
+/**
+ *
+ * @param etagKeyPre
+ * @param dataKeyPre
+ * @param fileName
+ * @param summitId
+ * @param lastBuildTime
+ * @returns {Promise<Response>}
+ */
+const fetchBucket = (etagKeyPre, dataKeyPre, fileName, summitId, lastBuildTime) => {
   const headers = {};
   const url = getUrl(summitId, fileName);
   if(!url) return Promise.reject();
@@ -49,8 +58,16 @@ const fetchBucket = (etagKeyPre, dataKeyPre, fileName, summitId) => {
 
       // store etag
       const resETag = response.headers.get('etag');
+      const lastModified = response.headers.get('last-modified');
       if (resETag) {
         putOnLocalStorage(eTagKey, resETag);
+      }
+      if(lastModified && lastBuildTime){
+        const lastModifiedEpoch = Date.parse(lastModified) / 1000;
+        console.log(`${fileName} last modified ${lastModifiedEpoch} lastBuildTime ${lastBuildTime}`);
+        if(lastModifiedEpoch < lastBuildTime){
+          return null;
+        }
       }
 
       if (data) {
@@ -71,41 +88,71 @@ const fetchBucket = (etagKeyPre, dataKeyPre, fileName, summitId) => {
   });
 }
 
-export const bucket_getEvents = (summitId) => {
+/**
+ *
+ * @param summitId
+ * @param lastBuildTime
+ * @returns {Promise<Response>}
+ */
+export const bucket_getEvents = (summitId, lastBuildTime = null) => {
 
-  return fetchBucket(BUCKET_EVENTS_ETAG_KEY, BUCKET_EVENTS_DATA_KEY, 'events.json', summitId)
+  return fetchBucket(BUCKET_EVENTS_ETAG_KEY, BUCKET_EVENTS_DATA_KEY, 'events.json', summitId, lastBuildTime)
     .then(data => {
       return data;
     }).catch( e => null);
 }
 
-export const bucket_getSummit = (summitId) => {
+/**
+ *
+ * @param summitId
+ * @param lastBuildTime
+ * @returns {Promise<Response>}
+ */
+export const bucket_getSummit = (summitId, lastBuildTime = null) => {
 
-  return fetchBucket(BUCKET_SUMMIT_ETAG_KEY, BUCKET_SUMMIT_DATA_KEY, 'summit.json', summitId)
+  return fetchBucket(BUCKET_SUMMIT_ETAG_KEY, BUCKET_SUMMIT_DATA_KEY, 'summit.json', summitId, lastBuildTime)
     .then(data => {
       return data;
     }).catch( e => null);
 }
 
-export const bucket_getSpeakers = (summitId) => {
+/**
+ *
+ * @param summitId
+ * @param lastBuildTime
+ * @returns {Promise<Response>}
+ */
+export const bucket_getSpeakers = (summitId, lastBuildTime = null) => {
 
-  return fetchBucket(BUCKET_SPEAKERS_ETAG_KEY, BUCKET_SPEAKERS_DATA_KEY, 'speakers.json', summitId)
+  return fetchBucket(BUCKET_SPEAKERS_ETAG_KEY, BUCKET_SPEAKERS_DATA_KEY, 'speakers.json', summitId, lastBuildTime)
     .then(data => {
       return data;
     }).catch( e => null);
 }
 
-export const bucket_getExtraQuestions = (summitId) => {
+/**
+ *
+ * @param summitId
+ * @param lastBuildTime
+ * @returns {Promise<Response>}
+ */
+export const bucket_getExtraQuestions = (summitId, lastBuildTime = null) => {
 
-  return fetchBucket(BUCKET_EXTRA_QUESTIONS_ETAG_KEY, BUCKET_EXTRA_QUESTIONS_DATA_KEY, 'extra-questions.json', summitId)
+  return fetchBucket(BUCKET_EXTRA_QUESTIONS_ETAG_KEY, BUCKET_EXTRA_QUESTIONS_DATA_KEY, 'extra-questions.json', summitId, lastBuildTime)
     .then(data => {
       return data;
     }).catch( e => null);
 }
 
-export const bucket_getVotablePresentations = (summitId) => {
+/**
+ *
+ * @param summitId
+ * @param lastBuildTime
+ * @returns {Promise<Response>}
+ */
+export const bucket_getVotablePresentations = (summitId, lastBuildTime = null) => {
 
-  return fetchBucket(BUCKET_VOTABLE_PRES_ETAG_KEY, BUCKET_VOTABLE_PRES_DATA_KEY, 'voteable-presentations.json', summitId)
+  return fetchBucket(BUCKET_VOTABLE_PRES_ETAG_KEY, BUCKET_VOTABLE_PRES_DATA_KEY, 'voteable-presentations.json', summitId, lastBuildTime)
     .then(data => {
       return data;
     }).catch( e => null);

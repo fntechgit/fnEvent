@@ -20,13 +20,14 @@ import MyTicketsPage from '../../templates/my-tickets-page';
 import WithTicketRoute from "../../routes/WithTicketRoute";
 import withRealTimeUpdates from "../../utils/real_time_updates/withRealTimeUpdates";
 
-const App = ({ isLoggedUser, user, summit_phase, summitId , syncData, allowClick = true }) => {
+const App = ({ isLoggedUser, user, summit_phase, summitId , syncData, staticJsonFilesBuildTime,  allowClick = true }) => {
+
+  const worker = new Worker(new URL('../../workers/feeds.worker.js', import.meta.url), {type: 'module'});
 
   useEffect(() => {
-    const worker = new Worker(new URL('../../workers/feeds.worker.js', import.meta.url), {type: 'module'});
 
     worker.postMessage({
-      summitId
+      summitId, staticJsonFilesBuildTime
     });
 
     worker.onmessage = ({ data: {  eventsData, summitData, speakersData, extraQuestionsData } }) => {
@@ -87,6 +88,7 @@ const mapStateToProps = ({ loggedUserState, userState, clockState, settingState,
   user: userState,
   allowClick: settingState.widgets.schedule.allowClick,
   summitId: summitState?.summit?.id,
+  staticJsonFilesBuildTime: settingState.staticJsonFilesBuildTime,
 });
 
 export default connect(mapStateToProps, { syncData })(withRealTimeUpdates(App))

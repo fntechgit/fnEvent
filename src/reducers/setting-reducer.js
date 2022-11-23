@@ -11,6 +11,7 @@ import {RESET_STATE, SYNC_DATA} from "../actions/base-actions";
 
 const DEFAULT_STATE = {
   lastBuild: 0,
+  staticJsonFilesBuildTime: settings.staticJsonFilesBuildTime,
   favicons: settings.favicons,
   widgets: settings.widgets,
   colorSettings: colors,
@@ -28,7 +29,7 @@ const settingReducer = (state = DEFAULT_STATE, action) => {
     case LOGOUT_USER:
       return DEFAULT_STATE;
     case SYNC_DATA:
-      return {...DEFAULT_STATE, lastBuild: settings.lastBuild};
+      return {...DEFAULT_STATE, lastBuild: settings.lastBuild, staticJsonFilesBuildTime: settings.staticJsonFilesBuildTime};
     case START_LOADING:
       return { ...state, loading: true };
     case STOP_LOADING:

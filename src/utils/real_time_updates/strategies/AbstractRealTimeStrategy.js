@@ -19,13 +19,13 @@ class AbstractRealTimeStrategy {
     }
 
     /**
-     *
      * @param summitId
+     * @param lastBuild
      */
-    startUsingFallback(summitId){
+    startUsingFallback(summitId, lastBuild){
         if(this._fallback) {
             this._usingFallback = true;
-            this._fallback.create(summitId);
+            this._fallback.create(summitId, lastBuild);
         }
     }
 
@@ -37,18 +37,14 @@ class AbstractRealTimeStrategy {
     }
 
     /**
-     *
-     * @param summit
-     * @param event
-     * @param eventId
-     * @param lastUpdate
+     * @param summitId
+     * @param lastBuild
      */
-    create(summitId){}
+    create(summitId, lastBuild){}
 
     close(){}
 
     /**
-     *
      * @returns {*|boolean|boolean}
      */
     manageBackgroundErrors(){
