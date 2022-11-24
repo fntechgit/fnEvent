@@ -15,7 +15,10 @@
   for = "/*"
     [headers.values]
      Referrer-Policy = "strict-origin-when-cross-origin"
-[[headers]]     
+[[headers]]
   for = "/fonts/*"
     [headers.values]
      Access-Control-Allow-Origin = "*"
+
+[context.deploy-preview.environment]
+    GATSBY_SUMMIT_ID = "40"
