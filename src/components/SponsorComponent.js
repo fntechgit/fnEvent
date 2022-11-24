@@ -6,40 +6,53 @@ import { getSponsorURL } from '../utils/urlFormating'
 
 import styles from '../styles/sponsor.module.scss'
 
-const SponsorComponent = ({ page, sponsorsState, tiers, lobbyButton }) => {
+const SponsorComponent = ({ page, sponsorsState, lobbyButton }) => {
   let renderButton = false;
+
+  let sponsorsByTier = sponsorsState.reduce((memo, x) => {
+    if (!memo[x['sponsorship'].type.name]) { memo[x['sponsorship'].type.name] = []; }
+    memo[x['sponsorship'].type.name].push(x);
+    return memo;
+  }, {});
+
+  console.log('sponsors...', sponsorsState);
+
+  Object.keys(sponsorsByTier).map((s) => {
+    sponsorsByTier[s] = { ...sponsorsByTier[s][0].sponsorship, sponsors: sponsorsByTier[s] }
+  })
+
   return (
     <React.Fragment>
-      {sponsorsState.map((s, tierIndex) => {
+      {Object.values(sponsorsByTier).map((s, tierIndex) => {
         const sponsors = s.sponsors;
-        const tier = tiers.find(t => t.id === s.tier[0].value);
+        const tier = s;
         if (!tier) return null;
-        const template = page === 'lobby' ? tier.lobby.lobbyTemplate : page === 'event' ? tier.eventTemplate : 'expo-hall';
+        const template = page === 'lobby' ? tier.lobby_template : page === 'event' ? tier.event_page_template : 'expo-hall';
         if (sponsors?.length > 0) {
           renderButton = true;
           switch (template) {
             case 'big-images': {
-              if (page === 'lobby' && !tier.lobby.display) {
+              if (page === 'lobby' && !tier.should_display_on_lobby_page) {
                 return null
               } else {
                 return (
                   <div className={`${tierIndex === 0 ? styles.firstContainer : ''} ${styles.bigImageContainer}`} key={tierIndex}>
-                    {tier.widgetTitle &&
-                      <span><b>{tier.widgetTitle}</b></span>
+                    {tier.widget_title &&
+                      <span><b>{tier.widget_title}</b></span>
                     }
                     {sponsors.map((sponsor, index) => {
                       return (
-                        sponsor.externalLink ?
-                          <Link to={sponsor.externalLink} key={`${s.tier.label}-${index}`}>
-                            <img src={sponsor.logo.file} alt={sponsor.logo.alt} />
+                        sponsor.is_published ?
+                          <Link to={`/a/sponsor/${getSponsorURL(sponsor.id, sponsor.company.name)}`} key={`${s.type.label}-${index}`}>
+                            <img src={sponsor.company.big_logo ? sponsor.company.big_logo : sponsor.company.logo} alt={sponsor.company.name} />
                           </Link>
                           :
-                          sponsor.usesSponsorPage ?
-                            <Link to={`/a/sponsor/${getSponsorURL(sponsor.id, sponsor.name)}`} key={`${s.tier.label}-${index}`}>
-                              <img src={sponsor.logo.file} alt={sponsor.logo.alt} />
+                          sponsor.external_link ?
+                            <Link to={sponsor.external_link} key={`${s.type.label}-${index}`}>
+                              <img src={sponsor.company.big_logo ? sponsor.company.big_logo : sponsor.company.logo} alt={sponsor.company.name} />
                             </Link>
                             :
-                            <img src={sponsor.logo.file} alt={sponsor.logo.alt} />
+                            <img src={sponsor.company.big_logo ? sponsor.company.big_logo : sponsor.company.logo} alt={sponsor.company.name} />
                       )
                     })}
                   </div>
@@ -47,32 +60,32 @@ const SponsorComponent = ({ page, sponsorsState, tiers, lobbyButton }) => {
               }
             }
             case 'small-images': {
-              if (page === 'lobby' && !tier.lobby.display) {
+              if (page === 'lobby' && !tier.should_display_on_lobby_page) {
                 return null
               } else {
                 return (
                   <div className={`${tierIndex === 0 ? styles.firstContainer : ''} ${styles.smallImageContainer}`} key={tierIndex}>
-                    {tier.widgetTitle &&
-                      <span><b>{tier.widgetTitle}</b></span>
+                    {tier.widget_title &&
+                      <span><b>{tier.widget_title}</b></span>
                     }
                     {sponsors.map((sponsor, index) => {
                       if (page === 'event' && !sponsor.showLogoInEventPage) return null
                       return (
-                        sponsor.externalLink ?
-                          <div className={styles.imageBox} key={`${s.tier.label}-${index}`}>
-                            <Link to={sponsor.externalLink}>
-                              <img src={sponsor.logo.file} alt={sponsor.logo.alt} />
+                        sponsor.is_published ?
+                          <div className={styles.imageBox} key={`${s.type.label}-${index}`}>
+                            <Link to={`/a/sponsor/${getSponsorURL(sponsor.id, sponsor.company.name)}`}>
+                              <img src={sponsor.company.big_logo ? sponsor.company.big_logo : sponsor.company.logo} alt={sponsor.company.name} />
                             </Link>
                           </div>
-                          : sponsor.usesSponsorPage ?
-                            <div className={styles.imageBox} key={`${s.tier.label}-${index}`}>
-                              <Link to={`/a/sponsor/${getSponsorURL(sponsor.id, sponsor.name)}`}>
-                                <img src={sponsor.logo.file} alt={sponsor.logo.alt} />
+                          : sponsor.external_link ?
+                            <div className={styles.imageBox} key={`${s.type.label}-${index}`}>
+                              <Link to={sponsor.external_link}>
+                                <img src={sponsor.company.big_logo ? sponsor.company.big_logo : sponsor.company.logo} alt={sponsor.company.name} />
                               </Link>
                             </div>
                             :
-                            <div className={styles.imageBox} key={`${s.tier.label}-${index}`}>
-                              <img src={sponsor.logo.file} alt={sponsor.logo.alt} />
+                            <div className={styles.imageBox} key={`${s.type.label}-${index}`}>
+                              <img src={sponsor.company.big_logo ? sponsor.company.big_logo : sponsor.company.logo} alt={sponsor.company.name} />
                             </div>
                       )
                     })}
@@ -85,21 +98,21 @@ const SponsorComponent = ({ page, sponsorsState, tiers, lobbyButton }) => {
                 <div className={`${tierIndex === 0 ? styles.firstContainer : ''} ${styles.horizontalContainer} px-6`} key={tierIndex}>
                   {sponsors.map((sponsor, index) => {
                     return (
-                      sponsor.externalLink ?
-                        <div className={styles.imageBox} key={`${s.tier.label}-${index}`}>
-                          <Link to={sponsor.externalLink}>
-                            <img src={sponsor.logo} alt={sponsor.name} />
+                      sponsor.is_published ?
+                        <div className={styles.imageBox} key={`${s.type.label}-${index}`}>
+                          <Link to={`/a/sponsor/${getSponsorURL(sponsor.id, sponsor.company.name)}`}>
+                            <img src={sponsor.company.big_logo ? sponsor.company.big_logo : sponsor.company.logo} alt={sponsor.company.name} />
                           </Link>
                         </div>
-                        : sponsor.usesSponsorPage ?
-                          <div className={styles.imageBox} key={`${s.tier.label}-${index}`}>
-                            <Link to={`/a/sponsor/${getSponsorURL(sponsor.id, sponsor.name)}`}>
-                              <img src={sponsor.logo.file} alt={sponsor.logo.alt} />
+                        : sponsor.external_link ?
+                          <div className={styles.imageBox} key={`${s.type.label}-${index}`}>
+                            <Link to={sponsor.external_link}>
+                              <img src={sponsor.logo} alt={sponsor.company.name} />
                             </Link>
                           </div>
                           :
-                          <div className={styles.imageBox} key={`${s.tier.label}-${index}`}>
-                            <img src={sponsor.logo.file} alt={sponsor.logo.alt} />
+                          <div className={styles.imageBox} key={`${s.type.label}-${index}`}>
+                            <img src={sponsor.company.big_logo ? sponsor.company.big_logo : sponsor.company.logo} alt={sponsor.company.name} />
                           </div>
                     )
                   })}
@@ -107,37 +120,37 @@ const SponsorComponent = ({ page, sponsorsState, tiers, lobbyButton }) => {
               )
             }
             case 'expo-hall': {
-              return tier.expoHallPage?.display === true && (
+              return tier.should_display_on_expo_hall_page === true && (
                 <div className={`${styles.expoContainer} px-6`} key={tierIndex}>
                   {sponsors.map((sponsor, index) => {
                     return (
-                      sponsor.externalLink ?
+                      sponsor.is_published ?
                         <div className={`
                           ${styles.imageBox} 
-                          ${tier.expoHallPage?.expoHallTemplate === 'big-images' ? styles.large : tier.expoHallPage?.expoHallTemplate === 'medium-images' ? styles.medium : styles.small}`}
-                          key={`${s.tier.label}-${index}`}
+                          ${tier.expo_hall_template === 'big-images' ? styles.large : tier.expo_hall_template === 'medium-images' ? styles.medium : styles.small}`}
+                          key={`${s.type.label}-${index}`}
                         >
-                          <Link to={sponsor.externalLink}>
-                            <img src={sponsor.logo.file} alt={sponsor.logo.alt} />
+                          <Link to={`/a/sponsor/${getSponsorURL(sponsor.id, sponsor.company.name)}`}>
+                            <img src={sponsor.company.big_logo ? sponsor.company.big_logo : sponsor.company.logo} alt={sponsor.company.name} />
                           </Link>
                         </div>
-                        : sponsor.usesSponsorPage ?
+                        : sponsor.external_link ?
                           <div className={`
                           ${styles.imageBox} 
-                          ${tier.expoHallPage?.expoHallTemplate === 'big-images' ? styles.large : tier.expoHallPage?.expoHallTemplate === 'medium-images' ? styles.medium : styles.small}`}
-                            key={`${s.tier.label}-${index}`}
+                          ${tier.expo_hall_template === 'big-images' ? styles.large : tier.expo_hall_template === 'medium-images' ? styles.medium : styles.small}`}
+                            key={`${s.type.label}-${index}`}
                           >
-                            <Link to={`/a/sponsor/${getSponsorURL(sponsor.id, sponsor.name)}`}>
-                              <img src={sponsor.logo.file} alt={sponsor.logo.alt} />
+                            <Link to={sponsor.external_link}>
+                              <img src={sponsor.company.big_logo ? sponsor.company.big_logo : sponsor.company.logo} alt={sponsor.company.name} />
                             </Link>
                           </div>
                           :
                           <div className={`
                           ${styles.imageBox} 
-                          ${tier.expoHallPage?.expoHallTemplate === 'big-images' ? styles.large : tier.expoHallPage?.expoHallTemplate === 'medium-images' ? styles.medium : styles.small}`}
-                            key={`${s.tier.label}-${index}`}
+                          ${tier.expo_hall_template === 'big-images' ? styles.large : tier.expo_hall_template === 'medium-images' ? styles.medium : styles.small}`}
+                            key={`${s.type.label}-${index}`}
                           >
-                            <img src={sponsor.logo.file} alt={sponsor.logo.alt} />
+                            <img src={sponsor.company.big_logo ? sponsor.company.big_logo : sponsor.company.logo} alt={sponsor.company.name} />
                           </div>
                     )
                   })}
@@ -145,7 +158,7 @@ const SponsorComponent = ({ page, sponsorsState, tiers, lobbyButton }) => {
               )
             }
             case 'carousel': {
-              if (page === 'lobby' && !tier.lobby.display) {
+              if (page === 'lobby' && !tier.should_display_on_lobby_page) {
                 return null
               } else {
                 const sliderSettings = {
@@ -159,25 +172,25 @@ const SponsorComponent = ({ page, sponsorsState, tiers, lobbyButton }) => {
                 };
                 return (
                   <div className={`${tierIndex === 0 ? styles.firstContainer : ''} ${styles.carouselContainer}`} key={tierIndex}>
-                    {tier.widgetTitle &&
-                      <span style={{ marginBottom: '0' }}><b>{tier.widgetTitle}</b></span>
+                    {tier.widget_title &&
+                      <span style={{ marginBottom: '0' }}><b>{tier.widget_title}</b></span>
                     }
                     <Slider {...sliderSettings}>
                       {sponsors.map((sponsor, index) => {
-                        const img = sponsor.advertiseImage ? sponsor.advertiseImage : sponsor.logo;
+                        const img = sponsor.carousel_advertise_image ? sponsor.carousel_advertise_image : sponsor.logo;
                         return (
-                          sponsor.externalLink ?
-                            <Link to={sponsor.externalLink} key={`${s.tier.label}-${index}`}>
-                              <img src={img.file} alt={img.alt} />
+                          sponsor.is_published ?
+                            <Link to={`/a/sponsor/${getSponsorURL(sponsor.id, sponsor.company.name)}`} key={`${s.type.label}-${index}`}>
+                              <img src={sponsor.carousel_advertise_image} alt={sponsor.carousel_advertise_image_alt_text} />
                             </Link>
                             :
-                            sponsor.usesSponsorPage ?
-                              <Link to={`/a/sponsor/${getSponsorURL(sponsor.id, sponsor.name)}`} key={`${s.tier.label}-${index}`}>
-                                <img src={img.file} alt={img.alt} />
+                            sponsor.external_link ?
+                              <Link to={sponsor.external_link} key={`${s.type.label}-${index}`}>
+                                <img src={sponsor.carousel_advertise_image} alt={sponsor.carousel_advertise_image_alt_text} />
                               </Link>
                               :
-                              <Link key={`${s.tier.label}-${index}`}>
-                                <img src={img.file} alt={img.alt} />
+                              <Link key={`${s.type.label}-${index}`}>
+                                <img src={sponsor.carousel_advertise_image} alt={sponsor.carousel_advertise_image_alt_text} />
                               </Link>
                         )
                       })}

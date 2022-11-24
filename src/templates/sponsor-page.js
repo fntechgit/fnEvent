@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { navigate } from 'gatsby'
 import { connect } from 'react-redux'
@@ -21,175 +21,158 @@ import { getEnvVariable, LIVE_EVENT_THUMBNAIL_GIF_CAPTURE_STARTS } from "../util
 import styles from '../styles/sponsor-page.module.scss'
 import SponsorNavigation from '../components/SponsorNavigation'
 
-
-export const SponsorPageTemplate = class extends React.Component {
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      sponsor: null,
-      notFound: null,
-      parsedIntro: null,
-      tier: null
-    }
-  }
-
-  componentWillMount() {
-    this.setSponsor();
-  }
-
-  componentDidUpdate(prevProps) {
-    const { sponsorId } = this.props;
-    const { sponsorId: prevSponsorId } = prevProps;
-    // sponsor id came as param at uri    
-    if (sponsorId !== prevSponsorId) {
-      this.setSponsor();
-    }
-  }
+const SponsorPageTemplate = ({ sponsorId, sponsors, scanBadge, eventId }) => {
+  const [sponsorLoading, setSponsorLoading] = useState(true);
+  const [sponsor, setSponsor] = useState(null)
+  const [notFound, setNotFound] = useState(false)
+  const [parsedIntro, setParsedIntro] = useState('')
+  const [sponsorship, setSponsorship] = useState(null);
 
 
-  onEventChange = (ev) => {
-    const { eventId } = this.props;
-    if (eventId !== `${ev.id}`) {
-      navigate(`/a/event/${ev.id}`);
-    }
-  };
+  useEffect(() => {
 
-  onBadgeScan = () => {
-    const { sponsor: { sponsorId } } = this.state;
-    this.props.scanBadge(sponsorId);
-  };
 
-  setSponsor = () => {
-    const { sponsorId, sponsors, tiers } = this.props;
-    const sponsor = sponsors.map(t => t.sponsors?.find(s => s.id === parseInt(sponsorId)))
-      .filter(e => e !== undefined)[0];
+    const sponsor = sponsors.find(s => s.id === parseInt(sponsorId)) || null;
     if (!sponsor) {
-      this.setState({ notFound: true });
+      setNotFound(true)
     } else {
-      const tier = sponsors.find(t => t.sponsors.find(s => s === sponsor)).tier[0];
-      const tierData = tiers.find(t => t.id === tier.value);
+      const sponsorship = sponsor.sponsorship;
       const parser = new MarkdownIt({
-        html: false,
+        html: true,
         breaks: true,
         linkify: true,
         xhtmlOut: true,
         typographer: true,
       });
       const parsedIntro = parser.render(sponsor.intro ?? '');
-      if (sponsor) this.setState({ sponsor: sponsor, tier: tierData, parsedIntro: parsedIntro });
+      if (sponsor) setSponsor(sponsor); setSponsorship(sponsorship); setParsedIntro(parsedIntro);
     }
+    setSponsorLoading(false)
+  }, [sponsorId])
+
+  const onEventChange = (ev) => {
+    if (eventId !== `${ev.id}`) {
+      navigate(`/a/event/${ev.id}`);
+    }
+  };
+
+  const onBadgeScan = () => {
+    scanBadge(sponsor.id);
+  };
+
+  if (notFound) {
+    return <HeroComponent title="Sponsor not found" redirectTo="/a/sponsors" />
   }
 
-  render() {
-    const { user, summit, sponsors } = this.props;
-    const { sponsor, tier, notFound, parsedIntro } = this.state;
+  const {
+    sponsor_page_use_banner_widget: bannerWidget,
+    sponsor_page_use_disqus_widget: disqusWidget,
+    sponsor_page_use_live_event_widget: liveEventWidget,
+    sponsor_page_use_schedule_widget: scheduleWidget
+  } = sponsorship || {};
 
-    if (notFound) {
-      return <HeroComponent title="Sponsor not found" redirectTo="/a/sponsors" />
-    }
+  if (sponsorLoading) {
+    return <HeroComponent title="Loading..." />
+  }
 
-    const { disqus, liveEvent, schedule, banner } = tier.sponsorPage.widgets || {};
-      return (
-          <React.Fragment>
-            <AttendanceTrackerComponent
-                sourceName="SPONSOR"
-                sourceId={sponsor.sponsorId}
-            />
-            <AccessTracker />
-            <SponsorHeader sponsor={sponsor} tier={tier} scanBadge={() => this.onBadgeScan()} />
-            <SponsorNavigation currentSponsor={sponsor} sponsors={sponsors} />
-            <section className={`section px-0 ${tier.sponsorPage.sponsorTemplate === 'big-header' ? 'pt-5' : 'pt-0'} pb-0`}>
-              {sponsor.sideImage && sponsor?.sideImage?.file &&
-              <div className="columns mx-0 mt-0 mb-6">
-                <div className={`column is-half px-5 py-0 ${styles.introHalf}`}>
-                  {sponsor.title && <h1>{sponsor.title}</h1>}
-                  {sponsor.intro && <span dangerouslySetInnerHTML={{ __html: parsedIntro }} />}
-                </div>
-                <div className="column is-half px-0 py-0">
-                  <img alt={sponsor.sideImage.alt} src={sponsor.sideImage.file} className={styles.sideImage} />
-                </div>
+  return (
+      <React.Fragment>
+        <AttendanceTrackerComponent
+          sourceName="SPONSOR"
+          sourceId={sponsor?.id}
+        />
+        <AccessTracker />
+        <SponsorHeader sponsor={sponsor} sponsorship={sponsorship} scanBadge={() => onBadgeScan()} />
+        <SponsorNavigation currentSponsor={sponsor} sponsors={sponsors} />
+        <section className={`section px-0 ${sponsorship?.sponsor_page_template === 'big-header' ? 'pt-5' : 'pt-0'} pb-0`}>
+          {sponsor?.side_image &&
+            <div className="columns mx-0 mt-0 mb-6">
+              <div className={`column is-half px-5 py-0 ${styles.introHalf}`}>
+                {sponsor?.company.name && <h1>{sponsor?.company.name}</h1>}
+                {sponsor?.intro && <span dangerouslySetInnerHTML={{ __html: parsedIntro }} />}
               </div>
+              <div className="column is-half px-0 py-0">
+                <img alt={sponsor?.side_image_alt_text} src={sponsor?.side_image} className={styles.sideImage} />
+              </div>
+            </div>
+          }
+          <div className="columns mx-0 my-0">
+            <div className="column is-three-quarters px-5 py-0">
+              {!sponsor?.side_image &&
+                <div className={styles.sponsorIntro}>
+                  {sponsor?.company.name && <h1>{sponsor?.company.name}</h1>}
+                  {sponsor?.intro && <span dangerouslySetInnerHTML={{ __html: parsedIntro }} />}
+                </div>
               }
-              <div className="columns mx-0 my-0">
-                <div className="column is-three-quarters px-5 py-0">
-                  {!sponsor?.sideImage?.file &&
-                  <div className={styles.sponsorIntro}>
-                    {sponsor.title && <h1>{sponsor.title}</h1>}
-                    {sponsor.intro && <span dangerouslySetInnerHTML={{ __html: parsedIntro }} />}
-                  </div>
-                  }
-                  {liveEvent &&
-                  <LiveEventWidgetComponent
-                      onEventClick={(ev) => this.onEventChange(ev)}
-                      onlyPresentations={true}
-                      sponsorId={sponsor.companyId}
-                      showSponsor={!!sponsor.companyId}
-                      featuredEventId={sponsor.featuredEventId}
-                      streamThumbnailGifCaptureStarts={parseInt(getEnvVariable(LIVE_EVENT_THUMBNAIL_GIF_CAPTURE_STARTS))}
-                  />
-                  }
-                  {schedule &&
-                  <UpcomingEventsComponent
-                      eventCount={3}
-                      sponsorId={sponsor.companyId}
-                      renderEventLink={(event) => <Link to={`/a/event/${event.id}`}>{event.title}</Link>}
-                      allEventsLink={<Link to={`/a/schedule#company=${encodeURIComponent(sponsor.name)}`}>View all <span className="sr-only">events</span></Link>}
-                  />
-                  }
-                  {banner && <SponsorBanner sponsor={sponsor} bgColor={sponsor.sponsorColor} scanBadge={() => this.onBadgeScan()} />}
+              {liveEventWidget &&
+                <LiveEventWidgetComponent
+                  onEventClick={(ev) => onEventChange(ev)}
+                  onlyPresentations={true}
+                  sponsorId={sponsor?.company.id}
+                  showSponsor={!!sponsor?.company.id}
+                  featuredEventId={sponsor?.featured_event_id}
+                  streamThumbnailGifCaptureStarts={parseInt(getEnvVariable(LIVE_EVENT_THUMBNAIL_GIF_CAPTURE_STARTS))}
+                />
+              }
+              {scheduleWidget &&
+                <UpcomingEventsComponent
+                  eventCount={3}
+                  sponsorId={sponsor?.company.id}
+                  renderEventLink={(event) => <Link to={`/a/event/${event.id}`}>{event.title}</Link>}
+                  allEventsLink={<Link to={`/a/schedule#company=${encodeURIComponent(sponsor?.name)}`}>View all <span className="sr-only">events</span></Link>}
+                />
+              }
+              {bannerWidget && <SponsorBanner sponsor={sponsor} bgColor={sponsor?.company.color} scanBadge={() => onBadgeScan()} />}
+            </div>
+            <div className="column is-one-quarter px-5 py-0">
+              {sponsor?.chat_link &&
+                <div className={styles.videoChatButton}>
+                  <Link className={styles.link} to={sponsor?.chat_link}>
+                    <button className={`${styles.button} button is-large`} style={{ backgroundColor: `${sponsor?.company.color}` }}>
+                      <b>LIVE VIDEO CHAT!</b>
+                    </button>
+                  </Link>
                 </div>
-                <div className="column is-one-quarter px-5 py-0">
-                  {sponsor.chatLink &&
-                  <div className={styles.videoChatButton}>
-                    <Link className={styles.link} to={sponsor.chatLink}>
-                      <button className={`${styles.button} button is-large`} style={{ backgroundColor: `${sponsor.sponsorColor}` }}>
-                        <b>LIVE VIDEO CHAT!</b>
-                      </button>
-                    </Link>
-                  </div>
-                  }
-                  {disqus &&
-                  <DisqusComponent className={styles.disqusContainerSponsor} title="" sponsor={sponsor} />
-                  }
-                  {sponsor.documents &&
-                  <DocumentsComponent event={sponsor.documents} />
-                  }
-                  {sponsor.columnAds &&
-                  <AdvertiseSponsorsComponent ads={sponsor.columnAds} style={{ marginTop: '2em' }} />
-                  }
-                </div>
-              </div>
-            </section>
-          </React.Fragment>
-      )
-  }
+              }
+              {disqusWidget &&
+                <DisqusComponent className={styles.disqusContainerSponsor} title="" sponsor={sponsor} />
+              }
+              {sponsor?.materials && sponsor.materials.length > 0 &&
+                <DocumentsComponent event={sponsor?.materials} sponsorPage={true} />
+              }
+              {sponsor?.ads && sponsor.ads.length > 0 &&
+                <AdvertiseSponsorsComponent ads={sponsor?.ads} style={{ marginTop: '2em' }} />
+              }
+            </div>
+          </div>
+        </section>
+      </React.Fragment>
+    )
 };
 
 const SponsorPage = (
-    {
-      location,
-      user,
-      scanBadge,
-      sponsorId,
-      summit,
-      sponsors,
-      tiers
-    }
+  {
+    location,
+    user,
+    scanBadge,
+    sponsorId,
+    summit,
+    sponsors,
+    tiers
+  }
 ) => {
 
   return (
-      <Layout location={location}>
-        <SponsorPageTemplate
-            user={user}
-            scanBadge={scanBadge}
-            sponsorId={sponsorId}
-            summit={summit}
-            sponsors={sponsors}
-            tiers={tiers}
-        />
-      </Layout>
+    <Layout location={location}>
+      <SponsorPageTemplate
+        user={user}
+        scanBadge={scanBadge}
+        sponsorId={sponsorId}
+        summit={summit}
+        sponsors={sponsors}
+        tiers={tiers}
+      />
+    </Layout>
   )
 };
 

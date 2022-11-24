@@ -7,12 +7,12 @@ import styles from '../styles/sponsor-page.module.scss'
 
 const SponsorNavigation = ({ currentSponsor, sponsors }) => {
     
-    const localSponsors = sponsors.map(e => e.sponsors).flat().filter(e => !e.externalLink)
+    const localSponsors = sponsors.filter(e => e.is_published);
 
     const sponsorIndex = localSponsors.findIndex(e => e.id === currentSponsor.id)
 
     const formatUrl = (index) => {
-        return getSponsorURL(localSponsors[index].id, localSponsors[index].name);
+        return getSponsorURL(localSponsors[index].id, localSponsors[index].company.name);
     }
 
     const goToPrevSponsor = () => {
