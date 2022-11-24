@@ -15,8 +15,6 @@ const SponsorComponent = ({ page, sponsorsState, lobbyButton }) => {
     return memo;
   }, {});
 
-  console.log('sponsors...', sponsorsState);
-
   Object.keys(sponsorsByTier).map((s) => {
     sponsorsByTier[s] = { ...sponsorsByTier[s][0].sponsorship, sponsors: sponsorsByTier[s] }
   })
