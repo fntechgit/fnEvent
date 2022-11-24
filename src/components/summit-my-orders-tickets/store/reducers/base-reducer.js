@@ -11,7 +11,8 @@
  * limitations under the License.
  **/
 
-import { START_LOADING, STOP_LOADING, LOGOUT_USER, RECEIVE_COUNTRIES } from "openstack-uicore-foundation/lib/utils/actions";
+import { START_LOADING, STOP_LOADING } from "openstack-uicore-foundation/lib/utils/actions";
+import {LOGOUT_USER} from "openstack-uicore-foundation/lib/security/actions";
 import { RESET_STATE } from "../actions/base-actions";
 import { RECEIVE_MARKETING_SETTINGS, CLEAR_MARKETING_SETTINGS } from '../actions/summit-actions';
 

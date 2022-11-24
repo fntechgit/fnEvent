@@ -10,7 +10,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-import { START_LOADING, STOP_LOADING, LOGOUT_USER } from "openstack-uicore-foundation/lib/utils/actions";
+import { START_LOADING, STOP_LOADING } from "openstack-uicore-foundation/lib/utils/actions";
+import { LOGOUT_USER } from "openstack-uicore-foundation/lib/security/actions";
 import { RESET_STATE } from "../actions/base-actions";
 import { GET_MAIN_EXTRA_QUESTIONS, SET_SUMMIT } from "../actions/summit-actions";
 

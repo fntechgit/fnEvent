@@ -3,7 +3,6 @@ import { LOGOUT_USER } from 'openstack-uicore-foundation/lib/security/actions';
 import {
   GET_DISQUS_SSO,
   GET_USER_PROFILE,
-  CLEAR_USER_PROFILE,
   START_LOADING_PROFILE,
   STOP_LOADING_PROFILE,
   GET_IDP_PROFILE,

@@ -12,8 +12,8 @@ import {
 
 import {customErrorHandler} from '../utils/customErrorHandler';
 
-import {LOGOUT_USER} from "openstack-uicore-foundation/lib/utils/actions";
-import moment from "moment-timezone";
+import {LOGOUT_USER} from "openstack-uicore-foundation/lib/security/actions";
+
 export const GET_EVENT_DATA = 'GET_EVENT_DATA';
 export const GET_EVENT_DATA_ERROR = 'GET_EVENT_DATA_ERROR';
 export const SET_EVENT_LAST_UPDATE = 'SET_EVENT_LAST_UPDATE';
