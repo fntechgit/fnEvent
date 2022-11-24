@@ -1,4 +1,4 @@
-import { LOGOUT_USER } from "openstack-uicore-foundation/lib/utils/actions";
+import { LOGOUT_USER } from "openstack-uicore-foundation/lib/security/actions";
 import { RESET_STATE } from "../actions/base-actions";
 import { SET_USER } from "../actions/user-actions";
 /**
