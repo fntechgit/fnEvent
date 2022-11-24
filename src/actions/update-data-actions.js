@@ -1,5 +1,7 @@
 import { compress, decompress } from 'lz-string';
 import { getFromLocalStorage, putOnLocalStorage} from "openstack-uicore-foundation/lib/utils/methods";
+import {createAction} from "openstack-uicore-foundation/lib/utils/actions";
+import {RELOAD_SCHED_DATA, RELOAD_USER_PROFILE} from "./schedule-actions";
 
 const BUCKET_EVENTS_ETAG_KEY = 'eventsETAG';
 const BUCKET_EVENTS_DATA_KEY = 'eventsJSON';
@@ -156,4 +158,37 @@ export const bucket_getVotablePresentations = (summitId, lastBuildTime = null) =
     .then(data => {
       return data;
     }).catch( e => null);
+}
+
+/**
+ *
+ * @param payload
+ * @param entity
+ * @returns {(function(*, *): void)|*}
+ */
+export const synchEntityData = (payload, entity) => (dispatch, getState ) => {
+
+  const { userState, loggedUserState, summitState, allSchedulesState } = getState();
+  const { isLoggedUser } = loggedUserState;
+  const { userProfile } = userState;
+  const { summit } = summitState;
+  const { allEvents, allIDXEvents} = allSchedulesState;
+
+  const worker = new Worker(new URL('../workers/synch.worker.js', import.meta.url), {type: 'module'});
+
+  worker.postMessage({
+    payload, entity, summit, allEvents, allIDXEvents
+  });
+
+  worker.onmessage = ({ data: { eventsData} }) => {
+
+    console.log('calling synch worker on message ');
+
+    dispatch(createAction(RELOAD_SCHED_DATA)({ isLoggedUser, userProfile, eventsData, summitData:summit }));
+
+    if(isLoggedUser)
+      dispatch(createAction(RELOAD_USER_PROFILE)({ isLoggedUser, userProfile }));
+
+    worker.terminate();
+  };
 }

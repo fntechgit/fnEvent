@@ -19,6 +19,7 @@ import PosterDetailPage from "../../templates/poster-detail-page";
 import MyTicketsPage from '../../templates/my-tickets-page';
 import WithTicketRoute from "../../routes/WithTicketRoute";
 import withRealTimeUpdates from "../../utils/real_time_updates/withRealTimeUpdates";
+import {synchEntityData} from "../../actions/update-data-actions";
 
 const App = ({ isLoggedUser, user, summit_phase, summitId , syncData, staticJsonFilesBuildTime,  allowClick = true }) => {
 
@@ -32,6 +33,7 @@ const App = ({ isLoggedUser, user, summit_phase, summitId , syncData, staticJson
 
     worker.onmessage = ({ data: {  eventsData, summitData, speakersData, extraQuestionsData } }) => {
       syncData( eventsData, summitData, speakersData, extraQuestionsData);
+      worker.terminate();
     };
 
   }, []);
@@ -91,4 +93,7 @@ const mapStateToProps = ({ loggedUserState, userState, clockState, settingState,
   staticJsonFilesBuildTime: settingState.staticJsonFilesBuildTime,
 });
 
-export default connect(mapStateToProps, { syncData })(withRealTimeUpdates(App))
+export default connect(mapStateToProps, {
+  syncData,
+  synchEntityData,
+})(withRealTimeUpdates(App))

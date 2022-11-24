@@ -1,5 +1,7 @@
 import scheduleReducer from './schedule-reducer';
 import eventsData from '../content/events.json';
+import eventsIDXData from '../content/events.idx.json';
+
 import {filterEventsByTags} from '../utils/schedule';
 import {LOGOUT_USER} from "openstack-uicore-foundation/lib/security/actions";
 import {UPDATE_FILTER, UPDATE_FILTERS, CHANGE_VIEW, CHANGE_TIMEZONE, RELOAD_SCHED_DATA , RELOAD_USER_PROFILE} from '../actions/schedule-actions'
@@ -11,6 +13,7 @@ const scheduleEvents = filterEventsByTags(eventsData);
 
 const DEFAULT_STATE = {
     allEvents: eventsData,
+    allIDXEvents : eventsIDXData,
     allScheduleEvents: scheduleEvents,
     schedules: []
 };
@@ -41,8 +44,12 @@ const allSchedulesReducer = (state = DEFAULT_STATE, action) => {
         case SYNC_DATA:
         case RELOAD_SCHED_DATA:
         {
+            console.log(`allSchedulesReducer calling ${type}`, payload);
+
             const {eventsData: allScheduleEvents, summitData, isLoggedUser, userProfile } = payload;
+
             const schedules = summitData?.schedule_settings?.map(sched => {
+
                 const {key} = sched;
                 const scheduleState = state.schedules.find(s => s.key === key);
 
@@ -68,7 +75,7 @@ const allSchedulesReducer = (state = DEFAULT_STATE, action) => {
 
             }) || [];
 
-            return {...DEFAULT_STATE, schedules};
+            return {...DEFAULT_STATE, allEvents:allScheduleEvents, schedules};
         }
         case GET_EVENT_DATA: {
             const {allEvents} = state;

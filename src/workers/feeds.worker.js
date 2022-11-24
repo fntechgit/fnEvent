@@ -10,14 +10,14 @@ import {
     bucket_getSummit
 } from "../actions/update-data-actions";
 
-const eventsFilePath = 'src/content/events.json';
-const speakersFilePath = 'src/content/speakers.json';
-const voteablePresentationFilePath = 'src/content/voteable_presentations.json';
-const extraQuestionFilePath = 'src/content/extra-questions.json';
-const summitFilePath = 'src/content/summit.json';
+import {
+    eventsFilePath,speakersFilePath,
+    extraQuestionFilePath,summitFilePath
+} from '../utils/StaticFileUtils';
 
 
 onmessage = async ({ data: { summitId, staticJsonFilesBuildTime } }) =>  {
+
     console.log(`feeds worker running for ${summitId} ....`)
     // events
     let buildTime = staticJsonFilesBuildTime.find(e => e.file == eventsFilePath).build_time;
@@ -37,6 +37,7 @@ onmessage = async ({ data: { summitId, staticJsonFilesBuildTime } }) =>  {
     if (!extraQuestionsData) extraQuestionsData = extraQuestionsBuildJson;
 
     console.log(`feeds worker sending data to synch...`);
+
     postMessage({
         eventsData, summitData, speakersData, extraQuestionsData
     });

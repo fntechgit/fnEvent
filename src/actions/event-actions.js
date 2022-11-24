@@ -26,6 +26,20 @@ export const setEventLastUpdate = (lastUpdate) => (dispatch) => {
     dispatch(createAction(SET_EVENT_LAST_UPDATE)(lastUpdate));
 }
 
+
+export const getPublicEventById = (eventId) => {
+    return fetch(`${window.SUMMIT_API_BASE_URL}/api/public/v1/summits/${window.SUMMIT_ID}/events/${eventId}/published`, {
+        method: 'GET'
+    }).then(async (response) => {
+        if (response.status === 200) {
+            const data = await response.json();
+            return data;
+        }
+        return null;
+    });
+}
+
+
 /**
  *
  * @param eventId
@@ -74,9 +88,10 @@ export const getEventById = (
         customErrorHandler,
         {},
         true)
-    (params)(dispatch).then(() => {
+    (params)(dispatch).then((payload) => {
         if (dispatchLoader)
             dispatch(stopLoading());
+        return payload
     }).catch(e => {
         if (dispatchLoader)
             dispatch(stopLoading());

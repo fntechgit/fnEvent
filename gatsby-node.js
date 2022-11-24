@@ -7,14 +7,15 @@ const {createFilePath} = require('gatsby-source-filesystem');
 const {ClientCredentials} = require('simple-oauth2');
 const URI = require('urijs');
 const sizeOf = require('image-size');
-
 const colorsFilepath = 'src/content/colors.json';
 const disqusFilepath = 'src/content/disqus-settings.json';
 const marketingFilepath = 'src/content/marketing-site.json';
 const homeFilepath = 'src/content/home-settings.json';
 const settingsFilepath = 'src/content/settings.json';
 const eventsFilePath = 'src/content/events.json';
+const eventsIdxFilePath = 'src/content/events.idx.json';
 const speakersFilePath = 'src/content/speakers.json';
+const speakersIdxFilePath = 'src/content/speakers.idx.json';
 const voteablePresentationFilePath = 'src/content/voteable_presentations.json';
 const extraQuestionFilePath = 'src/content/extra-questions.json';
 const summitFilePath = 'src/content/summit.json';
@@ -259,7 +260,13 @@ exports.onPreBootstrap = async () => {
         'build_time': Math.round(+new Date() / 1000)
       });
   console.log(`allEvents ${allEvents.length}`);
+
   fs.writeFileSync(eventsFilePath, JSON.stringify(allEvents), 'utf8');
+
+  const allEventsIDX = {};
+  allEvents.forEach((e, index) => allEventsIDX[e.id] = index);
+  fs.writeFileSync(eventsIdxFilePath, JSON.stringify(allEventsIDX), 'utf8');
+
 
   // Show Speakers
   const allSpeakers = await SSR_getSpeakers(summitApiBaseUrl, summitId, accessToken);
@@ -269,7 +276,13 @@ exports.onPreBootstrap = async () => {
         'file': speakersFilePath,
         'build_time': Math.round(+new Date() / 1000)
       });
+
   fs.writeFileSync(speakersFilePath, JSON.stringify(allSpeakers), 'utf8');
+
+  const allSpeakersIDX = {};
+  allSpeakers.forEach((e, index) => allSpeakersIDX[e.id] = index);
+  fs.writeFileSync(speakersIdxFilePath, JSON.stringify(allSpeakersIDX), 'utf8');
+
 
   // Voteable Presentations
 
@@ -290,6 +303,7 @@ exports.onPreBootstrap = async () => {
         'file': extraQuestionFilePath,
         'build_time': Math.round(+new Date() / 1000)
       });
+
   fs.writeFileSync(extraQuestionFilePath, JSON.stringify(extraQuestions), 'utf8');
 
   globalSettings.staticJsonFilesBuildTime = fileBuildTimes;

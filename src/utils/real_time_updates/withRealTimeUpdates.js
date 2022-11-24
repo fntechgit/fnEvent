@@ -4,6 +4,7 @@ import SupabaseClientBuilder from "../supabaseClientBuilder";
 import { getEnvVariable, SUPABASE_KEY, SUPABASE_URL, REAL_TIME_UPDATES_STRATEGY } from "../envVariables";
 import moment from "moment-timezone";
 import RealTimeStrategyFactory from "./strategies/RealTimeStrategyFactory";
+import ProcessEntityUpdateStrategyFactory from "./strategies/ProcessEntityUpdateStrategyFactory";
 const CHECK_FOR_NOVELTIES_DELAY = 2000;
 
 /**
@@ -45,7 +46,11 @@ const withRealTimeUpdates = WrappedComponent => {
             (
                 getEnvVariable(REAL_TIME_UPDATES_STRATEGY),
                 (payload) => {
+                        console.log('withRealTimeUpdates::callback', payload);
 
+                     const strategy = ProcessEntityUpdateStrategyFactory.build(this.props, payload);
+                     if(strategy==null) return;
+                     strategy.process(payload);
                     },
                 this._checkForPastNoveltiesDebounced
             );
