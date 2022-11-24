@@ -29,7 +29,7 @@ export const VirtualBoothPageTemplate = ({
           <br />
           <br />
           <Zoom>
-            <GatsbyImage image={columns.leftColumn.image.childImageSharp ? columns.leftColumn.image.gatsbyImageData : columns.leftColumn.image} alt={columns.leftColumn.alt} />
+            <GatsbyImage image={columns.leftColumn.image.childImageSharp ? columns.leftColumn.image.childImageSharp.gatsbyImageData : columns.leftColumn.image} alt={columns.leftColumn.alt} />
           </Zoom>
         </div>
         <div className="column is-half">
@@ -39,7 +39,7 @@ export const VirtualBoothPageTemplate = ({
           <br />
           <br />
           <Zoom>
-            <GatsbyImage image={columns.rightColumn.image.childImageSharp ? columns.rightColumn.image.gatsbyImageData : columns.rightColumn.image} alt={columns.rightColumn.alt} />
+            <GatsbyImage image={columns.rightColumn.image.childImageSharp ? columns.rightColumn.image.childImageSharp.gatsbyImageData : columns.rightColumn.image} alt={columns.rightColumn.alt} />
           </Zoom>
         </div>
       </div>
