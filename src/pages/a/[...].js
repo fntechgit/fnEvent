@@ -28,7 +28,8 @@ const App = ({ isLoggedUser, user, summit_phase, summitId , syncData, staticJson
   useEffect(() => {
 
     worker.postMessage({
-      summitId, staticJsonFilesBuildTime
+      summitId : parseInt(summitId),
+      staticJsonFilesBuildTim: JSON.stringify(staticJsonFilesBuildTime)
     });
 
     worker.onmessage = ({ data: {  eventsData, summitData, speakersData, extraQuestionsData } }) => {

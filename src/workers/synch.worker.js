@@ -1,6 +1,12 @@
 
 onmessage = async ({ data: { payload, entity, summit, allEvents, allIDXEvents } }) =>  {
 
+    payload = JSON.parse(payload);
+    entity = JSON.parse(entity);
+    summit = JSON.parse(summit);
+    allEvents = JSON.parse(allEvents);
+    allIDXEvents = JSON.parse(allIDXEvents);
+
     console.log(`synch worker running for ${summit.id} ....`)
 
     const {entity_operator,  entity_type} = payload;

@@ -177,7 +177,11 @@ export const synchEntityData = (payload, entity) => (dispatch, getState ) => {
   const worker = new Worker(new URL('../workers/synch.worker.js', import.meta.url), {type: 'module'});
 
   worker.postMessage({
-    payload, entity, summit, allEvents, allIDXEvents
+    payload: JSON.stringify(payload),
+    entity: JSON.stringify(entity),
+    summit: JSON.stringify(summit),
+    allEvents: JSON.stringify(allEvents),
+    allIDXEvents: JSON.stringify(allIDXEvents)
   });
 
   worker.onmessage = ({ data: { eventsData} }) => {

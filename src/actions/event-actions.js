@@ -5,13 +5,14 @@ import {
     startLoading,
 } from 'openstack-uicore-foundation/lib/utils/actions';
 
+import URI from "urijs";
+
 import {
     getAccessToken,
     clearAccessToken,
 } from 'openstack-uicore-foundation/lib/security/methods';
 
 import {customErrorHandler} from '../utils/customErrorHandler';
-
 import {LOGOUT_USER} from "openstack-uicore-foundation/lib/security/actions";
 
 export const GET_EVENT_DATA = 'GET_EVENT_DATA';
@@ -26,14 +27,15 @@ export const setEventLastUpdate = (lastUpdate) => (dispatch) => {
     dispatch(createAction(SET_EVENT_LAST_UPDATE)(lastUpdate));
 }
 
-
 export const getPublicEventById = (eventId) => {
-    return fetch(`${window.SUMMIT_API_BASE_URL}/api/public/v1/summits/${window.SUMMIT_ID}/events/${eventId}/published`, {
+    let apiUrl = URI(`${window.SUMMIT_API_BASE_URL}/api/public/v1/summits/${window.SUMMIT_ID}/events/${eventId}/published`);
+    apiUrl.addQuery('expand', 'slides, links, videos, media_uploads, type, track, track.allowed_access_levels, location, location.venue, location.floor, speakers, moderator, sponsors, current_attendance, groups, rsvp_template, tags');
+
+    return fetch(apiUrl.toString(), {
         method: 'GET'
     }).then(async (response) => {
         if (response.status === 200) {
-            const data = await response.json();
-            return data;
+            return await response.json();
         }
         return null;
     });

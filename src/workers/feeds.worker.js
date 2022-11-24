@@ -18,6 +18,8 @@ import {
 
 onmessage = async ({ data: { summitId, staticJsonFilesBuildTime } }) =>  {
 
+    staticJsonFilesBuildTime: JSON.stringify(staticJsonFilesBuildTime);
+
     console.log(`feeds worker running for ${summitId} ....`)
     // events
     let buildTime = staticJsonFilesBuildTime.find(e => e.file == eventsFilePath).build_time;
