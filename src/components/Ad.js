@@ -8,6 +8,8 @@ import styles from "../styles/advertise.module.scss";
 
 const Ad = ({ link, text, image, alt, wrapperClass }) => {
 
+  console.log('here...', image, alt);
+
   return (
       <div className={wrapperClass}>
         {!link && <CMSImage file={image} alt={alt} />}
@@ -20,9 +22,9 @@ const Ad = ({ link, text, image, alt, wrapperClass }) => {
 
         {text && link &&
         <>
-          <CMSImage file={image} alt={alt} />
+          {image && <CMSImage file={image} alt={alt} />}
           <Link className={styles.link} to={link}>
-            <button className={`${styles.button} button is-large`}>
+            <button className={`${styles.button} button is-large`} style={{bottom: !image ? '-1rem' : null}}>
               <b>{text}</b>
             </button>
           </Link>
