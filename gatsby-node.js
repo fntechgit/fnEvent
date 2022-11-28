@@ -115,11 +115,17 @@ const SSR_getSponsorCollections = async (allSponsors, baseUrl, summitId, accessT
         page: 1,
   }
 
+  const getSponsorCollection = async (endpoint, params) => await axios.get(endpoint, { params }).then(async ({data}) => {
+    console.log(`SSR_getSponsorCollection then data.current_page ${data.current_page} data.last_page ${data.last_page} total ${data.total}`)
+    let remainingPages = await SSR_GetRemainingPages(endpoint, params, data.last_page);
+    return [...data.data, ...remainingPages];
+  }).catch(e => console.log('ERROR: ', e));
+
   const sponsorsWithCollections = await Promise.all(allSponsors.map(async (sponsor) => {
     console.log(`Collections for ${sponsor.company.name}...`);
-    const ads = await axios.get(`${baseUrl}/api/v1/summits/${summitId}/sponsors/${sponsor.id}/ads`, { params }).then(async ({data}) => data.data).catch(e => console.log('ERROR: ', e));
-    const materials = await axios.get(`${baseUrl}/api/v1/summits/${summitId}/sponsors/${sponsor.id}/materials`, { params }).then(async ({data}) => data.data).catch(e => console.log('ERROR: ', e));
-    const social_networks = await axios.get(`${baseUrl}/api/v1/summits/${summitId}/sponsors/${sponsor.id}/social-networks`, { params }).then(async ({data}) => data.data).catch(e => console.log('ERROR: ', e));        
+    const ads = await getSponsorCollection(`${baseUrl}/api/v1/summits/${summitId}/sponsors/${sponsor.id}/ads`, params);
+    const materials = await getSponsorCollection(`${baseUrl}/api/v1/summits/${summitId}/sponsors/${sponsor.id}/materials`, params);
+    const social_networks = await getSponsorCollection(`${baseUrl}/api/v1/summits/${summitId}/sponsors/${sponsor.id}/social-networks`, params);
     return ({...sponsor, ads, materials, social_networks})
   }));
 

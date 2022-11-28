@@ -40,6 +40,9 @@ const SponsorComponent = ({ page, sponsorsState, lobbyButton }) => {
                     }
                     {sponsors.map((sponsor, index) => {
                       return (
+                        (!sponsor.company.big_logo && !sponsor.company.logo) ?
+                        null 
+                        :
                         sponsor.is_published ?
                           <Link to={`/a/sponsor/${getSponsorURL(sponsor.id, sponsor.company.name)}`} key={`${s.type.label}-${index}`}>
                             <img src={sponsor.company.big_logo ? sponsor.company.big_logo : sponsor.company.logo} alt={sponsor.company.name} />
@@ -69,6 +72,9 @@ const SponsorComponent = ({ page, sponsorsState, lobbyButton }) => {
                     {sponsors.map((sponsor, index) => {
                       if (page === 'event' && !sponsor.showLogoInEventPage) return null
                       return (
+                        (!sponsor.company.big_logo && !sponsor.company.logo) ?
+                        null 
+                        :
                         sponsor.is_published ?
                           <div className={styles.imageBox} key={`${s.type.label}-${index}`}>
                             <Link to={`/a/sponsor/${getSponsorURL(sponsor.id, sponsor.company.name)}`}>
@@ -96,6 +102,9 @@ const SponsorComponent = ({ page, sponsorsState, lobbyButton }) => {
                 <div className={`${tierIndex === 0 ? styles.firstContainer : ''} ${styles.horizontalContainer} px-6`} key={tierIndex}>
                   {sponsors.map((sponsor, index) => {
                     return (
+                      (!sponsor.company.big_logo && !sponsor.company.logo) ?
+                        null 
+                        :
                       sponsor.is_published ?
                         <div className={styles.imageBox} key={`${s.type.label}-${index}`}>
                           <Link to={`/a/sponsor/${getSponsorURL(sponsor.id, sponsor.company.name)}`}>
@@ -122,6 +131,9 @@ const SponsorComponent = ({ page, sponsorsState, lobbyButton }) => {
                 <div className={`${styles.expoContainer} px-6`} key={tierIndex}>
                   {sponsors.map((sponsor, index) => {
                     return (
+                      (!sponsor.company.big_logo && !sponsor.company.logo) ?
+                        null 
+                      :
                       sponsor.is_published ?
                         <div className={`
                           ${styles.imageBox} 
@@ -177,6 +189,9 @@ const SponsorComponent = ({ page, sponsorsState, lobbyButton }) => {
                       {sponsors.map((sponsor, index) => {
                         const img = sponsor.carousel_advertise_image ? sponsor.carousel_advertise_image : sponsor.logo;
                         return (
+                          (!sponsor.company.big_logo && !sponsor.company.logo) ?
+                          null 
+                          :
                           sponsor.is_published ?
                             <Link to={`/a/sponsor/${getSponsorURL(sponsor.id, sponsor.company.name)}`} key={`${s.type.label}-${index}`}>
                               <img src={sponsor.carousel_advertise_image} alt={sponsor.carousel_advertise_image_alt_text} />

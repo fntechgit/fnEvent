@@ -24,7 +24,7 @@ const DocumentsComponent = ({ event }, sponsorPage = false) => {
       .sort((a, b) => a.order - b.order);
   };
 
-  const sortedMaterials = sponsorPage ? event : getMaterials(event);
+  const sortedMaterials = sponsorPage === true ? event : getMaterials(event);
   if (sortedMaterials.length === 0) return null;
 
   return (
