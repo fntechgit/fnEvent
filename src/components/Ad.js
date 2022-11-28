@@ -8,8 +8,6 @@ import styles from "../styles/advertise.module.scss";
 
 const Ad = ({ link, text, image, alt, wrapperClass }) => {
 
-  console.log('here...', image, alt);
-
   return (
       <div className={wrapperClass}>
         {!link && <CMSImage file={image} alt={alt} />}
