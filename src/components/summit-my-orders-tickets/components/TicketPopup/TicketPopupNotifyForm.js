@@ -41,7 +41,11 @@ export const TicketPopupNotifyForm = ({ ticket, summit }) => {
                 )}
 
                 <p>{t("ticket_popup.notify_text_1")} {getSummitFormattedReassignDate(summit)}.</p>
-                <p>{t("ticket_popup.notify_text_2")} <b>{ticket.owner.email}</b></p>
+                
+                <p>
+                    {t("ticket_popup.notify_text_2")} <b>{ticket.owner.email} </b> 
+                    {t("ticket_popup.notify_text_3")} <b>{ticket.owner.email}</b>
+                </p>
 
                 <p>
                     <label>Personal Message </label>(Optional)
