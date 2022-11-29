@@ -5,6 +5,7 @@ import { getEnvVariable, SUPABASE_KEY, SUPABASE_URL, REAL_TIME_UPDATES_STRATEGY 
 import moment from "moment-timezone";
 import RealTimeStrategyFactory from "./strategies/RealTimeStrategyFactory";
 import ProcessEntityUpdateStrategyFactory from "./strategies/ProcessEntityUpdateStrategyFactory";
+import PropTypes from "prop-types";
 const CHECK_FOR_NOVELTIES_DELAY = 2000;
 
 /**
@@ -17,6 +18,8 @@ const withRealTimeUpdates = WrappedComponent => {
     return class extends React.Component {
 
         static propTypes = {
+            summit : PropTypes.object.isRequired,
+            synchEntityData: PropTypes.func.isRequired,
         }
 
         static defaultProps = {
@@ -49,8 +52,10 @@ const withRealTimeUpdates = WrappedComponent => {
                         console.log('withRealTimeUpdates::callback', payload);
 
                      const strategy = ProcessEntityUpdateStrategyFactory.build(this.props, payload);
-                     if(strategy==null) return;
+                     if(strategy == null) return;
+
                      strategy.process(payload);
+
                     },
                 this._checkForPastNoveltiesDebounced
             );
@@ -106,8 +111,8 @@ const withRealTimeUpdates = WrappedComponent => {
         }
 
         /**
-         *
          * @param summitId
+         * @param lastBuild
          */
         checkForPastNovelties(summitId, lastBuild){
             console.log("withRealTimeUpdates::checkForPastNovelties", summitId, lastBuild);
@@ -116,10 +121,10 @@ const withRealTimeUpdates = WrappedComponent => {
                 let {created_at: lastUpdateNovelty} = res;
                 if (lastUpdateNovelty) {
                     lastUpdateNovelty = moment.utc(lastUpdateNovelty);
-                    // then compare if the novelty date is greater than last edit date of the event
+                    // update last build time
 
                 }
-                console.log("withRealTimeUpdates::checkForPastNovelties: doing update");
+                console.log("withRealTimeUpdates::checkForPastNovelties: doing update", res);
 
             }).catch((err) => console.log(err));
         }
@@ -132,24 +137,24 @@ const withRealTimeUpdates = WrappedComponent => {
         }
 
         onVisibilityChange() {
-            const { summitId , lastBuild } = this.props;
+            const { summit , lastBuild } = this.props;
             const visibilityState = document.visibilityState;
 
             if(visibilityState === "visible" && this._currentStrategy && this._currentStrategy.manageBackgroundErrors()){
 
                 if(this._currentStrategy.hasBackgroundError()) {
-                    this.createRealTimeSubscription(summitId, lastBuild);
+                    this.createRealTimeSubscription(summit?.id, lastBuild);
                     return;
                 }
 
-                this._checkForPastNoveltiesDebounced(summitId, lastBuild);
+                this._checkForPastNoveltiesDebounced(summit?.id, lastBuild);
             }
         }
 
         componentDidMount() {
-            const { summitId, lastBuild } = this.props;
+            const { summit, lastBuild } = this.props;
 
-            this.createRealTimeSubscription(summitId, lastBuild);
+            this.createRealTimeSubscription(summit?.id, lastBuild);
 
             document.addEventListener( "visibilitychange", this.onVisibilityChange, false)
         }

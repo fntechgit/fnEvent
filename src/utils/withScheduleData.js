@@ -9,14 +9,28 @@ import { reloadScheduleData } from '../actions/base-actions';
 
 const componentWrapper = (WrappedComponent) => ({schedules, ...props}) => {
   const [loaded, setLoaded] = useState(false);
-  const { updateFiltersFromHash, reloadScheduleData, schedKey } = props;
+  const { updateFiltersFromHash, reloadScheduleData, schedKey, summit, staticJsonFilesBuildTime } = props;
   const scheduleState = schedules?.find( s => s.key === schedKey);
   const { key, filters, view } = scheduleState || {};
 
+  /*
+  const worker = new Worker(new URL('../workers/feeds.worker.js', import.meta.url), {type: 'module'});
+
+
   // on first load we load schedules data, always
   useEffect(() => {
-    reloadScheduleData();
-  }, []);
+
+    worker.postMessage({
+      summitId : parseInt(summit.id),
+      staticJsonFilesBuildTime: JSON.stringify(staticJsonFilesBuildTime)
+    });
+
+    worker.onmessage = ({ data: {  eventsData, summitData, speakersData, extraQuestionsData, eventsIDXData, speakersIXData } }) => {
+      reloadScheduleData( eventsData, summitData, eventsIDXData );
+      worker.terminate();
+    };
+
+  }, []);*/
 
   useEffect(() => {
     if (schedules.length > 0) {
@@ -43,6 +57,7 @@ const mapStateToProps = ({
   isLoggedUser: loggedUserState.isLoggedUser,
   schedules: allSchedulesState.schedules,
   colorSettings: settingState.colorSettings,
+  staticJsonFilesBuildTime: settingState.staticJsonFilesBuildTime,
 });
 
 const reduxConnection = connect(mapStateToProps, {

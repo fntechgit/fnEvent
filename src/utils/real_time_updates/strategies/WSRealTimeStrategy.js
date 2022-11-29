@@ -9,7 +9,6 @@ const WS_EVENT_NAME = 'entity_updates';
 class WSRealTimeStrategy extends AbstractRealTimeStrategy {
 
     /**
-     *
      * @param callback
      * @param checkPastCallback
      */

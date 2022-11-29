@@ -33,26 +33,26 @@ export const resetState = () => (dispatch) => {
  * @param extraQuestionsData
  * @returns {(function(*, *): Promise<void>)|*}
  */
-export const syncData = ( eventsData, summitData, speakersData, extraQuestionsData ) => async (dispatch, getState) => {
+export const syncData = (
+    eventsData, summitData, speakersData, extraQuestionsData, eventsIDXData, speakersIXData
+) => async (dispatch, getState) => {
   const { userState, loggedUserState } = getState();
   const { isLoggedUser } = loggedUserState;
   const { userProfile } = userState;
-  const syncPayload = { isLoggedUser, userProfile, eventsData, summitData, speakersData, extraQuestionsData };
+  const syncPayload = { isLoggedUser, userProfile, eventsData, summitData, speakersData, extraQuestionsData, eventsIDXData, speakersIXData };
   dispatch(createAction(SYNC_DATA)(syncPayload));
+
+  if(isLoggedUser)
+    dispatch(createAction(RELOAD_USER_PROFILE)({ isLoggedUser, userProfile }));
 };
 
-export const reloadScheduleData = () => async (dispatch, getState) => {
+export const reloadScheduleData = (eventsData, summitData, eventsIDXData ) => async (dispatch, getState) => {
   const { userState, loggedUserState, summitState } = getState();
   const { isLoggedUser } = loggedUserState;
   const { userProfile } = userState;
   const { summit } = summitState;
 
-  let eventsData = await bucket_getEvents(summit.id);
-  if (!eventsData) eventsData = eventsBuildJson;
-  let summitData = await bucket_getSummit(summit.id);
-  if (!summitData) summitData = summitBuildJson;
-
-  dispatch(createAction(RELOAD_SCHED_DATA)({ isLoggedUser, userProfile, eventsData, summitData }));
+  dispatch(createAction(RELOAD_SCHED_DATA)({ isLoggedUser, userProfile, eventsData, summitData, eventsIDXData }));
 
   if(isLoggedUser)
     dispatch(createAction(RELOAD_USER_PROFILE)({ isLoggedUser, userProfile }));

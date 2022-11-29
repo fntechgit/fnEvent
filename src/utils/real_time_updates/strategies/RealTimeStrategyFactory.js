@@ -1,4 +1,5 @@
 import WSRealTimeStrategy from "./WSRealTimeStrategy";
+import SUPARealTimeStrategy from "./SUPARealTimeStrategy";
 
 const STRATEGY_SUPA = 'SUPA';
 const STRATEGY_WS = 'WS';
@@ -22,11 +23,13 @@ class RealTimeStrategyFactory {
         console.log(`RealTimeStrategyFactory::build ${type}`);
 
         if(type === STRATEGY_SUPA){
+            main = new SUPARealTimeStrategy(callback, checkPastCallback);
+            fallback = new WSRealTimeStrategy(callback, checkPastCallback);
         }
 
         if(type === STRATEGY_WS){
             main = new WSRealTimeStrategy(callback, checkPastCallback);
-            fallback = new WSRealTimeStrategy(callback, checkPastCallback);
+            fallback = new SUPARealTimeStrategy(callback, checkPastCallback);
         }
 
         if(main && fallback) {

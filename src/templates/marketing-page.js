@@ -19,18 +19,13 @@ import Link from '../components/Link'
 import { PHASES } from '../utils/phasesUtils'
 import { formatMasonry } from '../utils/masonry'
 
-import settings from '../content/settings';
 
 import styles from "../styles/marketing.module.scss"
 import '../styles/style.scss'
+import withFeedsWorker from "../utils/withFeedsWorker";
 
 
 export const MarketingPageTemplate = class extends React.Component {
-
-  componentWillMount() {
-    const {syncData} = this.props;
-    syncData();
-  }
 
   render() {
     const { content, contentComponent, summit_phase, user, isLoggedUser, location, summit, siteSettings } = this.props;
@@ -184,12 +179,13 @@ const mapStateToProps = ({ clockState, loggedUserState, userState, summitState, 
   user: userState,
   summit: summitState.summit,
   lastBuild: settingState.lastBuild,
-  siteSettings: settingState.siteSettings
+  siteSettings: settingState.siteSettings,
+  staticJsonFilesBuildTime: settingState.staticJsonFilesBuildTime,
 });
 
 export default connect(mapStateToProps, {
   syncData
-})(MarketingPage)
+})(withFeedsWorker(MarketingPage))
 
 export const marketingPageQuery = graphql`
   query MarketingPageTemplate($id: String!) {    
