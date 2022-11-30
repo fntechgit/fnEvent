@@ -12,6 +12,9 @@
       "showQA": false,
       "showHelp": false,
       "defaultScope": "page"
+    },
+    "schedule": {
+      "allowClick": true
     }
   }
 }

@@ -35,7 +35,10 @@ collections:
                   {label: "In this Room", value: "page" },
                   {label: "All Attendees", value: "show" }
                 ]}
-              ]}
+              ]},
+              {label: "Schedule", name: schedule, widget: object, fields: [
+                {label: "Allow Clickable Behavior", name: allowClick, widget: boolean, required: false, default: true},                
+              ]}              
             ]}
       - file: "src/content/ads.json"
         label: "Advertisement"
