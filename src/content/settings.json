@@ -4,7 +4,10 @@
     "chat": {
       "showQA": false,
       "showHelp": false,
-      "defaultScope":"page"
+      "defaultScope": "page"
+    },
+    "schedule": {
+      "allowClick": true
     }
   },
   "lastBuild": 1654094591029

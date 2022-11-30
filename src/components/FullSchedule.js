@@ -19,6 +19,7 @@ const FullSchedule = ({
   callAction,
   filters,
   view,
+  allowClick = true,
     schedKey,
   ...rest
 }) => {
@@ -34,7 +35,7 @@ const FullSchedule = ({
     shareLink: getShareLink(filters, view),
     filters,
     view,
-    onEventClick: () => {},
+    onEventClick: allowClick ? () => {} : null,
     needsLogin: needsLogin,
     triggerAction: (action, payload) => {
       switch (action) {
@@ -62,6 +63,7 @@ const mapStateToProps = ({ userState, settingState }) => ({
   userProfile: userState.userProfile,
   colorSettings: settingState.colorSettings,
   homeSettings: settingState.homeSettings,
+  allowClick: settingState.widgets.schedule.allowClick
 });
 
 export default connect(mapStateToProps, {
