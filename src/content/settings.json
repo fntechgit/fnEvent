@@ -5,6 +5,9 @@
       "showQA": false,
       "showHelp": false,
       "defaultScope": "page"
+    },
+    "schedule": {
+      "allowClick": true
     }
   },
   "lastBuild": 1654094591029,
