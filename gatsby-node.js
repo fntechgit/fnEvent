@@ -296,7 +296,6 @@ exports.onPreBootstrap = async () => {
   const allSponsors = await SSR_getSponsors(summitApiBaseUrl, summitId, accessToken);
   console.log(`allSponsors ${allSponsors.length}`);
   const sponsorsWithCollections  = await SSR_getSponsorCollections(allSponsors, summitApiBaseUrl, summitId, accessToken);
-  console.log(sponsorsWithCollections);
   fs.writeFileSync('src/content/sponsors.json', JSON.stringify(sponsorsWithCollections), 'utf8');
 
   // Voteable Presentations
