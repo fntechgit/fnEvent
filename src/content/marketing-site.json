@@ -54,7 +54,7 @@
       "images": [
         {
           "image": "/img/ocp23r-fnv-marketing-space2.png",
-          "link": "",
+          "link": "https://www.opencompute.org/summit/global-summit",
           "alt": ""
         }
       ],
@@ -65,7 +65,8 @@
       "images": [
         {
           "image": "/img/ocp23r-fnv-marketing-space3.png",
-          "alt": ""
+          "alt": "",
+          "link": "https://www.opencompute.org/membership/how-to-join"
         }
       ],
       "size": 2
