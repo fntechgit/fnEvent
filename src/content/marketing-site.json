@@ -1,1 +1,89 @@
-{"heroBanner":{"title":"TIER 1 - EVENT NAME HERE","subTitle":"","date":"Date Information","time":"Timezone","dateLayout":true,"buttons":{"registerButton":{"text":"Register now","display":true},"loginButton":{"text":"Log in","display":true}},"background":"","images":[{"file":"/img/tier1-default-header1.png","alt":""},{"file":"/img/tier1-default-header2.png","alt":""},{"file":"/img/tier1-default-header3.png","alt":""}]},"leftColumn":{"schedule":{"display":true,"title":"Full Event Schedule"},"disqus":{"display":false,"title":"Join the conversation"},"image":{"display":false,"title":"Image","src":""}},"sponsors":[{"title":"Top Left","images":[{"image":"/img/tier1-default-space3.png","link":"","alt":""},{"image":"/img/tier1-default-space4.png","alt":""}]},{"title":"Top Right","images":[{"image":"/img/tier1-default-space1.png","link":"","alt":""}]},{"title":"Mid Left","images":[{"image":"/img/tier1-default-space2.png","alt":""}]},{"images":[{"image":"/img/tier1-default-space4.png","alt":""}]}],"countdown":{"display":true,"text":"Event Kickoff"},"registration_in_person_disclaimer":""}
+{
+  "heroBanner": {
+    "title": "2023 OCP Regional Summit",
+    "subTitle": "Empowering Open.",
+    "date": "19-20 April, 2023",
+    "time": "",
+    "dateLayout": false,
+    "buttons": {
+      "registerButton": {
+        "text": "Register now",
+        "display": true
+      },
+      "loginButton": {
+        "text": "Log in",
+        "display": false
+      }
+    },
+    "background": "",
+    "images": [
+      {
+        "file": "/img/ocp23r-fnv-marketing-header1.png",
+        "alt": ""
+      }
+    ]
+  },
+  "leftColumn": {
+    "schedule": {
+      "display": false,
+      "title": ""
+    },
+    "disqus": {
+      "display": false,
+      "title": "Join the conversation"
+    },
+    "image": {
+      "display": true,
+      "title": "",
+      "src": "/img/ocpreg23-fnv-highlevelschedule_120122.png"
+    }
+  },
+  "sponsors": [
+    {
+      "title": "Top Left",
+      "images": [
+        {
+          "image": "/img/ocp23r-fnv-marketing-space1.png",
+          "alt": ""
+        }
+      ],
+      "size": 2
+    },
+    {
+      "title": "Top Right",
+      "images": [
+        {
+          "image": "/img/ocp23r-fnv-marketing-space2.png",
+          "link": "",
+          "alt": ""
+        }
+      ],
+      "size": 2
+    },
+    {
+      "title": "Mid Left",
+      "images": [
+        {
+          "image": "/img/ocp23r-fnv-marketing-space3.png",
+          "alt": ""
+        }
+      ],
+      "size": 2
+    },
+    {
+      "images": [
+        {
+          "image": "/img/ocp23r-fnv-marketing-space4.png",
+          "alt": "",
+          "link": "https://www.opencompute.org/summit/regional-summit/sponsorship"
+        }
+      ],
+      "size": 2
+    }
+  ],
+  "countdown": {
+    "display": true,
+    "text": "Event Kickoff"
+  },
+  "registration_in_person_disclaimer": ""
+}
