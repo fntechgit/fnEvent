@@ -63,7 +63,7 @@ const withRealTimeUpdates = WrappedComponent => {
 
                     worker.postMessage({
                         accessToken: accessToken,
-                        payload: JSON.stringify(payload),
+                        noveltiesArray: JSON.stringify([payload]),
                         summit: JSON.stringify(summit),
                         allEvents: JSON.stringify(allEvents),
                         allIDXEvents: JSON.stringify(allIDXEvents),

@@ -2,9 +2,9 @@ import { insertSorted, intCheck } from "../utils/arrayUtils";
 import { fetchEventById } from "../actions/fetch-entities-actions";
 
 /* eslint-disable-next-line no-restricted-globals */
-self.onmessage = async ({ data: { accessToken, payload, summit, allEvents, allIDXEvents, allSpeakers, allIDXSpeakers } }) =>  {
+self.onmessage = async ({ data: { accessToken, noveltiesArray, summit, allEvents, allIDXEvents, allSpeakers, allIDXSpeakers } }) =>  {
 
-    payload = JSON.parse(payload);
+    noveltiesArray = JSON.parse(noveltiesArray);
     summit = JSON.parse(summit);
     allEvents = JSON.parse(allEvents);
     allIDXEvents = JSON.parse(allIDXEvents);
@@ -13,84 +13,95 @@ self.onmessage = async ({ data: { accessToken, payload, summit, allEvents, allID
 
     console.log(`synch worker running for ${summit.id} ....`)
 
-    const {entity_operator,  entity_type, entity_id} = payload;
+    for (const payload of noveltiesArray) {
 
-    // micro updates logic goes here ...
-    if(entity_type === 'Presentation') {
+        console.log(`synch worker procesing payload `, payload);
 
-        const entity = await fetchEventById(summit.id, entity_id, accessToken);
-        let eventsData = [...allEvents];
-        if (entity_operator === 'UPDATE') {
-            // try to get from index
-            if(!entity){
-                // was deleted
-                const idx =  allIDXEvents.hasOwnProperty(entity_id) ? allIDXEvents[entity_id] : -1;
-                console.log(`synch worker deleted presentation ${entity_id}`)
-                if(idx < 0) return; // does not exists ...
-                // publishing dates changed, we need to remove and do ordered re-insert
-                // remove it first
+        const {entity_operator,  entity_type, entity_id} = payload;
 
-                eventsData.splice(idx, 1);
-            }
-            else {
-                const idx = allIDXEvents.hasOwnProperty(entity.id) ? allIDXEvents[entity.id] : -1;
-                let formerEntity = idx > 0 ? eventsData[idx] : null;
-                if (formerEntity && formerEntity.id !== entity.id) return; // it's not the same
+        // micro updates logic goes here ...
+        if(entity_type === 'Presentation') {
 
-                if(!formerEntity){
-                    // then do insert ordering
-                    allIDXEvents[entity.id] = insertSorted(eventsData, entity, (a, b) => {
-                        // multi-criteria sort
+            const entity = await fetchEventById(summit.id, entity_id, accessToken);
+            let eventsData = [...allEvents];
 
-                        if (a.start_date === b.start_date) {
+            if (entity_operator === 'UPDATE') {
 
-                            if (a.end_date === b.end_date) {
-                                return intCheck(a.id, b.id);
-                            }
 
-                            return intCheck(a.end_date, b.end_date);
-                        }
-
-                        return intCheck(a.start_date, b.start_date);
-                    });
-                }
-                else if
-                (
-                    formerEntity.start_date === entity.start_date &&
-                    formerEntity.end_date === entity.end_date
-                ) {
-                    console.log(`synch worker updating presentation ${entity.id}`)
-                    eventsData[idx] = entity;
-                } else {
-                    // publishing dates changed, we need to remove and do ordered re-insert
-                    // remove it first
+                if(!entity){
+                    // was deleted ( un - published)
+                    // try to get from index
+                    console.log(`synch worker unpublished presentation ${entity_id}`)
+                    const idx =  allIDXEvents.hasOwnProperty(entity_id) ? allIDXEvents[entity_id] : -1;
+                    if(idx < 0) continue; // does not exists on index ...
+                    // remove it from dataset
                     eventsData.splice(idx, 1);
-                    // then do insert ordering
-                    allIDXEvents[entity.id] = insertSorted(eventsData, entity, (a, b) => {
-                        // multi-criteria sort
+                    // remove it from index
+                    delete allIDXEvents[entity_id];
+                }
+                else {
+                    // entity is published
 
-                        if (a.start_date === b.start_date) {
+                    const idx = allIDXEvents.hasOwnProperty(entity.id) ? allIDXEvents[entity.id] : -1;
+                    let formerEntity = idx > 0 ? eventsData[idx] : null;
+                    if (formerEntity && formerEntity.id !== entity.id) continue; // it's not the same
 
-                            if (a.end_date === b.end_date) {
-                                return intCheck(a.id, b.id);
+                    if(!formerEntity){
+                        // entity was just published ... then do insert ordering
+                        allIDXEvents[entity.id] = insertSorted(eventsData, entity, (a, b) => {
+                            // multi-criteria sort
+
+                            if (a.start_date === b.start_date) {
+
+                                if (a.end_date === b.end_date) {
+                                    return intCheck(a.id, b.id);
+                                }
+
+                                return intCheck(a.end_date, b.end_date);
                             }
 
-                            return intCheck(a.end_date, b.end_date);
-                        }
+                            return intCheck(a.start_date, b.start_date);
+                        });
+                    }
+                    else if
+                    (
+                        formerEntity.start_date === entity.start_date &&
+                        formerEntity.end_date === entity.end_date
+                    ) {
+                        // presentation was just updated
+                        console.log(`synch worker updating presentation ${entity.id}`)
+                        eventsData[idx] = entity;
+                    } else {
+                        // publishing dates changed, we need to remove and do ordered re-insert
+                        // remove it first
+                        eventsData.splice(idx, 1);
+                        // then do insert ordering
+                        allIDXEvents[entity.id] = insertSorted(eventsData, entity, (a, b) => {
+                            // multi-criteria sort
 
-                        return intCheck(a.start_date, b.start_date);
-                    });
+                            if (a.start_date === b.start_date) {
+
+                                if (a.end_date === b.end_date) {
+                                    return intCheck(a.id, b.id);
+                                }
+
+                                return intCheck(a.end_date, b.end_date);
+                            }
+
+                            return intCheck(a.start_date, b.start_date);
+                        });
+                    }
                 }
-            }
 
-            /* eslint-disable-next-line no-restricted-globals */
-            self.postMessage({
-                entity,
-                eventsData,
-                allIDXEvents,
-                allSpeakers,
-                allIDXSpeakers
-            });
+                /* eslint-disable-next-line no-restricted-globals */
+                self.postMessage({
+                    entity,
+                    eventsData,
+                    allIDXEvents,
+                    allSpeakers,
+                    allIDXSpeakers
+                });
+            }
         }
     }
 };
