@@ -5,16 +5,7 @@ import {
   stopLoading
 } from 'openstack-uicore-foundation/lib/utils/actions';
 import { customErrorHandler } from '../utils/customErrorHandler';
-import summitBuildJson from '../content/summit.json';
-import eventsBuildJson from '../content/events.json';
-import speakersBuildJson from '../content/speakers.json';
-import extraQuestionsBuildJson from '../content/extra-questions.json';
-import {
-  bucket_getEvents,
-  bucket_getExtraQuestions,
-  bucket_getSummit,
-  bucket_getSpeakers
-} from "./update-data-actions";
+
 import {RELOAD_SCHED_DATA, RELOAD_USER_PROFILE} from "./schedule-actions";
 
 export const RESET_STATE = 'RESET_STATE';
@@ -47,10 +38,9 @@ export const syncData = (
 };
 
 export const reloadScheduleData = (eventsData, summitData, eventsIDXData ) => async (dispatch, getState) => {
-  const { userState, loggedUserState, summitState } = getState();
+  const { userState, loggedUserState } = getState();
   const { isLoggedUser } = loggedUserState;
   const { userProfile } = userState;
-  const { summit } = summitState;
 
   dispatch(createAction(RELOAD_SCHED_DATA)({ isLoggedUser, userProfile, eventsData, summitData, eventsIDXData }));
 

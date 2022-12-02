@@ -13,25 +13,6 @@ const componentWrapper = (WrappedComponent) => ({schedules, ...props}) => {
   const scheduleState = schedules?.find( s => s.key === schedKey);
   const { key, filters, view } = scheduleState || {};
 
-  /*
-  const worker = new Worker(new URL('../workers/feeds.worker.js', import.meta.url), {type: 'module'});
-
-
-  // on first load we load schedules data, always
-  useEffect(() => {
-
-    worker.postMessage({
-      summitId : parseInt(summit.id),
-      staticJsonFilesBuildTime: JSON.stringify(staticJsonFilesBuildTime)
-    });
-
-    worker.onmessage = ({ data: {  eventsData, summitData, speakersData, extraQuestionsData, eventsIDXData, speakersIXData } }) => {
-      reloadScheduleData( eventsData, summitData, eventsIDXData );
-      worker.terminate();
-    };
-
-  }, []);*/
-
   useEffect(() => {
     if (schedules.length > 0) {
       updateFiltersFromHash(schedKey, filters, view);

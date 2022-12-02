@@ -15,29 +15,30 @@ import {
 } from "../actions/update-data-actions";
 
 import {
-    eventsFilePath,speakersFilePath,
-    extraQuestionFilePath,summitFilePath
+    eventsFilePath,
+    speakersFilePath,
+    extraQuestionFilePath,
+    summitFilePath
 } from '../utils/StaticFileUtils';
 
-
-onmessage = async ({ data: { summitId, staticJsonFilesBuildTime } }) =>  {
-
+/* eslint-disable-next-line no-restricted-globals */
+self.onmessage = async ({ data: { summitId, staticJsonFilesBuildTime } }) =>  {
     staticJsonFilesBuildTime = JSON.parse(staticJsonFilesBuildTime);
 
     console.log(`feeds worker running for ${summitId} ....`)
     // events
-    let buildTime = staticJsonFilesBuildTime.find(e => e.file == eventsFilePath).build_time;
+    let buildTime = staticJsonFilesBuildTime.find(e => e.file === eventsFilePath).build_time;
     let eventsData = await bucket_getEvents(summitId, buildTime);
     if (!eventsData) eventsData = eventsBuildJson;
 
     let eventsIDXData = await bucket_getEventsIDX(summitId, buildTime);
     if (!eventsIDXData) eventsIDXData = eventsIDXBuildJson;
     // summit
-    buildTime = staticJsonFilesBuildTime.find(e => e.file == summitFilePath).build_time;
+    buildTime = staticJsonFilesBuildTime.find(e => e.file === summitFilePath).build_time;
     let summitData = await bucket_getSummit(summitId, buildTime);
     if (!summitData) summitData = summitBuildJson;
     //speakers
-    buildTime = staticJsonFilesBuildTime.find(e => e.file == speakersFilePath).build_time;
+    buildTime = staticJsonFilesBuildTime.find(e => e.file === speakersFilePath).build_time;
     let speakersData = await bucket_getSpeakers(summitId, buildTime);
     if (!speakersData) speakersData = speakersBuildJson;
 
@@ -45,13 +46,13 @@ onmessage = async ({ data: { summitId, staticJsonFilesBuildTime } }) =>  {
     if (!speakersIXData) speakersIXData = speakersIDXBuildJson;
 
     // extra questions
-    buildTime = staticJsonFilesBuildTime.find(e => e.file == extraQuestionFilePath).build_time;
+    buildTime = staticJsonFilesBuildTime.find(e => e.file === extraQuestionFilePath).build_time;
     let extraQuestionsData = await bucket_getExtraQuestions(summitId, buildTime);
     if (!extraQuestionsData) extraQuestionsData = extraQuestionsBuildJson;
 
     console.log(`feeds worker sending data to synch...`);
-
-    postMessage({
+    /* eslint-disable-next-line no-restricted-globals */
+    self.postMessage({
         eventsData, summitData, speakersData, extraQuestionsData, eventsIDXData, speakersIXData
     });
 };

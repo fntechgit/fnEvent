@@ -1,14 +1,16 @@
 import React from "react";
-import PropTypes from "prop-types";
+import {connect} from "react-redux";
+import { syncData } from '../actions/base-actions';
 
+/**
+ * @param WrappedComponent
+ * @returns {ConnectedComponent<HOC, DistributiveOmit<GetLibraryManagedProps<HOC>, keyof Shared<{staticJsonFilesBuildTime: *, summit: *} & ResolveThunks<{syncData: ((function(*, *, *, *, *, *): ((function(*, *): Promise<void>)|*))|*)}>, GetLibraryManagedProps<HOC>>>>}
+ */
 const withFeedsWorker = WrappedComponent => {
 
-    return class extends React.Component {
+    class HOC extends React.Component {
 
         static propTypes = {
-            summit : PropTypes.object.isRequired,
-            syncData : PropTypes.func.isRequired,
-            staticJsonFilesBuildTime : PropTypes.array.isRequired,
         }
 
         static defaultProps = {}
@@ -18,6 +20,7 @@ const withFeedsWorker = WrappedComponent => {
         }
 
         componentDidMount() {
+
             const worker = new Worker(new URL('../workers/feeds.worker.js', import.meta.url), {type: 'module'});
 
             const { summit, syncData, staticJsonFilesBuildTime } = this.props;
@@ -26,6 +29,10 @@ const withFeedsWorker = WrappedComponent => {
                 summitId : parseInt(summit.id),
                 staticJsonFilesBuildTime: JSON.stringify(staticJsonFilesBuildTime)
             });
+
+            worker.onerror = (event) => {
+                console.log('There is an error with your worker!', event);
+            }
 
             worker.onmessage = ({ data: {  eventsData, summitData, speakersData, extraQuestionsData, eventsIDXData, speakersIXData } }) => {
                 syncData( eventsData, summitData, speakersData, extraQuestionsData, eventsIDXData, speakersIXData);
@@ -39,6 +46,15 @@ const withFeedsWorker = WrappedComponent => {
             );
         }
     }
+
+    const mapStateToProps = ({ settingState, summitState}) => ({
+        summit: summitState?.summit,
+        staticJsonFilesBuildTime: settingState.staticJsonFilesBuildTime,
+    });
+
+    return connect(mapStateToProps, {
+        syncData,
+    })(HOC);
 };
 
 export default withFeedsWorker;

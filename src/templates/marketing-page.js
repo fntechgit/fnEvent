@@ -23,12 +23,13 @@ import { formatMasonry } from '../utils/masonry'
 import styles from "../styles/marketing.module.scss"
 import '../styles/style.scss'
 import withFeedsWorker from "../utils/withFeedsWorker";
+import withRealTimeUpdates from "../utils/real_time_updates/withRealTimeUpdates";
 
 
 export const MarketingPageTemplate = class extends React.Component {
 
   render() {
-    const { content, contentComponent, summit_phase, user, isLoggedUser, location, summit, siteSettings } = this.props;
+    const { content, contentComponent, summit_phase, user, isLoggedUser, location, summit, siteSettings,lastDataSync } = this.props;
     const PageContent = contentComponent || Content;
 
     let scheduleProps = {};
@@ -60,6 +61,8 @@ export const MarketingPageTemplate = class extends React.Component {
                 <h2><b>{siteSettings.leftColumn.schedule.title}</b></h2>
                 <LiteScheduleComponent
                   {...scheduleProps}
+                  key={`marketing_lite_schedule_${lastDataSync}`}
+                  id={`marketing_lite_schedule_${lastDataSync}`}
                   page="marketing-site"
                   showAllEvents={true}
                   showSearch={false}
@@ -140,7 +143,7 @@ MarketingPageTemplate.propTypes = {
   isLoggedUser: PropTypes.bool,
 }
 
-const MarketingPage = ({ summit, location, data, summit_phase, user, isLoggedUser, syncData, lastBuild, siteSettings }) => {
+const MarketingPage = ({ summit, location, data, summit_phase, user, isLoggedUser, syncData, lastBuild, siteSettings, lastDataSync }) => {
   const { html } = data.markdownRemark;
 
   return (
@@ -156,6 +159,7 @@ const MarketingPage = ({ summit, location, data, summit_phase, user, isLoggedUse
         syncData={syncData}
         lastBuild={lastBuild}
         siteSettings={siteSettings}
+        lastDataSync={lastDataSync}
       />
     </Layout>
   )
@@ -181,11 +185,12 @@ const mapStateToProps = ({ clockState, loggedUserState, userState, summitState, 
   lastBuild: settingState.lastBuild,
   siteSettings: settingState.siteSettings,
   staticJsonFilesBuildTime: settingState.staticJsonFilesBuildTime,
+  lastDataSync: settingState.lastDataSync,
 });
 
 export default connect(mapStateToProps, {
   syncData
-})(withFeedsWorker(MarketingPage))
+})(withFeedsWorker(withRealTimeUpdates(MarketingPage)))
 
 export const marketingPageQuery = graphql`
   query MarketingPageTemplate($id: String!) {    
