@@ -119,7 +119,7 @@ export const getTicketById = ({order, ticket}) => async (dispatch, getState, { g
     const params = {
         access_token: accessToken,
         expand: `${fromOrderList ? 'order' : ''}, owner, owner.extra_questions, badge, badge.features, refund_requests`,
-        fields: 'order.owner_first_name, order.owner_last_name, order.owner_email'
+        fields: 'order.id, order.owner_first_name, order.owner_last_name, order.owner_email'
     };
 
     return getRequest(
