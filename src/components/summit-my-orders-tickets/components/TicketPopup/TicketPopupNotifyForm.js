@@ -10,14 +10,19 @@ export const TicketPopupNotifyForm = ({ ticket, summit }) => {
     const { t } = useTranslation();
     const dispatch = useDispatch();
     const [showSaveMessage, setShowSaveMessage] = useState(false);
+    const [message, setMessage] = useState('')
 
     const toggleSaveMessage = () => {
-        setTimeout(() => setShowSaveMessage(true), 50);
+        setTimeout(() => { 
+            setShowSaveMessage(true)
+            setMessage('');
+        }, 50);
         setTimeout(() => setShowSaveMessage(false), 5000);
     };
 
-    const handleNotifyButtonClick = () =>
-        dispatch(resendNotification({ ticket })).then(() => toggleSaveMessage());
+    const handleNotifyButtonClick = () => {
+        dispatch(resendNotification({ ...ticket, message })).then(() => toggleSaveMessage());
+    }
 
     return (
         <div className="ticket-notify-form">
@@ -36,8 +41,17 @@ export const TicketPopupNotifyForm = ({ ticket, summit }) => {
                 )}
 
                 <p>{t("ticket_popup.notify_text_1")} {getSummitFormattedReassignDate(summit)}.</p>
-                <p>{t("ticket_popup.notify_text_2")} <b>{ticket.owner.email}</b></p>
+                
+                <p>
+                    {t("ticket_popup.notify_text_2")} <b>{ticket.owner.email} </b> 
+                    {t("ticket_popup.notify_text_3")} <b>{ticket.owner.email}</b>
+                </p>
 
+                <p>
+                    <label>{t("ticket_popup.notify_message")} </label>{t("ticket_popup.notify_message_condition")}
+                    <br />
+                    <textarea value={message} rows="4" onChange={(e) => setMessage(e.target.value)} style={{width: '80%', padding: 5}} />
+                </p>
                 <button className="btn btn-primary" onClick={handleNotifyButtonClick}>
                     {t("ticket_popup.notify_button")}
                 </button>
