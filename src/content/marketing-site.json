@@ -44,7 +44,8 @@
       "images": [
         {
           "image": "/img/ocp23r-fnv-marketing-space1.png",
-          "alt": ""
+          "alt": "",
+          "link": "https://www.pragueconvention.cz/important-information/#transportation"
         }
       ],
       "size": 2
