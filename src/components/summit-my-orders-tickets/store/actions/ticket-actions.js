@@ -399,7 +399,7 @@ export const removeAttendee = ({ticket, context}) => async (dispatch, getState, 
 
     const {
         orderState: { current_page: orderPage },
-        ticketState: { current_page: ticketPage }
+        ticketState: { current_page: ticketPage, orderTickets: { current_page : orderTicketsCurrentPage } }
     } = getState();
 
     const accessToken = await getAccessToken().catch(_ => history.replace(loginUrl));
@@ -426,6 +426,7 @@ export const removeAttendee = ({ticket, context}) => async (dispatch, getState, 
             dispatch(getUserTickets({ page: ticketPage }));
         } else {
             dispatch(getUserOrders({ page: orderPage }));
+            dispatch(getTicketsByOrder({ orderId, page: orderTicketsCurrentPage }));
         }
         }).catch((e) => {
             console.log('error', e)
