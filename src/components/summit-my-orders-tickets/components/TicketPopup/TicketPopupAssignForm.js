@@ -29,6 +29,7 @@ export const TicketPopupAssignForm = ({ ticket, summit, order }) => {
     const dispatch = useDispatch();
     const userProfile = useSelector(state => state.userState.userProfile);
     const [showSaveMessage, setShowSaveMessage] = useState(false);
+    const [message, setMessage] = useState('')
 
     const toggleSaveMessage = () => {
         setTimeout(() => setShowSaveMessage(true), 50);
@@ -38,6 +39,7 @@ export const TicketPopupAssignForm = ({ ticket, summit, order }) => {
     const handleSubmit = (values, formikHelpers) => {
         dispatch(assignAttendee({
             ticket,
+            message,
             order,
             data: {
                 ...emptyAttendee,
@@ -95,6 +97,12 @@ export const TicketPopupAssignForm = ({ ticket, summit, order }) => {
 
                 <p>{t("ticket_popup.assign_want_text")}</p>
                 <span>{t("ticket_popup.reassign_enter_email")}</span>
+
+                <p>
+                    <label>{t("ticket_popup.notify_message")} </label>{t("ticket_popup.notify_message_condition")}
+                    <br />
+                    <textarea value={message} rows="4" onChange={(e) => setMessage(e.target.value)} style={{width: '80%', padding: 5}} />
+                </p>
 
                 <Input
                     id="reassign_email"
