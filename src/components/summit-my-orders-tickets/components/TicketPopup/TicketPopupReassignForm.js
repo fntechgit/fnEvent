@@ -25,6 +25,7 @@ export const TicketPopupReassignForm = ({ ticket, summit, order }) => {
     const [showConfirm, setShowConfirm] = useState(false);
     const [newAttendeeEmail, setNewAttendeeEmail] = useState('');
     const [showSaveMessage, setShowSaveMessage] = useState(false);
+    const [message, setMessage] = useState('')
 
     const isUserTicketOwner = userProfile.email === ticket.owner?.email;
     const isTicketPrinted = ticket.badge?.printed_times > 0 ? true : false
@@ -58,6 +59,7 @@ export const TicketPopupReassignForm = ({ ticket, summit, order }) => {
 
         dispatch(changeTicketAttendee({
             ticket,
+            message,            
             order,
             data: { attendee_email: newAttendeeEmail }
         })).then(() => toggleSaveMessage());
@@ -119,6 +121,12 @@ export const TicketPopupReassignForm = ({ ticket, summit, order }) => {
                                 {` (${t("ticket_popup.reassign_before")} ${getSummitFormattedReassignDate(summit)})`}
                             </p>
                             <span>{t("ticket_popup.reassign_enter_email")}</span>
+
+                            <p>
+                                <label>{t("ticket_popup.notify_message")} </label>{t("ticket_popup.notify_message_condition")}
+                                <br />
+                                <textarea value={message} rows="4" onChange={(e) => setMessage(e.target.value)} style={{width: '80%', padding: 5}} />
+                            </p>
 
                             <Input
                                 id="attendee_email"
