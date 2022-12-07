@@ -166,6 +166,7 @@ export const getTicketsByOrder = ({ orderId, page = 1, perPage = 5 }) => async (
 
 export const assignAttendee = ({
     ticket,
+    message,
     order,
     context,
     data: {
@@ -196,14 +197,15 @@ export const assignAttendee = ({
 
     const normalizedEntity =
         (!attendee_first_name & !attendee_last_name)
-            ? { attendee_email }
+            ? { attendee_email, message }
             : {
                 attendee_email,
                 attendee_first_name,
                 attendee_last_name,
                 attendee_company,
                 extra_questions,
-                disclaimer_accepted
+                disclaimer_accepted,
+                message
             }
 
     const orderId = reassignOrderId ? reassignOrderId : order.id;
@@ -350,6 +352,7 @@ export const resendNotification = (ticket) => async (dispatch, getState, { getAc
 
 export const changeTicketAttendee = ({
     ticket,
+    message,
     order,
     context,
     data: { attendee_email }
@@ -376,6 +379,7 @@ export const changeTicketAttendee = ({
     )(params)(dispatch).then(() => {
         dispatch(assignAttendee({
             ticket,
+            message,
             order,
             context,
             data: {
