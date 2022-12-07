@@ -21,7 +21,10 @@ export const TicketPopupNotifyForm = ({ ticket, summit }) => {
     };
 
     const handleNotifyButtonClick = () => {
-        dispatch(resendNotification({ ...ticket, message })).then(() => toggleSaveMessage());
+        dispatch(resendNotification({ ...ticket, message })).then(() => {
+            toggleSaveMessage();
+            setMessage('');
+        });
     }
 
     return (
