@@ -126,7 +126,7 @@ export const TicketPopupReassignForm = ({ ticket, summit, order }) => {
                             <span>{t("ticket_popup.reassign_enter_email")}</span>
 
                             <p>
-                                <label>{t("ticket_popup.notify_message")} </label>{t("ticket_popup.notify_message_condition")}
+                                <label>{t("ticket_popup.notify_message")} </label> {t("ticket_popup.notify_message_condition")}
                                 <br />
                                 <textarea value={message} rows="4" onChange={(e) => setMessage(e.target.value)} style={{width: '80%', padding: 5}} />
                             </p>

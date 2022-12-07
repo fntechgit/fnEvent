@@ -45,7 +45,10 @@ export const TicketPopupAssignForm = ({ ticket, summit, order }) => {
                 ...emptyAttendee,
                 attendee_email: values.reassign_email
             }
-        })).then(() => toggleSaveMessage());
+        })).then(() => {
+            toggleSaveMessage();
+            setMessage('');
+        });
     };
 
     const formik = useFormik({
@@ -63,10 +66,7 @@ export const TicketPopupAssignForm = ({ ticket, summit, order }) => {
                 attendee_first_name: userProfile.first_name,
                 attendee_last_name: userProfile.last_name
             }
-        })).then(() => {
-            toggleSaveMessage();
-            setMessage('');
-        });
+        })).then(() => toggleSaveMessage());
     };
 
     return (
@@ -102,7 +102,7 @@ export const TicketPopupAssignForm = ({ ticket, summit, order }) => {
                 <span>{t("ticket_popup.reassign_enter_email")}</span>
 
                 <p>
-                    <label>{t("ticket_popup.notify_message")} </label>{t("ticket_popup.notify_message_condition")}
+                    <label>{t("ticket_popup.notify_message")} </label> {t("ticket_popup.notify_message_condition")}
                     <br />
                     <textarea value={message} rows="4" onChange={(e) => setMessage(e.target.value)} style={{width: '80%', padding: 5}} />
                 </p>
