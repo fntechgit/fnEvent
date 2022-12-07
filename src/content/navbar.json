@@ -38,7 +38,7 @@
       ],
       "title": "TRAVEL",
       "link": "/travel",
-      "display": false
+      "display": true
     },
     {
       "title": "SCHEDULE",
