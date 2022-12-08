@@ -42,7 +42,7 @@ const allSchedulesReducer = (state = DEFAULT_STATE, action) => {
         case RELOAD_SCHED_DATA:
         {
             const {eventsData: allScheduleEvents, summitData, isLoggedUser, userProfile } = payload;
-            const schedules = summitData?.schedule_settings.map(sched => {
+            const schedules = summitData?.schedule_settings?.map(sched => {
                 const {key} = sched;
                 const scheduleState = state.schedules.find(s => s.key === key);
 

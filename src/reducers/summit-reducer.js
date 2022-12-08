@@ -21,10 +21,6 @@ const summitReducer = (state = DEFAULT_STATE, action) => {
     case RESET_STATE:
     case LOGOUT_USER:
       return DEFAULT_STATE;
-    case SYNC_DATA: {
-      const {extraQuestionsData} = payload;
-      return {...DEFAULT_STATE, extra_questions: extraQuestionsData}
-    }
     case START_LOADING:
       return { ...state, loading: true };
     case STOP_LOADING:

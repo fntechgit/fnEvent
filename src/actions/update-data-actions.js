@@ -17,12 +17,14 @@ const getKey = (summitId, tag) => {
 }
 
 const getUrl = (summitId, fileName) => {
+  if(!process.env.GATSBY_BUCKET_BASE_URL) return null;
   return `${process.env.GATSBY_BUCKET_BASE_URL}/${summitId}/${fileName}`;
 }
 
 const fetchBucket = (etagKeyPre, dataKeyPre, fileName, summitId) => {
   const headers = {};
   const url = getUrl(summitId, fileName);
+  if(!url) return Promise.reject();
   const eTagKey = getKey(summitId, etagKeyPre);
   const dataKey = getKey(summitId, dataKeyPre);
 
@@ -74,7 +76,7 @@ export const bucket_getEvents = (summitId) => {
   return fetchBucket(BUCKET_EVENTS_ETAG_KEY, BUCKET_EVENTS_DATA_KEY, 'events.json', summitId)
     .then(data => {
       return data;
-    });
+    }).catch( e => null);
 }
 
 export const bucket_getSummit = (summitId) => {
@@ -82,7 +84,7 @@ export const bucket_getSummit = (summitId) => {
   return fetchBucket(BUCKET_SUMMIT_ETAG_KEY, BUCKET_SUMMIT_DATA_KEY, 'summit.json', summitId)
     .then(data => {
       return data;
-    });
+    }).catch( e => null);
 }
 
 export const bucket_getSpeakers = (summitId) => {
@@ -90,7 +92,7 @@ export const bucket_getSpeakers = (summitId) => {
   return fetchBucket(BUCKET_SPEAKERS_ETAG_KEY, BUCKET_SPEAKERS_DATA_KEY, 'speakers.json', summitId)
     .then(data => {
       return data;
-    });
+    }).catch( e => null);
 }
 
 export const bucket_getExtraQuestions = (summitId) => {
@@ -98,7 +100,7 @@ export const bucket_getExtraQuestions = (summitId) => {
   return fetchBucket(BUCKET_EXTRA_QUESTIONS_ETAG_KEY, BUCKET_EXTRA_QUESTIONS_DATA_KEY, 'extra-questions.json', summitId)
     .then(data => {
       return data;
-    });
+    }).catch( e => null);
 }
 
 export const bucket_getVotablePresentations = (summitId) => {
@@ -106,5 +108,5 @@ export const bucket_getVotablePresentations = (summitId) => {
   return fetchBucket(BUCKET_VOTABLE_PRES_ETAG_KEY, BUCKET_VOTABLE_PRES_DATA_KEY, 'voteable-presentations.json', summitId)
     .then(data => {
       return data;
-    });
+    }).catch( e => null);
 }
