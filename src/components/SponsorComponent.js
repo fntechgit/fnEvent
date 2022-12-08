@@ -21,8 +21,8 @@ const SponsorComponent = ({ page, sponsorsState, lobbyButton }) => {
 
   return (
     <React.Fragment>
-      {Object.values(sponsorsByTier).map((tier, tierIndex) => {
-        const sponsors = tier.sponsors;
+      {Object.values(sponsorsByTier).sort((a, b) => a.order - b.order).map((tier, tierIndex) => {        
+        const sponsors = tier.sponsors.sort((a, b) => a.order - b.order);
         if (!tier) return null;
         const template = page === 'lobby' ? tier.lobby_template : page === 'event' ? tier.event_page_template : 'expo-hall';
         if (sponsors?.length > 0) {
@@ -232,7 +232,6 @@ const SponsorComponent = ({ page, sponsorsState, lobbyButton }) => {
 
 const mapStateToProps = ({ sponsorState }) => ({
   sponsorsState: sponsorState.sponsors,
-  tiers: sponsorState.tiers,
   lobbyButton: sponsorState.lobbyButton
 });
 

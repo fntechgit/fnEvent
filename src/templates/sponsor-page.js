@@ -158,7 +158,6 @@ const SponsorPage = (
     sponsorId,
     summit,
     sponsors,
-    tiers
   }
 ) => {
 
@@ -170,7 +169,6 @@ const SponsorPage = (
         sponsorId={sponsorId}
         summit={summit}
         sponsors={sponsors}
-        tiers={tiers}
       />
     </Layout>
   )
@@ -191,7 +189,6 @@ SponsorPageTemplate.propTypes = {
 const mapStateToProps = ({ userState, sponsorState, summitState }) => ({
   user: userState,
   sponsors: sponsorState.sponsors,
-  tiers: sponsorState.tiers,
   summit: summitState.summit
 });
 

@@ -7,7 +7,6 @@ import {RESET_STATE, SYNC_DATA} from "../actions/base-actions";
 
 const DEFAULT_STATE = {
   sponsors: sponsorData,
-  tiers: tierData.tiers,
   imageHeader: tierData.imageHeader,
   lobbyButton: tierData.lobbyButton
 };
