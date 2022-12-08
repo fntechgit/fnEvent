@@ -15,7 +15,7 @@ Prague Congress Center
 
 Praha 4-Nusle, Czechia
 
-**<br>Nearby Hotels:** 
+**<br>Nearby Hotels**
 
 Below you will find some local hotels. OCP does not have a designated room block.
 
