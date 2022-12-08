@@ -60,9 +60,9 @@ collections:
                 {label: "Specific Event?", name: "id", widget: string, required: false, default: 0}
               ]},
             ]}
-      - file: "src/content/sponsors-tiers.json"
-        label: "Sponsors Tiers"
-        name: "sponsorsTiers"
+      - file: "src/content/expo-hall.json"
+        label: "Expo Hall"
+        name: "expoHall"
         fields:          
           - {label: "Expo Hall Header Image", name: "imageHeader", widget: object, required: false, fields: [{label: "File", name: "file", widget: image, default: '', required: false},{label: "Alt", name: "alt", widget: string, required: false}]}
           - {label: "Lobby Button", name: lobbyButton, widget: object, fields: [

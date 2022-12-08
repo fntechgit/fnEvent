@@ -1,5 +1,5 @@
 import sponsorData from '../content/sponsors';
-import tierData from '../content/sponsors-tiers';
+import expoHallData from '../content/expo-hall.json';
 
 import { START_LOADING, STOP_LOADING } from "openstack-uicore-foundation/lib/utils/actions";
 import { LOGOUT_USER } from "openstack-uicore-foundation/lib/security/actions";
@@ -7,8 +7,8 @@ import {RESET_STATE, SYNC_DATA} from "../actions/base-actions";
 
 const DEFAULT_STATE = {
   sponsors: sponsorData,
-  imageHeader: tierData.imageHeader,
-  lobbyButton: tierData.lobbyButton
+  imageHeader: expoHallData.imageHeader,
+  lobbyButton: expoHallData.lobbyButton
 };
 
 const sponsorReducer = (state = DEFAULT_STATE, action) => {
