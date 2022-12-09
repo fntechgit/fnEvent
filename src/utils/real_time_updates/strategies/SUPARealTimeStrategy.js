@@ -34,10 +34,10 @@ class SUPARealTimeStrategy extends AbstractRealTimeStrategy {
 
     /**
      * @param summitId
-     * @param lastBuild
+     * @param lastCheckForNovelties
      */
-    create(summitId, lastBuild) {
-        super.create(summitId, lastBuild);
+    create(summitId, lastCheckForNovelties) {
+        super.create(summitId, lastCheckForNovelties);
 
         console.log('SUPARealTimeStrategy::create');
 
@@ -83,12 +83,12 @@ class SUPARealTimeStrategy extends AbstractRealTimeStrategy {
                         ++this._retrySubscriptionCounter;
                         // if we are on visible state, then restart the RT
                         window.setTimeout(() => {
-                            this.create(summitId, lastBuild)
+                            this.create(summitId, lastCheckForNovelties)
                         }, 2 **  this._retrySubscriptionCounter  * 1000);
                         return;
                     }
                     // we spent all exp back off, try fallback
-                    this.startUsingFallback(summitId, lastBuild);
+                    this.startUsingFallback(summitId, lastCheckForNovelties);
                 }
                 if (status === "SUBSCRIBED") {
                     // reset counter
@@ -97,7 +97,7 @@ class SUPARealTimeStrategy extends AbstractRealTimeStrategy {
                     this._supaBackgrounError = false;
                     // RELOAD
                     // check on demand ( just in case that we missed some Real time update )
-                    this._checkPastCallback(summitId, lastBuild);
+                    this._checkPastCallback(summitId, lastCheckForNovelties);
                 }
             })
     }

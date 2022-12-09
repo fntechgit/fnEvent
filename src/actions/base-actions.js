@@ -8,14 +8,15 @@ import { customErrorHandler } from '../utils/customErrorHandler';
 
 import {RELOAD_SCHED_DATA, RELOAD_USER_PROFILE} from "./schedule-actions";
 
-export const RESET_STATE = 'RESET_STATE';
-export const SYNC_DATA = 'SYNC_DATA';
-export const GET_THIRD_PARTY_PROVIDERS = 'GET_THIRD_PARTY_PROVIDERS';
+import {RESET_STATE, SYNC_DATA, GET_THIRD_PARTY_PROVIDERS, UPDATE_LAST_CHECK_FOR_NOVELTIES } from './base-actions-definitions';
 
 export const resetState = () => (dispatch) => {
   dispatch(createAction(RESET_STATE)({}));
 };
 
+export const updateLastCheckForNovelties = (date) => (dispatch) => {
+  dispatch(createAction(UPDATE_LAST_CHECK_FOR_NOVELTIES)(date));
+}
 /**
  *
  * @param eventsData

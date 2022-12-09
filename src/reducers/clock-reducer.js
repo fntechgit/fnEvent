@@ -12,7 +12,7 @@ import {
   EVENT_PHASE_ADD
 } from '../actions/clock-actions';
 import summitData from '../content/summit.json';
-import {RESET_STATE, SYNC_DATA} from "../actions/base-actions";
+import {RESET_STATE, SYNC_DATA} from "../actions/base-actions-definitions";
 
 import { getSummitPhase } from '../utils/phasesUtils';
 

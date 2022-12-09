@@ -265,6 +265,12 @@ exports.onPreBootstrap = async () => {
 
   const allEventsIDX = {};
   allEvents.forEach((e, index) => allEventsIDX[e.id] = index);
+
+  fileBuildTimes.push(
+      {
+        'file': eventsIdxFilePath,
+        'build_time': Math.round(+new Date() / 1000)
+      });
   fs.writeFileSync(eventsIdxFilePath, JSON.stringify(allEventsIDX), 'utf8');
 
 
@@ -281,6 +287,11 @@ exports.onPreBootstrap = async () => {
 
   const allSpeakersIDX = {};
   allSpeakers.forEach((e, index) => allSpeakersIDX[e.id] = index);
+  fileBuildTimes.push(
+      {
+        'file': speakersIdxFilePath,
+        'build_time': Math.round(+new Date() / 1000)
+      });
   fs.writeFileSync(speakersIdxFilePath, JSON.stringify(allSpeakersIDX), 'utf8');
 
 

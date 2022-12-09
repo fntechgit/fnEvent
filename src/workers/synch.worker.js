@@ -1,5 +1,7 @@
 import { insertSorted, intCheck } from "../utils/arrayUtils";
 import { fetchEventById } from "../actions/fetch-entities-actions";
+import {getFromCache, getNoveltiesBucketKey, putOnCache} from "../utils/cacheUtils";
+import {compressToUTF16, decompressFromUTF16} from "lz-string";
 
 /* eslint-disable-next-line no-restricted-globals */
 self.onmessage = async ({ data: { accessToken, noveltiesArray, summit, allEvents, allIDXEvents, allSpeakers, allIDXSpeakers } }) =>  {
@@ -13,6 +15,14 @@ self.onmessage = async ({ data: { accessToken, noveltiesArray, summit, allEvents
 
     console.log(`synch worker running for ${summit.id} ....`)
 
+    const rawQueue = await getFromCache(getNoveltiesBucketKey(summit), 'queue');
+    let queue = [];
+
+    if (rawQueue) {
+        const data = decompressFromUTF16(rawQueue);
+        queue = JSON.parse(data);
+    }
+
     for (const payload of noveltiesArray) {
 
         console.log(`synch worker procesing payload `, payload);
@@ -24,9 +34,8 @@ self.onmessage = async ({ data: { accessToken, noveltiesArray, summit, allEvents
 
             const entity = await fetchEventById(summit.id, entity_id, accessToken);
             let eventsData = [...allEvents];
-
+            queue.push({payload, entity});
             if (entity_operator === 'UPDATE') {
-
 
                 if(!entity){
                     // was deleted ( un - published)
@@ -93,6 +102,9 @@ self.onmessage = async ({ data: { accessToken, noveltiesArray, summit, allEvents
                     }
                 }
 
+                // store on queue
+                // post a message per entity
+
                 /* eslint-disable-next-line no-restricted-globals */
                 self.postMessage({
                     entity,
@@ -103,5 +115,13 @@ self.onmessage = async ({ data: { accessToken, noveltiesArray, summit, allEvents
                 });
             }
         }
+    }
+
+    // store queue
+
+    if (queue) {
+        // store data
+        const compressedData = compressToUTF16(JSON.stringify(queue));
+        await putOnCache(getNoveltiesBucketKey(summit), 'queue', compressedData);
     }
 };

@@ -15,11 +15,7 @@ import {
 import { customErrorHandler } from '../utils/customErrorHandler';
 
 import {LOGOUT_USER} from "openstack-uicore-foundation/lib/security/actions";
-
-export const GET_EVENT_DATA = 'GET_EVENT_DATA';
-export const GET_EVENT_DATA_ERROR = 'GET_EVENT_DATA_ERROR';
-export const SET_EVENT_LAST_UPDATE = 'SET_EVENT_LAST_UPDATE';
-export const RELOAD_EVENT_STATE = 'RELOAD_EVENT_STATE';
+import {GET_EVENT_DATA, GET_EVENT_DATA_ERROR, SET_EVENT_LAST_UPDATE, RELOAD_EVENT_STATE} from './event-actions-definitions';
 
 export const handleResetReducers = () => (dispatch) => {
     dispatch(createAction(LOGOUT_USER)({}));
@@ -82,5 +78,4 @@ export const getEventById = (
         clearAccessToken();
         return (e);
     });
-
 };

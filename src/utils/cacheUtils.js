@@ -26,3 +26,21 @@ export const getFromCache = async (bucket, key, isJson = false) => {
     console.log(`retrieve  from local bucket ${bucket} key ${key}`);
     return data;
 }
+
+/**
+ *
+ * @param bucket
+ * @returns {Promise<boolean>}
+ */
+export const deleteFromCache =  (bucket) => {
+    return caches.delete(bucket);
+}
+
+/**
+ *
+ * @param summit
+ * @returns {`novelties_queue_${string}}`}
+ */
+export const getNoveltiesBucketKey = (summit) => {
+    return `novelties_queue_${summit.id}}`;
+}

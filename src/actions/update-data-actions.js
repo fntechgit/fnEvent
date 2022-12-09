@@ -2,8 +2,8 @@ import {compressToUTF16, decompressFromUTF16} from 'lz-string';
 import {createAction} from "openstack-uicore-foundation/lib/utils/actions";
 import {RELOAD_USER_PROFILE} from "./schedule-actions";
 import {getFromCache, putOnCache} from "../utils/cacheUtils";
-
-
+import {SYNC_DATA} from './base-actions-definitions';
+import { RELOAD_EVENT_STATE} from './event-actions-definitions';
 const BUCKET_EVENTS_ETAG_KEY = 'eventsETAG';
 const BUCKET_EVENTS_DATA_KEY = 'eventsJSON';
 const BUCKET_EVENTS_IDX_ETAG_KEY = 'eventsIDXETAG';
@@ -18,10 +18,6 @@ const BUCKET_EXTRA_QUESTIONS_ETAG_KEY = 'extraQuestionsETAG';
 const BUCKET_EXTRA_QUESTIONS_DATA_KEY = 'extraQuestionsJSON';
 const BUCKET_VOTABLE_PRES_ETAG_KEY = 'votablePresETAG';
 const BUCKET_VOTABLE_PRES_DATA_KEY = 'votablePresJSON';
-
-const SYNC_DATA = 'SYNC_DATA';
-const RELOAD_EVENT_STATE = 'RELOAD_EVENT_STATE';
-
 
 const getKey = (summitId, tag) => {
     return `${tag}_${summitId}`;

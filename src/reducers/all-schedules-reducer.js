@@ -4,7 +4,7 @@ import eventsIDXData from '../content/events.idx.json';
 import {filterEventsByTags} from '../utils/schedule';
 import {LOGOUT_USER} from "openstack-uicore-foundation/lib/security/actions";
 import {UPDATE_FILTER, UPDATE_FILTERS, CHANGE_VIEW, CHANGE_TIMEZONE, RELOAD_SCHED_DATA , RELOAD_USER_PROFILE} from '../actions/schedule-actions'
-import {RESET_STATE, SYNC_DATA} from '../actions/base-actions';
+import {RESET_STATE, SYNC_DATA} from "../actions/base-actions-definitions";
 import {GET_EVENT_DATA} from '../actions/event-actions';
 import {ADD_TO_SCHEDULE, REMOVE_FROM_SCHEDULE, GET_USER_PROFILE} from "../actions/user-actions";
 

@@ -20,12 +20,12 @@ class AbstractRealTimeStrategy {
 
     /**
      * @param summitId
-     * @param lastBuild
+     * @param lastCheckForNovelties
      */
-    startUsingFallback(summitId, lastBuild){
+    startUsingFallback(summitId, lastCheckForNovelties){
         if(this._fallback) {
             this._usingFallback = true;
-            this._fallback.create(summitId, lastBuild);
+            this._fallback.create(summitId, lastCheckForNovelties);
         }
     }
 
@@ -38,9 +38,9 @@ class AbstractRealTimeStrategy {
 
     /**
      * @param summitId
-     * @param lastBuild
+     * @param lastCheckForNovelties
      */
-    create(summitId, lastBuild){}
+    create(summitId, lastCheckForNovelties){}
 
     close(){}
 

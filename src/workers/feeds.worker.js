@@ -18,41 +18,66 @@ import {
     eventsFilePath,
     speakersFilePath,
     extraQuestionFilePath,
-    summitFilePath
+    summitFilePath,
+    eventsIdxFilePath,
+    speakersIdxFilePath,
 } from '../utils/StaticFileUtils';
 
 /* eslint-disable-next-line no-restricted-globals */
-self.onmessage = async ({ data: { summitId, staticJsonFilesBuildTime } }) =>  {
+self.onmessage = async ({data: {summitId, staticJsonFilesBuildTime}}) => {
     staticJsonFilesBuildTime = JSON.parse(staticJsonFilesBuildTime);
 
     console.log(`feeds worker running for ${summitId} ....`)
+    const calls = [];
+
     // events
     let buildTime = staticJsonFilesBuildTime.find(e => e.file === eventsFilePath).build_time;
-    let eventsData = await bucket_getEvents(summitId, buildTime);
-    if (!eventsData) eventsData = eventsBuildJson;
 
-    let eventsIDXData = await bucket_getEventsIDX(summitId, buildTime);
-    if (!eventsIDXData) eventsIDXData = eventsIDXBuildJson;
+    calls.push(bucket_getEvents(summitId, buildTime));
+
+    buildTime = staticJsonFilesBuildTime.find(e => e.file === eventsIdxFilePath).build_time;
+    calls.push(bucket_getEventsIDX(summitId, buildTime));
+
     // summit
     buildTime = staticJsonFilesBuildTime.find(e => e.file === summitFilePath).build_time;
-    let summitData = await bucket_getSummit(summitId, buildTime);
-    if (!summitData) summitData = summitBuildJson;
+    calls.push(bucket_getSummit(summitId, buildTime));
+
+
     //speakers
     buildTime = staticJsonFilesBuildTime.find(e => e.file === speakersFilePath).build_time;
-    let speakersData = await bucket_getSpeakers(summitId, buildTime);
-    if (!speakersData) speakersData = speakersBuildJson;
+    calls.push(bucket_getSpeakers(summitId, buildTime));
 
-    let speakersIXData = await bucket_getSpeakersIDX(summitId, buildTime);
-    if (!speakersIXData) speakersIXData = speakersIDXBuildJson;
+
+    buildTime = staticJsonFilesBuildTime.find(e => e.file === speakersIdxFilePath).build_time;
+    calls.push(bucket_getSpeakersIDX(summitId, buildTime));
 
     // extra questions
     buildTime = staticJsonFilesBuildTime.find(e => e.file === extraQuestionFilePath).build_time;
-    let extraQuestionsData = await bucket_getExtraQuestions(summitId, buildTime);
-    if (!extraQuestionsData) extraQuestionsData = extraQuestionsBuildJson;
+    calls.push(bucket_getExtraQuestions(summitId, buildTime));
 
-    console.log(`feeds worker sending data to synch...`);
-    /* eslint-disable-next-line no-restricted-globals */
-    self.postMessage({
-        eventsData, summitData, speakersData, extraQuestionsData, eventsIDXData, speakersIXData
-    });
+
+    Promise.all(calls)
+        .then((values) => {
+
+            let eventsData = values[0];
+            let eventsIDXData = values[1];
+            let summitData = values[2];
+            let speakersData = values[3];
+            let speakersIXData = values[4];
+            let extraQuestionsData = values[5];
+
+            if (!eventsData) eventsData = eventsBuildJson;
+            if (!eventsIDXData) eventsIDXData = eventsIDXBuildJson;
+            if (!summitData) summitData = summitBuildJson;
+            if (!speakersData) speakersData = speakersBuildJson;
+            if (!speakersIXData) speakersIXData = speakersIDXBuildJson;
+            if (!extraQuestionsData) extraQuestionsData = extraQuestionsBuildJson;
+
+            console.log(`feeds worker sending data to synch...`);
+            /* eslint-disable-next-line no-restricted-globals */
+            self.postMessage({
+                eventsData, summitData, speakersData, extraQuestionsData, eventsIDXData, speakersIXData
+            });
+        });
+
 };
