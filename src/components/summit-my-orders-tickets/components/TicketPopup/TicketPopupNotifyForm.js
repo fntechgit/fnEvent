@@ -21,7 +21,10 @@ export const TicketPopupNotifyForm = ({ ticket, summit }) => {
     };
 
     const handleNotifyButtonClick = () => {
-        dispatch(resendNotification({ ...ticket, message })).then(() => toggleSaveMessage());
+        dispatch(resendNotification({ ...ticket, message })).then(() => {
+            toggleSaveMessage();
+            setMessage('');
+        });
     }
 
     return (
@@ -48,7 +51,7 @@ export const TicketPopupNotifyForm = ({ ticket, summit }) => {
                 </p>
 
                 <p>
-                    <label>{t("ticket_popup.notify_message")} </label>{t("ticket_popup.notify_message_condition")}
+                    <label>{t("ticket_popup.notify_message")} </label> {t("ticket_popup.notify_message_condition")}
                     <br />
                     <textarea value={message} rows="4" onChange={(e) => setMessage(e.target.value)} style={{width: '80%', padding: 5}} />
                 </p>
