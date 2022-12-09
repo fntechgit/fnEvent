@@ -146,7 +146,7 @@ export const getTicketsByOrder = ({ orderId, page = 1, perPage = 5 }) => async (
     const params = {
         access_token: accessToken,        
         expand: 'refund_requests, owner, owner.extra_questions, badge, badge.features',
-        order: '-id',
+        order: '+id',
         page: page,
         per_page: perPage
     };
