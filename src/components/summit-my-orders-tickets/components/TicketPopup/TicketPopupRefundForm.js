@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useTranslation } from "react-i18next";
 import { useDispatch } from 'react-redux';
 import { CSSTransition } from "react-transition-group";
-import Alert from 'react-bootstrap/lib/Alert';
+import Alert from 'react-bootstrap/Alert';
 import { refundTicket } from '../../store/actions/ticket-actions';
 import { ConfirmPopup, CONFIRM_POPUP_CASE } from '../ConfirmPopup/ConfirmPopup';
 
@@ -36,7 +36,7 @@ export const TicketPopupRefundForm = ({ ticket, order }) => {
                         timeout={2000}
                         classNames="fade-in-out"
                     >
-                        <Alert bsStyle="success" className="ticket-popup-form-alert text-center">
+                        <Alert variant="success" className="ticket-popup-form-alert text-center">
                             {t("tickets.refund_request_success_message")}
                         </Alert>
                     </CSSTransition>

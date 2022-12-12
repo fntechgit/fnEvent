@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { CSSTransition } from "react-transition-group";
-import Alert from 'react-bootstrap/lib/Alert';
+import Alert from 'react-bootstrap/Alert';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { Input, RegistrationCompanyInput, RawHTML } from 'openstack-uicore-foundation/lib/components';
@@ -224,7 +224,7 @@ export const TicketPopupEditDetailsForm = ({
                     timeout={2000}
                     classNames="fade-in-out"
                 >
-                    <Alert bsStyle="success" className="ticket-popup-form-alert text-center">
+                    <Alert variant="success" className="ticket-popup-form-alert text-center">
                         {t("tickets.save_message")}
                     </Alert>
                 </CSSTransition>
@@ -237,7 +237,7 @@ export const TicketPopupEditDetailsForm = ({
                     timeout={2000}
                     classNames="fade-in-out"
                 >
-                    <Alert bsStyle="success" className="ticket-popup-form-alert text-center">
+                    <Alert variant="success" className="ticket-popup-form-alert text-center">
                         {t("tickets.unassign_success_message")}
                     </Alert>
                 </CSSTransition>

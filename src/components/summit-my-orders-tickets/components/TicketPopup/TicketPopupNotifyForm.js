@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { CSSTransition } from "react-transition-group";
-import Alert from 'react-bootstrap/lib/Alert';
+import Alert from 'react-bootstrap/Alert';
 import { resendNotification } from '../../store/actions/ticket-actions';
 import { getSummitFormattedReassignDate } from '../../util';
 
@@ -34,7 +34,7 @@ export const TicketPopupNotifyForm = ({ ticket, summit }) => {
                         timeout={2000}
                         classNames="fade-in-out"
                     >
-                        <Alert bsStyle="success" className="ticket-popup-form-alert text-center">
+                        <Alert variant="success" className="ticket-popup-form-alert text-center">
                             {t("tickets.notify_success_message")}
                         </Alert>
                     </CSSTransition>
