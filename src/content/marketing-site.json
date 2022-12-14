@@ -43,7 +43,7 @@
       "title": "Top Left",
       "images": [
         {
-          "image": "/img/ocp23r-fnv-marketing-space1.png",
+          "image": "/img/ocp23r-fnv-marketing-space1_v2.png",
           "alt": "",
           "link": "/travel"
         }
@@ -54,8 +54,8 @@
       "title": "Top Right",
       "images": [
         {
-          "image": "/img/ocp23r-fnv-marketing-space2.png",
-          "link": "https://www.opencompute.org/summit/global-summit",
+          "image": "/img/ocp23r-fnv-marketing-space2_v2.png",
+          "link": "https://www.opencompute.org/summit/regional-summit/sponsorship",
           "alt": ""
         }
       ],
@@ -65,7 +65,7 @@
       "title": "Mid Left",
       "images": [
         {
-          "image": "/img/ocp23r-fnv-marketing-space3.png",
+          "image": "/img/ocp23r-fnv-marketing-space3_v2.png",
           "alt": "",
           "link": "https://www.opencompute.org/membership/how-to-join"
         }
@@ -75,9 +75,9 @@
     {
       "images": [
         {
-          "image": "/img/ocp23r-fnv-marketing-space4.png",
+          "image": "/img/ocp23r-fnv-marketing-space4_v2.png",
           "alt": "",
-          "link": "https://www.opencompute.org/summit/regional-summit/sponsorship"
+          "link": "https://www.opencompute.org/summit/global-summit"
         }
       ],
       "size": 2
