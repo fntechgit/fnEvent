@@ -41,8 +41,6 @@ export const OrderDetails = ({ order, summit, className }) => {
         }, 50);
     };
 
-    console.log('order...', order);
-
     // Clear active order on unmount (i.e., when page pagination changes)
     useEffect(() => () => actions.setActiveOrderId(null), []);
 
