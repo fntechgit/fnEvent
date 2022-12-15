@@ -17,10 +17,10 @@ A request to cancel your ticket must be emailed to [](mailto:registration@openc
 
 **How to Register:**
 
-1. Navigate to the Global Summit event site: [2023ocpregional.fnvirtual.app](https://2023ocpregional.fnvirtual.app)
+1. Navigate to the Regional Summit event site: [2023ocpregional.fnvirtual.app](https://2023ocpregional.fnvirtual.app)
 2. Click the “Register now” button. Follow the log in instructions to authenticate yourself (this lets us know who you are) and complete the registration process. 
 
 **How to find your orders/tickets:**
 
-1. Navigate to the Global Summit event site: [2023ocpregional.fnvirtual.app](https://2023ocpregional.fnvirtual.app)[](https://2023ocpregional.fnvirtual.app)
+1. Navigate to the Regional Summit event site: [2023ocpregional.fnvirtual.app](https://2023ocpregional.fnvirtual.app)[](https://2023ocpregional.fnvirtual.app)
 2. Click the “Log in” button. Use the same authentication process you used above. Once you have been authenticated, a new link called “My Orders/Tickets” will appear in the green top nav bar. Click this link to see your order/tickets for this event.
