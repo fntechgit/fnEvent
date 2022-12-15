@@ -15,7 +15,7 @@ On-site: €500 (April 17–19)
 
 A request to cancel your ticket must be emailed to [](mailto:registration@opencompute.org)[registration@opencompute.org](mailto:registration@opencompute.org)[](mailto:registration@opencompute.org). Requests received on or prior to February 21, 2023 will receive a full refund. No refunds will be given after February 21, 2023.
 
-**How to Register:**
+**<br>How to Register:**
 
 1. Navigate to the Regional Summit event site: [2023ocpregional.fnvirtual.app](https://2023ocpregional.fnvirtual.app)
 2. Click the “Register now” button. Follow the log in instructions to authenticate yourself (this lets us know who you are) and complete the registration process. 
