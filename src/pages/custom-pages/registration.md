@@ -7,13 +7,13 @@ The 2023 OCP Regional Summit will be an in-person event. Please find the registr
 
 **Registration Options**
 
-Early Bird: €300 (December 7–February 3)\
-General: €400 (February 4–April 16)\
-On-site: €500 (April 17–19)
+Early Bird: €300 (7 December–3 February)\
+General: €400 (4 February–16 April)\
+On-site: €500 (17–19 April)
 
 **Cancelation Policy**
 
-A request to cancel your ticket must be emailed to [](mailto:registration@opencompute.org)[registration@opencompute.org](mailto:registration@opencompute.org)[](mailto:registration@opencompute.org). Requests received on or prior to February 21, 2023 will receive a full refund. No refunds will be given after February 21, 2023.
+A request to cancel your ticket must be emailed to [](mailto:registration@opencompute.org)[registration@opencompute.org](mailto:registration@opencompute.org)[](mailto:registration@opencompute.org). Requests received on or prior to 21 February 2023 will receive a full refund. No refunds will be given after 21 February 2023.
 
 **<br>How to Register:**
 
