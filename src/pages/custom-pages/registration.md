@@ -7,7 +7,7 @@ The 2023 OCP Regional Summit will be an in-person event. Please find the registr
 
 **Registration Options**
 
-Early Bird: €300 (7 December–3 February)\
+Early Bird: €300 (15 December–3 February)\
 General: €400 (4 February–16 April)\
 On-site: €500 (17–19 April)
 
