@@ -8,7 +8,8 @@ import {
     getDocumentOffset,
     getFormattedDate,
     getOrderStatusData,
-    getSummitFormattedDate
+    getSummitFormattedDate,
+    formatCurrency
 } from "../../util";
 import { useOrderListContext } from "../OrderList/OrderList.helpers";
 
@@ -39,6 +40,8 @@ export const OrderDetails = ({ order, summit, className }) => {
             });
         }, 50);
     };
+
+    console.log('order...', order);
 
     // Clear active order on unmount (i.e., when page pagination changes)
     useEffect(() => () => actions.setActiveOrderId(null), []);
@@ -92,7 +95,7 @@ export const OrderDetails = ({ order, summit, className }) => {
             </div>
 
             <div className="order-details__footer">
-                <h4 className="order-details__amount">${order.amount}</h4>
+                <h4 className="order-details__amount">{formatCurrency(order.amount, { currency: order.currency })}</h4>
                 <i className={classNames(
                     'order-details__arrow fa',
                     {

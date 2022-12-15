@@ -6,3 +6,4 @@ export * from './getDocumentOffset';
 export * from './getFormattedDate';
 export * from './getFormattedTime';
 export * from './getWindowScroll';
+export * from './formatCurrency';
