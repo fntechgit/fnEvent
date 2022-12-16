@@ -48,7 +48,7 @@ export const OrderTicketDetails = ({ ticket, summit, order, className }) => {
 
                             {ticket.discount > 0 && (
                                 <div className="order-ticket-details__role">
-                                    {(ticket.discount * 100) / ticket.raw_cost}% discount
+                                    {((ticket.discount_in_cents / ticket.raw_cost_in_cents)*100).toFixed(0)}% discount
                                 </div>
                             )}
 

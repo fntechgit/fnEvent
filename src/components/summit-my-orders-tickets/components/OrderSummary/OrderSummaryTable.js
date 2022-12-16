@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { calculateOrderTotals } from '../../util';
+import { calculateOrderTotals, formatCurrency } from '../../util';
 
 export const OrderSummaryTable = ({ order, summit, tickets }) => {
     const { t } = useTranslation();
@@ -23,7 +23,7 @@ export const OrderSummaryTable = ({ order, summit, tickets }) => {
             {ticketSummary.length > 0 && (
                 <>
                     {ticketSummary.map(ticket => {
-                        const ticketTotal = ticket.qty * ticket.ticket_type.cost;
+                        const ticketTotal = (ticket.qty * (ticket.ticket_type.cost * 100))/100;
 
                         return (
                             <div className="row order-row" key={`tixorder_${ticket.ticket_type.created}`}>
@@ -32,7 +32,7 @@ export const OrderSummaryTable = ({ order, summit, tickets }) => {
                                     <span>x{ticket.qty}</span>
                                 </div>
                                 <div className="col-xs-5 text-right subtotal">
-                                    ${ticketTotal?.toFixed(2)}
+                                    {formatCurrency(ticketTotal, { currency: order.currency })}
                                 </div>
                             </div>
                         )
@@ -40,24 +40,24 @@ export const OrderSummaryTable = ({ order, summit, tickets }) => {
                 </>
             )}
 
-            {discountTotal > 0 && (
+            {order.discount_amount > 0 && (
                 <div className="row order-discounts order-row">
                     <div className="col-xs-7 text-left">
                         {t("order_summary.discounts")}
                     </div>
                     <div className="col-xs-5 text-right subtotal">
-                        -${discountTotal}
+                        -{discountTotal}
                     </div>
                 </div>
             )}
 
-            {taxesTotal > 0 && (
+            {order.taxes_amount > 0 && (
                 <div className="row order-taxes order-row">
                     <div className="col-xs-7 text-left">
                         {t("order_summary.taxes")}
                     </div>
                     <div className="col-xs-5 text-right subtotal">
-                        ${taxesTotal}
+                        {taxesTotal}
                     </div>
                 </div>
             )}
@@ -68,7 +68,7 @@ export const OrderSummaryTable = ({ order, summit, tickets }) => {
                         {t("order_summary.amount_paid")}
                     </div>
                     <div className="col-xs-5 text-right subtotal">
-                        -${amountTotal}
+                        -{amountTotal}
                     </div>
                 </div>
             )}
@@ -79,7 +79,7 @@ export const OrderSummaryTable = ({ order, summit, tickets }) => {
                         {t("order_summary.refunds")}
                     </div>
                     <div className="col-xs-5 text-right subtotal">
-                        ${refundTotal}
+                        {refundTotal}
                     </div>
                 </div>
             )}
@@ -89,7 +89,7 @@ export const OrderSummaryTable = ({ order, summit, tickets }) => {
                     {t("order_summary.total")}
                 </div>
                 <div className="col-xs-6 text-right total">
-                    ${order.status === 'Paid' ? '0.00' : amountTotal}
+                    {order.status === 'Paid' ? '$0.00' : amountTotal}
                 </div>
             </div>
         </div>
