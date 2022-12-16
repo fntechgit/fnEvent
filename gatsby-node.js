@@ -85,6 +85,53 @@ const SSR_getEvents = async (baseUrl, summitId, accessToken) => {
   }).catch(e => console.log('ERROR: ', e));
 };
 
+const SSR_getSponsors = async (baseUrl, summitId, accessToken) => {
+
+  const endpoint = `${baseUrl}/api/v1/summits/${summitId}/sponsors`;
+
+  const params = {
+        access_token: accessToken,
+        per_page: 50,
+        page: 1,
+        expand: 'company,sponsorship,sponsorship.type',
+  }
+
+  return await axios.get(endpoint, { params }).then(async ({data}) => {
+
+    console.log(`SSR_getSponsors then data.current_page ${data.current_page} data.last_page ${data.last_page} total ${data.total}`)
+
+    let remainingPages = await SSR_GetRemainingPages(endpoint, params, data.last_page);
+
+    return [...data.data, ...remainingPages];
+
+  }).catch(e => console.log('ERROR: ', e));
+};
+
+const SSR_getSponsorCollections = async (allSponsors, baseUrl, summitId, accessToken) => {
+
+  const params = {
+        access_token: accessToken,
+        per_page: 50,
+        page: 1,
+  }
+
+  const getSponsorCollection = async (endpoint, params) => await axios.get(endpoint, { params }).then(async ({data}) => {
+    console.log(`SSR_getSponsorCollection then data.current_page ${data.current_page} data.last_page ${data.last_page} total ${data.total}`)
+    let remainingPages = await SSR_GetRemainingPages(endpoint, params, data.last_page);
+    return [...data.data, ...remainingPages];
+  }).catch(e => console.log('ERROR: ', e));
+
+  const sponsorsWithCollections = await Promise.all(allSponsors.map(async (sponsor) => {
+    console.log(`Collections for ${sponsor.company.name}...`);
+    const ads = await getSponsorCollection(`${baseUrl}/api/v1/summits/${summitId}/sponsors/${sponsor.id}/ads`, params);
+    const materials = await getSponsorCollection(`${baseUrl}/api/v1/summits/${summitId}/sponsors/${sponsor.id}/materials`, params);
+    const social_networks = await getSponsorCollection(`${baseUrl}/api/v1/summits/${summitId}/sponsors/${sponsor.id}/social-networks`, params);
+    return ({...sponsor, ads, materials, social_networks})
+  }));
+
+  return sponsorsWithCollections;
+};
+
 const SSR_getSpeakers = async (baseUrl, summitId, accessToken, filter = null) => {
 
   const params = {
@@ -245,8 +292,13 @@ exports.onPreBootstrap = async () => {
   console.log(`allSpeakers ${allSpeakers.length}`);
   fs.writeFileSync('src/content/speakers.json', JSON.stringify(allSpeakers), 'utf8');
 
-  // Voteable Presentations
+  // Show Sponsors
+  const allSponsors = await SSR_getSponsors(summitApiBaseUrl, summitId, accessToken);
+  console.log(`allSponsors ${allSponsors.length}`);
+  const sponsorsWithCollections  = await SSR_getSponsorCollections(allSponsors, summitApiBaseUrl, summitId, accessToken);
+  fs.writeFileSync('src/content/sponsors.json', JSON.stringify(sponsorsWithCollections), 'utf8');
 
+  // Voteable Presentations
   const allVoteablePresentations = await SSR_getVoteablePresentations(summitApiBaseUrl, summitId, accessToken);
   console.log(`allVoteablePresentations ${allVoteablePresentations.length}`);
   fs.writeFileSync('src/content/voteable_presentations.json', JSON.stringify(allVoteablePresentations), 'utf8');

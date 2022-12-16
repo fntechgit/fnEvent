@@ -9,7 +9,7 @@ import styles from "../styles/documents.module.scss";
  * @returns {JSX.Element|null}
  * @constructor
  */
-const DocumentsComponent = ({ event }) => {
+const DocumentsComponent = ({ event }, sponsorPage = false) => {
 
   const getMaterials = (event) => {
     const allMaterials = [
@@ -24,7 +24,7 @@ const DocumentsComponent = ({ event }) => {
       .sort((a, b) => a.order - b.order);
   };
 
-  const sortedMaterials = getMaterials(event);
+  const sortedMaterials = sponsorPage === true ? event : getMaterials(event);
   if (sortedMaterials.length === 0) return null;
 
   return (
@@ -34,11 +34,13 @@ const DocumentsComponent = ({ event }) => {
         <hr />
         {sortedMaterials.map((material, index) => {
           let faIcon = "fa-link";
-          switch (material.class_name) {
+          switch (material.class_name || material.type) {
             case "PresentationSlide":
+            case "Slide":
               faIcon = "fa-file-o";
               break;
             case "PresentationVideo":
+            case "Video":
               faIcon = "fa-video-camera";
               break;
             case "PresentationMediaUpload":
@@ -56,7 +58,8 @@ const DocumentsComponent = ({ event }) => {
           return (
             <React.Fragment key={index}>
               {material.class_name === "PresentationSlide" ||
-              material.class_name === "PresentationMediaUpload" ? (
+              material.class_name === "PresentationMediaUpload" ||
+              material.type === "Slide" ? (
                 <div
                   className={`${styles.documentColumn} columns is-mobile is-vcentered`}
                   key={index}

@@ -156,7 +156,7 @@ export const requireExtraQuestions = () => (dispatch, getState) => {
   if (!owner.first_name || !owner.last_name || !owner.company || !owner.email) return true;
   const disclaimer = summit.registration_disclaimer_mandatory ? owner.disclaimer_accepted : true;
   if (!disclaimer) return true;
-  if (extra_questions.length > 0) {
+  if (extra_questions?.length > 0) {
     const qs = new QuestionsSet(extra_questions, owner.extra_questions || []);
     return !qs.completed();
   }
