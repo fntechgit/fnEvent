@@ -15,7 +15,7 @@ import NotFoundPage from "../pages/404";
 import withScheduleData from '../utils/withScheduleData'
 import styles from "../styles/full-schedule.module.scss";
 
-const SchedulePage = ({ summit, scheduleState, summitPhase, isLoggedUser, location, colorSettings, updateFilter, scheduleProps, schedKey, allowClick }) => {
+const SchedulePage = ({ summit, scheduleState, summitPhase, isLoggedUser, location, colorSettings, updateFilter, scheduleProps, schedKey, allowClick, lastDataSync }) => {
 
   const [showFilters, setShowfilters] = useState(false);
 
@@ -83,7 +83,9 @@ const SchedulePage = ({ summit, scheduleState, summitPhase, isLoggedUser, locati
       <div className={`container ${styles.container}`}>
         <div className={`${styles.wrapper} ${showFilters ? styles.showFilters : ""}`}>
           <div className={styles.scheduleWrapper}>
-            <FullSchedule {...schedProps} />
+            <FullSchedule {...schedProps}
+                          key={`fullschedule_${lastDataSync}`}
+            />
           </div>
           <div ref={filtersWrapperRef} className={styles.filterWrapper}>
             <ScheduleFilters {...filterProps} />

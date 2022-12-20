@@ -1,32 +1,30 @@
-import {compressToUTF16, decompressFromUTF16} from 'lz-string';
+import {decompressFromUTF16} from 'lz-string';
 import {createAction} from "openstack-uicore-foundation/lib/utils/actions";
 import {RELOAD_USER_PROFILE} from "./schedule-actions";
 import {getFromCache, putOnCache} from "../utils/cacheUtils";
-import {SYNC_DATA} from './base-actions-definitions';
-import { RELOAD_EVENT_STATE} from './event-actions-definitions';
-const BUCKET_EVENTS_ETAG_KEY = 'eventsETAG';
-const BUCKET_EVENTS_DATA_KEY = 'eventsJSON';
-const BUCKET_EVENTS_IDX_ETAG_KEY = 'eventsIDXETAG';
-const BUCKET_EVENTS_IDX_DATA_KEY = 'eventsIDXJSON';
-const BUCKET_SUMMIT_ETAG_KEY = 'summitETAG';
-const BUCKET_SUMMIT_DATA_KEY = 'summitJSON';
-const BUCKET_SPEAKERS_ETAG_KEY = 'speakersETAG';
-const BUCKET_SPEAKERS_DATA_KEY = 'speakersJSON';
-const BUCKET_SPEAKERS_IDX_ETAG_KEY = 'speakersIDXETAG';
-const BUCKET_SPEAKERS_IDX_DATA_KEY = 'speakersIDXJSON';
-const BUCKET_EXTRA_QUESTIONS_ETAG_KEY = 'extraQuestionsETAG';
-const BUCKET_EXTRA_QUESTIONS_DATA_KEY = 'extraQuestionsJSON';
-const BUCKET_VOTABLE_PRES_ETAG_KEY = 'votablePresETAG';
-const BUCKET_VOTABLE_PRES_DATA_KEY = 'votablePresJSON';
+import {SYNC_DATA, UPDATE_LAST_CHECK_FOR_NOVELTIES} from './base-actions-definitions';
+import {RELOAD_EVENT_STATE} from './event-actions-definitions';
+import {
+    getKey,
+    getUrl,
+    storeData,
+    BUCKET_EVENTS_ETAG_KEY,
+    BUCKET_EVENTS_DATA_KEY,
+    BUCKET_EVENTS_IDX_ETAG_KEY,
+    BUCKET_EVENTS_IDX_DATA_KEY,
+    BUCKET_SUMMIT_ETAG_KEY,
+    BUCKET_SUMMIT_DATA_KEY,
+    BUCKET_SPEAKERS_ETAG_KEY,
+    BUCKET_SPEAKERS_DATA_KEY,
+    BUCKET_SPEAKERS_IDX_ETAG_KEY,
+    BUCKET_SPEAKERS_IDX_DATA_KEY,
+    BUCKET_EXTRA_QUESTIONS_ETAG_KEY,
+    BUCKET_EXTRA_QUESTIONS_DATA_KEY,
+    BUCKET_VOTABLE_PRES_ETAG_KEY,
+    BUCKET_VOTABLE_PRES_DATA_KEY,
+} from '../utils/dataUpdatesUtils';
+import moment from "moment-timezone";
 
-const getKey = (summitId, tag) => {
-    return `${tag}_${summitId}`;
-}
-
-const getUrl = (summitId, fileName) => {
-    if(!process.env.GATSBY_BUCKET_BASE_URL) return null;
-    return `${process.env.GATSBY_BUCKET_BASE_URL}/${summitId}/${fileName}`;
-}
 
 /**
  *
@@ -38,11 +36,14 @@ const getUrl = (summitId, fileName) => {
  * @returns {Promise<Response>}
  */
 const fetchBucket = async (etagKeyPre, dataKeyPre, fileName, summitId, lastBuildTime) => {
+
     const headers = {};
     const url = getUrl(summitId, fileName);
     const eTagKey = getKey(summitId, etagKeyPre);
     const dataKey = getKey(summitId, dataKeyPre);
+    const lastModifiedKey = getKey(summitId, `${dataKeyPre}_LAST_MODIFIED`);
     const eTag = await getFromCache(`files_${summitId}`, eTagKey);
+    const lastModifiedStored = await getFromCache(`files_${summitId}`, lastModifiedKey);
 
     if (eTag) headers.headers = {'If-None-Match': eTag};
 
@@ -64,24 +65,37 @@ const fetchBucket = async (etagKeyPre, dataKeyPre, fileName, summitId, lastBuild
 
             // store etag
             const resETag = response.headers.get('etag');
-            const lastModified = response.headers.get('last-modified');
+            const resLastModified = response.headers.get('last-modified');
+
+            if (resLastModified) {;
+                const lastModifiedFieldEpoch = Date.parse(resLastModified) / 1000;
+                if(lastModifiedStored && parseInt(lastModifiedStored) > lastModifiedFieldEpoch){
+                    console.log(`lastModifiedStored ${lastModifiedStored} is more recent than lastModifiedFieldEpoch ${lastModifiedFieldEpoch} (local is newer). Discarding response.`);
+                    const storedData = await getFromCache(`files_${summitId}`, dataKey);
+                    if (storedData) {
+                        const data = decompressFromUTF16(storedData);
+                        return JSON.parse(data);
+                    }
+                    return null;
+                }
+                await putOnCache(`files_${summitId}`, lastModifiedKey, lastModifiedFieldEpoch);
+            }
+
             if (resETag) {
                 await putOnCache(`files_${summitId}`, eTagKey, resETag);
             }
 
-            if (lastModified && lastBuildTime) {
-                const lastModifiedEpoch = Date.parse(lastModified) / 1000;
-                console.log(`${fileName} last modified ${lastModifiedEpoch} lastBuildTime ${lastBuildTime}`);
-                if (lastModifiedEpoch < lastBuildTime) {
+            if (resLastModified && lastBuildTime) {
+                const lastModifiedFieldEpoch = Date.parse(resLastModified) / 1000;
+                console.log(`${fileName} last modified ${lastModifiedFieldEpoch} lastBuildTime ${lastBuildTime}`);
+                if (lastModifiedFieldEpoch < lastBuildTime) {
+                    console.log(`lastBuildTime is recent, we will use SSR files`)
                     return null;
                 }
             }
 
             if (data) {
-                // store data
-                const compressedData = compressToUTF16(JSON.stringify(data));
-                await putOnCache(`files_${summitId}`, dataKey, compressedData);
-                return data;
+                return storeData(summitId, dataKey, data);
             } else {
                 console.log('Error fetching updates: no data in response.');
             }
@@ -216,6 +230,8 @@ export const synchEntityData = (
 
     if (isLoggedUser)
         dispatch(createAction(RELOAD_USER_PROFILE)({isLoggedUser, userProfile}));
+
+    dispatch(createAction(UPDATE_LAST_CHECK_FOR_NOVELTIES)(payload.created_at));
 
     const {entity_operator, entity_type} = payload;
     // check if its a presentation to reload event state

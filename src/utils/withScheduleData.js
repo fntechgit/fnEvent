@@ -39,6 +39,7 @@ const mapStateToProps = ({
   schedules: allSchedulesState.schedules,
   colorSettings: settingState.colorSettings,
   staticJsonFilesBuildTime: settingState.staticJsonFilesBuildTime,
+  lastDataSync: settingState.lastDataSync,
 });
 
 const reduxConnection = connect(mapStateToProps, {

@@ -1,7 +1,14 @@
 import { insertSorted, intCheck } from "../utils/arrayUtils";
-import { fetchEventById } from "../actions/fetch-entities-actions";
-import {getFromCache, getNoveltiesBucketKey, putOnCache} from "../utils/cacheUtils";
-import {compressToUTF16, decompressFromUTF16} from "lz-string";
+import { fetchEventById, fetchLocationById, fetchSpeakerById } from "../actions/fetch-entities-actions";
+import {
+    getKey,
+    BUCKET_EVENTS_DATA_KEY,
+    BUCKET_EVENTS_IDX_DATA_KEY,
+    BUCKET_SPEAKERS_DATA_KEY,
+    BUCKET_SPEAKERS_IDX_DATA_KEY,
+    storeData,
+} from '../utils/dataUpdatesUtils';
+import {putOnCache} from "../utils/cacheUtils";
 
 /* eslint-disable-next-line no-restricted-globals */
 self.onmessage = async ({ data: { accessToken, noveltiesArray, summit, allEvents, allIDXEvents, allSpeakers, allIDXSpeakers } }) =>  {
@@ -15,17 +22,11 @@ self.onmessage = async ({ data: { accessToken, noveltiesArray, summit, allEvents
 
     console.log(`synch worker running for ${summit.id} ....`)
 
-    const rawQueue = await getFromCache(getNoveltiesBucketKey(summit), 'queue');
-    let queue = [];
-
-    if (rawQueue) {
-        const data = decompressFromUTF16(rawQueue);
-        queue = JSON.parse(data);
-    }
+    let eventsData = [...allEvents];
 
     for (const payload of noveltiesArray) {
 
-        console.log(`synch worker procesing payload `, payload);
+        console.log(`synch worker processing payload `, payload);
 
         const {entity_operator,  entity_type, entity_id} = payload;
 
@@ -33,8 +34,7 @@ self.onmessage = async ({ data: { accessToken, noveltiesArray, summit, allEvents
         if(entity_type === 'Presentation') {
 
             const entity = await fetchEventById(summit.id, entity_id, accessToken);
-            let eventsData = [...allEvents];
-            queue.push({payload, entity});
+
             if (entity_operator === 'UPDATE') {
 
                 if(!entity){
@@ -42,7 +42,7 @@ self.onmessage = async ({ data: { accessToken, noveltiesArray, summit, allEvents
                     // try to get from index
                     console.log(`synch worker unpublished presentation ${entity_id}`)
                     const idx =  allIDXEvents.hasOwnProperty(entity_id) ? allIDXEvents[entity_id] : -1;
-                    if(idx < 0) continue; // does not exists on index ...
+                    if(idx === -1) continue; // does not exists on index ...
                     // remove it from dataset
                     eventsData.splice(idx, 1);
                     // remove it from index
@@ -52,7 +52,7 @@ self.onmessage = async ({ data: { accessToken, noveltiesArray, summit, allEvents
                     // entity is published
 
                     const idx = allIDXEvents.hasOwnProperty(entity.id) ? allIDXEvents[entity.id] : -1;
-                    let formerEntity = idx > 0 ? eventsData[idx] : null;
+                    let formerEntity = idx === -1 ? null : eventsData[idx];
                     if (formerEntity && formerEntity.id !== entity.id) continue; // it's not the same
 
                     if(!formerEntity){
@@ -102,7 +102,19 @@ self.onmessage = async ({ data: { accessToken, noveltiesArray, summit, allEvents
                     }
                 }
 
-                // store on queue
+                // update files on cache
+
+                const localNowUtc = Math.round(+new Date() / 1000);
+
+                await storeData(summit.id, getKey(summit.id, BUCKET_EVENTS_DATA_KEY), eventsData);
+                await putOnCache(`files_${summit.id}`,  getKey(summit.id, `${BUCKET_EVENTS_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
+                await storeData(summit.id, getKey(summit.id, BUCKET_EVENTS_IDX_DATA_KEY), allIDXEvents);
+                await putOnCache(`files_${summit.id}`,  getKey(summit.id, `${BUCKET_EVENTS_IDX_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
+                await storeData(summit.id, getKey(summit.id, BUCKET_SPEAKERS_DATA_KEY), allSpeakers);
+                await putOnCache(`files_${summit.id}`,  getKey(summit.id, `${BUCKET_SPEAKERS_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
+                await storeData(summit.id, getKey(summit.id, BUCKET_SPEAKERS_IDX_DATA_KEY), allIDXSpeakers);
+                await putOnCache(`files_${summit.id}`,  getKey(summit.id, `${BUCKET_SPEAKERS_IDX_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
+
                 // post a message per entity
 
                 /* eslint-disable-next-line no-restricted-globals */
@@ -115,13 +127,94 @@ self.onmessage = async ({ data: { accessToken, noveltiesArray, summit, allEvents
                 });
             }
         }
-    }
+        if(entity_type === 'SummitVenueRoom'){
+            const entity = await fetchLocationById(summit.id, entity_id, 'floor,venue' , accessToken);
+            if (entity_operator === 'UPDATE') {
 
-    // store queue
+                if (entity && entity.hasOwnProperty('published_events')) {
+                    for (const publishedEventId of entity.published_events) {
+                        const idx = allIDXEvents.hasOwnProperty(publishedEventId) ? allIDXEvents[publishedEventId] : -1;
+                        let formerEntity = idx === -1 ? null : eventsData[idx];
+                        if (formerEntity && formerEntity.id !== publishedEventId) continue; // it's not the same
+                        eventsData[idx] = {...formerEntity, location: entity};
+                    }
 
-    if (queue) {
-        // store data
-        const compressedData = compressToUTF16(JSON.stringify(queue));
-        await putOnCache(getNoveltiesBucketKey(summit), 'queue', compressedData);
+                    // update files on cache
+
+                    const localNowUtc = Math.round(+new Date() / 1000);
+
+                    await storeData(summit.id, getKey(summit.id, BUCKET_EVENTS_DATA_KEY), eventsData);
+                    await putOnCache(`files_${summit.id}`, getKey(summit.id, `${BUCKET_EVENTS_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
+                    await storeData(summit.id, getKey(summit.id, BUCKET_EVENTS_IDX_DATA_KEY), allIDXEvents);
+                    await putOnCache(`files_${summit.id}`, getKey(summit.id, `${BUCKET_EVENTS_IDX_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
+                    await storeData(summit.id, getKey(summit.id, BUCKET_SPEAKERS_DATA_KEY), allSpeakers);
+                    await putOnCache(`files_${summit.id}`, getKey(summit.id, `${BUCKET_SPEAKERS_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
+                    await storeData(summit.id, getKey(summit.id, BUCKET_SPEAKERS_IDX_DATA_KEY), allIDXSpeakers);
+                    await putOnCache(`files_${summit.id}`, getKey(summit.id, `${BUCKET_SPEAKERS_IDX_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
+
+                    // post a message per entity
+
+                    /* eslint-disable-next-line no-restricted-globals */
+                    self.postMessage({
+                        entity,
+                        eventsData,
+                        allIDXEvents,
+                        allSpeakers,
+                        allIDXSpeakers
+                    });
+                }
+            }
+        }
+        if(entity_type === 'PresentationSpeaker') {
+            const entity = await fetchSpeakerById(summit.id, entity_id, accessToken);
+            if (entity_operator === 'UPDATE') {
+                if(!entity) continue;
+                const idx = allIDXSpeakers.hasOwnProperty(entity_id) ? allIDXSpeakers[entity_id] : -1;
+                let formerEntity = idx === -1 ? null : allSpeakers[idx];
+                if (formerEntity && formerEntity.id !== entity_id) continue; // it's not the same
+                const updatedSpeaker =  {...formerEntity, ...entity};
+                allSpeakers[idx] = updatedSpeaker;
+
+                // check presentations
+                if (entity && entity.hasOwnProperty('presentations')) {
+                    for (const publishedEventId of entity.presentations) {
+                        const idx = allIDXEvents.hasOwnProperty(publishedEventId) ? allIDXEvents[publishedEventId] : -1;
+                        let formerEntity = idx === -1 ? null : eventsData[idx];
+                        if (formerEntity && formerEntity.id !== publishedEventId) continue; // it's not the same
+                        // check if speakers collection
+                        let speakers = formerEntity.speakers.map( s => {
+                            if(s.id === entity_id){
+                                return updatedSpeaker;
+                            }
+                            return s;
+                        })
+                        eventsData[idx] = {...formerEntity, speakers: speakers};
+                    }
+                }
+                // update files on cache
+
+                const localNowUtc = Math.round(+new Date() / 1000);
+
+                await storeData(summit.id, getKey(summit.id, BUCKET_EVENTS_DATA_KEY), eventsData);
+                await putOnCache(`files_${summit.id}`, getKey(summit.id, `${BUCKET_EVENTS_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
+                await storeData(summit.id, getKey(summit.id, BUCKET_EVENTS_IDX_DATA_KEY), allIDXEvents);
+                await putOnCache(`files_${summit.id}`, getKey(summit.id, `${BUCKET_EVENTS_IDX_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
+                await storeData(summit.id, getKey(summit.id, BUCKET_SPEAKERS_DATA_KEY), allSpeakers);
+                await putOnCache(`files_${summit.id}`, getKey(summit.id, `${BUCKET_SPEAKERS_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
+                await storeData(summit.id, getKey(summit.id, BUCKET_SPEAKERS_IDX_DATA_KEY), allIDXSpeakers);
+                await putOnCache(`files_${summit.id}`, getKey(summit.id, `${BUCKET_SPEAKERS_IDX_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
+
+                // post a message per entity
+
+                /* eslint-disable-next-line no-restricted-globals */
+                self.postMessage({
+                    entity,
+                    eventsData,
+                    allIDXEvents,
+                    allSpeakers,
+                    allIDXSpeakers
+                });
+            }
+        }
     }
 };

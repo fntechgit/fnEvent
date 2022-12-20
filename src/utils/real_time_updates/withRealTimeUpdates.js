@@ -29,8 +29,8 @@ const withRealTimeUpdates = WrappedComponent => {
         constructor(props) {
             super(props);
 
-            const {summit, allEvents, allIDXEvents, allSpeakers, allIDXSpeakers, synchEntityData} = props;
 
+            let _this = this;
             this.createRealTimeSubscription = this.createRealTimeSubscription.bind(this);
             this.queryRealTimeDB = this.queryRealTimeDB.bind(this);
             this.checkForPastNovelties = this.checkForPastNovelties.bind(this);
@@ -51,6 +51,7 @@ const withRealTimeUpdates = WrappedComponent => {
                 getEnvVariable(REAL_TIME_UPDATES_STRATEGY),
                 async (payload) => {
 
+                    const {summit, allEvents, allIDXEvents, allSpeakers, allIDXSpeakers, synchEntityData} = _this.props;
                     let accessToken = null;
                     try {
                         accessToken = await getAccessToken();
@@ -119,9 +120,9 @@ const withRealTimeUpdates = WrappedComponent => {
             try {
                 const res = await this._supabase
                     .from('summit_entity_updates')
-                    .select('id,created_at,summit_id,entity_id,entity_type,entity_op')
+                    .select('id,created_at_epoch,summit_id,entity_id,entity_type,entity_op')
                     .eq('summit_id', summitId)
-                    .gt('created_at', new Date(lastCheckForNovelties).toUTCString())
+                    .gt('created_at_epoch', lastCheckForNovelties)
                     .order('id', {ascending: true});
 
                 if (res.error)
@@ -172,7 +173,7 @@ const withRealTimeUpdates = WrappedComponent => {
                 if (lastUpdateNovelty) {
                     // update lastCheckForNovelties
                     console.log("withRealTimeUpdates::checkForPastNovelties updateLastCheckForNovelties", lastUpdateNovelty);
-                    this.props.updateLastCheckForNovelties(moment.utc(lastUpdateNovelty).valueOf());
+                    this.props.updateLastCheckForNovelties(lastUpdateNovelty);
                 }
 
             }).catch((err) => console.log(err));

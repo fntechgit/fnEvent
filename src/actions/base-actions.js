@@ -23,15 +23,17 @@ export const updateLastCheckForNovelties = (date) => (dispatch) => {
  * @param summitData
  * @param speakersData
  * @param extraQuestionsData
+ * @param eventsIDXData
+ * @param speakersIDXData
  * @returns {(function(*, *): Promise<void>)|*}
  */
 export const syncData = (
-    eventsData, summitData, speakersData, extraQuestionsData, eventsIDXData, speakersIXData
+    eventsData, summitData, speakersData, extraQuestionsData, eventsIDXData, speakersIDXData
 ) => async (dispatch, getState) => {
   const { userState, loggedUserState } = getState();
   const { isLoggedUser } = loggedUserState;
   const { userProfile } = userState;
-  const syncPayload = { isLoggedUser, userProfile, eventsData, summitData, speakersData, extraQuestionsData, eventsIDXData, speakersIXData };
+  const syncPayload = { isLoggedUser, userProfile, eventsData, summitData, speakersData, extraQuestionsData, eventsIDXData, allIDXSpeakers: speakersIDXData };
   dispatch(createAction(SYNC_DATA)(syncPayload));
 
   if(isLoggedUser)

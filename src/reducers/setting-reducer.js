@@ -36,7 +36,8 @@ const settingReducer = (state = DEFAULT_STATE, action) => {
       return {...DEFAULT_STATE,
         lastBuild: settings.lastBuild,
         staticJsonFilesBuildTime: settings.staticJsonFilesBuildTime,
-        lastDataSync: Math.round(+new Date() / 1000)
+        lastDataSync: Math.round(+new Date() / 1000),
+        lastCheckForNovelties: state.lastCheckForNovelties,
       };
     case  UPDATE_LAST_CHECK_FOR_NOVELTIES:
       return {...state, lastCheckForNovelties: payload};
