@@ -22,7 +22,7 @@ export const calculateOrderTotals = ({ order, summit, tickets }) => {
     const discountTotal = formatCurrency(discount_amount, currencyObject);
     const refundTotal = formatCurrency(refunded_amount, currencyObject);
     const taxesTotal = formatCurrency(taxes_amount, currencyObject);
-    const amountTotal = amount ? formatCurrency(amount, currencyObject) : formatCurrency(purchaseTotal, currencyObject);
+    const amountTotal = order.hasOwnProperty("amount") ? formatCurrency(amount, currencyObject) : formatCurrency(purchaseTotal, currencyObject);
 
     return { discountTotal, refundTotal, taxesTotal, amountTotal, ticketSummary };
 };
