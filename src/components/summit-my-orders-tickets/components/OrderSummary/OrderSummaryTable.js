@@ -68,7 +68,7 @@ export const OrderSummaryTable = ({ order, summit, tickets }) => {
                         {t("order_summary.amount_paid")}
                     </div>
                     <div className="col-xs-5 text-right subtotal">
-                        -{amountTotal}
+                        {`${order?.amount === 0 ? '':'-'}${amountTotal}`}
                     </div>
                 </div>
             )}
