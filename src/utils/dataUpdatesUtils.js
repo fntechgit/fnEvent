@@ -31,3 +31,7 @@ export const storeData = async (summitId, dataKey, data) => {
     await putOnCache(`files_${summitId}`, dataKey, compressedData);
     return data;
 }
+
+export const isSummitEventDataUpdate = (entity_type) => {
+    return entity_type === 'Presentation' || entity_type === 'SummitEvent';
+}

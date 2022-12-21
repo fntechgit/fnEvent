@@ -80,3 +80,25 @@ export const fetchSpeakerById = async(summitId, speakerId, accessToken = null) =
         return null;
     });
 }
+
+/**
+ *
+ * @param summitId
+ * @param accessToken
+ * @returns {Promise<Response>}
+ */
+export const fetchSummitById =  async(summitId, accessToken = null) => {
+    let apiUrl = URI(`${process.env.GATSBY_SUMMIT_API_BASE_URL}/api/public/v1/summits/${summitId}`);
+
+    apiUrl.addQuery('expand', 'event_types,tracks,track_groups,presentation_levels,locations.rooms,locations.floors,order_extra_questions.values,schedule_settings,schedule_settings.filters,schedule_settings.pre_filters');
+    apiUrl.addQuery('t', Date.now());
+
+    return fetch(apiUrl.toString(), {
+        method: 'GET'
+    }).then(async (response) => {
+        if (response.status === 200) {
+            return await response.json();
+        }
+        return null;
+    });
+}

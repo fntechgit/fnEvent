@@ -18,6 +18,10 @@ const summitReducer = (state = DEFAULT_STATE, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    case SYNC_DATA: {
+      const {summitData} = payload;
+      return {...state, summit: summitData};
+    }
     case RESET_STATE:
     case LOGOUT_USER:
       return DEFAULT_STATE;

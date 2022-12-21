@@ -22,9 +22,8 @@ import {
     BUCKET_EXTRA_QUESTIONS_DATA_KEY,
     BUCKET_VOTABLE_PRES_ETAG_KEY,
     BUCKET_VOTABLE_PRES_DATA_KEY,
+    isSummitEventDataUpdate,
 } from '../utils/dataUpdatesUtils';
-import moment from "moment-timezone";
-
 
 /**
  *
@@ -195,6 +194,7 @@ export const bucket_getSpeakersIDX = (summitId, lastBuildTime = null) => {
  *
  * @param payload
  * @param entity
+ * @param summit
  * @param eventsData
  * @param allIDXEvents
  * @param allSpeakers
@@ -204,19 +204,19 @@ export const bucket_getSpeakersIDX = (summitId, lastBuildTime = null) => {
 export const synchEntityData = (
     payload,
     entity,
+    summit,
     eventsData,
     allIDXEvents,
     allSpeakers,
     allIDXSpeakers
 ) => (dispatch, getState) => {
 
-    const {userState, loggedUserState, summitState, eventState} = getState();
+    const {userState, loggedUserState, eventState} = getState();
     const {isLoggedUser} = loggedUserState;
     const {userProfile} = userState;
-    const {summit} = summitState;
     const {event} = eventState;
 
-    // we need to redefine the action to avoid the include of import { navigate } from "gatsby";
+    // we need to redefine the action to avoid including import { navigate } from "gatsby";
     // introduced by dependency of src/utils/expiredToken.js
     dispatch(createAction(SYNC_DATA)({
         isLoggedUser,
@@ -234,9 +234,10 @@ export const synchEntityData = (
     dispatch(createAction(UPDATE_LAST_CHECK_FOR_NOVELTIES)(payload.created_at));
 
     const {entity_operator, entity_type} = payload;
-    // check if its a presentation to reload event state
-    if (entity && entity_type === 'Presentation' && entity_operator === 'UPDATE' && event && event?.id === entity?.id) {
-        // we need to redefine the action to avoid the include of import { navigate } from "gatsby";
+
+    // check if it's a presentation to reload event state
+    if (entity && isSummitEventDataUpdate(entity_type) && entity_operator === 'UPDATE' && event && event?.id === entity?.id) {
+        // we need to redefine the action to avoid including import { navigate } from "gatsby";
         // introduced by dependency of src/utils/expiredToken.js
         dispatch(createAction(RELOAD_EVENT_STATE)(entity));
     }

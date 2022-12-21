@@ -1,13 +1,16 @@
 import { insertSorted, intCheck } from "../utils/arrayUtils";
-import { fetchEventById, fetchLocationById, fetchSpeakerById } from "../actions/fetch-entities-actions";
+import {fetchEventById, fetchLocationById, fetchSpeakerById, fetchSummitById} from "../actions/fetch-entities-actions";
 import {
     getKey,
     BUCKET_EVENTS_DATA_KEY,
     BUCKET_EVENTS_IDX_DATA_KEY,
     BUCKET_SPEAKERS_DATA_KEY,
     BUCKET_SPEAKERS_IDX_DATA_KEY,
+    BUCKET_SUMMIT_DATA_KEY,
     storeData,
+    isSummitEventDataUpdate,
 } from '../utils/dataUpdatesUtils';
+
 import {putOnCache} from "../utils/cacheUtils";
 
 /* eslint-disable-next-line no-restricted-globals */
@@ -31,7 +34,7 @@ self.onmessage = async ({ data: { accessToken, noveltiesArray, summit, allEvents
         const {entity_operator,  entity_type, entity_id} = payload;
 
         // micro updates logic goes here ...
-        if(entity_type === 'Presentation') {
+        if(isSummitEventDataUpdate(entity_type)) {
 
             const entity = await fetchEventById(summit.id, entity_id, accessToken);
 
@@ -120,6 +123,7 @@ self.onmessage = async ({ data: { accessToken, noveltiesArray, summit, allEvents
                 /* eslint-disable-next-line no-restricted-globals */
                 self.postMessage({
                     entity,
+                    summit,
                     eventsData,
                     allIDXEvents,
                     allSpeakers,
@@ -157,6 +161,7 @@ self.onmessage = async ({ data: { accessToken, noveltiesArray, summit, allEvents
                     /* eslint-disable-next-line no-restricted-globals */
                     self.postMessage({
                         entity,
+                        summit,
                         eventsData,
                         allIDXEvents,
                         allSpeakers,
@@ -209,6 +214,28 @@ self.onmessage = async ({ data: { accessToken, noveltiesArray, summit, allEvents
                 /* eslint-disable-next-line no-restricted-globals */
                 self.postMessage({
                     entity,
+                    summit,
+                    eventsData,
+                    allIDXEvents,
+                    allSpeakers,
+                    allIDXSpeakers
+                });
+            }
+        }
+        if(entity_type === 'Summit'){
+            const entity = await fetchSummitById(summit.id, accessToken);
+            if (entity_operator === 'UPDATE') {
+                if (!entity) continue;
+
+                const localNowUtc = Math.round(+new Date() / 1000);
+
+                await storeData(summit.id, getKey(summit.id, BUCKET_SUMMIT_DATA_KEY), entity);
+                await putOnCache(`files_${summit.id}`, getKey(summit.id, `${BUCKET_SUMMIT_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
+
+                /* eslint-disable-next-line no-restricted-globals */
+                self.postMessage({
+                    entity,
+                    summit: entity,
                     eventsData,
                     allIDXEvents,
                     allSpeakers,

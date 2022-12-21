@@ -2,7 +2,6 @@ import React from "react";
 import _ from 'lodash';
 import SupabaseClientBuilder from "../supabaseClientBuilder";
 import {getEnvVariable, REAL_TIME_UPDATES_STRATEGY, SUPABASE_KEY, SUPABASE_URL} from "../envVariables";
-import moment from "moment-timezone";
 import RealTimeStrategyFactory from "./strategies/RealTimeStrategyFactory";
 import PropTypes from "prop-types";
 import { synchEntityData } from "../../actions/update-data-actions";
@@ -80,6 +79,7 @@ const withRealTimeUpdates = WrappedComponent => {
                     worker.onmessage = ({
                                             data: {
                                                 entity,
+                                                summit,
                                                 eventsData,
                                                 allIDXEvents: newAllIDXEvents,
                                                 allSpeakers: newAllSpeakers,
@@ -93,6 +93,7 @@ const withRealTimeUpdates = WrappedComponent => {
                         (
                             payload,
                             entity,
+                            summit,
                             eventsData,
                             newAllIDXEvents,
                             newAllSpeakers,
