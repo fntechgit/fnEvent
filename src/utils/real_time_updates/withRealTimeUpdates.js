@@ -121,9 +121,9 @@ const withRealTimeUpdates = WrappedComponent => {
             try {
                 const res = await this._supabase
                     .from('summit_entity_updates')
-                    .select('id,created_at_epoch,summit_id,entity_id,entity_type,entity_op')
+                    .select('id,created_at,summit_id,entity_id,entity_type,entity_op')
                     .eq('summit_id', summitId)
-                    .gt('created_at_epoch', lastCheckForNovelties)
+                    .gt('created_at', lastCheckForNovelties)
                     .order('id', {ascending: true});
 
                 if (res.error)
