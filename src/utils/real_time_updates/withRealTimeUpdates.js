@@ -78,6 +78,7 @@ const withRealTimeUpdates = WrappedComponent => {
 
                     worker.onmessage = ({
                                             data: {
+                                                payload,
                                                 entity,
                                                 summit,
                                                 eventsData,
@@ -121,7 +122,7 @@ const withRealTimeUpdates = WrappedComponent => {
             try {
                 const res = await this._supabase
                     .from('summit_entity_updates')
-                    .select('id,created_at,summit_id,entity_id,entity_type,entity_op')
+                    .select('id,created_at,summit_id,entity_id,entity_type,entity_operator')
                     .eq('summit_id', summitId)
                     .gt('created_at', lastCheckForNovelties)
                     .order('id', {ascending: true});
@@ -162,19 +163,70 @@ const withRealTimeUpdates = WrappedComponent => {
          */
         checkForPastNovelties(summitId, lastCheckForNovelties) {
             console.log("withRealTimeUpdates::checkForPastNovelties", summitId, lastCheckForNovelties);
-
-            this.queryRealTimeDB(summitId, lastCheckForNovelties).then((res) => {
+            const _this = this;
+            this.queryRealTimeDB(summitId, lastCheckForNovelties).then(async (res) => {
                 if (!res) return;
-                res.forEach( p => {
-                    console.log("withRealTimeUpdates::checkForPastNovelties: got update", p);
-                    // todo: do something here with unprocessed novelties.
-                })
+
+                console.log('queryRealTimeDB::callback', res);
+
+                const {summit, allEvents, allIDXEvents, allSpeakers, allIDXSpeakers, synchEntityData, updateLastCheckForNovelties} = _this.props;
+                let accessToken = null;
+                try {
+                    accessToken = await getAccessToken();
+                } catch (e) {
+                    console.log('getAccessToken error: ', e);
+                }
+
+                const worker = new Worker(new URL('../../workers/synch.worker.js', import.meta.url), {type: 'module'});
+
+                worker.postMessage({
+                    accessToken: accessToken,
+                    noveltiesArray: JSON.stringify(res),
+                    summit: JSON.stringify(summit),
+                    allEvents: JSON.stringify(allEvents),
+                    allIDXEvents: JSON.stringify(allIDXEvents),
+                    allSpeakers: JSON.stringify(allSpeakers),
+                    allIDXSpeakers: JSON.stringify(allIDXSpeakers),
+                });
+
+                worker.onerror = (event) => {
+                    console.log('There is an error with your worker!', event);
+                }
+
+                worker.onmessage = ({
+                                        data: {
+                                            payload,
+                                            entity,
+                                            summit,
+                                            eventsData,
+                                            allIDXEvents: newAllIDXEvents,
+                                            allSpeakers: newAllSpeakers,
+                                            allIDXSpeakers: newAllIDXSpeakers
+                                        }
+                                    }) => {
+
+                    console.log('calling synch worker on message ');
+
+                    synchEntityData
+                    (
+                        payload,
+                        entity,
+                        summit,
+                        eventsData,
+                        newAllIDXEvents,
+                        newAllSpeakers,
+                        newAllIDXSpeakers
+                    )
+
+                    worker.terminate();
+                }
+
                 const lastP = res.pop();
                 let {created_at: lastUpdateNovelty} = lastP;
                 if (lastUpdateNovelty) {
                     // update lastCheckForNovelties
                     console.log("withRealTimeUpdates::checkForPastNovelties updateLastCheckForNovelties", lastUpdateNovelty);
-                    this.props.updateLastCheckForNovelties(lastUpdateNovelty);
+                    updateLastCheckForNovelties(lastUpdateNovelty);
                 }
 
             }).catch((err) => console.log(err));

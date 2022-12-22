@@ -122,6 +122,7 @@ self.onmessage = async ({ data: { accessToken, noveltiesArray, summit, allEvents
 
                 /* eslint-disable-next-line no-restricted-globals */
                 self.postMessage({
+                    payload,
                     entity,
                     summit,
                     eventsData,
@@ -160,6 +161,7 @@ self.onmessage = async ({ data: { accessToken, noveltiesArray, summit, allEvents
 
                     /* eslint-disable-next-line no-restricted-globals */
                     self.postMessage({
+                        payload,
                         entity,
                         summit,
                         eventsData,
@@ -213,6 +215,7 @@ self.onmessage = async ({ data: { accessToken, noveltiesArray, summit, allEvents
 
                 /* eslint-disable-next-line no-restricted-globals */
                 self.postMessage({
+                    payload,
                     entity,
                     summit,
                     eventsData,
@@ -234,6 +237,7 @@ self.onmessage = async ({ data: { accessToken, noveltiesArray, summit, allEvents
 
                 /* eslint-disable-next-line no-restricted-globals */
                 self.postMessage({
+                    payload,
                     entity,
                     summit: entity,
                     eventsData,
