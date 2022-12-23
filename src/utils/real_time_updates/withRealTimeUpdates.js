@@ -35,6 +35,8 @@ const withRealTimeUpdates = WrappedComponent => {
             this.checkForPastNovelties = this.checkForPastNovelties.bind(this);
             this.clearRealTimeSubscription = this.clearRealTimeSubscription.bind(this);
             this.onVisibilityChange = this.onVisibilityChange.bind(this);
+            this.processUpdates = this.processUpdates.bind(this);
+
             this._checkForPastNoveltiesDebounced = _.debounce(this.checkForPastNovelties, CHECK_FOR_NOVELTIES_DELAY);
 
             try {
@@ -48,65 +50,74 @@ const withRealTimeUpdates = WrappedComponent => {
             this._currentStrategy = RealTimeStrategyFactory.build
             (
                 getEnvVariable(REAL_TIME_UPDATES_STRATEGY),
-                async (payload) => {
-
-                    const {summit, allEvents, allIDXEvents, allSpeakers, allIDXSpeakers, synchEntityData} = _this.props;
-                    let accessToken = null;
-                    try {
-                        accessToken = await getAccessToken();
-                    } catch (e) {
-                        console.log('getAccessToken error: ', e);
-                    }
-
-                    console.log('withRealTimeUpdates::callback', payload);
-
-                    const worker = new Worker(new URL('../../workers/synch.worker.js', import.meta.url), {type: 'module'});
-
-                    worker.postMessage({
-                        accessToken: accessToken,
-                        noveltiesArray: JSON.stringify([ payload ]),
-                        summit: JSON.stringify(summit),
-                        allEvents: JSON.stringify(allEvents),
-                        allIDXEvents: JSON.stringify(allIDXEvents),
-                        allSpeakers: JSON.stringify(allSpeakers),
-                        allIDXSpeakers: JSON.stringify(allIDXSpeakers),
-                    });
-
-                    worker.onerror = (event) => {
-                        console.log('There is an error with your worker!', event);
-                    }
-
-                    worker.onmessage = ({
-                                            data: {
-                                                payload,
-                                                entity,
-                                                summit,
-                                                eventsData,
-                                                allIDXEvents: newAllIDXEvents,
-                                                allSpeakers: newAllSpeakers,
-                                                allIDXSpeakers: newAllIDXSpeakers
-                                            }
-                                        }) => {
-
-                        console.log('calling synch worker on message ');
-
-                        synchEntityData
-                        (
-                            payload,
-                            entity,
-                            summit,
-                            eventsData,
-                            newAllIDXEvents,
-                            newAllSpeakers,
-                            newAllIDXSpeakers
-                        )
-
-                        worker.terminate();
-                    }
-
+                (payload) => {
+                        return _this.processUpdates([payload]);
                 },
                 this._checkForPastNoveltiesDebounced
             );
+        }
+
+        /**
+         *
+         * @param updates
+         * @returns {Promise<void>}
+         */
+        async processUpdates(updates) {
+
+            console.log('withRealTimeUpdates::processUpdates', updates);
+
+            const {summit, allEvents, allIDXEvents, allSpeakers, allIDXSpeakers, synchEntityData} = this.props;
+
+            let accessToken = null;
+            try {
+                accessToken = await getAccessToken();
+            } catch (e) {
+                console.log('withRealTimeUpdates::processUpdates getAccessToken error: ', e);
+            }
+
+            const worker = new Worker(new URL('../../workers/synch.worker.js', import.meta.url), {type: 'module'});
+
+            worker.postMessage({
+                accessToken: accessToken,
+                noveltiesArray: JSON.stringify(updates),
+                summit: JSON.stringify(summit),
+                allEvents: JSON.stringify(allEvents),
+                allIDXEvents: JSON.stringify(allIDXEvents),
+                allSpeakers: JSON.stringify(allSpeakers),
+                allIDXSpeakers: JSON.stringify(allIDXSpeakers),
+            });
+
+            worker.onerror = (event) => {
+                console.log('withRealTimeUpdates::processUpdates There is an error with your worker!', event);
+            }
+
+            worker.onmessage = ({
+                                    data: {
+                                        payload,
+                                        entity,
+                                        summit,
+                                        eventsData,
+                                        allIDXEvents: newAllIDXEvents,
+                                        allSpeakers: newAllSpeakers,
+                                        allIDXSpeakers: newAllIDXSpeakers
+                                    }
+                                }) => {
+
+                console.log('withRealTimeUpdates::processUpdates calling synch worker on message ');
+
+                synchEntityData
+                (
+                    payload,
+                    entity,
+                    summit,
+                    eventsData,
+                    newAllIDXEvents,
+                    newAllSpeakers,
+                    newAllIDXSpeakers
+                )
+
+                worker.terminate();
+            }
         }
 
         /**
@@ -164,62 +175,14 @@ const withRealTimeUpdates = WrappedComponent => {
         checkForPastNovelties(summitId, lastCheckForNovelties) {
             console.log("withRealTimeUpdates::checkForPastNovelties", summitId, lastCheckForNovelties);
             const _this = this;
-            this.queryRealTimeDB(summitId, lastCheckForNovelties).then(async (res) => {
+            this.queryRealTimeDB(summitId, lastCheckForNovelties).then((res) => {
                 if (!res) return;
 
                 console.log('queryRealTimeDB::callback', res);
 
-                const {summit, allEvents, allIDXEvents, allSpeakers, allIDXSpeakers, synchEntityData, updateLastCheckForNovelties} = _this.props;
-                let accessToken = null;
-                try {
-                    accessToken = await getAccessToken();
-                } catch (e) {
-                    console.log('getAccessToken error: ', e);
-                }
+                const {updateLastCheckForNovelties} = _this.props;
 
-                const worker = new Worker(new URL('../../workers/synch.worker.js', import.meta.url), {type: 'module'});
-
-                worker.postMessage({
-                    accessToken: accessToken,
-                    noveltiesArray: JSON.stringify(res),
-                    summit: JSON.stringify(summit),
-                    allEvents: JSON.stringify(allEvents),
-                    allIDXEvents: JSON.stringify(allIDXEvents),
-                    allSpeakers: JSON.stringify(allSpeakers),
-                    allIDXSpeakers: JSON.stringify(allIDXSpeakers),
-                });
-
-                worker.onerror = (event) => {
-                    console.log('There is an error with your worker!', event);
-                }
-
-                worker.onmessage = ({
-                                        data: {
-                                            payload,
-                                            entity,
-                                            summit,
-                                            eventsData,
-                                            allIDXEvents: newAllIDXEvents,
-                                            allSpeakers: newAllSpeakers,
-                                            allIDXSpeakers: newAllIDXSpeakers
-                                        }
-                                    }) => {
-
-                    console.log('calling synch worker on message ');
-
-                    synchEntityData
-                    (
-                        payload,
-                        entity,
-                        summit,
-                        eventsData,
-                        newAllIDXEvents,
-                        newAllSpeakers,
-                        newAllIDXSpeakers
-                    )
-
-                    worker.terminate();
-                }
+                _this.processUpdates(res);
 
                 const lastP = res.pop();
                 let {created_at: lastUpdateNovelty} = lastP;

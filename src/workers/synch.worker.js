@@ -27,11 +27,23 @@ self.onmessage = async ({ data: { accessToken, noveltiesArray, summit, allEvents
 
     let eventsData = [...allEvents];
 
+    let lastPayload = null;
+
     for (const payload of noveltiesArray) {
 
         console.log(`synch worker processing payload `, payload);
 
         const {entity_operator,  entity_type, entity_id} = payload;
+
+        if(
+            lastPayload &&
+            lastPayload.entity_type === entity_type &&
+            lastPayload.entity_operator === entity_operator &&
+            lastPayload.entity_id === entity_id)
+        {
+            console.log('synch worker skipping payload (already processed)');
+            continue;
+        }
 
         // micro updates logic goes here ...
         if(isSummitEventDataUpdate(entity_type)) {
@@ -198,6 +210,16 @@ self.onmessage = async ({ data: { accessToken, noveltiesArray, summit, allEvents
                         eventsData[idx] = {...formerEntity, speakers: speakers};
                     }
                 }
+
+                if(entity && entity.hasOwnProperty('moderated_presentations')){
+                    for (const publishedEventId of entity.moderated_presentations) {
+                        const idx = allIDXEvents.hasOwnProperty(publishedEventId) ? allIDXEvents[publishedEventId] : -1;
+                        let formerEntity = idx === -1 ? null : eventsData[idx];
+                        if (formerEntity && formerEntity.id !== publishedEventId) continue; // it's not the same
+                        // check if speakers collection
+                        eventsData[idx] = {...formerEntity, moderator: updatedSpeaker};
+                    }
+                }
                 // update files on cache
 
                 const localNowUtc = Math.round(+new Date() / 1000);
@@ -247,5 +269,7 @@ self.onmessage = async ({ data: { accessToken, noveltiesArray, summit, allEvents
                 });
             }
         }
+
+        lastPayload = payload;
     }
 };
