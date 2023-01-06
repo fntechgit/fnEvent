@@ -7,9 +7,13 @@ The 2023 OCP Regional Summit will be an in-person event. Please find the registr
 
 **Registration Options**
 
-Early Bird: €300 (7 December–3 February)\
-General: €400 (4 February–17 April)\
-On-site: €500 (18–20 April)
+Early Bird: €300 + VAT (December 16–February 3)\
+General: €400 + VAT (February 4–April 17)\
+On-site: €500 + VAT (April 18–20)\
+\
+*A 21% Value-Added Tax (VAT) will be added to all registration options.*\
+\
+Registration fees include: Access to all sessions (keynotes, executive talks, engineering workshops), expo hall, lunch, coffee, day 1 reception, Future Technologies Symposium and access to all co-located events. 
 
 **Cancelation Policy**
 
