@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Pagination } from 'react-bootstrap';
+import Pagination from 'react-bootstrap/Pagination';
 
 export default function Pager(props) {
   const [pageArray, setPageArray] = useState([]);

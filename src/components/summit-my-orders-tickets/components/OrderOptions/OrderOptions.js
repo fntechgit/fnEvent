@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from "react-i18next";
 import classNames from 'classnames';
 import { CSSTransition } from "react-transition-group";
-import Alert from 'react-bootstrap/lib/Alert';
+import Alert from 'react-bootstrap/Alert';
 import { getSummitFormattedDate, getSummitLocation, getTicketRole, getTicketType } from '../../util';
 import { cancelOrder } from '../../store/actions/order-actions';
 import { getNow } from '../../store/actions/timer-actions';
@@ -45,7 +45,7 @@ export const OrderOptions = ({ order, summit, ticket, className }) => {
                 >
                     <>
                         <br />
-                        <Alert bsStyle="success">
+                        <Alert variant="success">
                             {t("tickets.refund_request_success_message")}
                         </Alert>
                     </>
