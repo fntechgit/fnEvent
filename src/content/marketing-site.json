@@ -2,7 +2,7 @@
   "heroBanner": {
     "title": "2022 OCP Global Summit",
     "subTitle": "Empowering Open.",
-    "date": "October 18–20, 2022 ",
+    "date": "This event has concluded.",
     "time": "",
     "dateLayout": false,
     "buttons": {
@@ -35,7 +35,7 @@
     "image": {
       "display": true,
       "title": "",
-      "src": "/img/ocpglo22-fnv-hlschedule-100722.png"
+      "src": "/img/ocpglo22-fnv-hlschedule-011023.png"
     }
   },
   "sponsors": [
@@ -43,9 +43,9 @@
       "title": "Mid Left",
       "images": [
         {
-          "image": "/img/ocpglo22-fnv-marketing-space1_v4.png",
+          "image": "/img/ocpglo22-fnv-marketing-space1-v5.png",
           "alt": "",
-          "link": "https://2022ocpglobal.fnvirtual.app/map"
+          "link": "https://www.opencompute.org/events/upcoming-events"
         }
       ],
       "size": 1
@@ -75,9 +75,9 @@
     {
       "images": [
         {
-          "image": "/img/ocpglo22-fnv-marketing-space4_v4.png",
+          "image": "/img/ocpglo22-fnv-marketing-space4-v5.png",
           "alt": "",
-          "link": "https://www.opencompute.org/events/past-events/2021-ocp-global-summit"
+          "link": "https://www.youtube.com/watch?v=OKTBwFzDj-U"
         }
       ],
       "size": 1
