@@ -1,5 +1,5 @@
-import {compressToUTF16} from "lz-string";
-import {putOnCache} from "./cacheUtils";
+import {compressToBase64, decompressFromBase64} from "lz-string";
+import {getFromCache, putOnCache} from "./cacheUtils";
 
 export const getKey = (summitId, tag) => {
     return `${tag}_${summitId}`;
@@ -27,9 +27,26 @@ export const BUCKET_VOTABLE_PRES_DATA_KEY = 'votablePresJSON';
 
 export const storeData = async (summitId, dataKey, data) => {
     // store data
-    const compressedData = compressToUTF16(JSON.stringify(data));
-    await putOnCache(`files_${summitId}`, dataKey, compressedData);
+    console.log(`storeData summitId ${summitId} dataKey ${dataKey}`, data);
+    const options = {
+        headers: {
+            'Content-Type': 'text/plain; charset=UTF-16'
+        }
+    }
+    const jsonStr = JSON.stringify(data);
+    const compressedData = compressToBase64(jsonStr);
+    await putOnCache(`files_${summitId}`, dataKey, compressedData, false, options);
     return data;
+}
+
+export const loadData = async (summitId, dataKey) => {
+    console.log(`loadData summitId ${summitId} dataKey ${dataKey}`);
+    const storedData = await getFromCache(`files_${summitId}`, dataKey);
+    if (storedData) {
+        const jsonStr = decompressFromBase64(storedData);
+        return JSON.parse(jsonStr);
+    }
+    return null;
 }
 
 export const isSummitEventDataUpdate = (entity_type) => {

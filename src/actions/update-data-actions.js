@@ -1,4 +1,3 @@
-import {decompressFromUTF16} from 'lz-string';
 import {createAction} from "openstack-uicore-foundation/lib/utils/actions";
 import {RELOAD_USER_PROFILE} from "./schedule-actions";
 import {getFromCache, putOnCache} from "../utils/cacheUtils";
@@ -8,6 +7,7 @@ import {
     getKey,
     getUrl,
     storeData,
+    loadData,
     BUCKET_EVENTS_ETAG_KEY,
     BUCKET_EVENTS_DATA_KEY,
     BUCKET_EVENTS_IDX_ETAG_KEY,
@@ -36,6 +36,7 @@ import {
  */
 const fetchBucket = async (etagKeyPre, dataKeyPre, fileName, summitId, lastBuildTime) => {
 
+
     const headers = {};
     const url = getUrl(summitId, fileName);
     const eTagKey = getKey(summitId, etagKeyPre);
@@ -46,19 +47,16 @@ const fetchBucket = async (etagKeyPre, dataKeyPre, fileName, summitId, lastBuild
 
     if (eTag) headers.headers = {'If-None-Match': eTag};
 
+    console.log(`fetchBucket ${url} eTag ${eTag} lastModifiedStored ${lastModifiedStored}`);
+
     return fetch(url, {
         method: 'GET',
         ...headers
     }).then(async (response) => {
+        console.log(`fetchBucket ${url} response.status ${response.status}`);
         if ([304, 404].includes(response.status)) {
             // retrieve data from localStorage
-            const storedData = await getFromCache(`files_${summitId}`, dataKey);
-            if (storedData) {
-                const data = decompressFromUTF16(storedData);
-                return JSON.parse(data);
-            } else {
-                console.log(`Fetching updates: no data found in localStorage for ${fileName}.`)
-            }
+            return loadData(summitId, dataKey);
         } else if (response.status === 200) {
             const data = await response.json();
 
@@ -69,13 +67,8 @@ const fetchBucket = async (etagKeyPre, dataKeyPre, fileName, summitId, lastBuild
             if (resLastModified) {;
                 const lastModifiedFieldEpoch = Date.parse(resLastModified) / 1000;
                 if(lastModifiedStored && parseInt(lastModifiedStored) > lastModifiedFieldEpoch){
-                    console.log(`lastModifiedStored ${lastModifiedStored} is more recent than lastModifiedFieldEpoch ${lastModifiedFieldEpoch} (local is newer). Discarding response.`);
-                    const storedData = await getFromCache(`files_${summitId}`, dataKey);
-                    if (storedData) {
-                        const data = decompressFromUTF16(storedData);
-                        return JSON.parse(data);
-                    }
-                    return null;
+                    console.log(`fetchBucket ${url} lastModifiedStored ${lastModifiedStored} is more recent than lastModifiedFieldEpoch ${lastModifiedFieldEpoch} (local is newer). Discarding response.`);
+                    return loadData(summitId, dataKey)
                 }
                 await putOnCache(`files_${summitId}`, lastModifiedKey, lastModifiedFieldEpoch);
             }
@@ -86,9 +79,9 @@ const fetchBucket = async (etagKeyPre, dataKeyPre, fileName, summitId, lastBuild
 
             if (resLastModified && lastBuildTime) {
                 const lastModifiedFieldEpoch = Date.parse(resLastModified) / 1000;
-                console.log(`${fileName} last modified ${lastModifiedFieldEpoch} lastBuildTime ${lastBuildTime}`);
+                console.log(`fetchBucket ${url} ${fileName} last modified ${lastModifiedFieldEpoch} lastBuildTime ${lastBuildTime}`);
                 if (lastModifiedFieldEpoch < lastBuildTime) {
-                    console.log(`lastBuildTime is recent, we will use SSR files`)
+                    console.log(`fetchBucket ${url} lastBuildTime is recent, we will use SSR files`)
                     return null;
                 }
             }
@@ -96,11 +89,11 @@ const fetchBucket = async (etagKeyPre, dataKeyPre, fileName, summitId, lastBuild
             if (data) {
                 return storeData(summitId, dataKey, data);
             } else {
-                console.log('Error fetching updates: no data in response.');
+                console.log(`fetchBucket ${url} Error fetching updates: no data in response.`);
             }
 
         } else {
-            console.log('Error fetching updates: unknown response code: ', response?.status?.code);
+            console.log(`fetchBucket ${url} Error fetching updates: unknown response code: `, response?.status?.code);
         }
 
         return null;

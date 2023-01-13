@@ -59,6 +59,8 @@ self.onmessage = async ({data: {summitId, staticJsonFilesBuildTime}}) => {
     Promise.all(calls)
         .then((values) => {
 
+            console.log(`feeds worker sending data to synch...`, values);
+
             let eventsData = values[0];
             let eventsIDXData = values[1];
             let summitData = values[2];
@@ -73,7 +75,6 @@ self.onmessage = async ({data: {summitId, staticJsonFilesBuildTime}}) => {
             if (!speakersIXData) speakersIXData = speakersIDXBuildJson;
             if (!extraQuestionsData) extraQuestionsData = extraQuestionsBuildJson;
 
-            console.log(`feeds worker sending data to synch...`);
             /* eslint-disable-next-line no-restricted-globals */
             self.postMessage({
                 eventsData, summitData, speakersData, extraQuestionsData, eventsIDXData, speakersIXData
