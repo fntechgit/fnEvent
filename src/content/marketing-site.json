@@ -37,7 +37,7 @@
     "image": {
       "display": true,
       "title": "",
-      "src": "/img/aa23_fnv_marketingpage_schedule-static-2x.png"
+      "src": "/img/aa23_fnv_marketingpage_schedule-static-2x_v2.png"
     }
   },
   "sponsors": [
@@ -46,7 +46,7 @@
       "images": [
         {
           "image": "/img/aa23_fnv_marketingpage_space1-2x.png",
-          "link": "",
+          "link": "https://us.allerganmedicalinstitute.com/us/en/splash-page.html",
           "alt": ""
         }
       ],
@@ -56,18 +56,21 @@
       "title": "Top Right",
       "images": [
         {
-          "image": "/img/aa23_fnv_marketingpage_space2.a-2x.png",
-          "link": "",
+          "image": "/img/aa23_fnv_marketingpage_space2.a-2x_v2.png",
+          "link": "https://us.allerganmedicalinstitute.com/us/en/splash-page.html",
           "alt": ""
         },
         {
-          "image": "/img/aa23_fnv_marketingpage_space2.b-2x.png"
+          "image": "/img/aa23_fnv_marketingpage_space2.b-2x_v2.png",
+          "link": "https://us.allerganmedicalinstitute.com/us/en/splash-page.html"
         },
         {
-          "image": "/img/aa23_fnv_marketingpage_space2.d-2x.png"
+          "image": "/img/aa23_fnv_marketingpage_space2.d-2x_v2.png",
+          "link": "https://us.allerganmedicalinstitute.com/us/en/splash-page.html"
         },
         {
-          "image": "/img/aa23_fnv_marketingpage_space2.c-2x.png"
+          "image": "/img/aa23_fnv_marketingpage_space2.c-2x_v2.png",
+          "link": "https://us.allerganmedicalinstitute.com/us/en/splash-page.html"
         }
       ],
       "size": 1
@@ -86,7 +89,8 @@
       "images": [
         {
           "image": "/img/aa23_fnv_marketingpage_space4-2x.png",
-          "alt": ""
+          "alt": "",
+          "link": "https://us.allerganmedicalinstitute.com/us/en/splash-page.html"
         }
       ],
       "size": 1
