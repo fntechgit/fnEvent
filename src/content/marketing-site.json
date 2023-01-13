@@ -15,25 +15,19 @@
         "display": true
       }
     },
-    "background": "",
+    "background": {
+      "file": "/img/aa23_fnv_marketingpage_header-left-2x.png"
+    },
     "images": [
       {
-        "file": "/img/tier1-default-header1.png",
-        "alt": ""
-      },
-      {
-        "file": "/img/tier1-default-header2.png",
-        "alt": ""
-      },
-      {
-        "file": "/img/tier1-default-header3.png",
+        "file": "/img/aa23_fnv_marketingpage_header-right-2x.png",
         "alt": ""
       }
     ]
   },
   "leftColumn": {
     "schedule": {
-      "display": true,
+      "display": false,
       "title": "Full Event Schedule"
     },
     "disqus": {
@@ -41,9 +35,9 @@
       "title": "Join the conversation"
     },
     "image": {
-      "display": false,
-      "title": "Image",
-      "src": ""
+      "display": true,
+      "title": "",
+      "src": "/img/aa23_fnv_marketingpage_schedule-static-2x.png"
     }
   },
   "sponsors": [
@@ -51,12 +45,8 @@
       "title": "Top Left",
       "images": [
         {
-          "image": "/img/tier1-default-space3.png",
+          "image": "/img/aa23_fnv_marketingpage_space1-2x.png",
           "link": "",
-          "alt": ""
-        },
-        {
-          "image": "/img/tier1-default-space4.png",
           "alt": ""
         }
       ],
@@ -66,9 +56,18 @@
       "title": "Top Right",
       "images": [
         {
-          "image": "/img/tier1-default-space1.png",
+          "image": "/img/aa23_fnv_marketingpage_space2.a-2x.png",
           "link": "",
           "alt": ""
+        },
+        {
+          "image": "/img/aa23_fnv_marketingpage_space2.b-2x.png"
+        },
+        {
+          "image": "/img/aa23_fnv_marketingpage_space2.d-2x.png"
+        },
+        {
+          "image": "/img/aa23_fnv_marketingpage_space2.c-2x.png"
         }
       ],
       "size": 1
@@ -77,7 +76,7 @@
       "title": "Mid Left",
       "images": [
         {
-          "image": "/img/tier1-default-space2.png",
+          "image": "/img/aa23_fnv_marketingpage_space3-2x.png",
           "alt": ""
         }
       ],
@@ -86,7 +85,7 @@
     {
       "images": [
         {
-          "image": "/img/tier1-default-space4.png",
+          "image": "/img/aa23_fnv_marketingpage_space4-2x.png",
           "alt": ""
         }
       ],
