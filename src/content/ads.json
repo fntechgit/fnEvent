@@ -2,7 +2,73 @@
   "ads": [
     {
       "section": "lobby",
-      "columnAds": []
+      "columnAds": [
+        {
+          "image": {
+            "file": "/img/aa23_fnv_lobbypage_space1-2x.png",
+            "alt": ""
+          },
+          "id": 0,
+          "button": {
+            "link": "/a/schedule"
+          },
+          "column": "left"
+        },
+        {
+          "image": {
+            "file": "/img/aa23_fnv_lobbypage_space2-2x.png",
+            "alt": ""
+          },
+          "id": 0,
+          "column": "left"
+        },
+        {
+          "image": {
+            "file": "/img/aa23_fnv_lobbypage_space3-2x.png",
+            "alt": ""
+          },
+          "id": 0,
+          "column": "left"
+        },
+        {
+          "image": {
+            "file": "/img/aa23_fnv_lobbypage_space4-2x.png",
+            "alt": ""
+          },
+          "id": 0,
+          "column": "left"
+        },
+        {
+          "image": {
+            "file": "/img/aa23_fnv_lobbypage_space5-2x.png",
+            "alt": ""
+          },
+          "id": 0,
+          "button": {
+            "link": "https://www.diamondglow.com"
+          },
+          "column": "left"
+        },
+        {
+          "image": {
+            "file": "/img/aa23_fnv_lobbypage_space6-2x.png",
+            "alt": ""
+          },
+          "id": 0,
+          "button": {
+            "link": "https://www.juvederm.com"
+          },
+          "column": "left"
+        },
+        {
+          "image": {
+            "file": "/img/aa23_fnv_lobbypage_space7-2x.png",
+            "alt": ""
+          },
+          "id": 0,
+          "column": "left"
+        }
+      ]
     }
   ]
 }
