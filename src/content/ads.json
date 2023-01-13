@@ -20,7 +20,10 @@
             "alt": ""
           },
           "id": 0,
-          "column": "left"
+          "column": "left",
+          "button": {
+            "link": "https://us.allerganmedicalinstitute.com/us/en/splash-page.html"
+          }
         },
         {
           "image": {
@@ -28,7 +31,10 @@
             "alt": ""
           },
           "id": 0,
-          "column": "left"
+          "column": "left",
+          "button": {
+            "link": "https://us.allerganmedicalinstitute.com/us/en/splash-page.html"
+          }
         },
         {
           "image": {
@@ -67,6 +73,39 @@
           },
           "id": 0,
           "column": "left"
+        },
+        {
+          "image": {
+            "file": "/img/aa23_fnv_lobbypage_space8-2x.png",
+            "alt": ""
+          },
+          "id": 0,
+          "button": {
+            "link": "https://us.allerganmedicalinstitute.com/us/en/splash-page.html"
+          },
+          "column": "left"
+        },
+        {
+          "image": {
+            "file": "/img/aa23_fnv_lobbypage_space10-2x.png",
+            "alt": ""
+          },
+          "id": 0,
+          "button": {
+            "link": "https://www.coolsculpting.com"
+          },
+          "column": "left"
+        },
+        {
+          "image": {
+            "file": "/img/aa23_fnv_lobbypage_space11-2x.png",
+            "alt": ""
+          },
+          "id": 0,
+          "button": {
+            "link": "https://us.allerganmedicalinstitute.com/us/en/splash-page.html"
+          },
+          "column": "right"
         }
       ]
     }
