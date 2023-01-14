@@ -1,7 +1,7 @@
 ---
 templateKey: custom-page
+title: Support
 userRequirement: NONE
-title: Help
 ---
 YOU DECIDE!
 
