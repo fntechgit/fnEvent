@@ -1,9 +1,10 @@
 import WSRealTimeStrategy from "./WSRealTimeStrategy";
 import SUPARealTimeStrategy from "./SUPARealTimeStrategy";
+import AblyRealTimeStrategy from "./AblyRealTimeStrategy";
 
 const STRATEGY_SUPA = 'SUPA';
 const STRATEGY_WS = 'WS';
-
+const STRATEGY_ABLY = 'ABLY';
 /**
  * RealTimeStrategyFactory
  */
@@ -29,6 +30,11 @@ class RealTimeStrategyFactory {
 
         if(type === STRATEGY_WS){
             main = new WSRealTimeStrategy(callback, checkPastCallback);
+            fallback = new SUPARealTimeStrategy(callback, checkPastCallback);
+        }
+
+        if(type === STRATEGY_ABLY){
+            main = new AblyRealTimeStrategy(callback, checkPastCallback);
             fallback = new SUPARealTimeStrategy(callback, checkPastCallback);
         }
 
