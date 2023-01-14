@@ -1,7 +1,7 @@
 ---
 templateKey: custom-page
+title: AMI Resources
 userRequirement: NONE
-title: About the event
 ---
 YOU DECIDE!
 
