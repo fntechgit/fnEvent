@@ -119,19 +119,25 @@ self.onmessage = async ({ data: { accessToken, noveltiesArray, summit, allEvents
 
                 // update files on cache
 
-                const localNowUtc = Math.round(+new Date() / 1000);
+                console.log(`synch worker updating cache files`);
 
-                await storeData(summit.id, getKey(summit.id, BUCKET_EVENTS_DATA_KEY), eventsData);
-                await putOnCache(`files_${summit.id}`,  getKey(summit.id, `${BUCKET_EVENTS_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
-                await storeData(summit.id, getKey(summit.id, BUCKET_EVENTS_IDX_DATA_KEY), allIDXEvents);
-                await putOnCache(`files_${summit.id}`,  getKey(summit.id, `${BUCKET_EVENTS_IDX_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
-                await storeData(summit.id, getKey(summit.id, BUCKET_SPEAKERS_DATA_KEY), allSpeakers);
-                await putOnCache(`files_${summit.id}`,  getKey(summit.id, `${BUCKET_SPEAKERS_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
-                await storeData(summit.id, getKey(summit.id, BUCKET_SPEAKERS_IDX_DATA_KEY), allIDXSpeakers);
-                await putOnCache(`files_${summit.id}`,  getKey(summit.id, `${BUCKET_SPEAKERS_IDX_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
+                try{
+                    const localNowUtc = Math.round(+new Date() / 1000);
+                    await storeData(summit.id, getKey(summit.id, BUCKET_EVENTS_DATA_KEY), eventsData);
+                    await putOnCache(`files_${summit.id}`,  getKey(summit.id, `${BUCKET_EVENTS_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
+                    await storeData(summit.id, getKey(summit.id, BUCKET_EVENTS_IDX_DATA_KEY), allIDXEvents);
+                    await putOnCache(`files_${summit.id}`,  getKey(summit.id, `${BUCKET_EVENTS_IDX_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
+                    await storeData(summit.id, getKey(summit.id, BUCKET_SPEAKERS_DATA_KEY), allSpeakers);
+                    await putOnCache(`files_${summit.id}`,  getKey(summit.id, `${BUCKET_SPEAKERS_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
+                    await storeData(summit.id, getKey(summit.id, BUCKET_SPEAKERS_IDX_DATA_KEY), allIDXSpeakers);
+                    await putOnCache(`files_${summit.id}`,  getKey(summit.id, `${BUCKET_SPEAKERS_IDX_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
+                }
+                catch (e){
+                    console.log(e);
+                }
 
                 // post a message per entity
-
+                console.log(`synch worker postMessage`);
                 /* eslint-disable-next-line no-restricted-globals */
                 self.postMessage({
                     payload,
@@ -157,20 +163,25 @@ self.onmessage = async ({ data: { accessToken, noveltiesArray, summit, allEvents
                     }
 
                     // update files on cache
+                    console.log(`synch worker updating cache files`);
+                    try {
+                        const localNowUtc = Math.round(+new Date() / 1000);
 
-                    const localNowUtc = Math.round(+new Date() / 1000);
-
-                    await storeData(summit.id, getKey(summit.id, BUCKET_EVENTS_DATA_KEY), eventsData);
-                    await putOnCache(`files_${summit.id}`, getKey(summit.id, `${BUCKET_EVENTS_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
-                    await storeData(summit.id, getKey(summit.id, BUCKET_EVENTS_IDX_DATA_KEY), allIDXEvents);
-                    await putOnCache(`files_${summit.id}`, getKey(summit.id, `${BUCKET_EVENTS_IDX_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
-                    await storeData(summit.id, getKey(summit.id, BUCKET_SPEAKERS_DATA_KEY), allSpeakers);
-                    await putOnCache(`files_${summit.id}`, getKey(summit.id, `${BUCKET_SPEAKERS_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
-                    await storeData(summit.id, getKey(summit.id, BUCKET_SPEAKERS_IDX_DATA_KEY), allIDXSpeakers);
-                    await putOnCache(`files_${summit.id}`, getKey(summit.id, `${BUCKET_SPEAKERS_IDX_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
+                        await storeData(summit.id, getKey(summit.id, BUCKET_EVENTS_DATA_KEY), eventsData);
+                        await putOnCache(`files_${summit.id}`, getKey(summit.id, `${BUCKET_EVENTS_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
+                        await storeData(summit.id, getKey(summit.id, BUCKET_EVENTS_IDX_DATA_KEY), allIDXEvents);
+                        await putOnCache(`files_${summit.id}`, getKey(summit.id, `${BUCKET_EVENTS_IDX_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
+                        await storeData(summit.id, getKey(summit.id, BUCKET_SPEAKERS_DATA_KEY), allSpeakers);
+                        await putOnCache(`files_${summit.id}`, getKey(summit.id, `${BUCKET_SPEAKERS_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
+                        await storeData(summit.id, getKey(summit.id, BUCKET_SPEAKERS_IDX_DATA_KEY), allIDXSpeakers);
+                        await putOnCache(`files_${summit.id}`, getKey(summit.id, `${BUCKET_SPEAKERS_IDX_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
+                    }
+                    catch (e){
+                        console.log(e);
+                    }
 
                     // post a message per entity
-
+                    console.log(`synch worker postMessage`);
                     /* eslint-disable-next-line no-restricted-globals */
                     self.postMessage({
                         payload,
@@ -221,20 +232,25 @@ self.onmessage = async ({ data: { accessToken, noveltiesArray, summit, allEvents
                     }
                 }
                 // update files on cache
+                console.log(`synch worker updating cache files`);
+                try {
+                    const localNowUtc = Math.round(+new Date() / 1000);
 
-                const localNowUtc = Math.round(+new Date() / 1000);
-
-                await storeData(summit.id, getKey(summit.id, BUCKET_EVENTS_DATA_KEY), eventsData);
-                await putOnCache(`files_${summit.id}`, getKey(summit.id, `${BUCKET_EVENTS_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
-                await storeData(summit.id, getKey(summit.id, BUCKET_EVENTS_IDX_DATA_KEY), allIDXEvents);
-                await putOnCache(`files_${summit.id}`, getKey(summit.id, `${BUCKET_EVENTS_IDX_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
-                await storeData(summit.id, getKey(summit.id, BUCKET_SPEAKERS_DATA_KEY), allSpeakers);
-                await putOnCache(`files_${summit.id}`, getKey(summit.id, `${BUCKET_SPEAKERS_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
-                await storeData(summit.id, getKey(summit.id, BUCKET_SPEAKERS_IDX_DATA_KEY), allIDXSpeakers);
-                await putOnCache(`files_${summit.id}`, getKey(summit.id, `${BUCKET_SPEAKERS_IDX_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
+                    await storeData(summit.id, getKey(summit.id, BUCKET_EVENTS_DATA_KEY), eventsData);
+                    await putOnCache(`files_${summit.id}`, getKey(summit.id, `${BUCKET_EVENTS_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
+                    await storeData(summit.id, getKey(summit.id, BUCKET_EVENTS_IDX_DATA_KEY), allIDXEvents);
+                    await putOnCache(`files_${summit.id}`, getKey(summit.id, `${BUCKET_EVENTS_IDX_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
+                    await storeData(summit.id, getKey(summit.id, BUCKET_SPEAKERS_DATA_KEY), allSpeakers);
+                    await putOnCache(`files_${summit.id}`, getKey(summit.id, `${BUCKET_SPEAKERS_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
+                    await storeData(summit.id, getKey(summit.id, BUCKET_SPEAKERS_IDX_DATA_KEY), allIDXSpeakers);
+                    await putOnCache(`files_${summit.id}`, getKey(summit.id, `${BUCKET_SPEAKERS_IDX_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
+                }
+                catch (e){
+                    console.log(e);
+                }
 
                 // post a message per entity
-
+                console.log(`synch worker postMessage`);
                 /* eslint-disable-next-line no-restricted-globals */
                 self.postMessage({
                     payload,
@@ -252,11 +268,17 @@ self.onmessage = async ({ data: { accessToken, noveltiesArray, summit, allEvents
             if (entity_operator === 'UPDATE') {
                 if (!entity) continue;
 
-                const localNowUtc = Math.round(+new Date() / 1000);
+                console.log(`synch worker updating cache files`);
+                try {
+                    const localNowUtc = Math.round(+new Date() / 1000);
+                    await storeData(summit.id, getKey(summit.id, BUCKET_SUMMIT_DATA_KEY), entity);
+                    await putOnCache(`files_${summit.id}`, getKey(summit.id, `${BUCKET_SUMMIT_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
+                }
+                catch (e){
+                    console.log(e);
+                }
 
-                await storeData(summit.id, getKey(summit.id, BUCKET_SUMMIT_DATA_KEY), entity);
-                await putOnCache(`files_${summit.id}`, getKey(summit.id, `${BUCKET_SUMMIT_DATA_KEY}_LAST_MODIFIED`), localNowUtc);
-
+                console.log(`synch worker postMessage`);
                 /* eslint-disable-next-line no-restricted-globals */
                 self.postMessage({
                     payload,

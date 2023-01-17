@@ -87,6 +87,7 @@ const withRealTimeUpdates = WrappedComponent => {
 
             worker.onerror = (event) => {
                 console.log('withRealTimeUpdates::processUpdates There is an error with your worker!', event);
+                alert(event.message + " (" + event.filename + ":" + event.lineno + ")");
             }
 
             worker.onmessage = ({
@@ -113,7 +114,7 @@ const withRealTimeUpdates = WrappedComponent => {
                     newAllSpeakers,
                     newAllIDXSpeakers
                 )
-
+                console.log('withRealTimeUpdates::processUpdates terminating worker');
                 worker.terminate();
             }
         }
