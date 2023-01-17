@@ -17,26 +17,32 @@ const withFeedsWorker = WrappedComponent => {
 
         constructor(props) {
             super(props);
+            this._worker = null;
         }
 
         componentDidMount() {
 
-            const worker = new Worker(new URL('../workers/feeds.worker.js', import.meta.url), {type: 'module'});
+            if(this._worker){
+                this._worker.terminate();
+            }
+
+            this._worker = new Worker(new URL('../workers/feeds.worker.js', import.meta.url), {type: 'module'});
+
+            this._worker.onerror = (event) => {
+                console.log('withFeedsWorker::componentDidMount There is an error with your worker!', event);
+                alert(event.message + " (" + event.filename + ":" + event.lineno + ")");
+            }
 
             const { summit, syncData, staticJsonFilesBuildTime } = this.props;
 
-            worker.postMessage({
+            this._worker.postMessage({
                 summitId : parseInt(summit.id),
                 staticJsonFilesBuildTime: JSON.stringify(staticJsonFilesBuildTime)
             });
 
-            worker.onerror = (event) => {
-                console.log('There is an error with your worker!', event);
-            }
-
-            worker.onmessage = ({ data: {  eventsData, summitData, speakersData, extraQuestionsData, eventsIDXData, speakersIXData } }) => {
+            this._worker.onmessage = ({ data: {  eventsData, summitData, speakersData, extraQuestionsData, eventsIDXData, speakersIXData } }) => {
                 syncData( eventsData, summitData, speakersData, extraQuestionsData, eventsIDXData, speakersIXData);
-                worker.terminate();
+                this._worker.terminate();
             };
         }
 

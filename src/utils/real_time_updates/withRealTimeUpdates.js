@@ -30,6 +30,7 @@ const withRealTimeUpdates = WrappedComponent => {
 
 
             let _this = this;
+            this._worker = null;
             this.createRealTimeSubscription = this.createRealTimeSubscription.bind(this);
             this.queryRealTimeDB = this.queryRealTimeDB.bind(this);
             this.checkForPastNovelties = this.checkForPastNovelties.bind(this);
@@ -73,9 +74,7 @@ const withRealTimeUpdates = WrappedComponent => {
                 console.log('withRealTimeUpdates::processUpdates getAccessToken error: ', e);
             }
 
-            const worker = new Worker(new URL('../../workers/synch.worker.js', import.meta.url), {type: 'module'});
-
-            worker.postMessage({
+            this._worker .postMessage({
                 accessToken: accessToken,
                 noveltiesArray: JSON.stringify(updates),
                 summit: JSON.stringify(summit),
@@ -85,12 +84,7 @@ const withRealTimeUpdates = WrappedComponent => {
                 allIDXSpeakers: JSON.stringify(allIDXSpeakers),
             });
 
-            worker.onerror = (event) => {
-                console.log('withRealTimeUpdates::processUpdates There is an error with your worker!', event);
-                alert(event.message + " (" + event.filename + ":" + event.lineno + ")");
-            }
-
-            worker.onmessage = ({
+            this._worker .onmessage = ({
                                     data: {
                                         payload,
                                         entity,
@@ -114,8 +108,6 @@ const withRealTimeUpdates = WrappedComponent => {
                     newAllSpeakers,
                     newAllIDXSpeakers
                 )
-                console.log('withRealTimeUpdates::processUpdates terminating worker');
-                worker.terminate();
             }
         }
 
@@ -217,7 +209,20 @@ const withRealTimeUpdates = WrappedComponent => {
         }
 
         componentDidMount() {
+            console.log('withRealTimeUpdates::componentDidMount');
             const {summit, lastCheckForNovelties} = this.props;
+
+            console.log('withRealTimeUpdates::componentDidMount creating sync worker');
+
+            if(this._worker){
+                this._worker.terminate();
+            }
+
+            this._worker = new Worker(new URL('../../workers/synch.worker.js', import.meta.url), {type: 'module'});
+            this._worker .onerror = (event) => {
+                console.log('withRealTimeUpdates::componentDidMount There is an error with your worker!', event);
+                alert(event.message + " (" + event.filename + ":" + event.lineno + ")");
+            }
 
             this.createRealTimeSubscription(summit?.id, lastCheckForNovelties);
 
@@ -225,8 +230,13 @@ const withRealTimeUpdates = WrappedComponent => {
         }
 
         componentWillUnmount() {
+            console.log('withRealTimeUpdates::componentWillUnmount');
             document.removeEventListener("visibilitychange", this.onVisibilityChange)
             this.clearRealTimeSubscription();
+
+            console.log('withRealTimeUpdates::componentWillUnmount terminating worker');
+            this._worker.terminate();
+            this._worker = null;
         }
 
         render() {
