@@ -64,8 +64,6 @@ const withRealTimeUpdates = WrappedComponent => {
          */
         async processUpdates(updates) {
 
-            console.log('withRealTimeUpdates::processUpdates', updates);
-
             const {summit, allEvents, allIDXEvents, allSpeakers, allIDXSpeakers, synchEntityData} = this.props;
 
             let accessToken = null;

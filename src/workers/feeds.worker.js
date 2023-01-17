@@ -59,8 +59,6 @@ self.onmessage = async ({data: {summitId, staticJsonFilesBuildTime}}) => {
     Promise.all(calls)
         .then((values) => {
 
-            console.log(`feeds worker sending data to synch...`, values);
-
             let eventsData = values[0];
             let eventsIDXData = values[1];
             let summitData = values[2];

@@ -27,7 +27,6 @@ export const BUCKET_VOTABLE_PRES_DATA_KEY = 'votablePresJSON';
 
 export const storeData = async (summitId, dataKey, data) => {
     // store data
-    console.log(`storeData summitId ${summitId} dataKey ${dataKey}`, data);
     const options = {
         headers: {
             'Content-Type': 'text/plain; charset=UTF-16'
@@ -40,7 +39,6 @@ export const storeData = async (summitId, dataKey, data) => {
 }
 
 export const loadData = async (summitId, dataKey) => {
-    console.log(`loadData summitId ${summitId} dataKey ${dataKey}`);
     const storedData = await getFromCache(`files_${summitId}`, dataKey);
     if (storedData) {
         const jsonStr = decompressFromBase64(storedData);

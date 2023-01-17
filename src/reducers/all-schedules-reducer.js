@@ -43,8 +43,6 @@ const allSchedulesReducer = (state = DEFAULT_STATE, action) => {
         case SYNC_DATA:
         case RELOAD_SCHED_DATA:
         {
-            console.log(`allSchedulesReducer calling ${type}`, payload);
-
             const {eventsData: allScheduleEvents, summitData, isLoggedUser, userProfile, eventsIDXData } = payload;
 
             const schedules = summitData?.schedule_settings?.map(sched => {
