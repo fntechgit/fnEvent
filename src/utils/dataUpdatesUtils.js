@@ -50,3 +50,22 @@ export const loadData = async (summitId, dataKey) => {
 export const isSummitEventDataUpdate = (entity_type) => {
     return entity_type === 'Presentation' || entity_type === 'SummitEvent';
 }
+
+/**
+ * @param summitId
+ * @param bucketKey
+ * @param data
+ * @param lastModified
+ * @returns {Promise<void>}
+ */
+export const saveFile = async (summitId, bucketKey , data, lastModified) => {
+    try {
+        await storeData(summitId, getKey(summitId, bucketKey), data);
+        await putOnCache(`files_${summitId}`, getKey(summitId, `${bucketKey}_LAST_MODIFIED`), lastModified);
+    }
+    catch (e){
+        console.log(e);
+        return Promise.reject();
+    }
+    return Promise.resolve();
+}

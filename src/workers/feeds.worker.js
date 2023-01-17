@@ -42,11 +42,9 @@ self.onmessage = async ({data: {summitId, staticJsonFilesBuildTime}}) => {
     buildTime = staticJsonFilesBuildTime.find(e => e.file === summitFilePath).build_time;
     calls.push(bucket_getSummit(summitId, buildTime));
 
-
     //speakers
     buildTime = staticJsonFilesBuildTime.find(e => e.file === speakersFilePath).build_time;
     calls.push(bucket_getSpeakers(summitId, buildTime));
-
 
     buildTime = staticJsonFilesBuildTime.find(e => e.file === speakersIdxFilePath).build_time;
     calls.push(bucket_getSpeakersIDX(summitId, buildTime));
@@ -66,6 +64,7 @@ self.onmessage = async ({data: {summitId, staticJsonFilesBuildTime}}) => {
             let speakersIXData = values[4];
             let extraQuestionsData = values[5];
 
+            // if null , then set the SSR content
             if (!eventsData) eventsData = eventsBuildJson;
             if (!eventsIDXData) eventsIDXData = eventsIDXBuildJson;
             if (!summitData) summitData = summitBuildJson;
