@@ -79,7 +79,7 @@ You should wear dark/black pants and a plain black top that covers y
 
 Your healthcare professional will record your medical history, including known allergies and currentmedications, prior to the Allergan Medical Institute® ACCELERATE Program.
 
-You will also need to complete any applicable pre-appointment paperwork required by your healthcare professional,including a treatment consent form, with your injector prior to the program. Your healthcare professional may alsohave you sign a document indicating that you have not taken certain medications and/or supplements before yourtreatment.
+You will also need to complete any applicable pre-appointment paperwork required by your healthcare professional, including a treatment consent form, with your injector prior to the program. Your healthcare professional may also have you sign a document indicating that you have not taken certain medications and/or supplements before your treatment.
 
 ###### **<br>How do I sign up?**
 
