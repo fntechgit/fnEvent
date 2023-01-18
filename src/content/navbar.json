@@ -4,7 +4,7 @@
       "title": "Home",
       "link": "/",
       "display": true,
-      "requiresAuth": true,
+      "requiresAuth": false,
       "pageRestriction": [
         "ANY"
       ]
