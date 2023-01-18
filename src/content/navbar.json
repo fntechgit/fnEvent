@@ -1,8 +1,8 @@
 {
   "items": [
     {
-      "title": "Lobby",
-      "link": "/a/",
+      "title": "Home",
+      "link": "/",
       "display": true,
       "requiresAuth": true,
       "pageRestriction": [
