@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "author": "Tipit LLC",
   "dependencies": {
+    "@mui/base": "^5.0.0-alpha.114",
     "@ncwidgets/file-relation": "^0.8.0",
     "@ncwidgets/id": "^0.8.1",
     "@react-spring/web": "^9.4.3",
