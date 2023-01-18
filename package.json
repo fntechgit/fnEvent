@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "author": "Tipit LLC",
   "dependencies": {
+    "@mui/base": "^5.0.0-alpha.114",
     "@ncwidgets/file-relation": "^0.8.0",
     "@ncwidgets/id": "^0.8.1",
     "@react-spring/web": "^9.4.3",
@@ -84,6 +85,7 @@
     "react-helmet": "^6.0.0",
     "react-i18next": "^11.16.9",
     "react-iframe-comm": "^1.2.2",
+    "react-laag": "^2.0.5",
     "react-masonry-css": "^1.0.14",
     "react-medium-image-zoom": "^4.3.5",
     "react-qr-code": "^2.0.8",
