@@ -27,9 +27,10 @@ class ActivitySynchStrategy extends AbstractSynchStrategy{
             if(!entity){
                 // was deleted ( un - published)
                 // try to get from index
-                console.log(`ActivitySynchStrategy::process unpublished presentation ${entity_id}`)
                 const idx =  this.allIDXEvents.hasOwnProperty(entity_id) ? this.allIDXEvents[entity_id] : -1;
-                if(idx === -1) return Promise.reject(); // does not exists on index ...
+                console.log(`ActivitySynchStrategy::process unpublished presentation ${entity_id} idx ${idx}`);
+
+                if(idx === -1) return Promise.reject('ActivitySynchStrategy::process unpublished idx === -1'); // does not exists on index ...
                 // remove it from dataset
                 eventsData.splice(idx, 1);
                 // remove it from index
@@ -41,7 +42,7 @@ class ActivitySynchStrategy extends AbstractSynchStrategy{
                 const idx = this.allIDXEvents.hasOwnProperty(entity.id) ? this.allIDXEvents[entity.id] : -1;
                 console.log(`ActivitySynchStrategy::process entity is published got idx ${idx} eventsData length ${eventsData.length}`);
                 let formerEntity = idx === -1 ? null : ( (eventsData.length - 1 ) >= idx ? eventsData[idx] : null ) ;
-                if (formerEntity && formerEntity.id !== entity.id) return Promise.reject();// it's not the same
+                if (formerEntity && formerEntity.id !== entity.id) return Promise.reject('ActivitySynchStrategy::process entity is published entities are not the same');// it's not the same
                 console.log(`ActivitySynchStrategy::process entity is published`, formerEntity, entity, idx);
                 if(!formerEntity){
                     console.log('ActivitySynchStrategy::process former entity does not exists, inserting new one', entity);

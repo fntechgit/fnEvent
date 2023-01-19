@@ -53,7 +53,7 @@ self.onmessage = async ({
             console.log(`synch worker postMessage`);
             /* eslint-disable-next-line no-restricted-globals */
             self.postMessage(res);
-        }).catch(e => console.log(e));
+        }).catch((e) => {console.log(e)});
 
     }
 };

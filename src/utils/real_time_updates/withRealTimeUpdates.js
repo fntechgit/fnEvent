@@ -74,7 +74,7 @@ const withRealTimeUpdates = WrappedComponent => {
                 console.log('withRealTimeUpdates::processUpdates getAccessToken error: ', e);
             }
 
-            this._worker .postMessage({
+            this._worker.postMessage({
                 accessToken: accessToken,
                 noveltiesArray: JSON.stringify(updates),
                 summit: JSON.stringify(summit),
@@ -84,7 +84,7 @@ const withRealTimeUpdates = WrappedComponent => {
                 allIDXSpeakers: JSON.stringify(allIDXSpeakers),
             });
 
-            this._worker .onmessage = ({
+            this._worker.onmessage = ({
                                     data: {
                                         payload,
                                         entity,
