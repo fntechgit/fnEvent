@@ -21,7 +21,7 @@ class SummitSynchStrategy extends AbstractSynchStrategy {
         let eventsData = [...this.allEvents];
 
         if (entity_operator === 'UPDATE') {
-            if (!entity) return Promise.reject();
+            if (!entity) return Promise.reject('SummitSynchStrategy::process entity not found.');
 
             // update files on cache
             console.log(`SummitSynchStrategy::process updating cache files`);

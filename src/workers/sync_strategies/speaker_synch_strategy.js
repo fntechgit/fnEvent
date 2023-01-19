@@ -26,12 +26,13 @@ class SpeakerSynchStrategy extends AbstractSynchStrategy{
             if(!entity) return Promise.reject('SpeakerSynchStrategy::process entity not retrieved.');
             const idx = this.allIDXSpeakers.hasOwnProperty(entity_id) ? this.allIDXSpeakers[entity_id] : -1;
             let formerEntity = idx === -1 ? null : ( ( this.allSpeakers.length - 1 ) >= idx ? this.allSpeakers[idx] : null);
-            if (formerEntity && formerEntity.id !== entity_id) return Promise.reject('SpeakerSynchStrategy::process entities are not the same.'); // it's not the same
+            if (formerEntity && formerEntity.id !== entity_id)
+                return Promise.reject('SpeakerSynchStrategy::process entities are not the same.'); // it's not the same
             const updatedSpeaker =  formerEntity ? {...formerEntity, ...entity} : entity;
             if(idx === -1){
                 console.log(`SpeakerSynchStrategy::process entity does not exists, inserting it at end`, updatedSpeaker);
                 this.allSpeakers.push(updatedSpeaker);
-                this.allIDXSpeakers[updatedSpeaker.id] =   this.allSpeakers.length - 1;
+                this.allIDXSpeakers[updatedSpeaker.id] = this.allSpeakers.length - 1;
             }
             else {
                 console.log(`SpeakerSynchStrategy::process updating speaker at idx ${idx}`, updatedSpeaker);
@@ -43,7 +44,10 @@ class SpeakerSynchStrategy extends AbstractSynchStrategy{
                 for (const publishedEventId of entity.presentations) {
                     const idx = this.allIDXEvents.hasOwnProperty(publishedEventId) ? this.allIDXEvents[publishedEventId] : -1;
                     let formerEntity = idx === -1 ? null : ( (eventsData.length - 1) >= idx ? eventsData[idx] : null);
-                    if(formerEntity === null) continue;
+                    if(formerEntity === null){
+                        console.log(`SpeakerSynchStrategy::process presentations activity ${publishedEventId} not found on data set`);
+                        continue;
+                    }
                     if (formerEntity && formerEntity.id !== publishedEventId) continue;
                     // check if speakers collection
                     let speakers = formerEntity.speakers.map( s => {
@@ -56,11 +60,15 @@ class SpeakerSynchStrategy extends AbstractSynchStrategy{
                 }
             }
 
+            // check moderated presentations
             if(entity && entity.hasOwnProperty('moderated_presentations')){
                 for (const publishedEventId of entity.moderated_presentations) {
                     const idx = this.allIDXEvents.hasOwnProperty(publishedEventId) ? this.allIDXEvents[publishedEventId] : -1;
                     let formerEntity = idx === -1 ? null : ( (eventsData.length - 1 ) >= idx ? eventsData[idx] : null);
-                    if(formerEntity === null) continue;
+                    if(formerEntity === null) {
+                        console.log(`SpeakerSynchStrategy::process  moderated_presentations activity ${publishedEventId} not found on data set`);
+                        continue;
+                    }
                     if (formerEntity && formerEntity.id !== publishedEventId) continue; // it's not the same
                     // check if speakers collection
                     eventsData[idx] = {...formerEntity, moderator: updatedSpeaker};

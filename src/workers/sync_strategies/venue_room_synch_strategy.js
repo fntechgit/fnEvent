@@ -29,8 +29,13 @@ class VenueRoomSynchStrategy extends AbstractSynchStrategy{
 
                 for (const publishedEventId of entity.published_events) {
                     const idx = this.allIDXEvents.hasOwnProperty(publishedEventId) ? this.allIDXEvents[publishedEventId] : -1;
-                    let formerEntity = idx === -1 ? null : eventsData[idx];
-                    if (formerEntity && formerEntity.id !== publishedEventId) return Promise.reject(); // it's not the same
+                    let formerEntity = idx === -1 ? null : ( ( eventsData.length - 1) >= idx ? eventsData[idx] : null);
+                    if(formerEntity === null){
+                        console.log(`VenueRoomSynchStrategy::process published_events activity ${publishedEventId} not found on data set`);
+                        continue;
+                    }
+                    if (formerEntity && formerEntity.id !== publishedEventId)
+                        continue;
                     eventsData[idx] = {...formerEntity, location: entity};
                 }
 
