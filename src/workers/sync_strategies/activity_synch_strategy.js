@@ -39,10 +39,12 @@ class ActivitySynchStrategy extends AbstractSynchStrategy{
                 // entity is published
 
                 const idx = this.allIDXEvents.hasOwnProperty(entity.id) ? this.allIDXEvents[entity.id] : -1;
-                let formerEntity = idx === -1 ? null : eventsData[idx];
+                console.log(`ActivitySynchStrategy::process entity is published got idx ${idx} eventsData length ${eventsData.length}`);
+                let formerEntity = idx === -1 ? null : ( (eventsData.length - 1 ) >= idx ? eventsData[idx] : null ) ;
                 if (formerEntity && formerEntity.id !== entity.id) return Promise.reject();// it's not the same
                 console.log(`ActivitySynchStrategy::process entity is published`, formerEntity, entity, idx);
                 if(!formerEntity){
+                    console.log('ActivitySynchStrategy::process former entity does not exists, inserting new one', entity);
                     // entity was just published ... then do insert ordering
                     this.allIDXEvents[entity.id] = insertSorted(eventsData, entity, (a, b) => {
                         // multi-criteria sort
@@ -70,6 +72,8 @@ class ActivitySynchStrategy extends AbstractSynchStrategy{
                 } else {
                     // publishing dates changed, we need to remove and do ordered re-insert
                     // remove it first
+
+                    console.log('ActivitySynchStrategy::process publishing dates had changed', entity);
                     eventsData.splice(idx, 1);
                     // then do insert ordering
                     this.allIDXEvents[entity.id] = insertSorted(eventsData, entity, (a, b) => {
