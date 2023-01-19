@@ -41,7 +41,7 @@ class ActivitySynchStrategy extends AbstractSynchStrategy{
                 const idx = this.allIDXEvents.hasOwnProperty(entity.id) ? this.allIDXEvents[entity.id] : -1;
                 let formerEntity = idx === -1 ? null : eventsData[idx];
                 if (formerEntity && formerEntity.id !== entity.id) return Promise.reject();// it's not the same
-
+                console.log(`ActivitySynchStrategy::process entity is published`, formerEntity, entity, idx);
                 if(!formerEntity){
                     // entity was just published ... then do insert ordering
                     this.allIDXEvents[entity.id] = insertSorted(eventsData, entity, (a, b) => {
