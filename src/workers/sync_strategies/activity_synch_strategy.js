@@ -94,9 +94,46 @@ class ActivitySynchStrategy extends AbstractSynchStrategy{
                         return intCheck(a.start_date, b.start_date);
                     });
                 }
-            }
 
-            // update files on cache
+                // checking speakers
+
+                if(entity.hasOwnProperty('speakers')){
+                    console.log(`ActivitySynchStrategy::process updating speakers`, entity.speakers);
+                    for (const speaker of entity.speakers) {
+                        const speakerIdx = this.allIDXSpeakers.hasOwnProperty(speaker.id) ? this.allIDXSpeakers[speaker.id] : -1;
+                        let formerSpeaker = speakerIdx === -1 ? null : ( (this.allSpeakers.length - 1 ) >= idx ? this.allSpeakers[speakerIdx] : null );
+                        console.log(`ActivitySynchStrategy::process updating speakers got speakerIdx ${speakerIdx}`, formerSpeaker);
+                        if(formerSpeaker === null){
+                            console.log(`ActivitySynchStrategy::process speaker does not exists, inserting it at end`, speaker);
+                            this.allSpeakers.push(speaker);
+                            this.allIDXSpeakers[speaker.id] = this.allSpeakers.length - 1;
+                        }
+                        else {
+                            console.log(`ActivitySynchStrategy::process updating speaker at idx ${speakerIdx}`, speaker);
+                            this.allSpeakers[speakerIdx] = speaker;
+                        }
+                    }
+                }
+
+                // moderators
+
+                if(entity.hasOwnProperty('moderator')){
+                    console.log(`ActivitySynchStrategy::process updating moderator`, entity.moderator);
+                        const speakerIdx = this.allIDXSpeakers.hasOwnProperty(entity.moderator.id) ? this.allIDXSpeakers[entity.moderator.id] : -1;
+                        let formerSpeaker = speakerIdx === -1 ? null : ( (this.allSpeakers.length - 1 ) >= idx ? this.allSpeakers[speakerIdx] : null );
+                        console.log(`ActivitySynchStrategy::process updating moderator got speakerIdx ${speakerIdx}`, formerSpeaker);
+                        if(formerSpeaker === null){
+                            console.log(`ActivitySynchStrategy::process moderator does not exists, inserting it at end`, entity.moderator);
+                            this.allSpeakers.push(entity.moderator);
+                            this.allIDXSpeakers[entity.moderator.id] = this.allSpeakers.length - 1;
+                        }
+                        else {
+                            console.log(`ActivitySynchStrategy::process updating moderator at idx ${speakerIdx}`, entity.moderator);
+                            this.allSpeakers[speakerIdx] = entity.moderator;
+                        }
+
+                }
+            }
 
             // update files on cache
             console.log(`ActivitySynchStrategy::process updating cache files`);
