@@ -58,7 +58,7 @@ export const ExtraQuestionsPageTemplate = ({ user, summit, extraQuestions, saveE
     }
 
     const triggerFormSubmit = () => {
-        if(extraQuestions.length > 0){
+        if (extraQuestions.length > 0){
             formRef.current.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }))
             return;
         }
@@ -71,107 +71,93 @@ export const ExtraQuestionsPageTemplate = ({ user, summit, extraQuestions, saveE
     }
 
     return (
-        <>
-            <div className="columns">
-                <div className="column px-6 py-6 mb-6 is-half is-offset-one-quarter">
-                    <h2>Attendee Information</h2>
-                    <div className={styles.form}>
-                        <div className={`columns is-mobile ${styles.inputRow}`}>
-                            <div className='column is-one-third'>Ticket assigned to email</div>
-                            <div className='column is-two-thirds'>
-                                {owner.email}
-                            </div>
-                        </div>
-                        <div className={`columns is-mobile ${styles.inputRow}`}>
-                            <div className='column is-one-third'>First Name</div>
-                            <div className='column is-two-thirds'>
-                                {ticket.owner.first_name ?
-                                    owner.first_name
-                                    :
-                                    <input
-                                        className={`${styles.input} ${styles.isMedium}`}
-                                        type="text"
-                                        placeholder="First Name"
-                                        onChange={e => setOwner({ ...owner, first_name: e.target.value })}
-                                        value={owner.first_name} />
-                                }
-                            </div>
-                        </div>
-                        <div className={`columns is-mobile ${styles.inputRow}`}>
-                            <div className='column is-one-third'>Last Name</div>
-                            <div className='column is-two-thirds'>
-                                {ticket.owner.last_name ?
-                                    owner.last_name
-                                    :
-                                    <input
-                                        className={`${styles.input} ${styles.isMedium}`}
-                                        type="text"
-                                        placeholder="Last Name"
-                                        onChange={e => setOwner({ ...owner, last_name: e.target.value })}
-                                        value={owner.last_name} />
-                                }
-                            </div>
-                        </div>
-                        <div className={`columns is-mobile ${styles.inputRow}`}>
-                            <div className='column is-one-third'>Company</div>
-                            <div className='column is-two-thirds'>
-                                {ticket.owner.company ?
-                                    owner.company
-                                    :
-                                    <input
-                                        className={`${styles.input} ${styles.isMedium}`}
-                                        type="text"
-                                        placeholder="Company"
-                                        onChange={e => setOwner({ ...owner, company: e.target.value })}
-                                        value={owner.company} />
-                                }
-                            </div>
-                        </div>
+        <div className="content columns">
+            <div className="column is-three-fifths is-offset-one-fifth px-6-desktop py-6-desktop mb-6">
+                <h2>Attendee Information</h2>
+                <div className="columns is-multiline pt-4 pb-5">
+                    <div className={`column is-full-mobile is-half ${styles.extraQuestion}`}>
+                        <label for="attendee-first-name">First Name</label>
+                        <input
+                            id="attendee-first-name"
+                            className="form-control"
+                            type="text"
+                            placeholder="First Name"
+                            onChange={e => setOwner({ ...owner, first_name: e.target.value })}
+                            value={owner.first_name}
+                        />
                     </div>
-                    { extraQuestions.length > 0  &&
-                        <>
-                            <h2>Additional Information</h2>
-                            <span>
-                                <p>
-                                    Please answer these additional questions.
-                                </p>
-                                <p>
-                                    * Required questions
-                                </p>
-                                <br />
-                            </span>
-                            <div>
-                                <ExtraQuestionsForm
-                                    extraQuestions={extraQuestions}
-                                    userAnswers={userAnswers}
-                                    onAnswerChanges={handleAnswerChanges}
-                                    ref={formRef}
-                                    allowExtraQuestionsEdit={summit.allow_update_attendee_extra_questions}
-                                    questionContainerClassName={'columns'}
-                                    questionLabelContainerClassName={'column is-one-third'}
-                                    questionControlContainerClassName={'column is-two-thirds'}
-                                />
-                            </div>
-                        </>
-                    }
-                    { summit?.registration_disclaimer_content &&
-                        <div className={`columns ${styles.disclaimer}`}>
-                            <div className="column is-12">
-                                <input type="checkbox" checked={owner.disclaimer} onChange={toggleDisclaimer} />
-                                <b>{summit.registration_disclaimer_mandatory ? '*' : ''}</b>
-                                <span dangerouslySetInnerHTML={{ __html: summit.registration_disclaimer_content }} />
-                            </div>
-                        </div>
-                    }
-                    <button
-                        className={`${styles.buttonSave} button is-large`}
-                        disabled={disabledButton}
-                        onClick={() => triggerFormSubmit()}>
-                        Save and Continue
-                    </button>
+                    <div className={`column is-full-mobile is-half ${styles.extraQuestion}`}>
+                        <label for="attendee-first-name">Last Name</label>
+                        <input
+                            id="attendee-last-name"
+                            className="form-control"
+                            type="text"
+                            placeholder="Last Name"
+                            onChange={e => setOwner({ ...owner, last_name: e.target.value })}
+                            value={owner.last_name}
+                        />
+                    </div>
+                    <div className={`column is-full-mobile is-half ${styles.extraQuestion}`}>
+                        <label for="attendee-email">Email</label>
+                        <input
+                            id="attendee-email"
+                            className="form-control"
+                            type="text"
+                            placeholder="Email"
+                            onChange={e => setOwner({ ...owner, email: e.target.value })}
+                            value={owner.email}
+                            disabled={!!ticket.owner.email}
+                        />
+                    </div>
+                    <div className={`column is-full-mobile is-half ${styles.extraQuestion}`}>
+                        <label for="attendee-company">Company</label>
+                        <input
+                            id="attendee-company"
+                            className="form-control"
+                            type="text"
+                            placeholder="Company"
+                            onChange={e => setOwner({ ...owner, company: e.target.value })}
+                            value={owner.company}
+                        />
+                    </div>
                 </div>
+                { extraQuestions.length > 0  &&
+                <>
+                    <h2 className="mb-3">Additional Information</h2>
+                    <p>Please answer these additional questions.</p>
+                    <ExtraQuestionsForm
+                        extraQuestions={extraQuestions}
+                        userAnswers={userAnswers}
+                        onAnswerChanges={handleAnswerChanges}
+                        ref={formRef}
+                        allowExtraQuestionsEdit={summit.allow_update_attendee_extra_questions}
+                        questionContainerClassName={`columns is-multiline ${styles.extraQuestion} pt-3`}
+                        questionLabelContainerClassName={'column is-full pb-0'}
+                        questionControlContainerClassName={'column is-full pt-3'}
+                    />
+                </>
+                }
+                { summit?.registration_disclaimer_content &&
+                <div className="columns">
+                    <div className="column">
+                        <input
+                            className={`${summit.registration_disclaimer_mandatory ? styles.mandatoryDisclaimer : ""}`}
+                            type="checkbox"
+                            checked={owner.disclaimer}
+                            onChange={toggleDisclaimer}
+                        />
+                        <span dangerouslySetInnerHTML={{ __html: summit.registration_disclaimer_content }} />
+                    </div>
+                </div>
+                }
+                <button
+                    className={`${styles.buttonSave} button is-large`}
+                    disabled={disabledButton}
+                    onClick={() => triggerFormSubmit()}>
+                    Save and Continue
+                </button>
             </div>
-        </>
+        </div>
     )
 };
 

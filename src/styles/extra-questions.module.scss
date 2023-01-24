@@ -4,11 +4,23 @@
 
 @import "./colors.scss";
 
-.question-wrapper {
-  margin: 15px 0;
-  display: flex;
-  align-content: center;
-  align-items: baseline;
+.extra-question {
+  label {
+    font-weight: 600;
+    b {
+      color: red;
+    }
+  }
+  [id^=rl_wrapper] div {
+    padding-bottom: 10px;
+  }
+  h4 {
+    font-weight: 400;
+    font-size: 1em !important;
+    line-height: 1;
+    padding-top: 4px;
+    margin-bottom: 0px;
+  }
 }
 
 .button-save {
@@ -16,31 +28,12 @@
   margin-top: 20px;
 }
 
-.disclaimer {
-  margin: 25px 5px 0 5px;
-  > div {
-    b {
-      margin-left: 5px;
-    }
-  }
-  ul {
-    list-style: inside;
-  }
-}
-.form {
-  margin-bottom: 30px;
-  .input-row {
-    margin: 15px 0;
-
-    .input-field {
-      display: flex;
-      flex-direction: column;
-
-      b {
-        font-size: 14px;
-        line-height: 20px;
-        margin-bottom: 5px;
-      }      
-    }
-  }
+.mandatoryDisclaimer::after {
+  content: "*";
+  position: relative;
+  bottom: 2px;
+  left: 20px;
+  color: red;
+  font-size: 1em;
+  font-weight: 700;
 }
