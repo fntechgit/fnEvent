@@ -12,7 +12,16 @@
     }
   }
   [id^=rl_wrapper] div {
-    padding-bottom: 10px;
+    padding-top: 5px;
+    &~ div {
+      padding-top: 10px;
+    }
+  }
+  input[type="checkbox"] {
+    margin-right: 3px;
+    &~ label {
+      padding-left: 13px !important;
+    }
   }
   h4 {
     font-weight: 400;

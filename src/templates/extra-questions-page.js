@@ -76,7 +76,7 @@ export const ExtraQuestionsPageTemplate = ({ user, summit, extraQuestions, saveE
                 <h2>Attendee Information</h2>
                 <div className="columns is-multiline pt-4 pb-5">
                     <div className={`column is-full-mobile is-half ${styles.extraQuestion}`}>
-                        <label for="attendee-first-name">First Name</label>
+                        <label htmlFor="attendee-first-name">First Name</label>
                         <input
                             id="attendee-first-name"
                             className="form-control"
@@ -87,7 +87,7 @@ export const ExtraQuestionsPageTemplate = ({ user, summit, extraQuestions, saveE
                         />
                     </div>
                     <div className={`column is-full-mobile is-half ${styles.extraQuestion}`}>
-                        <label for="attendee-first-name">Last Name</label>
+                        <label htmlFor="attendee-first-name">Last Name</label>
                         <input
                             id="attendee-last-name"
                             className="form-control"
@@ -98,7 +98,7 @@ export const ExtraQuestionsPageTemplate = ({ user, summit, extraQuestions, saveE
                         />
                     </div>
                     <div className={`column is-full-mobile is-half ${styles.extraQuestion}`}>
-                        <label for="attendee-email">Email</label>
+                        <label htmlFor="attendee-email">Email</label>
                         <input
                             id="attendee-email"
                             className="form-control"
@@ -110,7 +110,7 @@ export const ExtraQuestionsPageTemplate = ({ user, summit, extraQuestions, saveE
                         />
                     </div>
                     <div className={`column is-full-mobile is-half ${styles.extraQuestion}`}>
-                        <label for="attendee-company">Company</label>
+                        <label htmlFor="attendee-company">Company</label>
                         <input
                             id="attendee-company"
                             className="form-control"
@@ -133,7 +133,7 @@ export const ExtraQuestionsPageTemplate = ({ user, summit, extraQuestions, saveE
                         allowExtraQuestionsEdit={summit.allow_update_attendee_extra_questions}
                         questionContainerClassName={`columns is-multiline ${styles.extraQuestion} pt-3`}
                         questionLabelContainerClassName={'column is-full pb-0'}
-                        questionControlContainerClassName={'column is-full pt-3'}
+                        questionControlContainerClassName={'column is-full pt-0'}
                     />
                 </>
                 }
