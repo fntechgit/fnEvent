@@ -1,5 +1,7 @@
 import CMS from 'netlify-cms-app'
 
+import './cms-utils';
+
 import IndexPagePreview from './preview-templates/IndexPagePreview'
 import CustomPagePreview from './preview-templates/CustomPagePreview'
 import MarketingPagePreview from './preview-templates/MarketingPagePreview'
