@@ -161,7 +161,10 @@ const RegistrationLiteComponent = ({
                         backUrl: '/'+fragment
                     }
                 });
-        }
+        },
+        allowPromoCodes: siteSettings?.REG_LITE_ALLOW_PROMO_CODES,
+        companyInputPlaceholder: siteSettings?.REG_LITE_COMPANY_INPUT_PLACEHOLDER,
+        companyDDLPlaceholder: siteSettings?.REG_LITE_COMPANY_DDL_PLACEHOLDER
     };
 
     const { registerButton } = siteSettings.heroBanner.buttons;
