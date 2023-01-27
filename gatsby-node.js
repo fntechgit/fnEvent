@@ -201,8 +201,9 @@ exports.onPreBootstrap = async () => {
     if (key.startsWith('color_')) colorSettings[key] = value;
     if (key.startsWith('disqus_')) disqusSettings[key] = value;
     if (key.startsWith('summit_')) marketingSite[key] = value;
-    if (key.startsWith('REG_LITE_COMPANY')) marketingSite[key] = value;
-
+        
+    if (key === 'REG_LITE_COMPANY_INPUT_PLACEHOLDER') marketingSite[key] = value;
+    if (key === 'REG_LITE_COMPANY_DDL_PLACEHOLDER') marketingSite[key] = value;
     if (key === 'REG_LITE_ALLOW_PROMO_CODES') marketingSite[key] = !!Number(value);
     if (key === 'schedule_default_image') homeSettings.schedule_default_image = value;
     if (key === 'registration_in_person_disclaimer') marketingSite[key] = value;
