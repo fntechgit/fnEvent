@@ -17,7 +17,7 @@ Registration fees include: Access to all sessions (keynotes, executive talks, en
 
 **Cancelation Policy**
 
-A request to cancel your ticket must be emailed to [](mailto:registration@opencompute.org)[registration@opencompute.org](mailto:registration@opencompute.org)[](mailto:registration@opencompute.org). Requests received on or prior to 21 February 2023 will receive a full refund. No refunds will be given after 21 February 2023.
+A request to cancel your ticket must be emailed to [](mailto:registration@opencompute.org)[registration@opencompute.org](mailto:registration@opencompute.org)[](mailto:registration@opencompute.org). Requests received on or prior to 1 March 2023 will receive a full refund. No refunds will be given after 1 March 2023.
 
 **<br>How to Register:**
 
