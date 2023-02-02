@@ -63,7 +63,7 @@ const mapStateToProps = ({ userState, settingState }) => ({
   userProfile: userState.userProfile,
   colorSettings: settingState.colorSettings,
   homeSettings: settingState.homeSettings,
-  allowClick: settingState.widgets.schedule.allowClick
+  allowClick: settingState?.widgets?.schedule?.allowClick || true
 });
 
 export default connect(mapStateToProps, {
