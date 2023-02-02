@@ -79,7 +79,7 @@ const mapStateToProps = ({ loggedUserState, userState, clockState, settingState 
   summit_phase: clockState.summit_phase,
   user: userState,
   lastBuild: settingState.lastBuild,
-  allowClick: settingState.widgets.schedule.allowClick
+  allowClick: settingState?.widgets?.schedule?.allowClick || true
 });
 
 export default connect(mapStateToProps, { syncData })(App)
