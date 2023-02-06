@@ -132,9 +132,13 @@ export const ExtraQuestionsPageTemplate = ({ user, summit, extraQuestions, saveE
                         <>
                             <h2>Additional Information</h2>
                             <span>
-                                Please answer these additional questions.
+                                <p>
+                                    Please answer these additional questions.
+                                </p>
+                                <p>
+                                    * Required questions
+                                </p>
                                 <br />
-                                * Required questions
                             </span>
                             <div>
                                 <ExtraQuestionsForm
