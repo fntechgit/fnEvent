@@ -1,9 +1,6 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { Router, Location } from "@reach/router"
 import { connect } from 'react-redux'
-import { syncData } from '../../actions/base-actions';
-import settings from '../../content/settings';
-
 import HomePage from "../../templates/home-page"
 import EventPage from "../../templates/event-page"
 import PostersPage from "../../templates/posters-page";
@@ -19,12 +16,11 @@ import WithBadgeRoute from "../../routes/WithBadgeRoute";
 import PosterDetailPage from "../../templates/poster-detail-page";
 import MyTicketsPage from '../../templates/my-tickets-page';
 import WithTicketRoute from "../../routes/WithTicketRoute";
+import withRealTimeUpdates from "../../utils/real_time_updates/withRealTimeUpdates";
+import withFeedsWorker from "../../utils/withFeedsWorker";
 
-const App = ({ isLoggedUser, user, summit_phase, lastBuild, syncData, allowClick = true }) => {
 
-  useEffect(() => {
-    syncData();
-  }, [syncData]);
+const App = ({ isLoggedUser, user, summit_phase, allowClick = true }) => {
 
   return (
     <Location>
@@ -73,12 +69,15 @@ const App = ({ isLoggedUser, user, summit_phase, lastBuild, syncData, allowClick
   )
 };
 
-const mapStateToProps = ({ loggedUserState, userState, clockState, settingState }) => ({
+const mapStateToProps = ({ loggedUserState, userState, clockState, settingState, summitState }) => ({
   isLoggedUser: loggedUserState.isLoggedUser,
   summit_phase: clockState.summit_phase,
   user: userState,
+  summitId: summitState?.summit?.id,
   lastBuild: settingState.lastBuild,
+  summit: summitState?.summit,
   allowClick: settingState?.widgets?.schedule?.allowClick || true
 });
 
-export default connect(mapStateToProps, { syncData })(App)
+export default connect(mapStateToProps, {
+})(withFeedsWorker(withRealTimeUpdates(App)))

@@ -12,11 +12,12 @@ import {
   EVENT_PHASE_ADD
 } from '../actions/clock-actions';
 import summitData from '../content/summit.json';
-import {RESET_STATE, SYNC_DATA} from "../actions/base-actions";
+import {RESET_STATE, SYNC_DATA} from "../actions/base-actions-definitions";
 
 import { getSummitPhase } from '../utils/phasesUtils';
 
 const localNowUtc = Math.round(+new Date() / 1000);
+
 // calculate on initial state the nowUtc ( local ) and the summit phase using the json data
 const DEFAULT_STATE = {
   loading: false,
@@ -33,7 +34,7 @@ const clockReducer = (state = DEFAULT_STATE, action) => {
       return DEFAULT_STATE;
     case SYNC_DATA: {
       const {summitData} = payload;
-      return {...DEFAULT_STATE, summit_phase: getSummitPhase(summitData, localNowUtc)};
+      return {...state, summit_phase: getSummitPhase(summitData, localNowUtc)};
     }
     case START_LOADING:
       return { ...state, loading: true };
