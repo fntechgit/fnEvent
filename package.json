@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "author": "Tipit LLC",
   "dependencies": {
+    "@babel/plugin-syntax-top-level-await": "^7.14.5",
     "@mui/base": "^5.0.0-alpha.114",
     "@ncwidgets/file-relation": "^0.8.0",
     "@ncwidgets/id": "^0.8.1",
@@ -13,6 +14,7 @@
     "@types/markerclustererplus": "^2.1.33",
     "@types/react": "^16.9.42",
     "@vimeo/player": "^2.16.3",
+    "ably": "^1.2.34",
     "attendee-to-attendee-widget": "^2.0.17",
     "awesome-bootstrap-checkbox": "^1.0.1",
     "axios": "^0.19.2",

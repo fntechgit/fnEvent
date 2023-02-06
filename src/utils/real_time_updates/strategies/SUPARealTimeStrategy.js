@@ -1,21 +1,19 @@
-import AbstractRealTimeSingleEventStrategy from "./AbstractRealTimeSingleEventStrategy";
+import AbstractRealTimeStrategy from "./AbstractRealTimeStrategy";
 import SupabaseClientBuilder from "../../supabaseClientBuilder";
 import {getEnvVariable, SUPABASE_KEY, SUPABASE_URL} from "../../envVariables";
 const MAX_SUBSCRIPTION_RETRY = 3;
 
 /**
- * SUPARealTimeSingleEventStrategy
+ *
  */
-class SUPARealTimeSingleEventStrategy extends AbstractRealTimeSingleEventStrategy {
+class SUPARealTimeStrategy extends AbstractRealTimeStrategy {
 
     /**
-     *
      * @param callback
      * @param checkPastCallback
      */
     constructor(callback, checkPastCallback) {
         super(callback, checkPastCallback);
-
         this._subscription = null;
         this._supaError = false;
         this._supaBackgrounError = false;
@@ -35,47 +33,41 @@ class SUPARealTimeSingleEventStrategy extends AbstractRealTimeSingleEventStrateg
     hasBackgroundError(){return this._supaBackgrounError;}
 
     /**
-     *
-     * @param summit
-     * @param event
-     * @param eventId
-     * @param lastUpdate
+     * @param summitId
+     * @param lastCheckForNovelties
      */
-    create(summit, event, eventId, lastUpdate){
-        super.create(summit, event, eventId, lastUpdate);
-        console.log('SUPARealTimeSingleEventStrategy::create');
+    create(summitId, lastCheckForNovelties) {
+        super.create(summitId, lastCheckForNovelties);
+
+        console.log('SUPARealTimeStrategy::create');
 
         if(this._supaError){
-            console.log('SUPARealTimeSingleEventStrategy::create error state');
+            console.log('SUPARealTimeStrategy::create error state');
             return;
         }
 
         // check if we are already connected
 
         if(this._subscription && this._subscription.isJoined() ){
-            console.log('SUPARealTimeSingleEventStrategy::create already connected');
+            console.log('SUPARealTimeStrategy::create already connected');
             return;
         }
 
         this._subscription = this._supabase
-            .from(`summit_entity_updates:summit_id=eq.${summit.id}`)
+            .from(`summit_entity_updates:summit_id=eq.${summitId}`)
             .on('INSERT', (payload) => {
-                console.log('SUPARealTimeSingleEventStrategy::create Change received (INSERT)', payload)
+                console.log('SUPARealTimeStrategy::create Change received (INSERT)', payload)
                 let {new: update} = payload;
-                if (update.entity_type === 'Presentation' && parseInt(update.entity_id) == parseInt(eventId)) {
-                    this._callback(update);
-                }
+                this._callback(update);
             })
             .on('UPDATE', (payload) => {
-                console.log('SUPARealTimeSingleEventStrategy::create Change received (UPDATE)', payload)
+                console.log('SUPARealTimeStrategy::create Change received (UPDATE)', payload)
                 let {new: update} = payload;
-                if (update.entity_type === 'Presentation' && parseInt(update.entity_id) == parseInt(eventId)) {
-                    this._callback(update);
-                }
+                this._callback(update);
             })
             .subscribe((status, e) => {
                 const visibilityState = document.visibilityState;
-                console.log("SUPARealTimeSingleEventStrategy::create subscribe ", status, e, visibilityState);
+                console.log("SUPARealTimeStrategy::create subscribe ", status, e, visibilityState);
                 if (status === "SUBSCRIPTION_ERROR") {
                     this._supaError = true;
                     // init the RT cleaning process
@@ -91,12 +83,12 @@ class SUPARealTimeSingleEventStrategy extends AbstractRealTimeSingleEventStrateg
                         ++this._retrySubscriptionCounter;
                         // if we are on visible state, then restart the RT
                         window.setTimeout(() => {
-                            this.create(summit, event, eventId, lastUpdate)
+                            this.create(summitId, lastCheckForNovelties)
                         }, 2 **  this._retrySubscriptionCounter  * 1000);
                         return;
                     }
                     // we spent all exp back off, try fallback
-                   this.startUsingFallback(summit, event, eventId, lastUpdate);
+                    this.startUsingFallback(summitId, lastCheckForNovelties);
                 }
                 if (status === "SUBSCRIBED") {
                     // reset counter
@@ -105,9 +97,7 @@ class SUPARealTimeSingleEventStrategy extends AbstractRealTimeSingleEventStrateg
                     this._supaBackgrounError = false;
                     // RELOAD
                     // check on demand ( just in case that we missed some Real time update )
-                    if(event && eventId) {
-                        this._checkPastCallback(summit.id, event, eventId, lastUpdate);
-                    }
+                    this._checkPastCallback(summitId, lastCheckForNovelties);
                 }
             })
     }
@@ -116,7 +106,7 @@ class SUPARealTimeSingleEventStrategy extends AbstractRealTimeSingleEventStrateg
         super.close();
         if (this._supabase && this._subscription) {
             try {
-                console.log("SUPARealTimeSingleEventStrategy::close");
+                console.log("SUPARealTimeStrategy::close");
                 this._supabase.removeSubscription(this._subscription);
                 this._subscription = null;
             }
@@ -127,4 +117,5 @@ class SUPARealTimeSingleEventStrategy extends AbstractRealTimeSingleEventStrateg
     }
 }
 
-export default SUPARealTimeSingleEventStrategy;
+
+export default SUPARealTimeStrategy;
