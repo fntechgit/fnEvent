@@ -1,7 +1,7 @@
 import { START_LOADING, STOP_LOADING } from "openstack-uicore-foundation/lib/utils/actions";
 import { LOGOUT_USER } from "openstack-uicore-foundation/lib/security/actions";
-import { GET_EVENT_DATA, GET_EVENT_DATA_ERROR, SET_EVENT_LAST_UPDATE } from '../actions/event-actions'
-import {RESET_STATE, SYNC_DATA} from "../actions/base-actions";
+import {GET_EVENT_DATA, GET_EVENT_DATA_ERROR, RELOAD_EVENT_STATE, SET_EVENT_LAST_UPDATE} from '../actions/event-actions-definitions'
+import {RESET_STATE} from "../actions/base-actions-definitions";
 
 const DEFAULT_STATE = {
   loading: false,
@@ -15,7 +15,6 @@ const eventReducer = (state = DEFAULT_STATE, action) => {
   switch (type) {
     case RESET_STATE:
     case LOGOUT_USER:
-    case SYNC_DATA:
     {
       return DEFAULT_STATE;
     }
@@ -33,6 +32,10 @@ const eventReducer = (state = DEFAULT_STATE, action) => {
       return { ...state, loading: false, event: updatedEvent };
     case GET_EVENT_DATA_ERROR: {
       return { ...state, loading: false, event: null }
+    }
+    // reload event state
+    case RELOAD_EVENT_STATE:{
+      return {...state, loading:false, event: payload};
     }
     default:
       return state;

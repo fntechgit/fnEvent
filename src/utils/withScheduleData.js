@@ -9,14 +9,9 @@ import { reloadScheduleData } from '../actions/base-actions';
 
 const componentWrapper = (WrappedComponent) => ({schedules, ...props}) => {
   const [loaded, setLoaded] = useState(false);
-  const { updateFiltersFromHash, reloadScheduleData, schedKey } = props;
+  const { updateFiltersFromHash, reloadScheduleData, schedKey, summit, staticJsonFilesBuildTime } = props;
   const scheduleState = schedules?.find( s => s.key === schedKey);
   const { key, filters, view } = scheduleState || {};
-
-  // on first load we load schedules data, always
-  useEffect(() => {
-    reloadScheduleData();
-  }, []);
 
   useEffect(() => {
     if (schedules.length > 0) {
@@ -43,6 +38,8 @@ const mapStateToProps = ({
   isLoggedUser: loggedUserState.isLoggedUser,
   schedules: allSchedulesState.schedules,
   colorSettings: settingState.colorSettings,
+  staticJsonFilesBuildTime: settingState.staticJsonFilesBuildTime,
+  lastDataSync: settingState.lastDataSync,
 });
 
 const reduxConnection = connect(mapStateToProps, {
