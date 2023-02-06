@@ -3,7 +3,7 @@ import tierData from '../content/sponsors-tiers';
 
 import { START_LOADING, STOP_LOADING } from "openstack-uicore-foundation/lib/utils/actions";
 import { LOGOUT_USER } from "openstack-uicore-foundation/lib/security/actions";
-import {RESET_STATE, SYNC_DATA} from "../actions/base-actions";
+import {RESET_STATE, SYNC_DATA} from "../actions/base-actions-definitions";
 
 const DEFAULT_STATE = {
   sponsors: sponsorData.tierSponsors,

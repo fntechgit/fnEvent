@@ -20,9 +20,9 @@ import AccessTracker, {AttendeesWidget} from "../components/AttendeeToAttendeeWi
 import AttendanceTrackerComponent from "../components/AttendanceTrackerComponent";
 import EventFeedbackComponent from '../components/EventFeedbackComponent'
 import {PHASES} from '../utils/phasesUtils';
-import { getEventById, setEventLastUpdate } from "../actions/event-actions";
+import { getEventById } from "../actions/event-actions";
 import URI from "urijs"
-import withRealTimeSingleEventUpdate from '../utils/real_time_updates/withRealTimeSingleEventUpdate';
+
 /**
  * @type {EventPageTemplate}
  */
@@ -36,16 +36,18 @@ export const EventPageTemplate = class extends React.Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        const {eventId, event, eventsPhases} = this.props;
+        const {eventId, event, eventsPhases, lastDataSync} = this.props;
         if (eventId !== nextProps.eventId) return true;
         if (!isEqual(event, nextProps.event)) return true;
+        // a synch did happened!
+        if(lastDataSync !== nextProps.lastDataSync) return true;
         // compare current event phase with next one
         const currentPhase = eventsPhases.find((e) => parseInt(e.id) === parseInt(eventId))?.phase;
         const nextCurrentPhase = nextProps.eventsPhases.find(
             (e) => parseInt(e.id) === parseInt(eventId)
         )?.phase;
         const finishing = (currentPhase === PHASES.DURING && nextCurrentPhase === PHASES.AFTER);
-        return (currentPhase !== nextCurrentPhase && !finishing);
+        return (currentPhase !== nextCurrentPhase && !finishing );
     }
 
     canRenderVideo = (currentPhase) => {
@@ -64,7 +66,6 @@ export const EventPageTemplate = class extends React.Component {
 
     componentDidMount() {
         const {eventId, event } = this.props;
-
         if (parseInt(event?.id) !== parseInt(eventId)) {
             this.props.getEventById(eventId);
         }
@@ -72,8 +73,8 @@ export const EventPageTemplate = class extends React.Component {
 
     render() {
 
-        const {event, user, loading, nowUtc, summit, eventsPhases, eventId, location, activityCtaText} = this.props;
-
+        const {event, user, loading, nowUtc, summit, eventsPhases, eventId, lastDataSync, activityCtaText} = this.props;
+        console.log(`EventPageTemplate::render lastDataSync ${lastDataSync}`);
         // get current event phase
         const currentPhase = eventsPhases.find((e) => parseInt(e.id) === parseInt(eventId))?.phase;
         const firstHalf = currentPhase === PHASES.DURING ? nowUtc < ((event?.start_date + event?.end_date) / 2) : false;
@@ -178,6 +179,8 @@ export const EventPageTemplate = class extends React.Component {
                                 </div>
                             )}
                             <UpcomingEventsComponent
+                                key={`event_page_upcomming_event_${lastDataSync}`}
+                                id={`event_page_upcomming_event_${lastDataSync}`}
                                 trackId={event.track ? event.track.id : null}
                                 eventCount={3}
                                 title={
@@ -206,8 +209,6 @@ export const EventPageTemplate = class extends React.Component {
     }
 };
 
-const EventPageTemplateWithRealTimeSingleEventUpdate = withRealTimeSingleEventUpdate(EventPageTemplate);
-
 const EventPage = ({
                        summit,
                        location,
@@ -218,9 +219,9 @@ const EventPage = ({
                        eventsPhases,
                        nowUtc,
                        getEventById,
-                       setEventLastUpdate,
                        lastUpdate,
                        activityCtaText,
+                       lastDataSync,
                    }) => {
 
     return (
@@ -232,7 +233,7 @@ const EventPage = ({
                     sourceName="EVENT"
                 />
             )}
-            <EventPageTemplateWithRealTimeSingleEventUpdate
+            <EventPageTemplate
                 summit={summit}
                 event={event}
                 eventId={eventId}
@@ -242,9 +243,9 @@ const EventPage = ({
                 nowUtc={nowUtc}
                 location={location}
                 getEventById={getEventById}
-                setEventLastUpdate={setEventLastUpdate}
                 lastUpdate={lastUpdate}
                 activityCtaText={activityCtaText}
+                lastDataSync={lastDataSync}
             />
         </Layout>
     );
@@ -258,7 +259,6 @@ EventPage.propTypes = {
     user: PropTypes.object,
     eventsPhases: PropTypes.array,
     getEventById: PropTypes.func,
-    setEventLastUpdate: PropTypes.func,
     activityCtaText: PropTypes.string,
 };
 
@@ -270,7 +270,6 @@ EventPageTemplate.propTypes = {
     user: PropTypes.object,
     eventsPhases: PropTypes.array,
     getEventById: PropTypes.func,
-    setEventLastUpdate: PropTypes.func,
     activityCtaText: PropTypes.string,
 };
 
@@ -282,10 +281,10 @@ const mapStateToProps = ({eventState, summitState, userState, clockState, settin
     eventsPhases: clockState.events_phases,
     nowUtc: clockState.nowUtc,
     lastUpdate: eventState.lastUpdate,
-    activityCtaText: settingState.siteSettings.ACTIVITY_CTA_TEXT
+    activityCtaText: settingState.siteSettings.ACTIVITY_CTA_TEXT,
+    lastDataSync: settingState.lastDataSync,
 });
 
 export default connect(mapStateToProps, {
     getEventById,
-    setEventLastUpdate,
 })(EventPage);

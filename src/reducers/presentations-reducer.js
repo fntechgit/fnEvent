@@ -5,7 +5,7 @@ import { VotingPeriod } from '../model/VotingPeriod';
 
 import { START_LOADING, STOP_LOADING } from 'openstack-uicore-foundation/lib/utils/actions';
 import { LOGOUT_USER } from 'openstack-uicore-foundation/lib/security/actions';
-import { RESET_STATE, SYNC_DATA } from "../actions/base-actions";
+import {RESET_STATE, SYNC_DATA} from "../actions/base-actions-definitions";
 
 import {
   CAST_PRESENTATION_VOTE_REQUEST,
