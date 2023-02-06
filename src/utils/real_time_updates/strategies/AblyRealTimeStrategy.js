@@ -50,11 +50,6 @@ class AblyRealTimeStrategy extends AbstractRealTimeStrategy {
             this._client.close();
         }
 
-        // create socket and subscribe to room
-        let room = {
-            summit_id : summitId,
-        }
-
         this._client = new Ably.Realtime({ key });
 
         // start listening for event

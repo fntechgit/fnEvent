@@ -33,19 +33,16 @@ export const getFromCache = async (bucket, key, isJson = false) => {
 }
 
 /**
- *
  * @param bucket
- * @returns {Promise<boolean>}
+ * @param key
+ * @returns {Promise<null|boolean>}
  */
-export const deleteFromCache =  (bucket) => {
-    return caches.delete(bucket);
-}
-
-/**
- *
- * @param summit
- * @returns {`novelties_queue_${string}}`}
- */
-export const getNoveltiesBucketKey = (summit) => {
-    return `novelties_queue_${summit.id}}`;
+export const deleteFromCache = async (bucket, key) => {
+    if(typeof caches !== 'undefined') {
+        caches.open(bucket).then((cache) => {
+            cache.delete(`/${key}.json`).then((response) => {
+                return true;
+            });
+        });
+    }
 }

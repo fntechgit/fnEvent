@@ -219,7 +219,7 @@ const withRealTimeUpdates = WrappedComponent => {
             }
 
             this._worker = new Worker(new URL('../../workers/synch.worker.js', import.meta.url), {type: 'module'});
-            this._worker .onerror = (event) => {
+            this._worker.onerror = (event) => {
                 console.log('withRealTimeUpdates::componentDidMount There is an error with your worker!', event);
                 alert(event.message + " (" + event.filename + ":" + event.lineno + ")");
             }

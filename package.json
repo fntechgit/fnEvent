@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "author": "Tipit LLC",
   "dependencies": {
+    "@babel/plugin-syntax-top-level-await": "^7.14.5",
     "@ncwidgets/file-relation": "^0.8.0",
     "@ncwidgets/id": "^0.8.1",
     "@react-spring/web": "^9.4.3",

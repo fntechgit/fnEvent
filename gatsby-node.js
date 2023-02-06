@@ -444,6 +444,9 @@ exports.onCreateWebpackConfig = ({ actions, plugins, loaders }) => {
     },
     // canvas is a jsdom external dependency
     externals: ['canvas'],
+    experiments: {
+      topLevelAwait: true,
+    },
     plugins: [
       plugins.define({
         'global.GENTLY': false,

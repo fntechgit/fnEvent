@@ -4,9 +4,6 @@ import {
     stopLoading,
     startLoading,
 } from 'openstack-uicore-foundation/lib/utils/actions';
-
-import URI from "urijs";
-
 import {
     getAccessToken,
     clearAccessToken,

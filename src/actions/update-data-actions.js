@@ -1,6 +1,6 @@
 import {createAction} from "openstack-uicore-foundation/lib/utils/actions";
 import {RELOAD_USER_PROFILE} from "./schedule-actions";
-import {getFromCache, putOnCache} from "../utils/cacheUtils";
+import {getFromCache, putOnCache, deleteFromCache} from "../utils/cacheUtils";
 import {SYNC_DATA, UPDATE_LAST_CHECK_FOR_NOVELTIES} from './base-actions-definitions';
 import {RELOAD_EVENT_STATE} from './event-actions-definitions';
 import {
@@ -81,7 +81,8 @@ const fetchBucket = async (etagKeyPre, dataKeyPre, fileName, summitId, lastBuild
                 const lastModifiedFieldEpoch = Date.parse(resLastModified) / 1000;
                 console.log(`fetchBucket ${url} ${fileName} last modified ${lastModifiedFieldEpoch} lastBuildTime ${lastBuildTime}`);
                 if (lastModifiedFieldEpoch < lastBuildTime) {
-                    console.log(`fetchBucket ${url} lastBuildTime is recent, we will use SSR files`)
+                    console.log(`fetchBucket ${url} lastBuildTime is recent, we will use SSR files`);
+                    await deleteFromCache(`files_${summitId}`, dataKey);
                     return null;
                 }
             }

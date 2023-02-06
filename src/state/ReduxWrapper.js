@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import store, { persistor } from "./store";
 
-import { RESET_STATE } from "../actions/base-actions";
+import { RESET_STATE } from "../actions/base-actions-definitions";
 
 const onBeforeLift = () => {
     const params = new URLSearchParams(window.location.search);
