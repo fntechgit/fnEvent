@@ -1,16 +1,1 @@
-{
-  "lastBuild": 1655303051852,
-  "favicons": {
-    "favicon180": "/img/Logo-Top-Tier-Carbon.png",
-    "favicon32": "/img/_fnvirtual-yoco-dvc-space1.png",
-    "favicon16": "/img/bronze.png"
-  },
-  "widgets": {
-    "chat": {
-      "showQA": false,
-      "showHelp": false,
-      "defaultScope": "page"
-    },
-    "schedule":{"allowClick":true}
-  }
-}
+{"lastBuild":1675865611022,"favicons":{"favicon180":"/img/Logo-Top-Tier-Carbon.png","favicon32":"/img/_fnvirtual-yoco-dvc-space1.png","favicon16":"/img/bronze.png"},"widgets":{"chat":{"showQA":false,"showHelp":false,"defaultScope":"page"},"schedule":{"allowClick":true}},"staticJsonFilesBuildTime":[{"file":"src/content/summit.json","build_time":1675865616},{"file":"src/content/events.json","build_time":1675865623},{"file":"src/content/events.idx.json","build_time":1675865623},{"file":"src/content/speakers.json","build_time":1675865626},{"file":"src/content/speakers.idx.json","build_time":1675865626},{"file":"src/content/voteable_presentations.json","build_time":1675865626},{"file":"src/content/extra-questions.json","build_time":1675865626}]}
