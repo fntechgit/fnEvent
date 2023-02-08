@@ -40,12 +40,24 @@ class ActivitySynchStrategy extends AbstractSynchStrategy{
             else {
                 // entity is published
 
-                const idx = this.allIDXEvents.hasOwnProperty(entity.id) ? this.allIDXEvents[entity.id] : -1;
+                let idx = this.allIDXEvents.hasOwnProperty(entity.id) ? this.allIDXEvents[entity.id] : -1;
                 console.log(`ActivitySynchStrategy::process entity is published got idx ${idx} eventsData length ${eventsData.length}`);
                 let formerEntity = idx === -1 ? null : ( (eventsData.length - 1 ) >= idx ? eventsData[idx] : null ) ;
                 console.log(`ActivitySynchStrategy::process entity is published`, formerEntity, entity, idx);
-                if (formerEntity && formerEntity.id !== entity.id)
-                    return Promise.reject('ActivitySynchStrategy::process entity is published entities are not the same.');// it's not the same
+                if (formerEntity && formerEntity.id !== entity.id) {
+                    console.log('ActivitySynchStrategy::process entity is published entities are not the same. looking on events');// it's not the same
+                    formerEntity = eventsData.find((e, index) => {
+                        let res = e.id == entity.id;
+                        if(res){
+                            console.log(`ActivitySynchStrategy::process entity id ${entity.id} found at idx ${index}`);
+                            idx = index;
+                        }
+                        return res;
+                    });
+                    if(!formerEntity){
+                        return Promise.reject(`ActivitySynchStrategy::process entity id ${entity.id} not found`);
+                    }
+                }
                 if(!formerEntity){
                     console.log('ActivitySynchStrategy::process former entity does not exists, inserting new one', entity);
                     // entity was just published ... then do insert ordering
@@ -70,7 +82,7 @@ class ActivitySynchStrategy extends AbstractSynchStrategy{
                     formerEntity.end_date === entity.end_date
                 ) {
                     // presentation was just updated
-                    console.log(`ActivitySynchStrategy::process updating presentation ${entity.id}`)
+                    console.log(`ActivitySynchStrategy::process updating presentation ${entity.id} at idx ${idx}`)
                     eventsData[idx] = entity;
                 } else {
                     // publishing dates changed, we need to remove and do ordered re-insert
@@ -101,7 +113,7 @@ class ActivitySynchStrategy extends AbstractSynchStrategy{
                     console.log(`ActivitySynchStrategy::process updating speakers`, entity.speakers);
                     for (const speaker of entity.speakers) {
                         const speakerIdx = this.allIDXSpeakers.hasOwnProperty(speaker.id) ? this.allIDXSpeakers[speaker.id] : -1;
-                        let formerSpeaker = speakerIdx === -1 ? null : ( (this.allSpeakers.length - 1 ) >= idx ? this.allSpeakers[speakerIdx] : null );
+                        let formerSpeaker = speakerIdx === -1 ? null : ( (this.allSpeakers.length - 1 ) >= speakerIdx ? this.allSpeakers[speakerIdx] : null );
                         console.log(`ActivitySynchStrategy::process updating speakers got speakerIdx ${speakerIdx}`, formerSpeaker);
                         if(formerSpeaker === null){
                             console.log(`ActivitySynchStrategy::process speaker does not exists, inserting it at end`, speaker);
@@ -120,7 +132,7 @@ class ActivitySynchStrategy extends AbstractSynchStrategy{
                 if(entity.hasOwnProperty('moderator')){
                     console.log(`ActivitySynchStrategy::process updating moderator`, entity.moderator);
                         const speakerIdx = this.allIDXSpeakers.hasOwnProperty(entity.moderator.id) ? this.allIDXSpeakers[entity.moderator.id] : -1;
-                        let formerSpeaker = speakerIdx === -1 ? null : ( (this.allSpeakers.length - 1 ) >= idx ? this.allSpeakers[speakerIdx] : null );
+                        let formerSpeaker = speakerIdx === -1 ? null : ( (this.allSpeakers.length - 1 ) >= speakerIdx ? this.allSpeakers[speakerIdx] : null );
                         console.log(`ActivitySynchStrategy::process updating moderator got speakerIdx ${speakerIdx}`, formerSpeaker);
                         if(formerSpeaker === null){
                             console.log(`ActivitySynchStrategy::process moderator does not exists, inserting it at end`, entity.moderator);
