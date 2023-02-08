@@ -28,6 +28,12 @@ import URI from "urijs"
  */
 export const EventPageTemplate = class extends React.Component {
 
+    constructor(props) {
+        super(props);
+        this.onEventChange = this.onEventChange.bind(this);
+        this.canRenderVideo = this.canRenderVideo.bind(this);
+    }
+
     onEventChange(ev) {
         const {eventId} = this.props;
         if (parseInt(eventId) !== parseInt(ev.id)) {
@@ -74,9 +80,10 @@ export const EventPageTemplate = class extends React.Component {
     render() {
 
         const {event, user, loading, nowUtc, summit, eventsPhases, eventId, lastDataSync, activityCtaText} = this.props;
-        console.log(`EventPageTemplate::render lastDataSync ${lastDataSync}`);
         // get current event phase
-        const currentPhase = eventsPhases.find((e) => parseInt(e.id) === parseInt(eventId))?.phase;
+        const currentPhaseInfo = eventsPhases.find((e) => parseInt(e.id) === parseInt(eventId));
+        const currentPhase = currentPhaseInfo?.phase;
+        console.log(`EventPageTemplate::render lastDataSync ${lastDataSync} currentPhase ${currentPhase}`, currentPhaseInfo);
         const firstHalf = currentPhase === PHASES.DURING ? nowUtc < ((event?.start_date + event?.end_date) / 2) : false;
         const eventQuery = event.streaming_url ? URI(event.streaming_url).search(true) : null;
         const autoPlay = eventQuery?.autoplay !== '0';
@@ -84,7 +91,7 @@ export const EventPageTemplate = class extends React.Component {
         const startTime = eventQuery?.start?.split(',').reduce((a, b, index) => (index === 0 ? parseInt(b) * 60 : parseInt(b)) + a, 0);
 
         // if event is loading or we are still calculating the current phase ...
-        if (loading || currentPhase === undefined) {
+        if (loading || currentPhase === undefined || currentPhase === null) {
             return <HeroComponent title="Loading event"/>;
         }
 
