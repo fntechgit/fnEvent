@@ -64,15 +64,6 @@ const fetchBucket = async (etagKeyPre, dataKeyPre, fileName, summitId, lastBuild
             const resETag = response.headers.get('etag');
             const resLastModified = response.headers.get('last-modified');
 
-            if (resLastModified) {;
-                const lastModifiedFieldEpoch = Date.parse(resLastModified) / 1000;
-                if(lastModifiedStored && parseInt(lastModifiedStored) > lastModifiedFieldEpoch){
-                    console.log(`fetchBucket ${url} lastModifiedStored ${lastModifiedStored} is more recent than lastModifiedFieldEpoch ${lastModifiedFieldEpoch} (local is newer). Discarding response.`);
-                    return loadData(summitId, dataKey)
-                }
-                await putOnCache(`files_${summitId}`, lastModifiedKey, lastModifiedFieldEpoch);
-            }
-
             if (resETag) {
                 await putOnCache(`files_${summitId}`, eTagKey, resETag);
             }
