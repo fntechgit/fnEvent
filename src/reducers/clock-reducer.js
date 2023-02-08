@@ -14,7 +14,7 @@ import {
 import summitData from '../content/summit.json';
 import {RESET_STATE, SYNC_DATA} from "../actions/base-actions-definitions";
 
-import { getSummitPhase } from '../utils/phasesUtils';
+import {getEventPhase, getSummitPhase} from '../utils/phasesUtils';
 
 const localNowUtc = Math.round(+new Date() / 1000);
 
@@ -33,8 +33,31 @@ const clockReducer = (state = DEFAULT_STATE, action) => {
     case LOGOUT_USER:
       return DEFAULT_STATE;
     case SYNC_DATA: {
-      const {summitData} = payload;
-      return {...state, summit_phase: getSummitPhase(summitData, localNowUtc)};
+      const {eventsData, summitData, eventsIDXData } = payload;
+      // recalculate existent event phases
+      let oldEventPhases = state.events_phases;
+      let newEventPhases = oldEventPhases.filter((oldEvent) => {
+        return eventsIDXData.hasOwnProperty(oldEvent.id) &&
+            (eventsData.length - 1) >= eventsIDXData[oldEvent.id] &&
+        eventsData[eventsIDXData[oldEvent.id]].id == oldEvent.id;
+      }).map(oldEvent => {
+
+        let idx = eventsIDXData[oldEvent.id];
+        let e = eventsData[idx];
+
+        let newEvent = {
+          id: e.id,
+          start_date: e.start_date,
+          end_date: e.end_date,
+          phase: null
+        };
+
+        const newPhase = getEventPhase(newEvent, state.nowUtc);
+
+        return {...newEvent, phase: newPhase}
+      });
+
+      return {...state, summit_phase: getSummitPhase(summitData, state.nowUtc), events_phases:newEventPhases };
     }
     case START_LOADING:
       return { ...state, loading: true };
