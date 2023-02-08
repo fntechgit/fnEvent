@@ -37,6 +37,7 @@ const App = ({ isLoggedUser, user, summit_phase, lastBuild, syncData, allowClick
             location={location}
             schedKey="schedule-main"
             scheduleProps={{ subtitle: <a href="/a/my-schedule">Show My Schedule</a> }}
+            allowClick={allowClick}
           />
           <WithAuthRoute path="/" isLoggedIn={isLoggedUser} location={location}>
             <MyTicketsPage path="/my-tickets" isLoggedIn={isLoggedUser} user={user} location={location} />
