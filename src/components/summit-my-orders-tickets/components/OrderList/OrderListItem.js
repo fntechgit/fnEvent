@@ -29,7 +29,7 @@ export const OrderListItem = ({ order, className, changeTicketsPage }) => {
 
                     {isActive && tickets.length > 0 && (
                         <>
-                            <OrderSummary type="mobile" order={order} summit={summit} />
+                            <OrderSummary type="mobile" order={order} summit={summit} tickets={tickets}/>
 
                             {summit.ticket_types.map((ticketType, index) => {
                                 const orderTickets = tickets.filter(t => t.ticket_type_id == ticketType.id);
