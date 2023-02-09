@@ -88,7 +88,7 @@ class ActivitySynchStrategy extends AbstractSynchStrategy{
                     // publishing dates changed, we need to remove and do ordered re-insert
                     // remove it first
 
-                    console.log('ActivitySynchStrategy::process publishing dates had changed', entity);
+                    console.log(`ActivitySynchStrategy::process publishing dates had changed, deleting at idx ${idx}`, entity);
                     eventsData.splice(idx, 1);
                     // then do insert ordering
                     this.allIDXEvents[entity.id] = insertSorted(eventsData, entity, (a, b) => {
@@ -105,6 +105,10 @@ class ActivitySynchStrategy extends AbstractSynchStrategy{
 
                         return intCheck(a.start_date, b.start_date);
                     });
+
+                    let newAllIDXEvents = {};
+                    eventsData.forEach((e, index) => newAllIDXEvents[e.id] = index);
+                    this.allIDXEvents = newAllIDXEvents;
                 }
 
                 // checking speakers

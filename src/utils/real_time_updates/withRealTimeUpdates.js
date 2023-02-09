@@ -52,6 +52,8 @@ const withRealTimeUpdates = WrappedComponent => {
             (
                 getEnvVariable(REAL_TIME_UPDATES_STRATEGY),
                 (payload) => {
+                        const {updateLastCheckForNovelties} = _this.props;
+                        updateLastCheckForNovelties(payload.created_at);
                         return _this.processUpdates([payload]);
                 },
                 this._checkForPastNoveltiesDebounced
@@ -165,6 +167,7 @@ const withRealTimeUpdates = WrappedComponent => {
          */
         checkForPastNovelties(summitId, lastCheckForNovelties) {
             console.log("withRealTimeUpdates::checkForPastNovelties", summitId, lastCheckForNovelties);
+            /*
             const _this = this;
             this.queryRealTimeDB(summitId, lastCheckForNovelties).then((res) => {
                 if (!res) return;
@@ -184,6 +187,7 @@ const withRealTimeUpdates = WrappedComponent => {
                 }
 
             }).catch((err) => console.log(err));
+             */
         }
 
         clearRealTimeSubscription() {
