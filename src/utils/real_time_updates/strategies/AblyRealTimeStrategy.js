@@ -24,6 +24,7 @@ class AblyRealTimeStrategy extends AbstractRealTimeStrategy {
     create(summitId, lastCheckForNovelties) {
 
         super.create(summitId, lastCheckForNovelties);
+
         console.log('AblyRealTimeStrategy::create');
 
         const key = getEnvVariable(ABLY_API_KEY);
@@ -70,8 +71,8 @@ class AblyRealTimeStrategy extends AbstractRealTimeStrategy {
                 this._wsError = false;
                 // RELOAD
                 // check on demand ( just in case that we missed some Real time update )
-                if (summitId) {
-                    this._checkPastCallback(summitId, lastCheckForNovelties);
+                if (this._summitId) {
+                    this._checkPastCallback(this._summitId, this._lastCheckForNovelties);
                 }
                 this.stopUsingFallback();
                 return;
@@ -79,14 +80,14 @@ class AblyRealTimeStrategy extends AbstractRealTimeStrategy {
             if(state  === 'suspended') {
                 if(!this._wsError) {
                     this._wsError = true;
-                    this.startUsingFallback(summitId, lastCheckForNovelties);
+                    this.startUsingFallback(this._summitId, this._lastCheckForNovelties);
                 }
                 return;
             }
             if(state  === 'failed') {
                 if(!this._wsError) {
                     this._wsError = true;
-                    this.startUsingFallback(summitId, lastCheckForNovelties);
+                    this.startUsingFallback(this._summitId, this._lastCheckForNovelties);
                 }
                 return;
             }

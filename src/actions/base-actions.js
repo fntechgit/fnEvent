@@ -15,6 +15,7 @@ export const resetState = () => (dispatch) => {
 };
 
 export const updateLastCheckForNovelties = (date) => (dispatch) => {
+  console.log(`updateLastCheckForNovelties date ${date}`);
   dispatch(createAction(UPDATE_LAST_CHECK_FOR_NOVELTIES)(date));
 }
 /**

@@ -9,7 +9,7 @@ import { updateLastCheckForNovelties } from "../../actions/base-actions";
 import {connect} from 'react-redux'
 import { getAccessToken } from "openstack-uicore-foundation/lib/security/methods";
 
-const CHECK_FOR_NOVELTIES_DELAY = 2000;
+const CHECK_FOR_NOVELTIES_DELAY = 10000;
 
 /**
  * @param WrappedComponent
@@ -54,6 +54,7 @@ const withRealTimeUpdates = WrappedComponent => {
                 (payload) => {
                         const {updateLastCheckForNovelties} = _this.props;
                         updateLastCheckForNovelties(payload.created_at);
+                        _this._currentStrategy?.setLastCheckForNovelties(payload.created_at);
                         return _this.processUpdates([payload]);
                 },
                 this._checkForPastNoveltiesDebounced
@@ -145,7 +146,6 @@ const withRealTimeUpdates = WrappedComponent => {
             }
         }
 
-
         /**
          * @param summitId
          * @param lastCheckForNovelties
@@ -155,7 +155,7 @@ const withRealTimeUpdates = WrappedComponent => {
                 console.log(`withRealTimeUpdates::createRealTimeSubscription summitId ${summitId} lastCheckForNovelties ${lastCheckForNovelties}`);
                 this._currentStrategy?.create(summitId, lastCheckForNovelties);
                 // always check for novelty bc to avoid former updates emitted before RT subscription
-                this._checkForPastNoveltiesDebounced(summitId, lastCheckForNovelties);
+                this._checkForPastNoveltiesDebounced(summitId);
             } catch (e) {
                 console.log('withRealTimeUpdates::createRealTimeSubscription', e);
             }
@@ -165,29 +165,30 @@ const withRealTimeUpdates = WrappedComponent => {
          * @param summitId
          * @param lastCheckForNovelties
          */
-        checkForPastNovelties(summitId, lastCheckForNovelties) {
-            console.log("withRealTimeUpdates::checkForPastNovelties", summitId, lastCheckForNovelties);
-            /*
+        checkForPastNovelties(summitId) {
             const _this = this;
-            this.queryRealTimeDB(summitId, lastCheckForNovelties).then((res) => {
-                if (!res) return;
+            const {lastCheckForNovelties} = this.props
+            console.log("withRealTimeUpdates::checkForPastNovelties", summitId, lastCheckForNovelties);
 
+            this.queryRealTimeDB(summitId, lastCheckForNovelties).then((res) => {
+                if (!res || (Array.isArray(res) && !res.length)) return;
                 console.log('queryRealTimeDB::callback', res);
 
                 const {updateLastCheckForNovelties} = _this.props;
-
+                // send delta data to worker
                 _this.processUpdates(res);
 
-                const lastP = res.pop();
+                const lastP = res[res.length - 1]
                 let {created_at: lastUpdateNovelty} = lastP;
                 if (lastUpdateNovelty) {
                     // update lastCheckForNovelties
                     console.log("withRealTimeUpdates::checkForPastNovelties updateLastCheckForNovelties", lastUpdateNovelty);
                     updateLastCheckForNovelties(lastUpdateNovelty);
+                    _this._currentStrategy?.setLastCheckForNovelties(lastUpdateNovelty);
                 }
 
             }).catch((err) => console.log(err));
-             */
+
         }
 
         clearRealTimeSubscription() {
@@ -208,7 +209,7 @@ const withRealTimeUpdates = WrappedComponent => {
                     return;
                 }
 
-                this._checkForPastNoveltiesDebounced(summit?.id, lastCheckForNovelties);
+                this._checkForPastNoveltiesDebounced(summit?.id);
             }
         }
 
@@ -241,6 +242,15 @@ const withRealTimeUpdates = WrappedComponent => {
             console.log('withRealTimeUpdates::componentWillUnmount terminating worker');
             this._worker.terminate();
             this._worker = null;
+        }
+
+        componentDidUpdate(prevProps, prevState, snapshot) {
+            const {lastCheckForNovelties} = this.props;
+            const {lastCheckForNovelties: prevLastCheckForNovelties} = prevProps;
+            if(prevLastCheckForNovelties != lastCheckForNovelties){
+                console.log(`withRealTimeUpdates::componentDidUpdate lastCheckForNovelties changed from ${prevLastCheckForNovelties} to ${lastCheckForNovelties}`);
+                this._currentStrategy?.setLastCheckForNovelties(lastCheckForNovelties);
+            }
         }
 
         render() {

@@ -64,17 +64,60 @@ self.onmessage = async ({data: {summitId, staticJsonFilesBuildTime}}) => {
             let speakersIXData = values[4];
             let extraQuestionsData = values[5];
 
+            let lastModified = 0;
             // if null , then set the SSR content
-            if (!eventsData) eventsData = eventsBuildJson;
-            if (!eventsIDXData) eventsIDXData = eventsIDXBuildJson;
-            if (!summitData) summitData = summitBuildJson;
-            if (!speakersData) speakersData = speakersBuildJson;
-            if (!speakersIXData) speakersIXData = speakersIDXBuildJson;
-            if (!extraQuestionsData) extraQuestionsData = extraQuestionsBuildJson;
+            // summit
+            if (summitData){
+                if(summitData.lastModified > lastModified)
+                    lastModified = summitData.lastModified;
+                summitData = summitData.file;
+            }
+            else
+                summitData = summitBuildJson;
+            // events
+            if (eventsData){
+                if(eventsData.lastModified > lastModified)
+                    lastModified = eventsData.lastModified;
+                eventsData = eventsData.file;
+            }
+            else
+                eventsData = eventsBuildJson;
+            // events idx
+            if (eventsIDXData){
+                if(eventsIDXData.lastModified > lastModified)
+                    lastModified = eventsIDXData.lastModified;
+                eventsIDXData = eventsIDXData.file;
+            }
+            else
+                eventsIDXData = eventsIDXBuildJson;
+            // speakers
+            if (speakersData){
+                if(speakersData.lastModified > lastModified)
+                    lastModified = speakersData.lastModified;
+                speakersData = speakersData.file;
+            }
+            else
+                speakersData = speakersBuildJson;
+            // speakers idx
+            if (speakersIXData){
+                if(speakersIXData.lastModified > lastModified)
+                    lastModified = speakersIXData.lastModified;
+                speakersIXData = speakersIXData.file;
+            }
+            else
+                speakersIXData = speakersIDXBuildJson;
+            // extra questions
+            if (extraQuestionsData){
+
+                extraQuestionsData = extraQuestionsData.file;
+            }
+            else
+                extraQuestionsData = extraQuestionsBuildJson;
+
 
             /* eslint-disable-next-line no-restricted-globals */
             self.postMessage({
-                eventsData, summitData, speakersData, extraQuestionsData, eventsIDXData, speakersIXData
+                eventsData, summitData, speakersData, extraQuestionsData, eventsIDXData, speakersIXData, lastModified
             });
         });
 
