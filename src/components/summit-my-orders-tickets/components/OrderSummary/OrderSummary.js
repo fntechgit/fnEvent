@@ -48,7 +48,7 @@ export const OrderSummary = ({ type = 'desktop', order, summit, tickets, classNa
                 <div className="order-summary-mobile-title" onClick={handleToggleClick}>
                     <span>{t("order_summary.order_summary")}</span>
                     <span>
-                        ${amountTotal} &nbsp; <i className={`fa fa-chevron-${showTable ? 'up' : 'down'}`} aria-hidden="true"></i>
+                        {amountTotal} &nbsp; <i className={`fa fa-chevron-${showTable ? 'up' : 'down'}`} aria-hidden="true"></i>
                     </span>
                 </div>
             )}
