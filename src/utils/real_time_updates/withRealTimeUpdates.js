@@ -170,7 +170,10 @@ const withRealTimeUpdates = WrappedComponent => {
             /*
             const _this = this;
             this.queryRealTimeDB(summitId, lastCheckForNovelties).then((res) => {
-                if (!res) return;
+                if (!res || (Array.isArray(res) && !res.length)){
+                     console.log("withRealTimeUpdates::checkForPastNovelties res is empty");
+                     return;
+                }
 
                 console.log('queryRealTimeDB::callback', res);
 
@@ -178,7 +181,7 @@ const withRealTimeUpdates = WrappedComponent => {
 
                 _this.processUpdates(res);
 
-                const lastP = res.pop();
+                const lastP = res[res.length - 1]
                 let {created_at: lastUpdateNovelty} = lastP;
                 if (lastUpdateNovelty) {
                     // update lastCheckForNovelties

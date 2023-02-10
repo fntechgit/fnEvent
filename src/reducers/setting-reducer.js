@@ -36,11 +36,15 @@ const settingReducer = (state = DEFAULT_STATE, action) => {
       return {...DEFAULT_STATE,
         lastBuild: settings.lastBuild,
         staticJsonFilesBuildTime: settings.staticJsonFilesBuildTime,
-        lastDataSync: Math.round(+new Date() / 1000),
+        lastDataSync: Date.now(),
         lastCheckForNovelties: state.lastCheckForNovelties,
       };
-    case  UPDATE_LAST_CHECK_FOR_NOVELTIES:
-      return {...state, lastCheckForNovelties: payload};
+    case  UPDATE_LAST_CHECK_FOR_NOVELTIES:{
+      let newLastCheckForNovelties = payload;
+      if(newLastCheckForNovelties < state.lastCheckForNovelties)
+        newLastCheckForNovelties = state.lastCheckForNovelties;
+      return {...state, lastCheckForNovelties: newLastCheckForNovelties};
+    }
     case START_LOADING:
       return { ...state, loading: true };
     case STOP_LOADING:
