@@ -12,7 +12,7 @@
       "defaultScope": "page"
     },
     "schedule": {
-      "allowClick": false
+      "allowClick": true
     }
   },
   "staticJsonFilesBuildTime": [
