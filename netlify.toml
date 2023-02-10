@@ -1,6 +1,6 @@
 [build]
   publish = "public"
-  command = "yarn build"
+  command = "yarn gatsby-clean && yarn build"
 [context.branch-deploy]
   ignore = "bash ./netlify-build-ignore.sh"
 [build.environment]
