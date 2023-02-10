@@ -7,7 +7,7 @@
       "defaultScope": "page"
     },
     "schedule": {
-      "allowClick": false
+      "allowClick": true
     }
   },
   "lastBuild": 1673733535353,
