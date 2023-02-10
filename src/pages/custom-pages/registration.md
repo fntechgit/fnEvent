@@ -3,6 +3,10 @@ templateKey: custom-page
 title: Registration
 userRequirement: NONE
 ---
+[REGISTER NOW](https://2023ocpregional.fnvirtual.app/#registration=1)
+
+
+
 The 2023 OCP Regional Summit will be an in-person event. Please find the registration dates and fees below. Please direct any questions to [](mailto:registration@opencompute.org)[registration@opencompute.org](mailto:registration@opencompute.org)
 
 **Registration Options**
