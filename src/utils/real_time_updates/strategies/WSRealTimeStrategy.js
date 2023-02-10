@@ -22,9 +22,9 @@ class WSRealTimeStrategy extends AbstractRealTimeStrategy {
      * @param summitId
      * @param lastCheckForNovelties
      */
-    create(summitId, lastCheckForNovelties) {
+    create(summitId) {
 
-        super.create(summitId, lastCheckForNovelties);
+        super.create(summitId);
         console.log('WSRealTimeStrategy::create');
 
         const wsServerUrl = getEnvVariable(WS_PUB_SERVER_URL);
@@ -72,7 +72,7 @@ class WSRealTimeStrategy extends AbstractRealTimeStrategy {
             // RELOAD
             // check on demand ( just in case that we missed some Real time update )
             if(summitId) {
-                this._checkPastCallback(summitId, lastCheckForNovelties);
+                this._checkPastCallback(summitId);
             }
             this.stopUsingFallback();
         });
@@ -85,14 +85,14 @@ class WSRealTimeStrategy extends AbstractRealTimeStrategy {
             }
             console.log(`WSRealTimeStrategy::create WS disconnect due to ${reason}`);
             this._wsError = true;
-            this.startUsingFallback(summitId, lastCheckForNovelties);
+            this.startUsingFallback(summitId);
         });
 
         this._socket.io.on("error", (error) => {
             if(this._wsError) return;
             console.log(`WSRealTimeStrategy::create WS error`, error);
             this._wsError = true;
-            this.startUsingFallback(summitId, lastCheckForNovelties);
+            this.startUsingFallback(summitId);
         });
     }
 

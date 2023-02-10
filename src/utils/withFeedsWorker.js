@@ -33,7 +33,7 @@ const withFeedsWorker = WrappedComponent => {
                 alert(event.message + " (" + event.filename + ":" + event.lineno + ")");
             }
 
-            const { summit, syncData, staticJsonFilesBuildTime } = this.props;
+            const { summit, syncData, staticJsonFilesBuildTime, updateLastCheckForNovelties } = this.props;
 
             this._worker.postMessage({
                 summitId : parseInt(summit.id),
