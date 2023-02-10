@@ -25,7 +25,7 @@ A request to cancel your ticket must be emailed to [](mailto:registration@openc
 
 **<br>How to Register:**
 
-1. Click this link: [Register now](https://2023ocpregional.fnvirtual.app/#registration=1). Follow the log in instructions to authenticate yourself (this lets us know who you are) and complete the registration process. 
+1. Click this link: [REGISTER NOW](https://2023ocpregional.fnvirtual.app/#registration=1). Follow the log in instructions to authenticate yourself (this lets us know who you are) and complete the registration process. 
 
 **How to find your orders/tickets:**
 
