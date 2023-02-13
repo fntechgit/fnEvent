@@ -1,12 +1,15 @@
 import React from "react";
+import * as Sentry from "@sentry/react";
 import { connect } from "react-redux";
 import { needsLogin } from "../utils/alerts";
-import {addToSchedule, removeFromSchedule} from "../actions/user-actions";
-import {callAction, getShareLink} from "../actions/schedule-actions";
+import { addToSchedule, removeFromSchedule } from "../actions/user-actions";
+import { callAction, getShareLink } from "../actions/schedule-actions";
 
 // these two libraries are client-side only
 import Schedule from "full-schedule-widget/dist";
 import "full-schedule-widget/dist/index.css";
+
+import { SentryFallbackFunction } from "./SentryErrorComponent";
 
 const FullSchedule = ({
   summit,
@@ -20,7 +23,7 @@ const FullSchedule = ({
   filters,
   view,
   allowClick = true,
-    schedKey,
+  schedKey,
   ...rest
 }) => {
   const componentProps = {
@@ -35,7 +38,7 @@ const FullSchedule = ({
     shareLink: getShareLink(filters, view),
     filters,
     view,
-    onEventClick: allowClick ? () => {} : null,
+    onEventClick: allowClick ? () => { } : null,
     needsLogin: needsLogin,
     triggerAction: (action, payload) => {
       switch (action) {
@@ -54,7 +57,9 @@ const FullSchedule = ({
 
   return (
     <div className={className || "schedule-container"}>
-      <Schedule {...componentProps} />
+      <Sentry.ErrorBoundary fallback={SentryFallbackFunction}>
+        <Schedule {...componentProps} />
+      </Sentry.ErrorBoundary>
     </div>
   );
 };

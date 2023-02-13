@@ -1,4 +1,5 @@
 import React from "react"
+import * as Sentry from "@sentry/react";
 import {Helmet} from 'react-helmet'
 import {connect} from "react-redux";
 
@@ -7,6 +8,8 @@ import LiteSchedule from 'lite-schedule-widget/dist';
 import 'lite-schedule-widget/dist/index.css';
 
 import {addToSchedule, removeFromSchedule} from '../actions/user-actions';
+
+import { SentryFallbackFunction } from "./SentryErrorComponent";
 
 const LiteScheduleComponent = ({
                                    className,
@@ -50,7 +53,9 @@ const LiteScheduleComponent = ({
                       href="https://cdnjs.cloudflare.com/ajax/libs/awesome-bootstrap-checkbox/1.0.2/awesome-bootstrap-checkbox.min.css"/>
             </Helmet>
             <div className={className || wrapperClass}>
-                <LiteSchedule {...componentProps} {...rest} />
+                <Sentry.ErrorBoundary fallback={SentryFallbackFunction}>
+                    <LiteSchedule {...componentProps} {...rest} />
+                </Sentry.ErrorBoundary>
             </div>
         </>
     )

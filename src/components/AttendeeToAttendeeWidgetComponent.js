@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import * as Sentry from "@sentry/react";
 import { connect } from "react-redux";
 import FragmentParser from "openstack-uicore-foundation/lib/utils/fragment-parser";
 import { getAccessToken } from "openstack-uicore-foundation/lib/security/methods";
@@ -20,6 +21,8 @@ import {
 import { PHASES } from "../utils/phasesUtils";
 
 import "attendee-to-attendee-widget/dist/index.css";
+
+import { SentryFallbackFunction } from "./SentryErrorComponent";
 
 const sbAuthProps = {
   supabaseUrl: getEnvVariable(SUPABASE_URL),
@@ -161,11 +164,13 @@ export const AttendeesWidget = ({ user, event, chatSettings }) => {
 
   return (
     <div style={{ margin: "20px auto", position: "relative" }}>
-      <AttendeeToAttendeeContainer
-        {...widgetProps}
-        ref={{ sdcRef, shcRef, sqacRef, ocrRef }}
-      />
-    </div>
+        <Sentry.ErrorBoundary fallback={SentryFallbackFunction}>
+          <AttendeeToAttendeeContainer
+            {...widgetProps}
+            ref={{ sdcRef, shcRef, sqacRef, ocrRef }}
+          />
+        </Sentry.ErrorBoundary>
+      </div>
   );
 };
 

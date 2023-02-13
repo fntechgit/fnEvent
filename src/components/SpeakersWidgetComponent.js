@@ -1,8 +1,10 @@
 import React from "react";
+import * as Sentry from "@sentry/react";
 import { connect } from "react-redux";
 import { Helmet } from 'react-helmet';
 import SpeakersWidget from 'speakers-widget/dist';
 import 'speakers-widget/dist/index.css';
+import { SentryFallbackFunction } from "./SentryErrorComponent";
 
 const SpeakersWidgetComponent = ({now, colorSettings, allEvents, speakers, ...props}) => {
     const widgetProps = {
@@ -20,7 +22,9 @@ const SpeakersWidgetComponent = ({now, colorSettings, allEvents, speakers, ...pr
                 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/awesome-bootstrap-checkbox/1.0.2/awesome-bootstrap-checkbox.min.css" />
             </Helmet>
             <div>
-                <SpeakersWidget {...widgetProps} />
+                <Sentry.ErrorBoundary fallback={SentryFallbackFunction}>
+                    <SpeakersWidget {...widgetProps} />
+                </Sentry.ErrorBoundary>
             </div>
         </>
     )

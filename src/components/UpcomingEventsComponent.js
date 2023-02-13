@@ -1,4 +1,5 @@
 import React from "react";
+import * as Sentry from "@sentry/react";
 import { Helmet } from "react-helmet";
 import { connect } from "react-redux";
 
@@ -7,6 +8,8 @@ import UpcomingEvents from "upcoming-events-widget/dist";
 import "upcoming-events-widget/dist/index.css";
 
 import { addToSchedule, removeFromSchedule } from "../actions/user-actions";
+
+import { SentryFallbackFunction } from "./SentryErrorComponent";
 
 const UpcomingEventsComponent = ({
     className,
@@ -53,7 +56,9 @@ const UpcomingEventsComponent = ({
                 />
             </Helmet>
             <div id="upcoming-events" className={className || wrapperClass} style={{ height: 500 }}>
-                <UpcomingEvents {...componentProps} {...rest} />
+                <Sentry.ErrorBoundary fallback={SentryFallbackFunction}>
+                    <UpcomingEvents {...componentProps} {...rest} />
+                </Sentry.ErrorBoundary>
             </div>
         </>
     );

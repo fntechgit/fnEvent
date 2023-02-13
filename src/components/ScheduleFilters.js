@@ -1,9 +1,12 @@
 import React from "react";
 import { pickBy } from "lodash";
 import { Helmet } from "react-helmet";
+import * as Sentry from "@sentry/react";
 import Filters from "schedule-filter-widget/dist";
 import "schedule-filter-widget/dist/index.css";
 import styles from "../styles/full-schedule.module.scss";
+
+import { SentryFallbackFunction } from "./SentryErrorComponent";
 
 const ScheduleFilters = ({ className, filters, ...rest }) => {
   const enabledFilters = pickBy(filters, (value) => value.enabled);
@@ -21,7 +24,9 @@ const ScheduleFilters = ({ className, filters, ...rest }) => {
         />
       </Helmet>
       <div className={styles.filters}>
-        <Filters title="Filter by" filters={enabledFilters} {...rest} />
+        <Sentry.ErrorBoundary fallback={SentryFallbackFunction}>
+          <Filters title="Filter by" filters={enabledFilters} {...rest} />
+        </Sentry.ErrorBoundary>
       </div>
     </>
   );

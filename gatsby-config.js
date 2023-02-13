@@ -82,7 +82,10 @@ module.exports = {
           },
         ],
       },
-    },
+    },    
+    {
+      resolve: "@sentry/gatsby",      
+    },    
 
     /**
      * This plugin has been deprecated.
