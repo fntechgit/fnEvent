@@ -27,7 +27,7 @@ class SummitSynchStrategy extends AbstractSynchStrategy {
             console.log(`SummitSynchStrategy::process updating cache files`);
 
             try {
-                const localNowUtc = Math.round(+new Date() / 1000);
+                const localNowUtc = Date.now();
 
                 await saveFile(this.summit.id, BUCKET_SUMMIT_DATA_KEY, entity, localNowUtc);
 

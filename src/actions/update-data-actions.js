@@ -1,7 +1,7 @@
 import {createAction} from "openstack-uicore-foundation/lib/utils/actions";
 import {RELOAD_USER_PROFILE} from "./schedule-actions";
 import {getFromCache, putOnCache, deleteFromCache} from "../utils/cacheUtils";
-import {SYNC_DATA, UPDATE_LAST_CHECK_FOR_NOVELTIES} from './base-actions-definitions';
+import {SYNC_DATA } from './base-actions-definitions';
 import {RELOAD_EVENT_STATE} from './event-actions-definitions';
 import {
     getKey,
@@ -56,7 +56,8 @@ const fetchBucket = async (etagKeyPre, dataKeyPre, fileName, summitId, lastBuild
         console.log(`fetchBucket ${url} response.status ${response.status}`);
         if ([304, 404].includes(response.status)) {
             // retrieve data from localStorage
-            return loadData(summitId, dataKey);
+            const file = await loadData(summitId, dataKey);
+            return {file, lastModified : lastModifiedStored ? parseInt(lastModifiedStored) : 0};
         } else if (response.status === 200) {
             const data = await response.json();
 
@@ -69,21 +70,23 @@ const fetchBucket = async (etagKeyPre, dataKeyPre, fileName, summitId, lastBuild
             }
 
             if (resLastModified && lastBuildTime) {
-                const lastModifiedFieldEpoch = Date.parse(resLastModified) / 1000;
+                const lastModifiedFieldEpoch = Date.parse(resLastModified);
                 console.log(`fetchBucket ${url} ${fileName} last modified ${lastModifiedFieldEpoch} lastBuildTime ${lastBuildTime}`);
                 if (lastModifiedFieldEpoch < lastBuildTime) {
                     console.log(`fetchBucket ${url} lastBuildTime is recent, we will use SSR files`);
                     await deleteFromCache(`files_${summitId}`, dataKey);
                     return null;
                 }
+                // set the last modified from remove
+                await putOnCache(`files_${summitId}`,lastModifiedKey, lastModifiedFieldEpoch);
             }
 
             if (data) {
-                return storeData(summitId, dataKey, data);
-            } else {
-                console.log(`fetchBucket ${url} Error fetching updates: no data in response.`);
+                const file = await storeData(summitId, dataKey, data);
+                return {file, lastModified : resLastModified ? Date.parse(resLastModified) : 0} ;
             }
 
+            console.log(`fetchBucket ${url} Error fetching updates: no data in response.`);
         } else {
             console.log(`fetchBucket ${url} Error fetching updates: unknown response code: `, response?.status?.code);
         }
@@ -215,8 +218,6 @@ export const synchEntityData = (
 
     if (isLoggedUser)
         dispatch(createAction(RELOAD_USER_PROFILE)({isLoggedUser, userProfile}));
-
-    dispatch(createAction(UPDATE_LAST_CHECK_FOR_NOVELTIES)(payload.created_at));
 
     const {entity_operator, entity_type} = payload;
 
