@@ -4,6 +4,7 @@ import speakersBuildJson from '../content/speakers.json';
 import extraQuestionsBuildJson from '../content/extra-questions.json';
 import eventsIDXBuildJson from '../content/events.idx.json';
 import speakersIDXBuildJson from '../content/speakers.idx.json';
+import settings from '../content/settings.json';
 
 import {
     bucket_getEvents,
@@ -56,7 +57,7 @@ self.onmessage = async ({data: {summitId, staticJsonFilesBuildTime}}) => {
 
     Promise.all(calls)
         .then((values) => {
-
+            let lastModified = settings.lastBuild;
             let eventsData = values[0];
             let eventsIDXData = values[1];
             let summitData = values[2];
@@ -65,16 +66,56 @@ self.onmessage = async ({data: {summitId, staticJsonFilesBuildTime}}) => {
             let extraQuestionsData = values[5];
 
             // if null , then set the SSR content
-            if (!eventsData) eventsData = eventsBuildJson;
-            if (!eventsIDXData) eventsIDXData = eventsIDXBuildJson;
-            if (!summitData) summitData = summitBuildJson;
-            if (!speakersData) speakersData = speakersBuildJson;
-            if (!speakersIXData) speakersIXData = speakersIDXBuildJson;
-            if (!extraQuestionsData) extraQuestionsData = extraQuestionsBuildJson;
+            // summit
+            if (summitData && summitData?.file){
+                if(summitData.lastModified > lastModified)
+                    lastModified = summitData.lastModified;
+                summitData = summitData.file;
+            }
+            else
+                summitData = summitBuildJson;
+            // events
+            if (eventsData && eventsData?.file){
+                if(eventsData.lastModified > lastModified)
+                    lastModified = eventsData.lastModified;
+                eventsData = eventsData.file;
+            }
+            else
+                eventsData = eventsBuildJson;
+            // events idx
+            if (eventsIDXData && eventsIDXData?.file){
+                if(eventsIDXData.lastModified > lastModified)
+                    lastModified = eventsIDXData.lastModified;
+                eventsIDXData = eventsIDXData.file;
+            }
+            else
+                eventsIDXData = eventsIDXBuildJson;
+            // speakers
+            if (speakersData && speakersData?.file){
+                if(speakersData.lastModified > lastModified)
+                    lastModified = speakersData.lastModified;
+                speakersData = speakersData.file;
+            }
+            else
+                speakersData = speakersBuildJson;
+            // speakers idx
+            if (speakersIXData && speakersIXData?.file){
+                if(speakersIXData.lastModified > lastModified)
+                    lastModified = speakersIXData.lastModified;
+                speakersIXData = speakersIXData.file;
+            }
+            else
+                speakersIXData = speakersIDXBuildJson;
+            // extra questions
+            if (extraQuestionsData && extraQuestionsData?.file){
+                extraQuestionsData = extraQuestionsData.file;
+            }
+            else
+                extraQuestionsData = extraQuestionsBuildJson;
 
             /* eslint-disable-next-line no-restricted-globals */
             self.postMessage({
-                eventsData, summitData, speakersData, extraQuestionsData, eventsIDXData, speakersIXData
+                eventsData, summitData, speakersData, extraQuestionsData, eventsIDXData, speakersIXData,lastModified
             });
         });
 

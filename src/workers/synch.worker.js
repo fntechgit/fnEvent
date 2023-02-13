@@ -49,7 +49,7 @@ const run = async ( {
     if(localAllIDXSpeakers === null)
         localAllIDXSpeakers = JSON.parse(allIDXSpeakers);
 
-    console.log(`synch worker running for ${summit.id} ....`)
+    console.log(`synch worker running for ${localSummit.id} ....`)
 
     let lastPayload = null;
 
