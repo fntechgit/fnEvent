@@ -91,7 +91,7 @@ class SpeakerSynchStrategy extends AbstractSynchStrategy{
             console.log(`SpeakerSynchStrategy::process updating cache files`);
 
             try {
-                const localNowUtc = Math.round(+new Date() / 1000);
+                const localNowUtc = Date.now();
 
                 await saveFile(this.summit.id, BUCKET_EVENTS_DATA_KEY, eventsData, localNowUtc);
 
