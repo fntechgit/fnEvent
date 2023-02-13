@@ -235,8 +235,6 @@ exports.onPreBootstrap = async () => {
       if (key === 'sponsors') marketingSite[key] = migrateMasonry(marketingSite[key]);
   });
 
-  globalSettings.lastBuild = Date.now();
-
   fs.writeFileSync(colorsFilepath, JSON.stringify(colorSettings), 'utf8');
   fs.writeFileSync(disqusFilepath, JSON.stringify(disqusSettings), 'utf8');
   fs.writeFileSync(marketingFilepath, JSON.stringify(marketingSite), 'utf8');
@@ -251,7 +249,7 @@ exports.onPreBootstrap = async () => {
   fileBuildTimes.push(
       {
         'file' : summitFilePath,
-        'build_time': Math.round(+new Date() / 1000)
+        'build_time': Date.now()
       });
   fs.writeFileSync(summitFilePath, JSON.stringify(summit), 'utf8');
 
@@ -260,7 +258,7 @@ exports.onPreBootstrap = async () => {
   fileBuildTimes.push(
       {
         'file': eventsFilePath,
-        'build_time': Math.round(+new Date() / 1000)
+        'build_time': Date.now()
       });
   console.log(`allEvents ${allEvents.length}`);
 
@@ -272,7 +270,7 @@ exports.onPreBootstrap = async () => {
   fileBuildTimes.push(
       {
         'file': eventsIdxFilePath,
-        'build_time': Math.round(+new Date() / 1000)
+        'build_time': Date.now()
       });
   fs.writeFileSync(eventsIdxFilePath, JSON.stringify(allEventsIDX), 'utf8');
 
@@ -283,7 +281,7 @@ exports.onPreBootstrap = async () => {
   fileBuildTimes.push(
       {
         'file': speakersFilePath,
-        'build_time': Math.round(+new Date() / 1000)
+        'build_time': Date.now()
       });
 
   fs.writeFileSync(speakersFilePath, JSON.stringify(allSpeakers), 'utf8');
@@ -293,7 +291,7 @@ exports.onPreBootstrap = async () => {
   fileBuildTimes.push(
       {
         'file': speakersIdxFilePath,
-        'build_time': Math.round(+new Date() / 1000)
+        'build_time': Date.now()
       });
   fs.writeFileSync(speakersIdxFilePath, JSON.stringify(allSpeakersIDX), 'utf8');
 
@@ -305,7 +303,7 @@ exports.onPreBootstrap = async () => {
   fileBuildTimes.push(
       {
         'file':voteablePresentationFilePath,
-        'build_time': Math.round(+new Date() / 1000)
+        'build_time': Date.now()
       });
   fs.writeFileSync(voteablePresentationFilePath, JSON.stringify(allVoteablePresentations), 'utf8');
 
@@ -315,12 +313,14 @@ exports.onPreBootstrap = async () => {
   fileBuildTimes.push(
       {
         'file': extraQuestionFilePath,
-        'build_time': Math.round(+new Date() / 1000)
+        'build_time': Date.now()
       });
 
   fs.writeFileSync(extraQuestionFilePath, JSON.stringify(extraQuestions), 'utf8');
 
+  // setting build times
   globalSettings.staticJsonFilesBuildTime = fileBuildTimes;
+  globalSettings.lastBuild = Date.now();
 
   fs.writeFileSync(settingsFilepath, JSON.stringify(globalSettings), 'utf8');
 };

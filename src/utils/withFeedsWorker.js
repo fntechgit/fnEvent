@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import { syncData } from '../actions/base-actions';
+import { syncData, updateLastCheckForNovelties } from '../actions/base-actions';
 
 /**
  * @param WrappedComponent
@@ -33,14 +33,26 @@ const withFeedsWorker = WrappedComponent => {
                 alert(event.message + " (" + event.filename + ":" + event.lineno + ")");
             }
 
-            const { summit, syncData, staticJsonFilesBuildTime } = this.props;
+            const { summit, syncData, staticJsonFilesBuildTime, updateLastCheckForNovelties } = this.props;
 
             this._worker.postMessage({
                 summitId : parseInt(summit.id),
                 staticJsonFilesBuildTime: JSON.stringify(staticJsonFilesBuildTime)
             });
 
-            this._worker.onmessage = ({ data: {  eventsData, summitData, speakersData, extraQuestionsData, eventsIDXData, speakersIXData } }) => {
+            this._worker.onmessage = ({ data: {
+                eventsData,
+                summitData,
+                speakersData,
+                extraQuestionsData,
+                eventsIDXData,
+                speakersIXData,
+                lastModified} }) => {
+
+                if(lastModified > 0){
+                    console.log(`withFeedsWorker::componentDidMount setting lastModified ${lastModified}`);
+                    updateLastCheckForNovelties(lastModified);
+                }
                 syncData( eventsData, summitData, speakersData, extraQuestionsData, eventsIDXData, speakersIXData);
                 this._worker.terminate();
             };
@@ -60,6 +72,7 @@ const withFeedsWorker = WrappedComponent => {
 
     return connect(mapStateToProps, {
         syncData,
+        updateLastCheckForNovelties,
     })(HOC);
 };
 
