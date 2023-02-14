@@ -53,7 +53,7 @@ const LiteScheduleComponent = ({
                       href="https://cdnjs.cloudflare.com/ajax/libs/awesome-bootstrap-checkbox/1.0.2/awesome-bootstrap-checkbox.min.css"/>
             </Helmet>
             <div className={className || wrapperClass}>
-                <Sentry.ErrorBoundary fallback={SentryFallbackFunction}>
+                <Sentry.ErrorBoundary fallback={SentryFallbackFunction({componentName: 'Schedule Lite'})}>
                     <LiteSchedule {...componentProps} {...rest} />
                 </Sentry.ErrorBoundary>
             </div>

@@ -180,7 +180,7 @@ const RegistrationLiteComponent = ({
             </button>
 
             <div>
-                <Sentry.ErrorBoundary fallback={SentryFallbackFunction}>
+                <Sentry.ErrorBoundary fallback={SentryFallbackFunction({componentName: 'Registration Lite'})}>
                     {isActive && <RegistrationLiteWidget {...widgetProps} />}
                 </Sentry.ErrorBoundary>
             </div>

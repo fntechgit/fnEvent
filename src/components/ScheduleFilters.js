@@ -24,7 +24,7 @@ const ScheduleFilters = ({ className, filters, ...rest }) => {
         />
       </Helmet>
       <div className={styles.filters}>
-        <Sentry.ErrorBoundary fallback={SentryFallbackFunction}>
+        <Sentry.ErrorBoundary fallback={SentryFallbackFunction({componentName: 'Schedule Filter'})}>
           <Filters title="Filter by" filters={enabledFilters} {...rest} />
         </Sentry.ErrorBoundary>
       </div>

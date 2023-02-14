@@ -164,7 +164,7 @@ export const AttendeesWidget = ({ user, event, chatSettings }) => {
 
   return (
     <div style={{ margin: "20px auto", position: "relative" }}>
-        <Sentry.ErrorBoundary fallback={SentryFallbackFunction}>
+        <Sentry.ErrorBoundary fallback={SentryFallbackFunction({componentName: 'Attendee To Attendee'})}>
           <AttendeeToAttendeeContainer
             {...widgetProps}
             ref={{ sdcRef, shcRef, sqacRef, ocrRef }}

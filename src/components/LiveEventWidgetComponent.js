@@ -26,7 +26,7 @@ const LiveEventWidgetComponent = ({allEvents, summit, colorSettings, homeSetting
                 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/awesome-bootstrap-checkbox/1.0.2/awesome-bootstrap-checkbox.min.css" />
             </Helmet>
             <div className={className}>
-                <Sentry.ErrorBoundary fallback={SentryFallbackFunction}>
+                <Sentry.ErrorBoundary fallback={SentryFallbackFunction({componentName: 'Live Event'})}>
                     <LiveEventWidget {...widgetProps} />
                 </Sentry.ErrorBoundary>
             </div>

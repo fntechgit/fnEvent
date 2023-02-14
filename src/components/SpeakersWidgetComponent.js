@@ -22,7 +22,7 @@ const SpeakersWidgetComponent = ({now, colorSettings, allEvents, speakers, ...pr
                 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/awesome-bootstrap-checkbox/1.0.2/awesome-bootstrap-checkbox.min.css" />
             </Helmet>
             <div>
-                <Sentry.ErrorBoundary fallback={SentryFallbackFunction}>
+                <Sentry.ErrorBoundary fallback={SentryFallbackFunction({componentName: 'Speakers'})}>
                     <SpeakersWidget {...widgetProps} />
                 </Sentry.ErrorBoundary>
             </div>

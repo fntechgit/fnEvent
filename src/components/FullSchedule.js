@@ -57,7 +57,7 @@ const FullSchedule = ({
 
   return (
     <div className={className || "schedule-container"}>
-      <Sentry.ErrorBoundary fallback={SentryFallbackFunction}>
+      <Sentry.ErrorBoundary fallback={SentryFallbackFunction({componentName: 'Full Schedule'})}>
         <Schedule {...componentProps} />
       </Sentry.ErrorBoundary>
     </div>

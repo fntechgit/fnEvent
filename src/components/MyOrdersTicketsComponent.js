@@ -28,7 +28,7 @@ export const MyOrdersTicketsComponent = () => {
     };
 
     return (
-        <Sentry.ErrorBoundary fallback={SentryFallbackFunction}>
+        <Sentry.ErrorBoundary fallback={SentryFallbackFunction({componentName: 'My Orders & Tickets'})}>
             <MyOrdersTicketsWidget {...widgetProps} />
         </Sentry.ErrorBoundary>
     );

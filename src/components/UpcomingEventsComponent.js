@@ -56,7 +56,7 @@ const UpcomingEventsComponent = ({
                 />
             </Helmet>
             <div id="upcoming-events" className={className || wrapperClass} style={{ height: 500 }}>
-                <Sentry.ErrorBoundary fallback={SentryFallbackFunction}>
+                <Sentry.ErrorBoundary fallback={SentryFallbackFunction({componentName: 'Upcoming Events'})}>
                     <UpcomingEvents {...componentProps} {...rest} />
                 </Sentry.ErrorBoundary>
             </div>
