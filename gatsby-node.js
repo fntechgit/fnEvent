@@ -431,7 +431,7 @@ exports.createPages = ({ actions, graphql }) => {
   })
 };
 
-exports.onCreateWebpackConfig = ({ actions, plugins, loaders }) => {
+exports.onCreateWebpackConfig = ({ actions, plugins, loaders }) => {  
   actions.setWebpackConfig({
     resolve: {
       /**
@@ -459,22 +459,26 @@ exports.onCreateWebpackConfig = ({ actions, plugins, loaders }) => {
       new webpack.ProvidePlugin({
         Buffer: ['buffer', 'Buffer'],
       }),
-      new SentryWebpackPlugin({
-        org: "tipit",
-        project: "fnvirtual-dev",
+      ...process.env.NODE_ENV === 'production' ? 
+        [new SentryWebpackPlugin({
+          org: "tipit",
+          project: "fnvirtual-dev",
 
-        ignore: ["app-*", "polyfill-*", "framework-*", "webpack-runtime-*"],
+          ignore: ["app-*", "polyfill-*", "framework-*", "webpack-runtime-*"],
 
-        // Specify the directory containing build artifacts
-        include: "public",
+          // Specify the directory containing build artifacts
+          include: "public",
 
-        // Auth tokens can be obtained from https://sentry.io/settings/account/api/auth-tokens/
-        // and needs the `project:releases` and `org:read` scopes
-        authToken: process.env.GATSBY_SENTRY_AUTH_TOKEN,
+          // Auth tokens can be obtained from https://sentry.io/settings/account/api/auth-tokens/
+          // and needs the `project:releases` and `org:read` scopes
+          authToken: process.env.GATSBY_SENTRY_AUTH_TOKEN,
 
-        // Optionally uncomment the line below to override automatic release name detection
-        // release: process.env.RELEASE,
-      }),
+          // Optionally uncomment the line below to override automatic release name detection
+          // release: process.env.RELEASE,
+        })]
+        :
+        []
+      ,
     ]
-  })
+  })  
 };
