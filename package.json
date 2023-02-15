@@ -150,6 +150,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.17.8",
+    "@sentry/webpack-plugin": "^1.20.0",
     "devcert": "1.1.0",
     "gatsby-plugin-webpack-speed-measure": "^0.1.1",
     "prettier": "^2.0.5"

@@ -3,6 +3,7 @@ const path = require('path');
 const fs = require("fs");
 const webpack = require('webpack');
 const {createFilePath} = require('gatsby-source-filesystem');
+const SentryWebpackPlugin = require("@sentry/webpack-plugin");
 
 const {ClientCredentials} = require('simple-oauth2');
 const URI = require('urijs');
@@ -457,6 +458,22 @@ exports.onCreateWebpackConfig = ({ actions, plugins, loaders }) => {
       }),
       new webpack.ProvidePlugin({
         Buffer: ['buffer', 'Buffer'],
+      }),
+      new SentryWebpackPlugin({
+        org: "tipit",
+        project: "fnvirtual-dev",
+
+        ignore: ["app-*", "polyfill-*", "framework-*", "webpack-runtime-*"],
+
+        // Specify the directory containing build artifacts
+        include: "public",
+
+        // Auth tokens can be obtained from https://sentry.io/settings/account/api/auth-tokens/
+        // and needs the `project:releases` and `org:read` scopes
+        authToken: process.env.GATSBY_SENTRY_AUTH_TOKEN,
+
+        // Optionally uncomment the line below to override automatic release name detection
+        // release: process.env.RELEASE,
       }),
     ]
   })
