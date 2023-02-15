@@ -11417,10 +11417,10 @@ open@^8.4.0:
     is-docker "^2.1.1"
     is-wsl "^2.2.0"
 
-openstack-uicore-foundation@4.0.88:
-  version "4.0.88"
-  resolved "https://registry.yarnpkg.com/openstack-uicore-foundation/-/openstack-uicore-foundation-4.0.88.tgz#c837041b63fa3bf2109c085fcc54d0da4ecd07e1"
-  integrity sha512-PrFlsGx0V3nY5YOpUq6ekWBXIvgHTXWv8297kbcDBYqhMkWaYDdMs2FfjD7TsIyScKT1qv367RBoeMQARQytyQ==
+openstack-uicore-foundation@4.0.89:
+  version "4.0.89"
+  resolved "https://registry.yarnpkg.com/openstack-uicore-foundation/-/openstack-uicore-foundation-4.0.89.tgz#b78f283de1443e9c1387f4e57eeca84ced946179"
+  integrity sha512-1QL/4u0m1tKS5jlH6mH2afkAPjbXmYvF0s73FGdACmbdxJNfx0iBIr94UY1x/DbINLEskY3wM7OC6iayMcdZIA==
 
 opentracing@^0.14.5:
   version "0.14.7"
