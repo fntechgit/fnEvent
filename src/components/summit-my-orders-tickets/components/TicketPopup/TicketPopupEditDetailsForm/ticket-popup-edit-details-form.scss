@@ -1,334 +1,61 @@
 @import "../../../styles/variables";
 
 .ticket-popup-edit-details-form {
-  padding: 0 10%;
-
-  .ticket-popup-basic-info {
-    margin-top: 10px;
-    display: flex;
-    align-items: baseline;
-
-    div:first-child {
-      font-size: 16px;
-      font-weight: bold;
-      margin-bottom: 20px;
-    }
-
-    div:last-child {
-      text-align: right;
-      font-size: 12px;
-      margin-left: auto;
-    }
-  }
-
-  .field-wrapper, .field-wrapper-unique {
-    margin-top: 10px;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: baseline;
-
-    &--radio-list {
-      align-items: center;
-
-      .form-check-label {
-        padding-left: 11px !important;
+  .attendee-info {
+    label {
+      font-weight: 600;
+      b {
+        color: red;
       }
     }
-
-    input {
-      background-color: $color-primary-contrast;
-      border-color: $color-primary;
-      display: inline-flex;
-
-      &:disabled {
-        background-color: $color-gray-light;
-      }
-    }
-
-    .dropdown {
-      width: 100%;
-      > div {
-        width: 100%;
-      }
-      .css-bg1rzq-control,
-      .css-1szy77t-control {
-        .css-dvua67-singleValue {
-          transform: translateY(-75%);
-        }
-      }
-    }
-
-    .css-bg1rzq-control,
-    .css-1szy77t-control {
-      background-color: $color-primary-contrast;
-      border-color: $color-primary;
-      box-shadow: 0 0 1px $color-primary;
-      .css-dvua67-singleValue {
-        color: $color-text-dark !important;
-      }
-    }
-
-    textarea {
-      background-color: $color-primary-contrast;
-      border-color: $color-primary;
-
-      &:disabled {
-        background-color: $color-gray-light;
-      }
-    }
-
-    &--textarea {
-      align-items: flex-start;
-      margin-bottom: 0px;
-
-      div:first-child {
-        padding-top: 5px;
-      }
-
-      div:first-child,
-      .read-only {
-        padding-top: 0px;
-      }
-    }
-
     u {
       cursor: pointer;
     }
   }
-
-  .field-wrapper.assign-note {
-    display: flex;
+  .error-label {
     color: red;
-  }
-
-  .form-group {
-    input {
-      background-color: $color-primary-contrast;
-      border-color: $color-primary;
-      color: $color-text-dark !important;
-
-      &::placeholder {
-        color: $color-text-input-hints !important;
-      }
-    }
-
-    .css-bg1rzq-control,
-    .css-1szy77t-control {
-      background-color: $color-primary-contrast;
-      border-color: $color-primary;
-
-      .css-dvua67-singleValue {
-        color: $color-text-dark !important;
-      }
-
-      .css-151xaom-placeholder {
-        color: $color-text-dark !important;
-      }
-    }
-
-    textarea {
-      background-color: $color-primary-contrast;
-      border-color: $color-primary;
-      color: $color-text-dark !important;
-
-      &::placeholder {
-        color: $color-text-input-hints !important;
-      }
-
-      &:disabled {
-        background-color: $color-gray-light;
-      }
-    }
-
-    .abc-checkbox label {
-      &::before {
-        background-color: $color-primary-contrast;
-        border: 1px solid $color-primary;
-        color: $color-text-dark;
-      }
-
-      &::after {
-        background-color: $color-primary-contrast;
-        color: $color-text-dark;
-        border: 1px solid $color-primary;
-        padding-left: 2px;
-        padding-top: 0px;
-      }
-    }
-
-    .form-check.abc-checkbox {
-      padding-left: 0px !important;
-
-      .form-check-label {
-        padding-left: 17px !important;
-        padding-top: 3px !important;
-
-        * {
-          display: inline;
-        }
-      }
-    }
-
-    .form-check.abc-radio {
-      width: 100% !important;
-      padding-left: 0px !important;
-      margin-left: 7px !important;
-    }
-
-    .abc-radio label {
-      &::before {
-        background-color: $color-primary-contrast;
-        border: 1px solid $color-primary;
-        color: $color-text-dark;
-      }
-    }
-
-    .checkboxes-div {
-      margin: 0;
-    }
-  }
-
-  .read-only {
-    margin-bottom: 0px;
-    margin-top: 0px;
-
-    .col-md-12 {
-      .field-wrapper {
-        margin-bottom: 0px;
-      }
-    }
-  }
-
-  .ticket-popup-cancel-ticket {
-    color: $color-danger;
-    cursor: pointer;
-  }
-
-  .abc-checkbox label {
-    &::before {
-      background-color: $color-primary-contrast;
-      border: 1px solid $color-primary;
-      color: $color-text-dark;
-    }
-    &::after {
-      background-color: $color-primary-contrast;
-      color: $color-text-dark;
-      border: 1px solid $color-primary;
-      padding-left: 2px;
-      padding-top: 0px;
-    }
-  }
-
-  .abc-checkbox {
-    padding-left: 0px !important;
-  }
-
-  .form-check-label {
-    padding-left: 17px !important;
-  }
-
-  .disclaimer {
-    display: inline-block;
-
-    br {
-      content: "";
-      margin: 2em;
-      display: block;
-      font-size: 10%;
-    }
-  }
-}
-
-@media (min-width: 768px) {
-  .ticket-popup-edit-details-form {
-    .field-wrapper-mobile {
-      display: none;
-    }
-  }
-}
-
-@media (max-width: 768px) {
-  .ticket-popup-edit-details-form {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    margin: auto 0;
     padding: 0;
-
-    .ticket-popup-basic-info {
-      margin-top: 0px;
-      align-items: baseline;
-      flex-direction: row !important;
+    &::before {
+      content: "\f071";
+      font-family: FontAwesome;
+      padding-right: 5px;
     }
-
-    .field-wrapper {
-      display: none;
-    }
-
-    .field-wrapper-unique {    
-      display: flex;
-      flex-direction: column;
-      .col-sm-4 {
-        width: 100%;
-      }
-      .col-sm-8 {
-        width: 100%;
+  }
+  h4 {
+    font-weight: 700;
+  }
+  .extra-question {
+    label {
+      font-weight: 600;
+      b {
+        color: red;
       }
     }
-
-    .field-wrapper--textarea {
-      display: none;
-    }
-
-    .field-wrapper-mobile {
-      margin-top: 10px;
-      margin-bottom: 10px;
-      align-items: baseline;
-
-      &--radio-list {
-        align-items: center;
-      }
-
-      .dropdown {
-        width: 100%;
-        > div {
-          width: 100%;
-        }
-        .css-bg1rzq-control,
-        .css-1szy77t-control {
-          .css-dvua67-singleValue {
-            transform: translateY(-75%);
-          }
-        }
-      }
-
-      input {
-        background-color: $color-primary-contrast;
-        border-color: $color-primary;
-      }
-
-      .css-bg1rzq-control,
-      .css-1szy77t-control {
-        background-color: $color-primary-contrast;
-        border-color: $color-primary;
-        box-shadow: 0 0 1px $color-primary;
-        .css-dvua67-singleValue {
-          color: $color-text-dark !important;
-        }
-      }
-
-      textarea {
-        background-color: $color-primary-contrast;
-        border-color: $color-primary;
+    [id^=rl_wrapper] div {
+      padding-top: 5px;
+      &~ div {
+        padding-top: 10px;
       }
     }
-
-    .form-check.abc-radio {
-      margin-top: 7px;
-
-      .form-check-label {
-        padding-top: 0;
+    input[type="checkbox"] {
+      margin-right: 3px;
+      &~ label {
+        padding-left: 13px !important;
       }
     }
-
-    .ticket-popup-cancel-ticket {
-      font-size: 14px;
+    h4 {
+      font-weight: 400;
+      font-size: 1em !important;
+      line-height: 1;
+      padding-top: 4px;
+      margin-bottom: 0px;
     }
+  }
+  .questions-form {
+    padding-bottom: 2em;
   }
 }
