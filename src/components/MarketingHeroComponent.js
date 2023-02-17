@@ -136,7 +136,7 @@ const MarketingHeroComponent = ({ siteSettings, eventRedirect, summit_phase, isL
                 }
               </div>
               <h4>{siteSettings.heroBanner.time}</h4>
-              <div className={styles.heroButtons}>
+              <div className={`${styles.heroButtons} registration-button` }>
                 {getButtons()}
               </div>
             </div>

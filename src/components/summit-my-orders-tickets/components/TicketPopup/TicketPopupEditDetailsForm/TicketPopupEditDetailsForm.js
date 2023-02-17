@@ -271,7 +271,7 @@ export const TicketPopupEditDetailsForm = ({
                     }
                 </div>
 
-                <div className="attendee-info column is-full">
+                <div className="attendee-info column is-full attendee_company_wrapper">
                     <label htmlFor="attendee_company">
                         {t("ticket_popup.edit_company")}
                         {!ticket.owner?.company && <b> *</b>}

@@ -11,6 +11,21 @@
     u {
       cursor: pointer;
     }
+    &.attendee_company_wrapper {
+      >div {
+        position: relative;        
+        input {
+          padding-right: 10px !important;
+        }
+        i {
+          right: 10px !important;
+        }
+      }
+      .css-dvua67-singleValue {
+        top: 50% !important;  
+      }
+    }
+
   }
   .error-label {
     color: red;
