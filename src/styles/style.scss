@@ -603,4 +603,8 @@ div.event-feedback-container {
   top: 70% !important;
 }
 
+#layers {
+  z-index: 1000;
+}
+
 @import "~openstack-uicore-foundation/lib/css/components/extra-questions.css";
