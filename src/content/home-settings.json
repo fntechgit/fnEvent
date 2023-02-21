@@ -1,7 +1,7 @@
 {
   "centerColumn": {
     "speakers": {
-      "showTodaySpeakers": true,
+      "showTodaySpeakers": false,
       "showFeatureSpeakers": false
     }
   },
