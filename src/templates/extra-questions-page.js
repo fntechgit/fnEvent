@@ -59,10 +59,18 @@ export const ExtraQuestionsPageTemplate = ({ user, summit, extraQuestions, saveE
 
     const triggerFormSubmit = () => {
         if (extraQuestions.length > 0){
-            formRef.current.dispatchEvent(new Event("submit", { cancelable: true, bubbles: true }))
+            formRef.current.doSubmit();
             return;
         }
         saveExtraQuestions([], owner)
+    }
+
+    const handleOnError = (errors, firstErrorRef) => {
+        console.log('handleOnError', errors, firstErrorRef);
+        firstErrorRef.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center',
+        })
     }
 
     if (!ticket) {
@@ -134,6 +142,8 @@ export const ExtraQuestionsPageTemplate = ({ user, summit, extraQuestions, saveE
                         questionContainerClassName={`columns is-multiline ${styles.extraQuestion} pt-3`}
                         questionLabelContainerClassName={'column is-full pb-0'}
                         questionControlContainerClassName={'column is-full pt-0'}
+                        shouldScroll2FirstError={false}
+                        onError={handleOnError}
                     />
                 </>
                 }

@@ -15,6 +15,13 @@ import { ConfirmPopup, CONFIRM_POPUP_CASE } from "../../ConfirmPopup/ConfirmPopu
 
 import './ticket-popup-edit-details-form.scss';
 
+const scrollBehaviour = { behavior: 'smooth', block: 'start' };
+
+const noOpInputHandlers = {
+    onChange: () => {},
+    onBlur: () => {}
+};
+
 export const TicketPopupEditDetailsForm = ({
     ticket,
     summit,
@@ -64,13 +71,16 @@ export const TicketPopupEditDetailsForm = ({
     }, [ticket]);
 
     const validationSchema = useMemo(() => Yup.object().shape({
-        attendee_first_name: Yup.string().nullable().required(),
-        attendee_last_name: Yup.string().nullable().required(),
+        attendee_first_name: Yup.string().required(),
+        attendee_last_name: Yup.string().required(),
         attendee_company: Yup.object().shape({
             id: Yup.number().nullable(),
             name: Yup.string().nullable().required(),
+        }),
+        ...(summit.registration_disclaimer_mandatory && {
+            disclaimer_accepted: Yup.boolean().oneOf([true]).required()
         })
-    }), []);
+    }), [summit]);
 
     const hasExtraQuestions = extraQuestions.length > 0;
     const isUserTicketOwner = order.owner_id === userProfile.id;
@@ -133,23 +143,47 @@ export const TicketPopupEditDetailsForm = ({
         onBlur: formik.handleblur
     };
 
+    const scrollToError = (error) => document.querySelector(`label[for="${error}"]`).scrollIntoView(scrollBehaviour);
+
     const triggerSubmit = () => {
         // Validate the formik form
         formik.validateForm().then((errors) => {
+            const errorKeys = Object.keys(errors);
+            // attendee data
+            if (errorKeys.length > 0 && errorKeys[0] != 'disclaimer_accepted') {
+                scrollToError(errorKeys[0]);
+                return;
+            }
+            // extra questions
             if (hasExtraQuestions) {
                 // TODO: We shouldn't have to do this to get the changes from the `ExtraQuestionsForm`.
                 // We should just be able to pass an `onChange` event handler to the `ExtraQuestionsForm`.
-                formRef.current.dispatchEvent(
-                    new Event('submit', { cancelable: true, bubbles: true })
-                );
-            } else {
-                // Submit the formik form
-                formik.handleSubmit();
+                formRef.current.doSubmit();
+                return;
             }
+            // disclaimer
+            if (errorKeys.length > 0) {
+                scrollToError(errorKeys[0]);
+                return;
+            }
+            formik.handleSubmit();
         });
     };
 
+    const handleExtraQuestionError = (errors, firstErrorRef) => {
+        console.log('handleOnError', errors, firstErrorRef);
+        firstErrorRef.scrollIntoView(scrollBehaviour);
+    }
+
     const handleExtraQuestionsSubmit = (answersForm) => {
+
+        // check if there is disclaimer acceptance error
+        const errorKeys = Object.keys(formik.errors);
+        if (errorKeys.length > 0) {
+            scrollToError(errorKeys[0]);
+            return;
+        }
+
         const questionSet = new QuestionsSet(extraQuestions);
 
         const newAnswers = Object.keys(answersForm).reduce((acc, name) => {
@@ -176,7 +210,7 @@ export const TicketPopupEditDetailsForm = ({
 
     const canSubmitChanges = () => {
         const qs = new QuestionsSet(extraQuestions, ticket.owner.extra_questions);        
-        const unansweredExtraQuestions = !qs.completed();        
+        const unansweredExtraQuestions = !qs.completed();
         return canEditTicketData || isReassignable || unansweredExtraQuestions;
     }    
 
@@ -243,7 +277,7 @@ export const TicketPopupEditDetailsForm = ({
                         name="attendee_first_name"
                         className="form-control"
                         value={formik.values.attendee_first_name}
-                        {...(!ticket.owner?.first_name ? inputHandlers : {})}
+                        {...(!ticket.owner?.first_name ? inputHandlers : noOpInputHandlers)}
                         placeholder={t("ticket_popup.edit_first_name_placeholder")}
                         disabled={!!ticket.owner?.first_name}
                     />
@@ -262,7 +296,7 @@ export const TicketPopupEditDetailsForm = ({
                         name="attendee_last_name"
                         className="form-control"
                         value={formik.values.attendee_last_name}
-                        {...(!ticket.owner?.last_name ? inputHandlers : {})}
+                        {...(!ticket.owner?.last_name ? inputHandlers : noOpInputHandlers)}
                         placeholder={t("ticket_popup.edit_last_name_placeholder")}
                         disabled={!!ticket.owner?.last_name}
                     />
@@ -280,7 +314,7 @@ export const TicketPopupEditDetailsForm = ({
                         id="attendee_company"
                         name="attendee_company"
                         summitId={summit.id}
-                        {...(!ticket.owner?.company ? inputHandlers : {})}
+                        {...(!ticket.owner?.company ? inputHandlers : noOpInputHandlers)}
                         value={formik.values.attendee_company}
                         placeholder={t("ticket_popup.edit_company_placeholder")}
                         disabled={!!ticket.owner?.company}
@@ -289,10 +323,11 @@ export const TicketPopupEditDetailsForm = ({
                     <p className="error-label">{t("ticket_popup.edit_required")}</p>
                     }
                 </div>
-
+                {(ticket.owner?.first_name || ticket.owner?.last_name || ticket.owner?.company) &&
                 <div className="column is-full pb-5">
                     {t("ticket_popup.assign_note")}
                 </div>
+                }
 
                 {hasExtraQuestions && 
                 <div className="column is-full pt-5">
@@ -306,27 +341,33 @@ export const TicketPopupEditDetailsForm = ({
                         questionContainerClassName={`columns is-multiline extra-question pt-3`}
                         questionLabelContainerClassName={'column is-full pb-0'}
                         questionControlContainerClassName={'column is-full pt-0'}
+                        shouldScroll2FirstError={false}
+                        onError={handleExtraQuestionError}
                     />
                 </div>
                 }
 
                 {summit.registration_disclaimer_content &&
-                <div className="column is-full">
+                <div className="column is-full attendee-info abc-checkbox">
                     <input
                         type="checkbox"
                         id="disclaimer_accepted"
                         name="disclaimer_accepted"
-                        className="form-check abc-checkbox"
                         onChange={formik.handleChange}
                         onBlur={formik.handleblur}
                         checked={formik.values.disclaimer_accepted}
                     />
                     <label htmlFor="disclaimer_accepted">
-                        {summit.registration_disclaimer_mandatory && <> *</>}
+                        {summit.registration_disclaimer_mandatory && <b> *</b>}
                     </label>
-                    <RawHTML>
-                        {summit.registration_disclaimer_content}
-                    </RawHTML>
+                    {formik.errors.disclaimer_accepted &&
+                    <p className="error-label">{t("ticket_popup.edit_required")}</p>
+                    }
+                    <div className="mt-3">
+                        <RawHTML>
+                            {summit.registration_disclaimer_content}
+                        </RawHTML>
+                    </div>
                 </div>
                 }
             </div>
