@@ -38,6 +38,7 @@ const App = ({ isLoggedUser, user, summit_phase, lastBuild, syncData, allowClick
           />
           <WithAuthRoute path="/" isLoggedIn={isLoggedUser} location={location}>
             <MyTicketsPage path="/my-tickets" isLoggedIn={isLoggedUser} user={user} location={location} />
+            <FullProfilePage path="/profile" summit_phase={summit_phase} isLoggedIn={isLoggedUser} user={user} location={location} />
             <WithTicketRoute path="/extra-questions" location={location}>
                 <ExtraQuestionsPage path="/" isLoggedIn={isLoggedUser} user={user} location={location} />
             </WithTicketRoute>
@@ -55,7 +56,6 @@ const App = ({ isLoggedUser, user, summit_phase, lastBuild, syncData, allowClick
                   schedKey="my-schedule-main"
                   allowClick={allowClick}
                 />
-                <FullProfilePage path="/profile" summit_phase={summit_phase} isLoggedIn={isLoggedUser} user={user} location={location} />
                 <ShowOpenRoute path="/" summit_phase={summit_phase} isLoggedIn={isLoggedUser} user={user} location={location}>
                   <WithBadgeRoute path="/event/:eventId" summit_phase={summit_phase} isLoggedIn={isLoggedUser} user={user} location={location}>
                     <EventPage path="/" summit_phase={summit_phase} isLoggedIn={isLoggedUser} user={user} location={location} />
