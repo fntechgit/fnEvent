@@ -323,6 +323,7 @@ export const TicketPopupEditDetailsForm = ({
                     <p className="error-label">{t("ticket_popup.edit_required")}</p>
                     }
                 </div>
+
                 {(ticket.owner?.first_name || ticket.owner?.last_name || ticket.owner?.company) &&
                 <div className="column is-full pb-5">
                     {t("ticket_popup.assign_note")}
