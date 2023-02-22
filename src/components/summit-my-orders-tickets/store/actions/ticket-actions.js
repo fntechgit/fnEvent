@@ -250,7 +250,7 @@ export const editOwnedTicket = ({
     const {
         userState: { userProfile },
         orderState: { current_page: orderPage },
-        ticketState: { current_page: ticketPage }
+        ticketState: { current_page: ticketPage, orderTickets: { current_page : orderTicketsCurrentPage }  }
     } = getState();
 
     const params = {
@@ -287,7 +287,6 @@ export const editOwnedTicket = ({
         normalizedEntity,
         authErrorHandler
     )(params)(dispatch).then(async () => {
-        dispatch(startLoading());
         // email should match ( only update my profile is ticket belongs to me!)
         // Check if there's changes in the ticket data to update the profile
         if (userProfile.email == attendee_email && (
@@ -311,7 +310,8 @@ export const editOwnedTicket = ({
         if (context === 'ticket-list') {
             dispatch(getUserTickets({ page: ticketPage }));
         } else {
-            dispatch(getUserOrders({ page: orderPage }))
+            dispatch(getUserOrders({ page: orderPage }));
+            dispatch(getTicketsByOrder({ orderId: ticket.order_id, page: orderTicketsCurrentPage }));
         }
 
         dispatch(stopLoading());
