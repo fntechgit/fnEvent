@@ -19,7 +19,7 @@ const WithAuthRoute = ({
 
     if (!isLoggedIn) {
         // reject it
-        navigate("/", {state: {backUrl: `${location.pathname}`,},});
+        navigate("/#login=1", {state: {backUrl: `${location.pathname}`,},});
         return null;
     }
 
