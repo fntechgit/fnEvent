@@ -10,15 +10,6 @@
       ]
     },
     {
-      "title": "My Tickets",
-      "link": "/a/my-tickets",
-      "display": true,
-      "requiresAuth": true,
-      "pageRestriction": [
-        "ANY"
-      ]
-    },
-    {
       "title": "Schedule",
       "link": "/a/schedule",
       "display": true,
@@ -31,7 +22,10 @@
       "title": "My Schedule",
       "link": "/a/my-schedule",
       "display": true,
-      "requiresAuth": false
+      "requiresAuth": true,
+      "pageRestriction": [
+        "ANY"
+      ]
     },
     {
       "title": "Sponsors ",
@@ -83,6 +77,15 @@
       "link": "/help",
       "display": true,
       "requiresAuth": false,
+      "pageRestriction": [
+        "ANY"
+      ]
+    },
+    {
+      "title": "My Orders/Tickets",
+      "link": "/a/my-tickets",
+      "display": true,
+      "requiresAuth": true,
       "pageRestriction": [
         "ANY"
       ]
