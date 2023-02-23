@@ -1,46 +1,39 @@
 import React, { useEffect, useState } from "react"
-import { navigate, withPrefix } from "gatsby"
+import { navigate } from "gatsby"
 import { connect } from "react-redux";
 import URI from "urijs"
 // these two libraries are client-side only
-import RegistrationLiteWidget from 'summit-registration-lite/dist';
+import LoginComponent from 'summit-registration-lite/dist/components/login';
+import PasswordlessLoginComponent from 'summit-registration-lite/dist/components/login-passwordless';
 import FragmentParser from "openstack-uicore-foundation/lib/utils/fragment-parser";
-import QuestionsSet from 'openstack-uicore-foundation/lib/utils/questions-set';
-import { doLogin, passwordlessStart, getAccessToken } from 'openstack-uicore-foundation/lib/security/methods'
-import { doLogout } from 'openstack-uicore-foundation/lib/security/actions'
-import { getEnvVariable, SUMMIT_API_BASE_URL, OAUTH2_CLIENT_ID, REGISTRATION_BASE_URL } from '../utils/envVariables'
+import { doLogin, passwordlessStart } from 'openstack-uicore-foundation/lib/security/methods'
 import { getUserProfile, setPasswordlessLogin, setUserOrder, checkOrderData } from "../actions/user-actions";
 import { getThirdPartyProviders } from "../actions/base-actions";
 import 'summit-registration-lite/dist/index.css';
-import styles from '../styles/marketing-hero.module.scss'
-import Swal from "sweetalert2";
+import styles from '../styles/login-button.module.scss'
 
-const LoginModalComponent = ({
-    idpProfile,
-    userProfile,
-    attendee,
+const LoginButton = ({
     getThirdPartyProviders,
     thirdPartyProviders,
     getUserProfile,
     setPasswordlessLogin,
-    setUserOrder,
-    checkOrderData,
-    loadingProfile,
-    loadingIDP,
     summit,
-    colorSettings,
     siteSettings,
     allowsNativeAuth,
-    allowsOtpAuth,    
+    allowsOtpAuth,
 }) => {
-    const [isActive, setIsActive] = useState(false);    
+    const [isActive, setIsActive] = useState(false);
     const [initialEmailValue, setInitialEmailValue] = useState('');
+    const [otpLogin, setOtpLogin] = useState(false);
+    const [userEmail, setUserEmail] = useState('');
+    const [otpLength, setOtpLength] = useState(null);
+    const [otpError, setOtpError] = useState(false);
 
     useEffect(() => {
-        const fragmentParser = new FragmentParser();        
+        const fragmentParser = new FragmentParser();
         setIsActive(fragmentParser.getParam('login'));
         const paramInitialEmailValue = fragmentParser.getParam('email');
-        if(paramInitialEmailValue)
+        if (paramInitialEmailValue)
             setInitialEmailValue(paramInitialEmailValue);
     }, []);
 
@@ -57,13 +50,16 @@ const LoginModalComponent = ({
         doLogin(getBackURL(), provider);
     };
 
-    const handleCompanyError = () => {
-        console.log('company error...')
-        Swal.fire("ERROR", "Hold on. Your session expired!.", "error").then(() => {
-            // save current location and summit slug, for further redirect logic
-            window.localStorage.setItem('post_logout_redirect_path', new URI(window.location.href).pathname());
-            doLogout();
-        });
+    const closeLoginPopup = () => {
+        setIsActive(false);
+        setOtpLogin(false);
+        setOtpError(false);
+    }
+
+    const openLoginPopup = () => {
+        setIsActive(true);
+        setOtpLogin(false);
+        setOtpError(false);
     }
 
     const formatThirdPartyProviders = (providersArray) => {
@@ -100,102 +96,70 @@ const LoginModalComponent = ({
 
         navigate('/');
 
-        return setPasswordlessLogin(params);
+        return setPasswordlessLogin(params).then((res) => {
+            if (res?.response !== 200) {                
+                setOtpError(true);
+            }
+        })
     };
 
-    const extraQuestionsCompleted = () => {
-        const extraQuestions = summit.extra_questions;
-        const owner = userProfile?.summit_tickets[0]?.owner || null;
-        const qs = new QuestionsSet(extraQuestions, owner);
-        return qs.completed();
+    const sendCode = (email) => {
+        setUserEmail(email);
+        getPasswordlessCode(email).then(({ response }) => {
+            setOtpLength(response.otp_length);
+            setOtpLogin(true);
+        });
     }
 
-    const widgetProps = {
-        apiBaseUrl: getEnvVariable(SUMMIT_API_BASE_URL),
-        clientId: getEnvVariable(OAUTH2_CLIENT_ID),
-        summitData: summit,
-        profileData: idpProfile,
-        marketingData: colorSettings,
+    const loginComponentProps = {
         loginOptions: formatThirdPartyProviders(thirdPartyProviders),
-        loading: loadingProfile || loadingIDP,
-        // only show info if its not a recent purchase
-        ticketOwned: userProfile?.summit_tickets?.length > 0,
-        ownedTickets: attendee?.ticket_types || [],
-        authUser: (provider) => onClickLogin(provider),
-        getPasswordlessCode: getPasswordlessCode,
-        loginWithCode: async (code, email) => await loginPasswordless(code, email),
-        getAccessToken: getAccessToken,
-        closeWidget: async () => {
-            // reload user profile
-            // NOTE: We need to catch the rejected promise here, or else the app will crash (locally, at least).
-            try {
-                await getUserProfile();
-            } catch (e) {
-                console.error(e);
-            }
-            setIsActive(false)
-        },
-        goToExtraQuestions: async () => {
-            // reload user profile
-            // NOTE: We need to catch the rejected promise here, or else the app will crash (locally, at least).
-            try {
-                await getUserProfile();
-            } catch (e) {
-                console.error(e);
-            }
-            navigate('/a/extra-questions')
-        },
-        goToEvent: () => navigate('/a/'),
-        goToRegistration: () => navigate(`${getEnvVariable(REGISTRATION_BASE_URL)}/a/${summit.slug}`),
-        onPurchaseComplete: (order) => {
-            // check if it's necesary to update profile
-            setUserOrder(order).then(_ => checkOrderData(order));
-        },
-        inPersonDisclaimer: siteSettings?.registration_in_person_disclaimer,
-        handleCompanyError: () => handleCompanyError,
+        login: (provider) => onClickLogin(provider),
+        getLoginCode: (email) => sendCode(email),        
         allowsNativeAuth: allowsNativeAuth,
         allowsOtpAuth: allowsOtpAuth,
-        stripeOptions: {
-            fonts: [{ cssSrc: withPrefix('/fonts/fonts.css') }],
-            style: { base: { fontFamily: `'Nunito Sans', sans-serif`, fontWeight: 300 } }
-        },
-        loginInitialEmailInputValue: initialEmailValue,
-        authErrorCallback: (error) => {
-            // we have an auth Error, perform logout
-            const fragment = window?.location?.hash;
-            return navigate('/auth/logout',
-                {
-                    state: {
-                        backUrl: '/'+fragment
-                    }
-                });
-        },
-        allowPromoCodes: siteSettings?.REG_LITE_ALLOW_PROMO_CODES,
-        companyInputPlaceholder: siteSettings?.REG_LITE_COMPANY_INPUT_PLACEHOLDER,
-        companyDDLPlaceholder: siteSettings?.REG_LITE_COMPANY_DDL_PLACEHOLDER,
-        completedExtraQuestions: () => extraQuestionsCompleted()
-    };    
+        loginInitialEmailInputValue: initialEmailValue,        
+    };
+
+    const passwordlessLoginProps = {
+        email: userEmail,
+        codeLength: otpLength,
+        passwordlessLogin: async (code) => await loginPasswordless(code, userEmail),
+        codeError: otpError,
+        goToLogin: () => setOtpLogin(false),
+        getLoginCode: (email) => sendCode(email),
+    }
 
     const { loginButton } = siteSettings.heroBanner.buttons;
 
     return (
-        <>
-            <button className={`${styles.button} button is-large`} onClick={() => setIsActive(true)}>
+        <div className={styles.loginButtonWrapper}>
+            <button className={`${styles.button} button is-large`} onClick={() => openLoginPopup()}>
                 <i className={`fa fa-2x fa-edit icon is-large`} />
                 <b>{loginButton.text}</b>
             </button>
-            <div>
-                {isActive && <RegistrationLiteWidget {...widgetProps} />}
-            </div>
-        </>
+            {isActive &&
+                <div id={`${styles.modal}`} className="modal is-active">
+                    <div className="modal-background"></div>
+                    <div className={`${styles.modalContent} modal-content`}>
+                        <div className={`${styles.outerWrapper} summit-registration-lite`}>
+                            <div className={styles.innerWrapper}>
+                                <div className={styles.title}>
+                                    <span>{summit.name}</span>
+                                    <i className="fa fa-close" aria-label="close" onClick={() => closeLoginPopup()}></i>
+                                </div>
+                                {!otpLogin && <LoginComponent {...loginComponentProps} />}
+                                {otpLogin && <PasswordlessLoginComponent {...passwordlessLoginProps} />}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
     )
 };
 
 const mapStateToProps = ({ userState, summitState, settingState }) => {
     return ({
-        idpProfile: userState.idpProfile,
-        userProfile: userState.userProfile,
-        attendee: userState.attendee,
         loadingProfile: userState.loading,
         loadingIDP: userState.loadingIDP,
         thirdPartyProviders: summitState.third_party_providers,
@@ -213,4 +177,4 @@ export default connect(mapStateToProps, {
     setPasswordlessLogin,
     setUserOrder,
     checkOrderData
-})(LoginModalComponent)
+})(LoginButton)
