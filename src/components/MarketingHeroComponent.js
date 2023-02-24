@@ -10,6 +10,7 @@ import { getDefaultLocation } from "../utils/loginUtils";
 
 import styles from "../styles/marketing-hero.module.scss";
 import {userHasAccessLevel, VirtualAccessLevel} from "../utils/authorizedGroups";
+import LoginButton from "./LoginButton";
 
 const MarketingHeroComponent = ({ siteSettings, eventRedirect, summit_phase, isLoggedUser, summit, location, userProfile }) => {
 
@@ -80,10 +81,7 @@ const MarketingHeroComponent = ({ siteSettings, eventRedirect, summit_phase, isL
             </span>
           )}
         {loginButton.display && !isLoggedUser && (
-          <button className={`${styles.button} button is-large`} onClick={() => onClickLogin()}>
-            <i className={`fa fa-2x fa-sign-in icon is-large`} />
-            <b>{loginButton.text}</b>
-          </button>
+          <LoginButton location={location} />          
         )}
       </>
     );
