@@ -268,7 +268,7 @@
       overflow-y: scroll;
       z-index: 20;
       padding: 20px;
-      height: calc(100vh - 200px);
+      height: calc(100dvh - 240px);
     }
 
     .ticket-popup-footer {
@@ -387,7 +387,7 @@
       overflow-y: scroll;
       -webkit-overflow-scrolling: touch;
       z-index: 20;
-      height: calc(100vh - 160px);
+      height: calc(100dvh - 200px);
 
       .ticket-assign-form {
         padding-bottom: 20px;
@@ -411,7 +411,7 @@
       overflow-y: scroll;
       -webkit-overflow-scrolling: touch;
       z-index: 20;
-      height: calc(100vh - 160px);
+      height: calc(100dvh - 200px);
 
       .ticket-reassign-form {
         padding-bottom: 20px;
@@ -429,7 +429,7 @@
       overflow-y: scroll;
       -webkit-overflow-scrolling: touch;
       z-index: 20;
-      height: calc(100vh - 160px);
+      height: calc(100dvh - 200px);
 
       .ticket-notify-form {
         padding-bottom: 20px;
