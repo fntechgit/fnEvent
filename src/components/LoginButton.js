@@ -108,6 +108,7 @@ const LoginButton = ({
         allowsNativeAuth: allowsNativeAuth,
         allowsOtpAuth: allowsOtpAuth,
         initialEmailValue: initialEmailValue,
+        title: 'Enter your email address to login with a one time code',
     };
 
     const passwordlessLoginProps = {
