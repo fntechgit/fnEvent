@@ -10,6 +10,7 @@ import { doLogout } from 'openstack-uicore-foundation/lib/security/actions'
 import { getEnvVariable, SUMMIT_API_BASE_URL, OAUTH2_CLIENT_ID, REGISTRATION_BASE_URL } from '../utils/envVariables'
 import { getUserProfile, setPasswordlessLogin, setUserOrder, checkOrderData } from "../actions/user-actions";
 import { getThirdPartyProviders } from "../actions/base-actions";
+import { formatThirdPartyProviders } from "../utils/loginUtils";
 import 'summit-registration-lite/dist/index.css';
 import styles from '../styles/marketing-hero.module.scss'
 import Swal from "sweetalert2";
@@ -63,21 +64,7 @@ const RegistrationLiteComponent = ({
             window.localStorage.setItem('post_logout_redirect_path', new URI(window.location.href).pathname());
             doLogout();
         });
-    }
-
-    const formatThirdPartyProviders = (providersArray) => {
-        const providers = [
-            { button_color: '#082238', provider_label: 'Continue with FNid', provider_param: '', provider_logo: '../img/logo_fn.svg', provider_logo_size: 35 },
-        ];
-
-        const thirdPartyProviders = [
-            { button_color: '#1877F2', provider_label: 'Continue with Facebook', provider_param: 'facebook', provider_logo: '../img/third-party-idp/logo_facebook.svg', provider_logo_size: 22 },
-            { button_color: '#0A66C2', provider_label: 'Sign in with LinkedIn', provider_param: 'linkedin', provider_logo: '../img/third-party-idp/logo_linkedin.svg', provider_logo_size: 21 },
-            { button_color: '#000000', provider_label: 'Continue with Apple', provider_param: 'apple', provider_logo: '../img/third-party-idp/logo_apple.svg', provider_logo_size: 19 }
-        ];
-
-        return [...providers, ...thirdPartyProviders.filter(p => providersArray.includes(p.provider_param))];
-    };
+    }    
 
     const getPasswordlessCode = (email) => {
         const params = {

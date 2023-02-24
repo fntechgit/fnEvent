@@ -32,7 +32,6 @@ class AuthorizationCallbackRoute extends AbstractAuthorizationCallbackRoute {
     }
 
     _callback(backUrl) {
-
         this.props.getUserProfile().then(() => {
             const pendingAction = getPendingAction();
             if (pendingAction) {
@@ -40,6 +39,9 @@ class AuthorizationCallbackRoute extends AbstractAuthorizationCallbackRoute {
                 action === 'ADD_EVENT' ? this.props.addToSchedule(event) : this.props.removeFromSchedule(event);
             }
             backUrl = URI.decode(backUrl);
+            // fallback
+            if(!backUrl || backUrl == '')
+                backUrl = '/';
             let { userProfile } = this.props;
             // if redirect to lobby first time if we have virtual access
             if(backUrl == '/' && userProfile && userHasAccessLevel(userProfile.summit_tickets, VirtualAccessLevel)){
