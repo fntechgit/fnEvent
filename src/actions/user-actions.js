@@ -65,10 +65,10 @@ export const getDisqusSSO = (shortName) => async (dispatch, getState) => {
   }
 
   return getRequest(
-    null,
-    createAction(GET_DISQUS_SSO),
-    `${window.IDP_BASE_URL}/api/v1/sso/disqus/${shortName}/profile?access_token=${accessToken}`,
-    customErrorHandler
+      null,
+      createAction(GET_DISQUS_SSO),
+      `${window.IDP_BASE_URL}/api/v1/sso/disqus/${shortName}/profile?access_token=${accessToken}`,
+      customErrorHandler
   )({})(dispatch).catch(e => {
     console.log('ERROR: ', e);
     clearAccessToken();
@@ -96,10 +96,10 @@ export const getUserProfile = () => async (dispatch) => {
   dispatch(startLoading());
   dispatch(createAction(START_LOADING_PROFILE)());
   return getRequest(
-    null,
-    createAction(GET_USER_PROFILE),
-    `${window.SUMMIT_API_BASE_URL}/api/v1/summits/${window.SUMMIT_ID}/members/me`,
-    customErrorHandler
+      null,
+      createAction(GET_USER_PROFILE),
+      `${window.SUMMIT_API_BASE_URL}/api/v1/summits/${window.SUMMIT_ID}/members/me`,
+      customErrorHandler
   )(params)(dispatch).then(() => {
     return dispatch(getIDPProfile()).then(() => {
       return dispatch(getScheduleSyncLink()).then(() => dispatch(createAction(STOP_LOADING_PROFILE)()))
@@ -131,33 +131,36 @@ export const getIDPProfile = () => async (dispatch) => {
   };
 
   return getRequest(
-    null,
-    createAction(GET_IDP_PROFILE),
-    `${window.IDP_BASE_URL}/api/v1/users/me`,
-    customErrorHandler
+      null,
+      createAction(GET_IDP_PROFILE),
+      `${window.IDP_BASE_URL}/api/v1/users/me`,
+      customErrorHandler
   )(params)(dispatch)
-    .then(() => dispatch(createAction(STOP_LOADING_IDP_PROFILE)()))
-    .catch((e) => {
-      console.log('ERROR: ', e);
-      dispatch(createAction(STOP_LOADING_IDP_PROFILE)())
-      clearAccessToken();
-      return (e);
-    });
+      .then(() => dispatch(createAction(STOP_LOADING_IDP_PROFILE)()))
+      .catch((e) => {
+        console.log('ERROR: ', e);
+        dispatch(createAction(STOP_LOADING_IDP_PROFILE)())
+        clearAccessToken();
+        return (e);
+      });
 }
 
 export const requireExtraQuestions = () => (dispatch, getState) => {
-
-  const { summitState : { summit, extra_questions }} = getState();
   const { userState: { userProfile } } = getState();
 
   const owner = userProfile?.summit_tickets[0]?.owner || null;
   // if user does not have an attendee then we dont require extra questions
   if (!owner) return false;
-  if (!owner.first_name || !owner.last_name || !owner.company || !owner.email) return true;
-  const disclaimer = summit.registration_disclaimer_mandatory ? owner.disclaimer_accepted : true;
+  return dispatch(checkRequireExtraQuestionsByAttendee(owner));
+}
+
+export const checkRequireExtraQuestionsByAttendee = (attendee) => (dispatch, getState) => {
+  const { summitState : { summit, extra_questions }} = getState();
+  if (!attendee.first_name || !attendee.last_name || !attendee.company || !attendee.email) return true;
+  const disclaimer = summit.registration_disclaimer_mandatory ? attendee.disclaimer_accepted : true;
   if (!disclaimer) return true;
-  if (extra_questions.length > 0) {
-    const qs = new QuestionsSet(extra_questions, owner.extra_questions || []);
+  if (extra_questions?.length > 0) {
+    const qs = new QuestionsSet(extra_questions, attendee.extra_questions || []);
     return !qs.completed();
   }
   return false;
@@ -179,24 +182,24 @@ export const scanBadge = (sponsorId) => async (dispatch) => {
   };
 
   return postRequest(
-    createAction(SCAN_BADGE),
-    createAction(SCAN_BADGE_SUCCESS),
-    `${window.SUMMIT_API_BASE_URL}/api/v1/summits/${window.SUMMIT_ID}/sponsors/${sponsorId}/user-info-grants/me`,
-    null,
-    customBadgeHandler,
-    // entity
+      createAction(SCAN_BADGE),
+      createAction(SCAN_BADGE_SUCCESS),
+      `${window.SUMMIT_API_BASE_URL}/api/v1/summits/${window.SUMMIT_ID}/sponsors/${sponsorId}/user-info-grants/me`,
+      null,
+      customBadgeHandler,
+      // entity
   )(params)(dispatch)
-    .then((payload) => {
-      let msg = 'Thanks for sharing your info!';
-      Swal.fire("Success", msg, "success");
-      return (payload)
-    })
-    .catch(e => {
-      console.log('ERROR: ', e);
-      dispatch(createAction(SCAN_BADGE_ERROR)(e));
-      clearAccessToken();
-      return (e);
-    });
+      .then((payload) => {
+        let msg = 'Thanks for sharing your info!';
+        Swal.fire("Success", msg, "success");
+        return (payload)
+      })
+      .catch(e => {
+        console.log('ERROR: ', e);
+        dispatch(createAction(SCAN_BADGE_ERROR)(e));
+        clearAccessToken();
+        return (e);
+      });
 }
 
 export const addToSchedule = (event) => async (dispatch, getState) => {
@@ -212,7 +215,7 @@ export const addToSchedule = (event) => async (dispatch, getState) => {
   const url = `${getEnvVariable(SUMMIT_API_BASE_URL)}/api/v1/summits/${getEnvVariable(SUMMIT_ID)}/members/me/schedule/${event.id}`;
 
   return axios.post(
-    url, { access_token: accessToken }
+      url, { access_token: accessToken }
   ).then(() => {
     dispatch(createAction(ADD_TO_SCHEDULE)(event));
     return event;
@@ -236,7 +239,7 @@ export const removeFromSchedule = (event) => async (dispatch, getState) => {
   const url = `${getEnvVariable(SUMMIT_API_BASE_URL)}/api/v1/summits/${getEnvVariable(SUMMIT_ID)}/members/me/schedule/${event.id}`;
 
   return axios.delete(
-    url, { data: { access_token: accessToken } }
+      url, { data: { access_token: accessToken } }
   ).then(() => {
     dispatch(createAction(REMOVE_FROM_SCHEDULE)(event));
     return event;
@@ -269,9 +272,9 @@ export const castPresentationVote = (presentation) => async (dispatch, getState)
         // 'confirm' as local vote
         dispatch(createAction(TOGGLE_PRESENTATION_VOTE)({ presentation, isVoted: true }));
       } else if (text.includes('Max. allowed votes') ||
-        text.includes('Member is not an attendee') ||
-        // Voting Period for track group is closed
-        text.includes('is closed')) {
+          text.includes('Member is not an attendee') ||
+          // Voting Period for track group is closed
+          text.includes('is closed')) {
         // need to revert button state
         // first 'confirm' as local vote
         dispatch(createAction(TOGGLE_PRESENTATION_VOTE)({ presentation, isVoted: true }));
@@ -284,12 +287,12 @@ export const castPresentationVote = (presentation) => async (dispatch, getState)
   };
 
   return postRequest(
-    createAction(CAST_PRESENTATION_VOTE_REQUEST),
-    createAction(CAST_PRESENTATION_VOTE_RESPONSE),
-    `${getEnvVariable('SUMMIT_API_BASE_URL')}/api/v1/summits/${getEnvVariable(SUMMIT_ID)}/presentations/${presentation.id}/attendee-votes`,
-    {},
-    errorHandler,
-    { presentation }
+      createAction(CAST_PRESENTATION_VOTE_REQUEST),
+      createAction(CAST_PRESENTATION_VOTE_RESPONSE),
+      `${getEnvVariable('SUMMIT_API_BASE_URL')}/api/v1/summits/${getEnvVariable(SUMMIT_ID)}/presentations/${presentation.id}/attendee-votes`,
+      {},
+      errorHandler,
+      { presentation }
   )(params)(dispatch).catch((e) => {
     console.log('ERROR: ', e);
     clearAccessToken();
@@ -329,12 +332,12 @@ export const uncastPresentationVote = (presentation) => async (dispatch, getStat
   };
 
   return deleteRequest(
-    createAction(UNCAST_PRESENTATION_VOTE_REQUEST),
-    createAction(UNCAST_PRESENTATION_VOTE_RESPONSE)({ presentation }),
-    `${getEnvVariable('SUMMIT_API_BASE_URL')}/api/v1/summits/${getEnvVariable(SUMMIT_ID)}/presentations/${presentation.id}/attendee-votes`,
-    {},
-    errorHandler,
-    { presentation }
+      createAction(UNCAST_PRESENTATION_VOTE_REQUEST),
+      createAction(UNCAST_PRESENTATION_VOTE_RESPONSE)({ presentation }),
+      `${getEnvVariable('SUMMIT_API_BASE_URL')}/api/v1/summits/${getEnvVariable(SUMMIT_ID)}/presentations/${presentation.id}/attendee-votes`,
+      {},
+      errorHandler,
+      { presentation }
   )(params)(dispatch).catch((e) => {
     console.log('ERROR: ', e);
     clearAccessToken();
@@ -360,20 +363,20 @@ export const updateProfilePicture = (pic) => async (dispatch) => {
   dispatch(createAction(START_LOADING_IDP_PROFILE)());
 
   putFile(
-    null,
-    createAction(UPDATE_PROFILE_PIC),
-    `${window.IDP_BASE_URL}/api/v1/users/me/pic`,
-    pic,
-    {},
-    customErrorHandler,
+      null,
+      createAction(UPDATE_PROFILE_PIC),
+      `${window.IDP_BASE_URL}/api/v1/users/me/pic`,
+      pic,
+      {},
+      customErrorHandler,
   )(params)(dispatch)
-    .then(() => dispatch(getIDPProfile()))
-    .catch((e) => {
-      console.log('ERROR: ', e);
-      dispatch(createAction(STOP_LOADING_IDP_PROFILE)())
-      clearAccessToken();
-      return e;
-    });
+      .then(() => dispatch(getIDPProfile()))
+      .catch((e) => {
+        console.log('ERROR: ', e);
+        dispatch(createAction(STOP_LOADING_IDP_PROFILE)())
+        clearAccessToken();
+        return e;
+      });
 }
 
 export const updateProfile = (profile) => async (dispatch) => {
@@ -394,19 +397,19 @@ export const updateProfile = (profile) => async (dispatch) => {
   dispatch(createAction(START_LOADING_IDP_PROFILE)());
 
   putRequest(
-    null,
-    createAction(UPDATE_IDP_PROFILE),
-    `${window.IDP_BASE_URL}/api/v1/users/me`,
-    profile,
-    customErrorHandler
+      null,
+      createAction(UPDATE_IDP_PROFILE),
+      `${window.IDP_BASE_URL}/api/v1/users/me`,
+      profile,
+      customErrorHandler
   )(params)(dispatch)
-    .then(() => dispatch(getIDPProfile()))
-    .catch((e) => {
-      console.log('ERROR: ', e);
-      dispatch(createAction(STOP_LOADING_IDP_PROFILE)());
-      clearAccessToken();
-      return e;
-    });
+      .then(() => dispatch(getIDPProfile()))
+      .catch((e) => {
+        console.log('ERROR: ', e);
+        dispatch(createAction(STOP_LOADING_IDP_PROFILE)());
+        clearAccessToken();
+        return e;
+      });
 }
 
 export const updatePassword = (password) => async (dispatch) => {
@@ -426,23 +429,23 @@ export const updatePassword = (password) => async (dispatch) => {
   dispatch(createAction(START_LOADING_IDP_PROFILE)());
 
   putRequest(
-    null,
-    createAction(UPDATE_PASSWORD),
-    `${window.IDP_BASE_URL}/api/v1/users/me`,
-    password,
-    customErrorHandler
+      null,
+      createAction(UPDATE_PASSWORD),
+      `${window.IDP_BASE_URL}/api/v1/users/me`,
+      password,
+      customErrorHandler
   )(params)(dispatch)
-    .then(() => {
-      dispatch(createAction(STOP_LOADING_IDP_PROFILE)());
-      let msg = 'Password Updated';
-      Swal.fire("Success", msg, "success");
-    })
-    .catch((e) => {
-      console.log('ERROR: ', e);
-      dispatch(createAction(STOP_LOADING_IDP_PROFILE)())
-      clearAccessToken();
-      return e;
-    });
+      .then(() => {
+        dispatch(createAction(STOP_LOADING_IDP_PROFILE)());
+        let msg = 'Password Updated';
+        Swal.fire("Success", msg, "success");
+      })
+      .catch((e) => {
+        console.log('ERROR: ', e);
+        dispatch(createAction(STOP_LOADING_IDP_PROFILE)())
+        clearAccessToken();
+        return e;
+      });
 }
 
 export const saveExtraQuestions = (extra_questions, owner) => async (dispatch, getState) => {
@@ -483,11 +486,11 @@ export const saveExtraQuestions = (extra_questions, owner) => async (dispatch, g
   };
 
   return putRequest(
-    null,
-    createAction(UPDATE_EXTRA_QUESTIONS),
-    `${window.API_BASE_URL}/api/v1/summits/all/orders/all/tickets/${summit_tickets[0].id}`,
-    normalizedEntity,
-    customErrorHandler
+      null,
+      createAction(UPDATE_EXTRA_QUESTIONS),
+      `${window.API_BASE_URL}/api/v1/summits/all/orders/all/tickets/${summit_tickets[0].id}`,
+      normalizedEntity,
+      customErrorHandler
   )(params)(dispatch).then(() => {
     Swal.fire('Success', "Attendee saved successfully", "success");
     dispatch(getUserProfile());
@@ -502,11 +505,11 @@ export const saveExtraQuestions = (extra_questions, owner) => async (dispatch, g
 
 export const setPasswordlessLogin = (params) => (dispatch, getState) => {
   return dispatch(passwordlessLogin(params))
-    .then((res) => {
-      dispatch(getUserProfile());
-    }, (err) => {
-      return Promise.resolve(err)
-    })
+      .then((res) => {
+        dispatch(getUserProfile());
+      }, (err) => {
+        return Promise.resolve(err)
+      })
 }
 
 export const getScheduleSyncLink = () => async (dispatch) => {
@@ -525,11 +528,11 @@ export const getScheduleSyncLink = () => async (dispatch) => {
   };
 
   return postRequest(
-    null,
-    createAction(SCHEDULE_SYNC_LINK_RECEIVED),
-    `${window.SUMMIT_API_BASE_URL}/api/v1/summits/${window.SUMMIT_ID}/members/me/schedule/shareable-link`,
-    null,
-    customErrorHandler,
+      null,
+      createAction(SCHEDULE_SYNC_LINK_RECEIVED),
+      `${window.SUMMIT_API_BASE_URL}/api/v1/summits/${window.SUMMIT_ID}/members/me/schedule/shareable-link`,
+      null,
+      customErrorHandler,
   )(params)(dispatch).catch((e) => {
     console.log('ERROR: ', e);
     clearAccessToken();
@@ -578,11 +581,11 @@ export const doVirtualCheckIn = (attendee) => async (dispatch, getState) => {
   };
 
   return putRequest(
-    null,
-    createAction(UPDATE_EXTRA_QUESTIONS),
-    `${window.API_BASE_URL}/api/v1/summits/${attendee.summit_id}/attendees/${attendee.id}/virtual-check-in`,
-    {},
-    customErrorHandler
+      null,
+      createAction(UPDATE_EXTRA_QUESTIONS),
+      `${window.API_BASE_URL}/api/v1/summits/${attendee.summit_id}/attendees/${attendee.id}/virtual-check-in`,
+      {},
+      customErrorHandler
   )(params)(dispatch).catch((e) => {
     console.log('ERROR: ', e);
     clearAccessToken();
