@@ -12,16 +12,17 @@ import { getThirdPartyProviders } from "../actions/base-actions";
 import { formatThirdPartyProviders } from "../utils/loginUtils";
 import 'summit-registration-lite/dist/index.css';
 import styles from '../styles/login-button.module.scss'
+import PropTypes from 'prop-types'
 
 const LoginButton = ({
     getThirdPartyProviders,
     thirdPartyProviders,
-    getUserProfile,
     setPasswordlessLogin,
     summit,
     siteSettings,
     allowsNativeAuth,
     allowsOtpAuth,
+    location,
 }) => {
     const [isActive, setIsActive] = useState(false);
     const [initialEmailValue, setInitialEmailValue] = useState('');
@@ -43,7 +44,9 @@ const LoginButton = ({
     }, [thirdPartyProviders]);
 
     const getBackURL = () => {
-        let backUrl = '';
+        let backUrl = location.state?.backUrl
+            ? location.state.backUrl
+            : '/';
         return URI.encode(backUrl);
     };
 
@@ -104,7 +107,7 @@ const LoginButton = ({
         getLoginCode: (email) => sendCode(email),        
         allowsNativeAuth: allowsNativeAuth,
         allowsOtpAuth: allowsOtpAuth,
-        loginInitialEmailInputValue: initialEmailValue,        
+        initialEmailValue: initialEmailValue,
     };
 
     const passwordlessLoginProps = {
@@ -165,3 +168,7 @@ export default connect(mapStateToProps, {
     setUserOrder,
     checkOrderData
 })(LoginButton)
+
+LoginButton.propTypes = {
+    location: PropTypes.object.isRequired,
+}
