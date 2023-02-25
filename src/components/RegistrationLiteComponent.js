@@ -85,9 +85,6 @@ const RegistrationLiteComponent = ({
             otp: code,
             email
         };
-
-        navigate('/#registration=1');
-
         return setPasswordlessLogin(params);
     };
 
@@ -104,27 +101,17 @@ const RegistrationLiteComponent = ({
         ownedTickets: attendee?.ticket_types || [],
         authUser: (provider) => onClickLogin(provider),
         getPasswordlessCode: getPasswordlessCode,
-        loginWithCode: async (code, email) => await loginPasswordless(code, email),
+        loginWithCode:  (code, email) =>  loginPasswordless(code, email).then( () =>  navigate('/#registration=1')),
         getAccessToken: getAccessToken,
-        closeWidget: async () => {
+        closeWidget:  () => {
             // reload user profile
             // NOTE: We need to catch the rejected promise here, or else the app will crash (locally, at least).
-            try {
-                await getUserProfile();
-            } catch (e) {
-                console.error(e);
-            }
-            setIsActive(false)
+            getUserProfile();
+            setIsActive(false);
         },
-        goToExtraQuestions: async () => {
+        goToExtraQuestions: () => {
             // reload user profile
-            // NOTE: We need to catch the rejected promise here, or else the app will crash (locally, at least).
-            try {
-                await getUserProfile();
-            } catch (e) {
-                console.error(e);
-            }
-            navigate('/a/extra-questions')
+            getUserProfile().then(() => navigate('/a/extra-questions')).catch((e)=> console.log(e));
         },
         goToEvent: () => navigate('/a/'),
         goToRegistration: () => navigate(`${getEnvVariable(REGISTRATION_BASE_URL)}/a/${summit.slug}`),
@@ -167,7 +154,7 @@ const RegistrationLiteComponent = ({
 
     return (
         <>
-            <button className={`${styles.button} button is-large`} onClick={() => setIsActive(true)}>
+            <button className={`${styles.button} button is-large`} disabled={isActive} onClick={() => setIsActive(true)}>
                 <i className={`fa fa-2x fa-edit icon is-large`}/>
                 <b>{registerButton.text}</b>
             </button>
