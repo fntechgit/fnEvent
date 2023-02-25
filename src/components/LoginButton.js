@@ -43,11 +43,12 @@ const LoginButton = ({
         if (!thirdPartyProviders.length) getThirdPartyProviders();
     }, [thirdPartyProviders]);
 
-    const getBackURL = () => {
+    const getBackURL = (encode = true) => {
+        debugger
         let backUrl = location.state?.backUrl
             ? location.state.backUrl
             : '/';
-        return URI.encode(backUrl);
+        return encode ? URI.encode(backUrl) : backUrl;
     };
 
     const onClickLogin = (provider) => {
@@ -78,18 +79,19 @@ const LoginButton = ({
     };
 
     const loginPasswordless = (code, email) => {
+
         const params = {
             connection: "email",
             otp: code,
             email
         };
 
-        navigate('/');
-
         return setPasswordlessLogin(params).then((res) => {
-            if (res?.response !== 200) {                
-                setOtpError(true);
-            }
+            return res;
+        }).catch((e) => {
+            console.log(e);
+            setOtpError(true);
+            return Promise.reject("Invalid OTP");
         })
     };
 
@@ -114,7 +116,7 @@ const LoginButton = ({
     const passwordlessLoginProps = {
         email: userEmail,
         codeLength: otpLength,
-        passwordlessLogin: async (code) => await loginPasswordless(code, userEmail),
+        passwordlessLogin:  (code) =>  loginPasswordless(code, userEmail).then(() => navigate(getBackURL(false)) ).catch((e) => console.log(e)),
         codeError: otpError,
         goToLogin: () => setOtpLogin(false),
         getLoginCode: (email) => sendCode(email),

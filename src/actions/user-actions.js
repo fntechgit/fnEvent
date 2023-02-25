@@ -503,12 +503,17 @@ export const saveExtraQuestions = (extra_questions, owner) => async (dispatch, g
   });
 };
 
+/**
+ * @param params
+ * @returns {function(*, *): *}
+ */
 export const setPasswordlessLogin = (params) => (dispatch, getState) => {
   return dispatch(passwordlessLogin(params))
       .then((res) => {
-        dispatch(getUserProfile());
-      }, (err) => {
-        return Promise.resolve(err)
+        return dispatch(getUserProfile()).then(() => res);
+      }).catch((e) => {
+        console.log(e);
+        return Promise.reject(e);
       })
 }
 
