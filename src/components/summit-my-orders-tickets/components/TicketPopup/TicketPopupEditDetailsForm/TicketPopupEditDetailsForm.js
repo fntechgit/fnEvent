@@ -157,7 +157,7 @@ export const TicketPopupEditDetailsForm = ({
         formik.validateForm().then((errors) => {
             const errorKeys = Object.keys(errors);
             // attendee data
-            if (errorTicketKeys.length > 0 && errorKeys[0] != TicketKeys.disclaimerAccepted) {
+            if (errorKeys.length > 0 && errorKeys[0] != TicketKeys.disclaimerAccepted) {
                 scrollToError(errorKeys[0]);
                 return;
             }
@@ -167,7 +167,7 @@ export const TicketPopupEditDetailsForm = ({
                 return;
             }
             // disclaimer
-            if (errorTicketKeys.length > 0) {
+            if (errorKeys.length > 0) {
                 scrollToError(errorKeys[0]);
                 return;
             }
