@@ -7236,6 +7236,11 @@ gatsby-plugin-react-helmet@^5.10.0:
   dependencies:
     "@babel/runtime" "^7.15.4"
 
+gatsby-plugin-root-import@^2.0.9:
+  version "2.0.9"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-root-import/-/gatsby-plugin-root-import-2.0.9.tgz#a511c0927164e3fd66052426fcfd5895d8c0045c"
+  integrity sha512-Cj6zBQW/XirHyLGyXtyhvhMwLUZDjFHSJwCI7mF9yAuX1PFoOVqUVWKp9jvtoKm8nKvly3IU/OPRXzlmYjeEkA==
+
 gatsby-plugin-sass@^5.10.2:
   version "5.24.0"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-sass/-/gatsby-plugin-sass-5.24.0.tgz#4c46adfbc7da5726eab4d04656e7310e55afc95e"

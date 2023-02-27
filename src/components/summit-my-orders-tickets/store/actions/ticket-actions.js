@@ -38,6 +38,15 @@ export const GET_TICKETS_BY_ORDER = 'GET_TICKETS_BY_ORDER';
 export const GET_ORDER_TICKET_DETAILS = 'GET_ORDER_TICKET_DETAILS';
 export const GET_TICKET_DETAILS = 'GET_TICKET_DETAILS';
 
+export const TICKET_ATTENDEE_KEYS = {
+    email: 'attendee_email',
+    firstName: 'attendee_first_name',
+    lastName: 'attendee_last_name',
+    company: 'attendee_company',
+    disclaimerAccepted: 'disclaimer_accepted',
+    extraQuestions: 'extra_questions'
+}
+
 const customFetchErrorHandler = (response) => {
     let code = response.status;
     let msg = response.statusText;
