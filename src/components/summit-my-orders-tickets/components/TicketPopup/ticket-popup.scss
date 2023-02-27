@@ -25,6 +25,15 @@
 
 .ticket-popup-scroll {
   padding: 20px 15px;
+  overflow-y: scroll;
+  z-index: 20;
+  padding: 20px;
+  // fallback for old safari
+  height: calc(100vh - 200px);
+  height: calc(100dvh - 200px);
+  & > :first-child {
+    padding-bottom: 20px;
+  }
 }
 
 .ticket-popup-content {
@@ -262,13 +271,6 @@
   }
 
   &--edit {
-    .ticket-popup-scroll {
-      overflow-y: scroll;
-      z-index: 20;
-      padding: 20px;
-      height: calc(100dvh - 240px);
-    }
-
     .ticket-popup-footer {
       border-top: 1px solid $color-gray-lighter;
       left: 0;
@@ -381,17 +383,6 @@
       margin: 30px 0 20px;
     }
 
-    .ticket-popup-scroll {
-      overflow-y: scroll;
-      -webkit-overflow-scrolling: touch;
-      z-index: 20;
-      height: calc(100dvh - 200px);
-
-      .ticket-assign-form {
-        padding-bottom: 20px;
-      }
-    }
-
     span {
       padding: 0 15%;
       display: inline-block;
@@ -405,33 +396,9 @@
       margin: 30px 0 20px;
     }
 
-    .ticket-popup-scroll {
-      overflow-y: scroll;
-      -webkit-overflow-scrolling: touch;
-      z-index: 20;
-      height: calc(100dvh - 200px);
-
-      .ticket-reassign-form {
-        padding-bottom: 20px;
-      }
-    }
-
     span {
       padding: 0 15%;
       display: inline-block;
-    }
-  }
-
-  .ticket-popup-panel--notify {
-    .ticket-popup-scroll {
-      overflow-y: scroll;
-      -webkit-overflow-scrolling: touch;
-      z-index: 20;
-      height: calc(100dvh - 200px);
-
-      .ticket-notify-form {
-        padding-bottom: 20px;
-      }
     }
   }
 }
