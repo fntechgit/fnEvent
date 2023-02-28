@@ -337,7 +337,7 @@ export const TicketPopupEditDetailsForm = ({
                     <ExtraQuestionsForm
                         ref={formRef}
                         extraQuestions={extraQuestions}
-                        userAnswers={formik.values.extra_questions}
+                        userAnswers={formik.values[TicketKeys.extra_questions]}
                         onAnswerChanges={onExtraQuestionsAnswersSet}
                         allowExtraQuestionsEdit={canEditTicketData}
                         questionContainerClassName={`columns is-multiline extra-question pt-3`}
@@ -355,14 +355,13 @@ export const TicketPopupEditDetailsForm = ({
                         type="checkbox"
                         id={TicketKeys.disclaimerAccepted}
                         name={TicketKeys.disclaimerAccepted}
-                        onChange={formik.handleChange}
-                        onBlur={formik.handleblur}
+                        {...inputHandlers}
                         checked={formik.values[TicketKeys.disclaimerAccepted]}
                     />
                     <label htmlFor={TicketKeys.disclaimerAccepted}>
                         {summit.registration_disclaimer_mandatory && <b> *</b>}
                     </label>
-                    {triedSubmitting && formik.errors[TicketKeys.disclaimerAccepted] &&
+                    {(formik.touched[TicketKeys.disclaimerAccepted] || triedSubmitting) && formik.errors[TicketKeys.disclaimerAccepted] &&
                     <p className="error-label">{t("ticket_popup.edit_required")}</p>
                     }
                     <div className="mt-3">

@@ -32,6 +32,20 @@
   }
 }
 
+.error-label {
+  color: red;
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  margin: auto 0;
+  padding: 0;
+  &::before {
+    content: "\f071";
+    font-family: FontAwesome;
+    padding-right: 5px;
+  }
+}
+
 .button-save {
   float: right;
   margin-top: 20px;
