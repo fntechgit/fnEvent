@@ -451,7 +451,7 @@ exports.onCreateWebpackConfig = ({ actions, plugins, loaders }) => {
     experiments: {
       topLevelAwait: true,
     },
-    devtool: 'source-map',
+    //devtool: 'inline-source-map',
     plugins: [
       plugins.define({
         'global.GENTLY': false,
@@ -460,22 +460,15 @@ exports.onCreateWebpackConfig = ({ actions, plugins, loaders }) => {
       new webpack.ProvidePlugin({
         Buffer: ['buffer', 'Buffer'],
       }),
-      ...process.env.NODE_ENV === 'development' ? 
         [new SentryWebpackPlugin({
           org: process.env.GATSBY_SENTRY_ORG,
           project: process.env.GATSBY_SENTRY_PROJECT,
-
           ignore: ["app-*", "polyfill-*", "framework-*", "webpack-runtime-*","~partytown"],
-          ext: [ 'map', 'js' ],
           // Specify the directory containing build artifacts
           include: [
               {
-                  paths: ['public'],
-                  urlPrefix: '~/',
-              },
-              {
                   paths: ['node_modules/upcoming-events-widget/dist'],
-                  urlPrefix: '~/node_modules/upcoming-events-widget',
+                  urlPrefix: '~/node_modules/upcoming-events-widget/dist',
               },
           ],
           // Auth tokens can be obtained from https://sentry.io/settings/account/api/auth-tokens/
@@ -485,8 +478,6 @@ exports.onCreateWebpackConfig = ({ actions, plugins, loaders }) => {
           // Optionally uncomment the line below to override automatic release name detection
           release: process.env.BUILD_ID,
         })]
-        :
-        []
       ,
     ]
   })  

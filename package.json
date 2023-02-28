@@ -9,7 +9,9 @@
     "@ncwidgets/file-relation": "^0.8.0",
     "@ncwidgets/id": "^0.8.1",
     "@react-spring/web": "^9.4.3",
-    "@sentry/gatsby": "^7.38.0",
+    "@sentry/cli": "^2.13.0",
+    "@sentry/gatsby": "7.39.0",
+    "@sentry/webpack-plugin": "^1.20.0",
     "@supabase/supabase-js": "^1.35.6",
     "@types/googlemaps": "^3.39.9",
     "@types/markerclustererplus": "^2.1.33",
@@ -150,7 +152,6 @@
   },
   "devDependencies": {
     "@babel/core": "^7.17.8",
-    "@sentry/webpack-plugin": "^ƒ1.20.0",
     "devcert": "1.1.0",
     "gatsby-plugin-webpack-speed-measure": "^0.1.1",
     "prettier": "^2.0.5"
