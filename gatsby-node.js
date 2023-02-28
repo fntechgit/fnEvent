@@ -451,7 +451,7 @@ exports.onCreateWebpackConfig = ({ actions, plugins, loaders }) => {
     experiments: {
       topLevelAwait: true,
     },
-    //devtool: 'inline-source-map',
+    devtool: 'source-map',
     plugins: [
       plugins.define({
         'global.GENTLY': false,
@@ -466,6 +466,10 @@ exports.onCreateWebpackConfig = ({ actions, plugins, loaders }) => {
           ignore: ["app-*", "polyfill-*", "framework-*", "webpack-runtime-*","~partytown"],
           // Specify the directory containing build artifacts
           include: [
+              {
+                  paths: ['.cache/page-ssr/routes'],
+                  urlPrefix: '~/',
+              },
               {
                   paths: ['node_modules/upcoming-events-widget/dist'],
                   urlPrefix: '~/node_modules/upcoming-events-widget/dist',
