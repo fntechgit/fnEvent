@@ -1,7 +1,7 @@
 /**
  * AbstractRealTimeSingleEventStrategy
  */
-class AbstractRealTimeSingleEventStrategy {
+class AbstractRealTimeStrategy {
 
     constructor(callback, checkPastCallback) {
         this._fallback = null;
@@ -19,16 +19,12 @@ class AbstractRealTimeSingleEventStrategy {
     }
 
     /**
-     *
-     * @param summit
-     * @param event
-     * @param eventId
-     * @param lastUpdate
+     * @param summitId
      */
-    startUsingFallback(summit, event, eventId, lastUpdate){
+    startUsingFallback(summitId){
         if(this._fallback) {
             this._usingFallback = true;
-            this._fallback.create(summit, event, eventId, lastUpdate);
+            this._fallback.create(summitId);
         }
     }
 
@@ -40,18 +36,13 @@ class AbstractRealTimeSingleEventStrategy {
     }
 
     /**
-     *
-     * @param summit
-     * @param event
-     * @param eventId
-     * @param lastUpdate
+     * @param summitId
      */
-    create(summit, event, eventId, lastUpdate){}
+    create(summitId){}
 
     close(){}
 
     /**
-     *
      * @returns {*|boolean|boolean}
      */
     manageBackgroundErrors(){
@@ -73,4 +64,4 @@ class AbstractRealTimeSingleEventStrategy {
     }
 }
 
-export default AbstractRealTimeSingleEventStrategy;
+export default AbstractRealTimeStrategy;

@@ -1,0 +1,84 @@
+@import "./colors.scss";
+
+.login-button-wrapper {
+  :first-of-type.button {
+    background-color: transparent;
+    color: #fff;
+    height: 5rem;
+    width: 20rem;
+    margin: 0 10px 10px 0;
+
+    i {
+      color: #fff;
+      height: 1em;
+      width: 2.5em;
+      margin-right: auto;
+      font-size: 1.8em;
+    }
+
+    b {
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+    }
+
+    &:hover,
+    &:active {
+      border-color: #fff;
+      text-decoration: none;
+    }
+
+    &:focus {
+      border-color: #fff;
+      box-shadow: none;
+    }
+
+    &.white {
+      background-color: #fff;
+      color: #6d6e71;
+
+      b,
+      i {
+        color: inherit;
+      }
+    }
+  }
+
+  #modal {
+    padding: 100px 0;
+  }
+
+  .modal-content {
+    overflow: initial;
+  }
+
+  .outer-wrapper {
+    border: 1px solid lightgray;
+    background-color: white;
+    border-radius: 5px;
+  }
+
+  .inner-wrapper {
+    padding: 10px;
+  }
+
+  .title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid lightgray;
+    margin: 0px -10px;
+    padding: 0px 15px 5px;
+    i {
+      cursor: pointer;
+      margin-left: auto;
+    }
+    span {
+      width: 100%;
+      font-weight: bold;
+      font-size: 18px;
+      text-align: center;
+      color: var(--color_primary);
+    }
+  }
+}

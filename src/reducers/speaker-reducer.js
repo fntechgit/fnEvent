@@ -1,12 +1,13 @@
 import speakers from '../content/speakers.json';
-
+import allIDXSpeakers from '../content/speakers.idx.json';
 import { START_LOADING, STOP_LOADING } from "openstack-uicore-foundation/lib/utils/actions";
 import { LOGOUT_USER } from "openstack-uicore-foundation/lib/security/actions";
-import {RESET_STATE, SYNC_DATA} from "../actions/base-actions";
+import { RESET_STATE, SYNC_DATA}  from "../actions/base-actions-definitions";
 
 const DEFAULT_STATE = {
   loading: false,
   speakers: speakers,
+  allIDXSpeakers: allIDXSpeakers,
 };
 
 const speakerReducer = (state = DEFAULT_STATE, action) => {
@@ -17,8 +18,8 @@ const speakerReducer = (state = DEFAULT_STATE, action) => {
     case LOGOUT_USER:
       return DEFAULT_STATE;
     case SYNC_DATA: {
-      const {speakersData} = payload;
-      return {...DEFAULT_STATE, speakers: speakersData}
+      const { speakersData, allIDXSpeakers } = payload;
+      return {...DEFAULT_STATE, speakers: speakersData, allIDXSpeakers: allIDXSpeakers};
     }
     case START_LOADING:
       return { ...state, loading: true };

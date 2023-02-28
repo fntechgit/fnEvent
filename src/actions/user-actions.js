@@ -146,18 +146,21 @@ export const getIDPProfile = () => async (dispatch) => {
 }
 
 export const requireExtraQuestions = () => (dispatch, getState) => {
-
-  const { summitState : { summit, extra_questions }} = getState();
   const { userState: { userProfile } } = getState();
 
   const owner = userProfile?.summit_tickets[0]?.owner || null;
   // if user does not have an attendee then we dont require extra questions
   if (!owner) return false;
-  if (!owner.first_name || !owner.last_name || !owner.company || !owner.email) return true;
-  const disclaimer = summit.registration_disclaimer_mandatory ? owner.disclaimer_accepted : true;
+  return dispatch(checkRequireExtraQuestionsByAttendee(owner));
+}
+
+export const checkRequireExtraQuestionsByAttendee = (attendee) => (dispatch, getState) => {
+  const { summitState : { summit, extra_questions }} = getState();
+  if (!attendee.first_name || !attendee.last_name || !attendee.company || !attendee.email) return true;
+  const disclaimer = summit.registration_disclaimer_mandatory ? attendee.disclaimer_accepted : true;
   if (!disclaimer) return true;
-  if (extra_questions.length > 0) {
-    const qs = new QuestionsSet(extra_questions, owner.extra_questions || []);
+  if (extra_questions?.length > 0) {
+    const qs = new QuestionsSet(extra_questions, attendee.extra_questions || []);
     return !qs.completed();
   }
   return false;
@@ -492,12 +495,17 @@ export const saveAttendeeQuestions = (values) => async (dispatch, getState) => {
   });
 };
 
+/**
+ * @param params
+ * @returns {function(*, *): *}
+ */
 export const setPasswordlessLogin = (params) => (dispatch, getState) => {
   return dispatch(passwordlessLogin(params))
     .then((res) => {
-      dispatch(getUserProfile());
-    }, (err) => {
-      return Promise.resolve(err)
+      return dispatch(getUserProfile()).then(() => res);
+    }).catch((e) => {
+      console.log(e);
+      return Promise.reject(e);
     })
 }
 

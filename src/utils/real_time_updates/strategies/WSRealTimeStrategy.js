@@ -1,15 +1,14 @@
-import AbstractRealTimeSingleEventStrategy from "./AbstractRealTimeSingleEventStrategy";
+import AbstractRealTimeStrategy from "./AbstractRealTimeStrategy";
 import io from "socket.io-client";
 import { getEnvVariable, WS_PUB_SERVER_URL } from "../../envVariables";
 const WS_EVENT_NAME = 'entity_updates';
 
 /**
- * WSRealTimeSingleEventStrategy
+ * WSRealTimeStrategy
  */
-class WSRealTimeSingleEventStrategy extends AbstractRealTimeSingleEventStrategy {
+class WSRealTimeStrategy extends AbstractRealTimeStrategy {
 
     /**
-     *
      * @param callback
      * @param checkPastCallback
      */
@@ -20,26 +19,23 @@ class WSRealTimeSingleEventStrategy extends AbstractRealTimeSingleEventStrategy 
     }
 
     /**
-     *
-     * @param summit
-     * @param event
-     * @param eventId
-     * @param lastUpdate
+     * @param summitId
+     * @param lastCheckForNovelties
      */
-    create(summit, event, eventId, lastUpdate) {
+    create(summitId) {
 
-        super.create(summit, event, eventId, lastUpdate);
-        console.log('WSRealTimeSingleEventStrategy::create');
+        super.create(summitId);
+        console.log('WSRealTimeStrategy::create');
 
         const wsServerUrl = getEnvVariable(WS_PUB_SERVER_URL);
 
         if(this._wsError) {
-            console.log('WSRealTimeSingleEventStrategy::create error state');
+            console.log('WSRealTimeStrategy::create error state');
             return;
         }
 
         if(!wsServerUrl){
-            console.log('WSRealTimeSingleEventStrategy::create WS_PUB_SERVER_URL is not set');
+            console.log('WSRealTimeStrategy::create WS_PUB_SERVER_URL is not set');
             this._wsError = true;
             return;
         }
@@ -47,7 +43,7 @@ class WSRealTimeSingleEventStrategy extends AbstractRealTimeSingleEventStrategy 
         // check if we are already connected
 
         if(this._socket && this._socket.connected){
-            console.log('WSRealTimeSingleEventStrategy::create already connected');
+            console.log('WSRealTimeStrategy::create already connected');
             return;
         }
 
@@ -58,27 +54,25 @@ class WSRealTimeSingleEventStrategy extends AbstractRealTimeSingleEventStrategy 
 
         // create socket and subscribe to room
         let room = {
-            entity_type: "Presentation",
-            summit_id : summit.id,
-            entity_id : parseInt(eventId),
+            summit_id : summitId,
         }
 
         this._socket =  io(wsServerUrl,  { query: {...room} });
 
         // start listening for event
         this._socket.on(WS_EVENT_NAME, (payload) => {
-            console.log('WSRealTimeSingleEventStrategy::create Change received WS', payload)
+            console.log('WSRealTimeStrategy::create Change received WS', payload)
             this._callback(payload);
         });
 
         // connect handler
         this._socket.on("connect", () => {
-            console.log(`WSRealTimeSingleEventStrategy::create WS connected`);
+            console.log(`WSRealTimeStrategy::create WS connected`);
             this._wsError = false;
             // RELOAD
             // check on demand ( just in case that we missed some Real time update )
-            if(event && eventId) {
-                this._checkPastCallback(summit.id, event, eventId, lastUpdate);
+            if(summitId) {
+                this._checkPastCallback(summitId);
             }
             this.stopUsingFallback();
         });
@@ -89,23 +83,23 @@ class WSRealTimeSingleEventStrategy extends AbstractRealTimeSingleEventStrategy 
                 // the disconnection was initiated by the server, you need to reconnect manually
                 this._socket.connect();
             }
-            console.log(`WSRealTimeSingleEventStrategy::create WS disconnect due to ${reason}`);
+            console.log(`WSRealTimeStrategy::create WS disconnect due to ${reason}`);
             this._wsError = true;
-            this.startUsingFallback(summit, event, eventId, lastUpdate);
+            this.startUsingFallback(summitId);
         });
 
         this._socket.io.on("error", (error) => {
             if(this._wsError) return;
-            console.log(`WSRealTimeSingleEventStrategy::create WS error`, error);
+            console.log(`WSRealTimeStrategy::create WS error`, error);
             this._wsError = true;
-            this.startUsingFallback(summit, event, eventId, lastUpdate);
+            this.startUsingFallback(summitId);
         });
     }
 
     close() {
         super.close();
         if(this._socket){
-            console.log("WSRealTimeSingleEventStrategy::close");
+            console.log("WSRealTimeStrategy::close");
             this._socket.off();
             this._socket.close();
             this._socket = null;
@@ -113,4 +107,4 @@ class WSRealTimeSingleEventStrategy extends AbstractRealTimeSingleEventStrategy 
     }
 }
 
-export default WSRealTimeSingleEventStrategy;
+export default WSRealTimeStrategy;

@@ -1,52 +1,66 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { graphql } from 'gatsby'
-import Layout from '../components/Layout'
-import Content, { HTMLContent } from '../components/Content'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { graphql } from 'gatsby';
+import { GatsbyImage } from "gatsby-plugin-image";
+import Layout from '../components/Layout';
+import Content, { HTMLContent } from '../components/Content';
 
-import Zoom from 'react-medium-image-zoom'
-import 'react-medium-image-zoom/dist/styles.css'
+import Zoom from 'react-medium-image-zoom';
+import 'react-medium-image-zoom/dist/styles.css';
 
 export const VirtualBoothPageTemplate = ({
   title,
   content,
   intro,
-  columns,
+  columns: {
+    leftColumn,
+    rightColumn
+  },
   endText,
   contentComponent
 }) => {
-  const PageContent = contentComponent || Content
-
+  const PageContent = contentComponent || Content;
   return (
     <div className="content">
       <h1>{title}</h1>
       <PageContent content={intro} />
       <div className="columns is-mobile">
         <div className="column is-half">
-          <h2>{columns.leftColumn.title}</h2>
-          {columns.leftColumn.content}
+          <h2>{leftColumn.title}</h2>
+          {leftColumn.content}
           <br />
           <br />
           <Zoom>
-            <img src={!!columns.leftColumn.image.childImageSharp ? columns.leftColumn.image.childImageSharp.fluid.src : columns.leftColumn.image} alt={columns.leftColumn.alt} />
-          </Zoom>          
+            <GatsbyImage
+              image={
+                leftColumn.image.childImageSharp
+                  ? leftColumn.image.childImageSharp.gatsbyImageData : leftColumn.image
+                }
+              alt={leftColumn.alt}
+            />
+          </Zoom>
         </div>
         <div className="column is-half">
-          <h2>{columns.rightColumn.title}</h2>
-          {columns.rightColumn.content}
+          <h2>{rightColumn.title}</h2>
+          {rightColumn.content}
           <br />
-          <br />          
+          <br />
           <br />
           <Zoom>
-            <img src={!!columns.rightColumn.image.childImageSharp ? columns.rightColumn.image.childImageSharp.fluid.src : columns.rightColumn.image} alt={columns.leftColumn.alt} />
-          </Zoom>          
+            <GatsbyImage
+              image={
+                rightColumn.image.childImageSharp
+                  ? rightColumn.image.childImageSharp.gatsbyImageData : rightColumn.image
+                }
+              alt={rightColumn.alt} />
+          </Zoom>
         </div>
       </div>
       <br />
       <PageContent content={endText} />
     </div>
   )
-}
+};
 
 VirtualBoothPageTemplate.propTypes = {
   title: PropTypes.string,
@@ -55,10 +69,10 @@ VirtualBoothPageTemplate.propTypes = {
   columns: PropTypes.object,
   endText: PropTypes.string,
   contentComponent: PropTypes.func,
-}
+};
 
 const VirtualBoothPage = ({ data }) => {
-  const { frontmatter, html } = data.markdownRemark
+  const { frontmatter, html } = data.markdownRemark;
 
   return (
     <Layout>
@@ -72,7 +86,7 @@ const VirtualBoothPage = ({ data }) => {
       />
     </Layout>
   )
-}
+};
 
 VirtualBoothPage.propTypes = {
   data: PropTypes.shape({
@@ -80,9 +94,9 @@ VirtualBoothPage.propTypes = {
       frontmatter: PropTypes.object,
     }),
   }),
-}
+};
 
-export default VirtualBoothPage
+export default VirtualBoothPage;
 
 export const virtualBoothPagePageQuery = graphql`
   query VirtualBoothPagePageTemplate($id: String!) {    
@@ -97,9 +111,7 @@ export const virtualBoothPagePageQuery = graphql`
             content
             image {
               childImageSharp {
-                fluid(maxWidth: 2048, quality: 100) {
-                  ...GatsbyImageSharpFluid
-                }
+                gatsbyImageData(layout: FIXED)
               }
             }      
             alt      
@@ -109,9 +121,7 @@ export const virtualBoothPagePageQuery = graphql`
             content
             image {
               childImageSharp {
-                fluid(maxWidth: 2048, quality: 100) {
-                  ...GatsbyImageSharpFluid
-                }
+                gatsbyImageData(layout: FIXED)
               }
             }
             alt
@@ -121,5 +131,5 @@ export const virtualBoothPagePageQuery = graphql`
       }
     }
   }
-`
+`;
 
