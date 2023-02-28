@@ -451,7 +451,7 @@ exports.onCreateWebpackConfig = ({ actions, plugins, loaders }) => {
     experiments: {
       topLevelAwait: true,
     },
-    devtool: 'source-map',
+    // devtool: 'source-map',
     plugins: [
       plugins.define({
         'global.GENTLY': false,
@@ -467,7 +467,7 @@ exports.onCreateWebpackConfig = ({ actions, plugins, loaders }) => {
           // Specify the directory containing build artifacts
           include: [
               {
-                  paths: ['.cache/page-ssr/routes'],
+                  paths: ['.'],
                   urlPrefix: '~/',
               },
               {
