@@ -460,7 +460,7 @@ exports.onCreateWebpackConfig = ({ actions, plugins, loaders }) => {
       new webpack.ProvidePlugin({
         Buffer: ['buffer', 'Buffer'],
       }),
-        [new SentryWebpackPlugin({
+      new SentryWebpackPlugin({
           org: process.env.GATSBY_SENTRY_ORG,
           project: process.env.GATSBY_SENTRY_PROJECT,
           ignore: ["app-*", "polyfill-*", "framework-*", "webpack-runtime-*","~partytown"],
@@ -477,7 +477,7 @@ exports.onCreateWebpackConfig = ({ actions, plugins, loaders }) => {
 
           // Optionally uncomment the line below to override automatic release name detection
           release: process.env.BUILD_ID,
-        })]
+        })
       ,
     ]
   })  
