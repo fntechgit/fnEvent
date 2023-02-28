@@ -459,22 +459,32 @@ exports.onCreateWebpackConfig = ({ actions, plugins, loaders }) => {
       new webpack.ProvidePlugin({
         Buffer: ['buffer', 'Buffer'],
       }),
-      ...process.env.NODE_ENV === 'production' ? 
+      ...process.env.NODE_ENV === 'development' ? 
         [new SentryWebpackPlugin({
-          org: "tipit",
-          project: "fnvirtual-dev",
+          org: process.env.GATSBY_SENTRY_ORG,
+          project: process.env.GATSBY_SENTRY_PROJECT,
 
           ignore: ["app-*", "polyfill-*", "framework-*", "webpack-runtime-*"],
 
           // Specify the directory containing build artifacts
-          include: "public",
+          include: [
+            "public", 
+            // `~/node_modules/attendee-to-attendee-widget/dist/`,
+            // `~/node_modules/full-schedule-widget/dist/`,
+            // `~/node_modules/lite-schedule-widget/dist/`,
+            // `~/node_modules/live-event-widget/dist/`,
+            // `~/node_modules/summit-registration-lite/dist/`,
+            // `~/node_modules/schedule-filter-widget/dist/`,
+            // `~/node_modules/speakers-widget/dist/`,            
+            './node_modules/upcoming-events-widget/dist/'
+          ],
 
           // Auth tokens can be obtained from https://sentry.io/settings/account/api/auth-tokens/
           // and needs the `project:releases` and `org:read` scopes
           authToken: process.env.GATSBY_SENTRY_AUTH_TOKEN,
 
           // Optionally uncomment the line below to override automatic release name detection
-          // release: process.env.RELEASE,
+          release: process.env.GATSBY_SENTRY_RELEASE_NAME,
         })]
         :
         []
