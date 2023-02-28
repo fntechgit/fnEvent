@@ -451,6 +451,7 @@ exports.onCreateWebpackConfig = ({ actions, plugins, loaders }) => {
     experiments: {
       topLevelAwait: true,
     },
+    devtool: 'source-map',
     plugins: [
       plugins.define({
         'global.GENTLY': false,
@@ -464,27 +465,25 @@ exports.onCreateWebpackConfig = ({ actions, plugins, loaders }) => {
           org: process.env.GATSBY_SENTRY_ORG,
           project: process.env.GATSBY_SENTRY_PROJECT,
 
-          ignore: ["app-*", "polyfill-*", "framework-*", "webpack-runtime-*"],
-
+          ignore: ["app-*", "polyfill-*", "framework-*", "webpack-runtime-*","~partytown"],
+          ext: [ 'map', 'js' ],
           // Specify the directory containing build artifacts
           include: [
-            "public", 
-            // `~/node_modules/attendee-to-attendee-widget/dist/`,
-            // `~/node_modules/full-schedule-widget/dist/`,
-            // `~/node_modules/lite-schedule-widget/dist/`,
-            // `~/node_modules/live-event-widget/dist/`,
-            // `~/node_modules/summit-registration-lite/dist/`,
-            // `~/node_modules/schedule-filter-widget/dist/`,
-            // `~/node_modules/speakers-widget/dist/`,            
-            './node_modules/upcoming-events-widget/dist/'
+              {
+                  paths: ['public'],
+                  urlPrefix: '~/',
+              },
+              {
+                  paths: ['node_modules/upcoming-events-widget/dist'],
+                  urlPrefix: '~/node_modules/upcoming-events-widget',
+              },
           ],
-
           // Auth tokens can be obtained from https://sentry.io/settings/account/api/auth-tokens/
           // and needs the `project:releases` and `org:read` scopes
           authToken: process.env.GATSBY_SENTRY_AUTH_TOKEN,
 
           // Optionally uncomment the line below to override automatic release name detection
-          release: process.env.GATSBY_SENTRY_RELEASE_NAME,
+          release: process.env.BUILD_ID,
         })]
         :
         []

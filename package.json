@@ -121,7 +121,7 @@
     "summit-registration-lite": "3.0.28",
     "superagent": "8.0.9",
     "sweetalert2": "^9.17.0",
-    "upcoming-events-widget": "^2.0.8",
+    "upcoming-events-widget": "2.0.8",
     "urijs": "^1.19.2",
     "use-fit-text": "^2.4.0",
     "uuid": "^7.0.0",
@@ -150,7 +150,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.17.8",
-    "@sentry/webpack-plugin": "^1.20.0",
+    "@sentry/webpack-plugin": "^ƒ1.20.0",
     "devcert": "1.1.0",
     "gatsby-plugin-webpack-speed-measure": "^0.1.1",
     "prettier": "^2.0.5"

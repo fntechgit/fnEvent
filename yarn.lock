@@ -16322,7 +16322,7 @@ unpipe@1.0.0, unpipe@~1.0.0:
   resolved "https://registry.yarnpkg.com/unpipe/-/unpipe-1.0.0.tgz#b2bf4ee8514aae6165b4817829d21b2ef49904ec"
   integrity sha512-pjy2bYhSsufwWlKwPc+l3cN7+wuJlK6uz0YdJEOlQDbl6jo/YlPi4mb8agUkVC8BF7V8NuzeyPNqRksA3hztKQ==
 
-upcoming-events-widget@^2.0.8:
+upcoming-events-widget@2.0.8:
   version "2.0.8"
   resolved "https://registry.yarnpkg.com/upcoming-events-widget/-/upcoming-events-widget-2.0.8.tgz#46aa4e29afd8c9b61e28bf0449fee16f3e63015f"
   integrity sha512-FrTbU8113dM5AUDPrUjyPw9ZRKgglYioWhTToftIOSMHxMfgQkg1WIKBwRs6ptJVOct5FibQ/VIgisGn7jBoZw==
