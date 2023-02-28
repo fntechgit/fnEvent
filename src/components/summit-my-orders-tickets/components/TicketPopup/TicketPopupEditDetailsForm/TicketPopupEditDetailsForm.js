@@ -23,11 +23,6 @@ import './ticket-popup-edit-details-form.scss';
 
 const noOpFn = () => {};
 
-const noOpInputHandlers = {
-    onChange: noOpFn,
-    onBlur: noOpFn
-};
-
 export const TicketPopupEditDetailsForm = ({
     ticket,
     summit,
@@ -144,11 +139,6 @@ export const TicketPopupEditDetailsForm = ({
         // Note: We need `enableReinitialize` to be `true` so the extra questions aren't cleared after saving.
         enableReinitialize: true
     });
-
-    const inputHandlers = {
-        onChange: formik.handleChange,
-        onBlur: formik.handleBlur
-    };
 
     const scrollToError = (error) => document.querySelector(`label[for="${error}"]`).scrollIntoView(ScrollBehaviour);
 
@@ -277,9 +267,10 @@ export const TicketPopupEditDetailsForm = ({
                         id={TicketKeys.firstName}
                         name={TicketKeys.firstName}
                         className="form-control"
-                        value={formik.values[TicketKeys.firstName]}
-                        {...(!initialValues[TicketKeys.firstName] ? inputHandlers : noOpInputHandlers)}
                         placeholder={t("ticket_popup.edit_first_name_placeholder")}
+                        value={formik.values[TicketKeys.firstName]}
+                        onBlur={formik.handleBlur}
+                        onChange={!!initialValues[TicketKeys.firstName] ? formik.handleChange : noOpFn}
                         disabled={!!initialValues[TicketKeys.firstName]}
                     />
                     {(formik.touched[TicketKeys.firstName] || triedSubmitting) && formik.errors[TicketKeys.firstName] &&
@@ -296,9 +287,10 @@ export const TicketPopupEditDetailsForm = ({
                         id={TicketKeys.lastName}
                         name={TicketKeys.lastName}
                         className="form-control"
-                        value={formik.values[TicketKeys.lastName]}
-                        {...(!initialValues[TicketKeys.lastName] ? inputHandlers : noOpInputHandlers)}
                         placeholder={t("ticket_popup.edit_last_name_placeholder")}
+                        value={formik.values[TicketKeys.lastName]}
+                        onBlur={formik.handleBlur}
+                        onChange={!!initialValues[TicketKeys.lastName] ? formik.handleChange : noOpFn}
                         disabled={!!initialValues[TicketKeys.lastName]}
                     />
                     {(formik.touched[TicketKeys.lastName] || triedSubmitting) && formik.errors[TicketKeys.lastName] &&
@@ -315,9 +307,12 @@ export const TicketPopupEditDetailsForm = ({
                         id={TicketKeys.company}
                         name={TicketKeys.company}
                         summitId={summit.id}
-                        {...(!initialValues[TicketKeys.company].name ? inputHandlers : noOpInputHandlers)}
-                        value={formik.values[TicketKeys.company]}
                         placeholder={t("ticket_popup.edit_company_placeholder")}
+                        value={formik.values[TicketKeys.company]}
+                        // RegistrationCompanyInput does not inform same component name onBlur
+                        // so as a workaround we force it to TicketKeys.company
+                        onBlur={() => formik.setFieldTouched(TicketKeys.company, true)}
+                        onChange={!!initialValues[TicketKeys.company].name ? formik.handleChange : noOpFn}
                         disabled={!!initialValues[TicketKeys.company].name}
                     />
                     {(formik.touched[TicketKeys.company] || triedSubmitting) && formik.errors[TicketKeys.company] &&
@@ -355,7 +350,10 @@ export const TicketPopupEditDetailsForm = ({
                         type="checkbox"
                         id={TicketKeys.disclaimerAccepted}
                         name={TicketKeys.disclaimerAccepted}
-                        {...inputHandlers}
+                        onBlur={formik.handleBlur}
+                        onChange={(e) =>
+                            formik.setFieldTouched(TicketKeys.disclaimerAccepted, true) && formik.handleChange(e)
+                        }
                         checked={formik.values[TicketKeys.disclaimerAccepted]}
                     />
                     <label htmlFor={TicketKeys.disclaimerAccepted}>

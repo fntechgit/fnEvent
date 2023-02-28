@@ -20,10 +20,6 @@ import styles from '../styles/extra-questions.module.scss';
 
 const noOpFn = () => {};
 
-const noOpInputHandlers = {
-    onChange: noOpFn,
-    onBlur: noOpFn
-};
 export const ExtraQuestionsPageTemplate = ({ user, summit, extraQuestions, saveAttendeeQuestions }) => {
 
     const { t } = useTranslation();
@@ -84,19 +80,6 @@ export const ExtraQuestionsPageTemplate = ({ user, summit, extraQuestions, saveA
         // Note: We need `enableReinitialize` to be `true` so the extra questions aren't cleared after saving.
         enableReinitialize: true
     });
-
-    const inputHandlers = {
-        onChange: formik.handleChange,
-        onBlur: formik.handleBlur
-    };
-
-    /*const checkAttendeeInformation = () => {
-        return !!owner.first_name && !!owner.last_name && !!owner.company && !!owner.email
-    }
-
-    const checkMandatoryDisclaimer = () => {
-        return summit.registration_disclaimer_mandatory ? owner.disclaimer : true;
-    }*/
 
     const scrollToError = (error) => document.querySelector(`label[for="${error}"]`).scrollIntoView(ScrollBehaviour);
 
@@ -176,7 +159,8 @@ export const ExtraQuestionsPageTemplate = ({ user, summit, extraQuestions, saveA
                             type="text"
                             placeholder={'Your First Name'}
                             value={formik.values[TicketKeys.firstName]}
-                            {...(!initialValues[TicketKeys.firstName] ? inputHandlers : noOpInputHandlers)}
+                            onBlur={formik.handleBlur}
+                            onChange={!!initialValues[TicketKeys.firstName] ? formik.handleChange : noOpFn}
                             disabled={!!initialValues[TicketKeys.firstName]}
                         />
                         {(formik.touched[TicketKeys.firstName] || triedSubmitting) && formik.errors[TicketKeys.firstName] &&
@@ -192,7 +176,8 @@ export const ExtraQuestionsPageTemplate = ({ user, summit, extraQuestions, saveA
                             type="text"
                             placeholder={'Your Last Name'}
                             value={formik.values[TicketKeys.lastName]}
-                            {...(!initialValues[TicketKeys.lastName] ? inputHandlers : noOpInputHandlers)}
+                            onBlur={formik.handleBlur}
+                            onChange={!!initialValues[TicketKeys.lastName] ? formik.handleChange : noOpFn}
                             disabled={!!initialValues[TicketKeys.lastName]}
                         />
                         {(formik.touched[TicketKeys.lastName] || triedSubmitting) && formik.errors[TicketKeys.lastName] &&
@@ -218,7 +203,10 @@ export const ExtraQuestionsPageTemplate = ({ user, summit, extraQuestions, saveA
                             summitId={summit.id}
                             placeholder={'Your Company'}
                             value={formik.values[TicketKeys.company]}
-                            {...(!initialValues[TicketKeys.company].name ? inputHandlers : noOpInputHandlers)}
+                            // RegistrationCompanyInput does not inform same component name onBlur
+                            // so as a workaround we force it to TicketKeys.company
+                            onBlur={() => formik.setFieldTouched(TicketKeys.company, true)}
+                            onChange={!!initialValues[TicketKeys.company].name ? formik.handleChange : noOpFn}
                             disabled={!!initialValues[TicketKeys.company].name}
                         />
                         {(formik.touched[TicketKeys.company] || triedSubmitting) && formik.errors[TicketKeys.company] &&
@@ -244,14 +232,17 @@ export const ExtraQuestionsPageTemplate = ({ user, summit, extraQuestions, saveA
                     />
                 </>
                 }
-                { summit?.registration_disclaimer_content &&
+                { summit.registration_disclaimer_content &&
                 <div className="columns">
                     <div className={`column ${styles.extraQuestion} abc-checkbox`}>
                         <input
                             id={TicketKeys.disclaimerAccepted}
                             name={TicketKeys.disclaimerAccepted}
                             type="checkbox"
-                            {...inputHandlers}
+                            onBlur={formik.handleBlur}
+                            onChange={(e) =>
+                                formik.setFieldTouched(TicketKeys.disclaimerAccepted, true) && formik.handleChange(e)
+                            }
                             checked={formik.values[TicketKeys.disclaimerAccepted]}
                         />
                         <label htmlFor={TicketKeys.disclaimerAccepted}>
