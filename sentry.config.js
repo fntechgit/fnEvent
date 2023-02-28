@@ -8,5 +8,5 @@ Sentry.init({
     console.log('before send...', event)    
     return event;
   },
-  release : process.env.BUILD_ID,
+  release : process.env.GATSBY_SENTRY_RELEASE,
 });

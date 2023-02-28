@@ -476,7 +476,7 @@ exports.onCreateWebpackConfig = ({ actions, plugins, loaders }) => {
           authToken: process.env.GATSBY_SENTRY_AUTH_TOKEN,
 
           // Optionally uncomment the line below to override automatic release name detection
-          release: process.env.BUILD_ID,
+          release: process.env.GATSBY_SENTRY_RELEASE,
         })
       ,
     ]
