@@ -475,6 +475,38 @@ exports.onCreateWebpackConfig = ({ actions, plugins, loaders }) => {
                 paths: ['node_modules/upcoming-events-widget/dist'],
                 urlPrefix: '~/node_modules/upcoming-events-widget/dist',
               },
+              {
+                  paths: ['node_modules/summit-registration-lite/dist'],
+                  urlPrefix: '~/node_modules/summit-registration-lite/dist',
+              },
+              {
+                  paths: ['node_modules/full-schedule-widget/dist'],
+                  urlPrefix: '~/node_modules/full-schedule-widget//dist',
+              },
+              {
+                  paths: ['node_modules/schedule-filter-widget/dist'],
+                  urlPrefix: '~/node_modules/schedule-filter-widget/dist',
+              },
+              {
+                  paths: ['node_modules/lite-schedule-widget/dist'],
+                  urlPrefix: '~/node_modules/lite-schedule-widget/dist',
+              },
+              {
+                  paths: ['node_modules/live-event-widget/dist'],
+                  urlPrefix: '~/node_modules/live-event-widget/dist',
+              },
+              {
+                  paths: ['node_modules/attendee-to-attendee-widget/dist'],
+                  urlPrefix: '~/node_modules/attendee-to-attendee-widget/dist',
+              },
+              {
+                  paths: ['node_modules/openstack-uicore-foundation/lib'],
+                  urlPrefix: '~/node_modules/openstack-uicore-foundation/lib',
+              },
+              {
+                  paths: ['node_modules/speakers-widget/dist'],
+                  urlPrefix: '~/node_modules/speakers-widget/dist',
+              },
           ],
           // Auth tokens can be obtained from https://sentry.io/settings/account/api/auth-tokens/
           // and needs the `project:releases` and `org:read` scopes

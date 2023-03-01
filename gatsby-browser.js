@@ -15,11 +15,12 @@ export const onClientEntry = () => {
         document.documentElement.style.setProperty(`--${color[0]}50`, `${color[1]}50`);
     })
 
-    if('GATSBY_SENTRY_DSN' in process.env) {
+    const GATSBY_SENTRY_DSN = process.env.GATSBY_SENTRY_DSN;
+    if(GATSBY_SENTRY_DSN) {
         console.log("INIT SENTRY ....");
         // sentry init
         Sentry.init({
-            dsn: process.env.GATSBY_SENTRY_DSN,
+            dsn: GATSBY_SENTRY_DSN,
             tracesSampleRate: process.env.GATSBY_SENTRY_TRACE_SAMPLE_RATE,
             beforeSend(event) {
                 // Modify the event here
@@ -37,14 +38,11 @@ export const onClientEntry = () => {
                         }
                         const isComponentFrame = /component---src-pages-(\w*)-js(-\w*).js/.test(frame.filename);
                         if(isComponentFrame){
-                            frame.filename = frame.filename.replace(/^(component---src-pages-(\w*)-js)(-\w*).js$/,'$1.js')
+                            frame.filename = frame.filename.replace(/(component---src-pages-(\w*)-js)(-\w*).js$/,'$1.js')
                         }
-                        const isAppFrame = /^app(-\w*).js/.test(frame.filename);
-                        if(isComponentFrame){
-                            frame.filename = frame.filename.replace(/^(component---src-pages-(\w*)-js)(-\w*).js$/,'$1.js')
-                        }
+                        const isAppFrame = /app(-\w*).js/.test(frame.filename);
                         if(isAppFrame){
-                            frame.filename = frame.filename.replace(/^app(-\w*).js$/,'app.js')
+                            frame.filename = frame.filename.replace(/app(-\w*).js$/,'app.js')
                         }
                         return frame;
                     }

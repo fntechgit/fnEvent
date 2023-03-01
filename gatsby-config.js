@@ -80,10 +80,6 @@ module.exports = {
         ],
       },
     },    
-    {
-      resolve: "@sentry/gatsby",      
-    },    
-
     /**
      * This plugin has been deprecated.
      * Gatsby now natively supports client paths.

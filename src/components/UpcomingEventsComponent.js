@@ -28,7 +28,7 @@ const UpcomingEventsComponent = ({
     const componentProps = {
         defaultImage: homeSettings.schedule_default_image,
         eventsData: allEvents,
-        //summitData: summit,
+        summitData: summit,
         marketingData: colorSettings,
         userProfile: userProfile,
         showAllEvents: true,
