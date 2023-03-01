@@ -319,9 +319,8 @@ export const editOwnedTicket = ({
         if (context === 'ticket-list') {
             dispatch(getUserTickets({ page: ticketPage }));
         } else {
-            dispatch(getUserOrders({ page: orderPage })).then(() => {
+            dispatch(getUserOrders({ page: orderPage })).then(() => 
                 dispatch(getTicketsByOrder({ orderId: ticket.order_id, page: orderTicketsCurrentPage }))
-            }
             );
         }
 
