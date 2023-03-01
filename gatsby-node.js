@@ -468,7 +468,7 @@ exports.onCreateWebpackConfig = ({ actions, plugins, loaders }) => {
           // Specify the directory containing build artifacts
           include: [
               {
-                  paths: ['src','public'],
+                  paths: ['src','public','.cache'],
                   urlPrefix: '~/',
               },
               {

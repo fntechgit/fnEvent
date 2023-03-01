@@ -3,7 +3,7 @@ import 'what-input'
 import ReduxWrapper from "./src/state/ReduxWrapper"
 import colors from './src/content/colors.json'
 import * as Sentry from '@sentry/browser';
-
+import { RewriteFrames as RewriteFramesIntegration } from "@sentry/integrations";
 export const wrapRootElement = ReduxWrapper;
 
 export const onClientEntry = () => {
@@ -25,6 +25,27 @@ export const onClientEntry = () => {
                 return event;
             },
             release: process.env.GATSBY_SENTRY_RELEASE,
+            integrations: [new RewriteFramesIntegration(
+                {
+                    iteratee: (frame) => {
+                        if (!frame.filename) {
+                            return frame;
+                        }
+                        const isComponentFrame = /component---src-pages-(\w*)-js(-\w*).js/.test(frame.filename);
+                        if(isComponentFrame){
+                            frame.filename = frame.filename.replace(/^(component---src-pages-(\w*)-js)(-\w*).js$/,'$1.js')
+                        }
+                        const isAppFrame = /^app(-\w*).js/.test(frame.filename);
+                        if(isComponentFrame){
+                            frame.filename = frame.filename.replace(/^(component---src-pages-(\w*)-js)(-\w*).js$/,'$1.js')
+                        }
+                        if(isAppFrame){
+                            frame.filename = frame.filename.replace(/^app(-\w*).js$/,'app.js')
+                        }
+                        return frame;
+                    }
+                }
+            )],
         });
     }
 
