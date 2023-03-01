@@ -160,7 +160,7 @@ export const ExtraQuestionsPageTemplate = ({ user, summit, extraQuestions, saveA
                             placeholder={'Your First Name'}
                             value={formik.values[TicketKeys.firstName]}
                             onBlur={formik.handleBlur}
-                            onChange={!!initialValues[TicketKeys.firstName] ? formik.handleChange : noOpFn}
+                            onChange={!!initialValues[TicketKeys.firstName] ? noOpFn : formik.handleChange}
                             disabled={!!initialValues[TicketKeys.firstName]}
                         />
                         {(formik.touched[TicketKeys.firstName] || triedSubmitting) && formik.errors[TicketKeys.firstName] &&
@@ -177,7 +177,7 @@ export const ExtraQuestionsPageTemplate = ({ user, summit, extraQuestions, saveA
                             placeholder={'Your Last Name'}
                             value={formik.values[TicketKeys.lastName]}
                             onBlur={formik.handleBlur}
-                            onChange={!!initialValues[TicketKeys.lastName] ? formik.handleChange : noOpFn}
+                            onChange={!!initialValues[TicketKeys.lastName] ? noOpFn : formik.handleChange}
                             disabled={!!initialValues[TicketKeys.lastName]}
                         />
                         {(formik.touched[TicketKeys.lastName] || triedSubmitting) && formik.errors[TicketKeys.lastName] &&
@@ -206,7 +206,7 @@ export const ExtraQuestionsPageTemplate = ({ user, summit, extraQuestions, saveA
                             // RegistrationCompanyInput does not inform same component name onBlur
                             // so as a workaround we force it to TicketKeys.company
                             onBlur={() => formik.setFieldTouched(TicketKeys.company, true)}
-                            onChange={!!initialValues[TicketKeys.company].name ? formik.handleChange : noOpFn}
+                            onChange={!!initialValues[TicketKeys.company].name ? noOpFn : formik.handleChange}
                             disabled={!!initialValues[TicketKeys.company].name}
                         />
                         {(formik.touched[TicketKeys.company] || triedSubmitting) && formik.errors[TicketKeys.company] &&
