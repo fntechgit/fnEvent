@@ -14,17 +14,19 @@ export const onClientEntry = () => {
         document.documentElement.style.setProperty(`--${color[0]}50`, `${color[1]}50`);
     })
 
-    // sentry init
-    Sentry.init({
-        dsn: process.env.GATSBY_SENTRY_DSN,
-        tracesSampleRate: process.env.GATSBY_SENTRY_TRACE_SAMPLE_RATE,
-        beforeSend(event) {
-            // Modify the event here
-            console.log('before send...', event)
-            return event;
-        },
-        release: process.env.GATSBY_SENTRY_RELEASE,
-    });
+    if('GATSBY_SENTRY_DSN' in process.env) {
+        // sentry init
+        Sentry.init({
+            dsn: process.env.GATSBY_SENTRY_DSN,
+            tracesSampleRate: process.env.GATSBY_SENTRY_TRACE_SAMPLE_RATE,
+            beforeSend(event) {
+                // Modify the event here
+                console.log('before send...', event)
+                return event;
+            },
+            release: process.env.GATSBY_SENTRY_RELEASE,
+        });
+    }
 
     window.Sentry = Sentry;
 
