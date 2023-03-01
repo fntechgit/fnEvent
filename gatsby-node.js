@@ -467,10 +467,6 @@ exports.onCreateWebpackConfig = ({ actions, plugins, loaders }) => {
           // Specify the directory containing build artifacts
           include: [
               {
-                  paths: ['.'],
-                  urlPrefix: '~/',
-              },
-              {
                   paths: ['node_modules/upcoming-events-widget/dist'],
                   urlPrefix: '~/node_modules/upcoming-events-widget/dist',
               },
@@ -478,7 +474,6 @@ exports.onCreateWebpackConfig = ({ actions, plugins, loaders }) => {
           // Auth tokens can be obtained from https://sentry.io/settings/account/api/auth-tokens/
           // and needs the `project:releases` and `org:read` scopes
           authToken: process.env.GATSBY_SENTRY_AUTH_TOKEN,
-
           // Optionally uncomment the line below to override automatic release name detection
           release: process.env.GATSBY_SENTRY_RELEASE,
         })
