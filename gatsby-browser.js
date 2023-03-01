@@ -9,13 +9,14 @@ export const wrapRootElement = ReduxWrapper;
 
 export const onClientEntry = () => {
     // var set at document level
-    // preventa widget color flashing from defaults to fetched by widget from marketing api
+    // prevents widget color flashing from defaults to fetched by widget from marketing api
     Object.entries(colors).forEach(color => {
         document.documentElement.style.setProperty(`--${color[0]}`, color[1]);
         document.documentElement.style.setProperty(`--${color[0]}50`, `${color[1]}50`);
     })
 
-    //if('GATSBY_SENTRY_DSN' in process.env) {
+    if('GATSBY_SENTRY_DSN' in process.env) {
+        console.log("INIT SENTRY ....");
         // sentry init
         Sentry.init({
             dsn: process.env.GATSBY_SENTRY_DSN,
@@ -29,6 +30,8 @@ export const onClientEntry = () => {
             integrations: [new RewriteFramesIntegration(
                 {
                     iteratee: (frame) => {
+                        // @see https://github.com/getsentry/sentry-javascript/blob/f46f5660114ee625af6e4db895565ae4a36558ae/packages/integrations/src/rewriteframes.ts#L70
+                        // rewrite frames to remove the dynamic hash version to match the abs_path
                         if (!frame.filename) {
                             return frame;
                         }
@@ -48,8 +51,9 @@ export const onClientEntry = () => {
                 }
             )],
         });
-    //}
+        window.Sentry = Sentry;
+    }
 
-    window.Sentry = Sentry;
+
 
 };
