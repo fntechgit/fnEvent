@@ -2,7 +2,8 @@ import './src/utils/envVariables'
 import 'what-input'
 import ReduxWrapper from "./src/state/ReduxWrapper"
 import colors from './src/content/colors.json'
-import * as Sentry from '@sentry/browser';
+import * as Sentry from '@sentry/gatsby';
+
 import { RewriteFrames as RewriteFramesIntegration } from "@sentry/integrations";
 export const wrapRootElement = ReduxWrapper;
 
@@ -14,7 +15,7 @@ export const onClientEntry = () => {
         document.documentElement.style.setProperty(`--${color[0]}50`, `${color[1]}50`);
     })
 
-    if('GATSBY_SENTRY_DSN' in process.env) {
+    //if('GATSBY_SENTRY_DSN' in process.env) {
         // sentry init
         Sentry.init({
             dsn: process.env.GATSBY_SENTRY_DSN,
@@ -47,7 +48,7 @@ export const onClientEntry = () => {
                 }
             )],
         });
-    }
+    //}
 
     window.Sentry = Sentry;
 

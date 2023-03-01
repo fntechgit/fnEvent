@@ -28,7 +28,7 @@ const UpcomingEventsComponent = ({
     const componentProps = {
         defaultImage: homeSettings.schedule_default_image,
         eventsData: allEvents,
-        // summitData: summit,
+        //summitData: summit,
         marketingData: colorSettings,
         userProfile: userProfile,
         showAllEvents: true,
@@ -48,6 +48,7 @@ const UpcomingEventsComponent = ({
 
     return (
         <>
+            <Sentry.ErrorBoundary fallback={SentryFallbackFunction({componentName: 'Upcoming Events'})}>
             <Helmet>
                 <link
                     rel="stylesheet"
@@ -57,9 +58,10 @@ const UpcomingEventsComponent = ({
             </Helmet>
             <div id="upcoming-events" className={className || wrapperClass} style={{ height: 500 }}>
                 <Sentry.ErrorBoundary fallback={SentryFallbackFunction({componentName: 'Upcoming Events'})}>
-                    <UpcomingEvents {...componentProps} {...rest} />
+                        <UpcomingEvents {...componentProps} {...rest} />
                 </Sentry.ErrorBoundary>
             </div>
+            </Sentry.ErrorBoundary>
         </>
     );
 };
