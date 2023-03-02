@@ -38,6 +38,15 @@ export const GET_TICKETS_BY_ORDER = 'GET_TICKETS_BY_ORDER';
 export const GET_ORDER_TICKET_DETAILS = 'GET_ORDER_TICKET_DETAILS';
 export const GET_TICKET_DETAILS = 'GET_TICKET_DETAILS';
 
+export const TICKET_ATTENDEE_KEYS = {
+    email: 'attendee_email',
+    firstName: 'attendee_first_name',
+    lastName: 'attendee_last_name',
+    company: 'attendee_company',
+    disclaimerAccepted: 'disclaimer_accepted',
+    extraQuestions: 'extra_questions'
+}
+
 const customFetchErrorHandler = (response) => {
     let code = response.status;
     let msg = response.statusText;
@@ -250,7 +259,7 @@ export const editOwnedTicket = ({
     const {
         userState: { userProfile },
         orderState: { current_page: orderPage },
-        ticketState: { current_page: ticketPage }
+        ticketState: { current_page: ticketPage, orderTickets: { current_page : orderTicketsCurrentPage }  }
     } = getState();
 
     const params = {
@@ -287,7 +296,6 @@ export const editOwnedTicket = ({
         normalizedEntity,
         authErrorHandler
     )(params)(dispatch).then(async () => {
-        dispatch(startLoading());
         // email should match ( only update my profile is ticket belongs to me!)
         // Check if there's changes in the ticket data to update the profile
         if (userProfile.email == attendee_email && (
@@ -311,7 +319,9 @@ export const editOwnedTicket = ({
         if (context === 'ticket-list') {
             dispatch(getUserTickets({ page: ticketPage }));
         } else {
-            dispatch(getUserOrders({ page: orderPage }))
+            dispatch(getUserOrders({ page: orderPage })).then(() => 
+                dispatch(getTicketsByOrder({ orderId: ticket.order_id, page: orderTicketsCurrentPage }))
+            );
         }
 
         dispatch(stopLoading());
