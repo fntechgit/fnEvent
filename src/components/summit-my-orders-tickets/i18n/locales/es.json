@@ -249,7 +249,7 @@
         "question_title_unassign": "Unassign Request",
         "question_text_unassign": "Are you sure you want to unassign this ticket?",
         "question_title_reassign": "Reassign Request",
-        "question_text_reassign": "Are you sure you want to clean all the fields?",
+        "question_text_reassign": "Are you sure you want to reassign this ticket?",
         "question_title_save": "Save",
         "question_text_save": "",
         "question_title_notification": "Notification Request",
