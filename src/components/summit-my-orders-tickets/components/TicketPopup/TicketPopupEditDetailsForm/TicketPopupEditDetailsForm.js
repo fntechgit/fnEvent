@@ -332,7 +332,7 @@ export const TicketPopupEditDetailsForm = ({
                     <ExtraQuestionsForm
                         ref={formRef}
                         extraQuestions={extraQuestions}
-                        userAnswers={formik.values[TicketKeys.extra_questions]}
+                        userAnswers={formik.values[TicketKeys.extraQuestions]}
                         onAnswerChanges={onExtraQuestionsAnswersSet}
                         allowExtraQuestionsEdit={canEditTicketData}
                         questionContainerClassName={`columns is-multiline extra-question pt-3`}
