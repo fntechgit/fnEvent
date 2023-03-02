@@ -309,11 +309,10 @@ export const TicketPopupEditDetailsForm = ({
                         summitId={summit.id}
                         placeholder={t("ticket_popup.edit_company_placeholder")}
                         value={formik.values[TicketKeys.company]}
-                        // RegistrationCompanyInput does not inform same component name onBlur
-                        // so as a workaround we force it to TicketKeys.company
-                        onBlur={() => formik.setFieldTouched(TicketKeys.company, true)}
+                        onBlur={formik.handleBlur}
                         onChange={!!initialValues[TicketKeys.company].name ? noOpFn : formik.handleChange}
                         disabled={!!initialValues[TicketKeys.company].name}
+                        tabSelectsValue={false}
                     />
                     {(formik.touched[TicketKeys.company] || triedSubmitting) && formik.errors[TicketKeys.company] &&
                     <p className="error-label">{t("ticket_popup.edit_required")}</p>

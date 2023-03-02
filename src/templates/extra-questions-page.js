@@ -203,11 +203,10 @@ export const ExtraQuestionsPageTemplate = ({ user, summit, extraQuestions, saveA
                             summitId={summit.id}
                             placeholder={'Your Company'}
                             value={formik.values[TicketKeys.company]}
-                            // RegistrationCompanyInput does not inform same component name onBlur
-                            // so as a workaround we force it to TicketKeys.company
-                            onBlur={() => formik.setFieldTouched(TicketKeys.company, true)}
+                            onBlur={formik.handleBlur}
                             onChange={!!initialValues[TicketKeys.company].name ? noOpFn : formik.handleChange}
                             disabled={!!initialValues[TicketKeys.company].name}
+                            tabSelectsValue={false}
                         />
                         {(formik.touched[TicketKeys.company] || triedSubmitting) && formik.errors[TicketKeys.company] &&
                         <p className={styles.errorLabel}>{t("ticket_popup.edit_required")}</p>
