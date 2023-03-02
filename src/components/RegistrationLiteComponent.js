@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from "react"
-import {navigate, withPrefix} from "gatsby"
-import {connect} from "react-redux";
+import React, { useEffect, useState } from "react"
+import * as Sentry from "@sentry/react";
+import { navigate, withPrefix } from "gatsby"
+import { connect } from "react-redux";
 import URI from "urijs"
 // these two libraries are client-side only
 import RegistrationLiteWidget from 'summit-registration-lite/dist';
@@ -15,6 +16,8 @@ import 'summit-registration-lite/dist/index.css';
 import styles from '../styles/marketing-hero.module.scss'
 import Swal from "sweetalert2";
 import {checkRequireExtraQuestionsByAttendee} from "../actions/user-actions";
+
+import { SentryFallbackFunction } from "./SentryErrorComponent";
 
 const RegistrationLiteComponent = ({
                                        registrationProfile,
@@ -160,7 +163,9 @@ const RegistrationLiteComponent = ({
             </button>
 
             <div>
-                {isActive && <RegistrationLiteWidget {...widgetProps} />}
+                <Sentry.ErrorBoundary fallback={SentryFallbackFunction({componentName: 'Registration Lite'})}>
+                    {isActive && <RegistrationLiteWidget {...widgetProps} />}
+                </Sentry.ErrorBoundary>
             </div>
         </>
     )
