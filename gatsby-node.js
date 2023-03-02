@@ -460,7 +460,8 @@ exports.onCreateWebpackConfig = ({ actions, plugins, loaders }) => {
       new webpack.ProvidePlugin({
         Buffer: ['buffer', 'Buffer'],
       }),
-        ...('GATSBY_SENTRY_AUTH_TOKEN' in process.env) ?[
+        // upload source maps only if we have an sentry auth token and we are at production
+        ...('GATSBY_SENTRY_AUTH_TOKEN' in process.env && process.env.NODE_ENV === 'production') ?[
             new SentryWebpackPlugin({
           org: process.env.GATSBY_SENTRY_ORG,
           project: process.env.GATSBY_SENTRY_PROJECT,

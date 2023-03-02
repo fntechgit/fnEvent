@@ -14,7 +14,7 @@ export const onClientEntry = () => {
         document.documentElement.style.setProperty(`--${color[0]}`, color[1]);
         document.documentElement.style.setProperty(`--${color[0]}50`, `${color[1]}50`);
     })
-
+    // init sentry
     const GATSBY_SENTRY_DSN = process.env.GATSBY_SENTRY_DSN;
     if(GATSBY_SENTRY_DSN) {
         console.log("INIT SENTRY ....");
@@ -51,7 +51,4 @@ export const onClientEntry = () => {
         });
         window.Sentry = Sentry;
     }
-
-
-
 };
