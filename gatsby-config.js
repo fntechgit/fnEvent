@@ -4,6 +4,7 @@ module.exports = {
     description: 'Virtual event',
   },
   plugins: [
+    "gatsby-plugin-root-import",
     'gatsby-plugin-react-helmet',
     {
       /**
