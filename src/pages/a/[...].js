@@ -18,6 +18,7 @@ import MyTicketsPage from '../../templates/my-tickets-page';
 import WithTicketRoute from "../../routes/WithTicketRoute";
 import withRealTimeUpdates from "../../utils/real_time_updates/withRealTimeUpdates";
 import withFeedsWorker from "../../utils/withFeedsWorker";
+import Link from "../../components/Link";
 
 
 const App = ({ isLoggedUser, user, summit_phase, allowClick = true }) => {
@@ -30,7 +31,9 @@ const App = ({ isLoggedUser, user, summit_phase, allowClick = true }) => {
             path="/schedule"
             location={location}
             schedKey="schedule-main"
-            scheduleProps={{ subtitle: <a href="/a/my-schedule">Show My Schedule</a> }}
+            scheduleProps={{ subtitle:
+              <Link to={'/a/my-schedule'}>Show My Schedule</Link>
+          }}
             allowClick={allowClick}
           />
           <WithAuthRoute path="/" isLoggedIn={isLoggedUser} location={location}>
@@ -49,7 +52,9 @@ const App = ({ isLoggedUser, user, summit_phase, allowClick = true }) => {
                   summit_phase={summit_phase}
                   isLoggedIn={isLoggedUser}
                   user={user}
-                  scheduleProps={{ title: 'My Schedule', showSync: true, subtitle: <a href="/a/schedule">Show Schedule</a> }}
+                  scheduleProps={{ title: 'My Schedule', showSync: true, subtitle:
+                        <Link to={'/a/schedule'}>Show Schedule</Link>
+                  }}
                   schedKey="my-schedule-main"
                   allowClick={allowClick}
                 />
