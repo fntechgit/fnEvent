@@ -448,25 +448,17 @@ export const updatePassword = (password) => async (dispatch) => {
       });
 }
 
-export const saveExtraQuestions = (extra_questions, owner) => async (dispatch, getState) => {
+export const saveAttendeeQuestions = (values) => async (dispatch, getState) => {
 
   const { userState: { userProfile: { summit_tickets } } } = getState();
 
-  const extraQuestionsAnswers = extra_questions.map(q => {
-    return { question_id: q.id, answer: `${q.value}` }
-  })
+  const normalizedEntity = {...values};
 
-  let normalizedEntity = {
-    attendee_email: owner.email,
-    attendee_first_name: owner.first_name,
-    attendee_last_name: owner.last_name,
-    attendee_company: owner.company,
-    disclaimer_accepted: owner.disclaimer,
-
-  };
-
-  if( extraQuestionsAnswers.length > 0){
-    normalizedEntity['extra_questions'] = extraQuestionsAnswers;
+  if (!values.attendee_company.id) {
+    normalizedEntity['attendee_company'] = values.attendee_company.name;
+  } else {
+    delete(normalizedEntity['attendee_company']);
+    normalizedEntity['attendee_company_id'] = values.attendee_company.id;
   }
 
   let accessToken;

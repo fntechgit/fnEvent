@@ -7459,6 +7459,11 @@ gatsby-plugin-react-helmet@^5.10.0:
   dependencies:
     "@babel/runtime" "^7.15.4"
 
+gatsby-plugin-root-import@^2.0.9:
+  version "2.0.9"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-root-import/-/gatsby-plugin-root-import-2.0.9.tgz#a511c0927164e3fd66052426fcfd5895d8c0045c"
+  integrity sha512-Cj6zBQW/XirHyLGyXtyhvhMwLUZDjFHSJwCI7mF9yAuX1PFoOVqUVWKp9jvtoKm8nKvly3IU/OPRXzlmYjeEkA==
+
 gatsby-plugin-sass@^5.10.2:
   version "5.24.0"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-sass/-/gatsby-plugin-sass-5.24.0.tgz#4c46adfbc7da5726eab4d04656e7310e55afc95e"
@@ -11516,10 +11521,10 @@ open@^8.4.0:
     is-docker "^2.1.1"
     is-wsl "^2.2.0"
 
-openstack-uicore-foundation@4.0.89:
-  version "4.0.89"
-  resolved "https://registry.yarnpkg.com/openstack-uicore-foundation/-/openstack-uicore-foundation-4.0.89.tgz#b78f283de1443e9c1387f4e57eeca84ced946179"
-  integrity sha512-1QL/4u0m1tKS5jlH6mH2afkAPjbXmYvF0s73FGdACmbdxJNfx0iBIr94UY1x/DbINLEskY3wM7OC6iayMcdZIA==
+openstack-uicore-foundation@^4.0.95:
+  version "4.0.95"
+  resolved "https://registry.yarnpkg.com/openstack-uicore-foundation/-/openstack-uicore-foundation-4.0.95.tgz#1f387302f71c5a435a879b28d73735f3913c6cb9"
+  integrity sha512-L6DE2qa8GoW5YAIh8/ivg0kWzw0RILe7XxSO3AxNaLwWeXOlZPiruJnLb33cblMd3QdV9NUkVZF6dsRnPqzhEg==
 
 opentracing@^0.14.5:
   version "0.14.7"
