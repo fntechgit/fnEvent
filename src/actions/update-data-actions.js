@@ -47,7 +47,7 @@ const fetchBucket = async (etagKeyPre, dataKeyPre, fileName, summitId, lastBuild
 
     if (eTag) headers.headers = {'If-None-Match': eTag};
 
-    console.log(`fetchBucket ${url} eTag ${eTag} lastModifiedStored ${lastModifiedStored}`);
+    console.log(`fetchBucket ${url} eTag ${eTag} lastModifiedStored ${lastModifiedStored} lastBuildTime ${lastBuildTime}`);
 
     return fetch(url, {
         method: 'GET',
@@ -55,7 +55,12 @@ const fetchBucket = async (etagKeyPre, dataKeyPre, fileName, summitId, lastBuild
     }).then(async (response) => {
         console.log(`fetchBucket ${url} response.status ${response.status}`);
         if ([304, 404].includes(response.status)) {
-            // retrieve data from localStorage
+            // retrieve data from localStorage if its newer than we have on SSR
+            if(lastModifiedStored < lastBuildTime){
+                console.log(`fetchBucket ${url} lastBuildTime ${lastBuildTime} is recent than what we have stored ${lastModifiedStored}, we will use SSR files`);
+                await deleteFromCache(`files_${summitId}`, dataKey);
+                return null;
+            }
             const file = await loadData(summitId, dataKey);
             return {file, lastModified : lastModifiedStored ? parseInt(lastModifiedStored) : 0};
         } else if (response.status === 200) {

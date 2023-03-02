@@ -26,7 +26,7 @@ export const CONFIRM_POPUP_CASE = {
     NOTIFICATION: 'NOTIFICATION',
 }
 
-export const getConfirmPopupContent = ({ popupCase, cleanFields }) => {
+export const getConfirmPopupContent = ({ popupCase }) => {
     const popupCaseContentMap = {
         [CONFIRM_POPUP_CASE.CANCEL_ORDER]: {
             title: 'confirm_popup.question_title_cancel_order',
@@ -42,7 +42,7 @@ export const getConfirmPopupContent = ({ popupCase, cleanFields }) => {
         },
         [CONFIRM_POPUP_CASE.REASSIGN_TICKET]: {
             title: 'confirm_popup.question_title_reassign',
-            text: cleanFields ? 'confirm_popup.question_text_reassign' : 'confirm_popup.question_text_confirm'
+            text: 'confirm_popup.question_text_reassign'
         },
         [CONFIRM_POPUP_CASE.UNASSIGN_TICKET]: {
             title: 'confirm_popup.question_title_unassign',
@@ -61,10 +61,10 @@ export const getConfirmPopupContent = ({ popupCase, cleanFields }) => {
     return popupCaseContentMap[popupCase];
 };
 
-export const ConfirmPopup = ({ isOpen, popupCase, onAccept, onReject, cleanFields }) => {
+export const ConfirmPopup = ({ isOpen, popupCase, onAccept, onReject }) => {
     var { Portal } = usePortal();
     const { t } = useTranslation();
-    const content = getConfirmPopupContent({ popupCase, cleanFields });
+    const content = getConfirmPopupContent({ popupCase });
 
     const handleAcceptClick = () => {
         if (onAccept) onAccept();
