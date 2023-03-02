@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import * as Sentry from "@sentry/react";
 import { navigate, withPrefix } from "gatsby"
 import { connect } from "react-redux";
 import URI from "urijs"
@@ -13,6 +14,8 @@ import { getThirdPartyProviders } from "../actions/base-actions";
 import 'summit-registration-lite/dist/index.css';
 import styles from '../styles/marketing-hero.module.scss'
 import Swal from "sweetalert2";
+
+import { SentryFallbackFunction } from "./SentryErrorComponent";
 
 const RegistrationLiteComponent = ({
     registrationProfile,
@@ -177,7 +180,9 @@ const RegistrationLiteComponent = ({
             </button>
 
             <div>
-                {isActive && <RegistrationLiteWidget {...widgetProps} />}
+                <Sentry.ErrorBoundary fallback={SentryFallbackFunction({componentName: 'Registration Lite'})}>
+                    {isActive && <RegistrationLiteWidget {...widgetProps} />}
+                </Sentry.ErrorBoundary>
             </div>
         </>
     )
