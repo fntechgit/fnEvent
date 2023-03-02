@@ -19,6 +19,7 @@ import WithBadgeRoute from "../../routes/WithBadgeRoute";
 import PosterDetailPage from "../../templates/poster-detail-page";
 import MyTicketsPage from '../../templates/my-tickets-page';
 import WithTicketRoute from "../../routes/WithTicketRoute";
+import Link from "../../components/Link";
 
 const App = ({ isLoggedUser, user, summit_phase, lastBuild, syncData, allowClick = true }) => {
 
@@ -36,7 +37,9 @@ const App = ({ isLoggedUser, user, summit_phase, lastBuild, syncData, allowClick
             path="/schedule"
             location={location}
             schedKey="schedule-main"
-            scheduleProps={{ subtitle: <a href="/a/my-schedule">Show My Schedule</a> }}
+            scheduleProps={{ subtitle:
+              <Link to={'/a/my-schedule'}>Show My Schedule</Link>
+          }}
             allowClick={allowClick}
           />
           <WithAuthRoute path="/" isLoggedIn={isLoggedUser} location={location}>
@@ -54,7 +57,9 @@ const App = ({ isLoggedUser, user, summit_phase, lastBuild, syncData, allowClick
                   summit_phase={summit_phase}
                   isLoggedIn={isLoggedUser}
                   user={user}
-                  scheduleProps={{ title: 'My Schedule', showSync: true, subtitle: <a href="/a/schedule">Show Schedule</a> }}
+                  scheduleProps={{ title: 'My Schedule', showSync: true, subtitle:
+                        <Link to={'/a/schedule'}>Show Schedule</Link>
+                  }}
                   schedKey="my-schedule-main"
                   allowClick={allowClick}
                 />

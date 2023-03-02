@@ -387,13 +387,6 @@ exports.onCreateWebpackConfig = ({ actions, plugins, loaders }) => {
     },
     // canvas is a jsdom external dependency
     externals: ['canvas'],
-<<<<<<< HEAD
-=======
-    experiments: {
-      topLevelAwait: true,
-    },
-    // devtool: 'source-map',
->>>>>>> 16e9889 (Add sentry lib, new error boundaries for widgets (#124))
     plugins: [
       plugins.define({
         'global.GENTLY': false,
