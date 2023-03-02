@@ -3,6 +3,7 @@ const path = require('path');
 const fs = require("fs");
 const webpack = require('webpack');
 const {createFilePath} = require('gatsby-source-filesystem');
+const SentryWebpackPlugin = require("@sentry/webpack-plugin");
 
 const {ClientCredentials} = require('simple-oauth2');
 const URI = require('urijs');
@@ -369,7 +370,7 @@ exports.createPages = ({ actions, graphql }) => {
   })
 };
 
-exports.onCreateWebpackConfig = ({ actions, plugins, loaders }) => {
+exports.onCreateWebpackConfig = ({ actions, plugins, loaders }) => {  
   actions.setWebpackConfig({
     resolve: {
       /**
@@ -386,6 +387,13 @@ exports.onCreateWebpackConfig = ({ actions, plugins, loaders }) => {
     },
     // canvas is a jsdom external dependency
     externals: ['canvas'],
+<<<<<<< HEAD
+=======
+    experiments: {
+      topLevelAwait: true,
+    },
+    // devtool: 'source-map',
+>>>>>>> 16e9889 (Add sentry lib, new error boundaries for widgets (#124))
     plugins: [
       plugins.define({
         'global.GENTLY': false,
@@ -394,6 +402,61 @@ exports.onCreateWebpackConfig = ({ actions, plugins, loaders }) => {
       new webpack.ProvidePlugin({
         Buffer: ['buffer', 'Buffer'],
       }),
+        // upload source maps only if we have an sentry auth token and we are at production
+        ...('GATSBY_SENTRY_AUTH_TOKEN' in process.env && process.env.NODE_ENV === 'production') ?[
+            new SentryWebpackPlugin({
+          org: process.env.GATSBY_SENTRY_ORG,
+          project: process.env.GATSBY_SENTRY_PROJECT,
+          ignore: ["app-*", "polyfill-*", "framework-*", "webpack-runtime-*","~partytown"],
+          // Specify the directory containing build artifacts
+          include: [
+              {
+                  paths: ['src','public','.cache'],
+                  urlPrefix: '~/',
+              },
+              {
+                paths: ['node_modules/upcoming-events-widget/dist'],
+                urlPrefix: '~/node_modules/upcoming-events-widget/dist',
+              },
+              {
+                  paths: ['node_modules/summit-registration-lite/dist'],
+                  urlPrefix: '~/node_modules/summit-registration-lite/dist',
+              },
+              {
+                  paths: ['node_modules/full-schedule-widget/dist'],
+                  urlPrefix: '~/node_modules/full-schedule-widget//dist',
+              },
+              {
+                  paths: ['node_modules/schedule-filter-widget/dist'],
+                  urlPrefix: '~/node_modules/schedule-filter-widget/dist',
+              },
+              {
+                  paths: ['node_modules/lite-schedule-widget/dist'],
+                  urlPrefix: '~/node_modules/lite-schedule-widget/dist',
+              },
+              {
+                  paths: ['node_modules/live-event-widget/dist'],
+                  urlPrefix: '~/node_modules/live-event-widget/dist',
+              },
+              {
+                  paths: ['node_modules/attendee-to-attendee-widget/dist'],
+                  urlPrefix: '~/node_modules/attendee-to-attendee-widget/dist',
+              },
+              {
+                  paths: ['node_modules/openstack-uicore-foundation/lib'],
+                  urlPrefix: '~/node_modules/openstack-uicore-foundation/lib',
+              },
+              {
+                  paths: ['node_modules/speakers-widget/dist'],
+                  urlPrefix: '~/node_modules/speakers-widget/dist',
+              },
+          ],
+          // Auth tokens can be obtained from https://sentry.io/settings/account/api/auth-tokens/
+          // and needs the `project:releases` and `org:read` scopes
+          authToken: process.env.GATSBY_SENTRY_AUTH_TOKEN,
+          // Optionally uncomment the line below to override automatic release name detection
+          release: process.env.GATSBY_SENTRY_RELEASE,
+        })]:[],
     ]
-  })
+  })  
 };
