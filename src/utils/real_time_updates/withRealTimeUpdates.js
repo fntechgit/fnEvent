@@ -68,6 +68,12 @@ const withRealTimeUpdates = WrappedComponent => {
 
             const {summit, allEvents, allIDXEvents, allSpeakers, allIDXSpeakers, synchEntityData} = this.props;
 
+            if(!this._worker)
+            {
+                console.log('withRealTimeUpdates::processUpdates worker is null');
+                return;
+            }
+
             let accessToken = null;
             try {
                 accessToken = await getAccessToken();
