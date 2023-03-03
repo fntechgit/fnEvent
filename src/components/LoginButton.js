@@ -44,7 +44,6 @@ const LoginButton = ({
     }, [thirdPartyProviders]);
 
     const getBackURL = (encode = true) => {
-        debugger
         let backUrl = location.state?.backUrl
             ? location.state.backUrl
             : '/';
