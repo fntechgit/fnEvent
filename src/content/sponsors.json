@@ -50,7 +50,7 @@
             }
           ],
           "id": 27,
-          "showLogoInEventPage": true,
+          "showLogoInEventPage": false,
           "email": "sponsorservices@fntech.com",
           "usesSponsorPage": true
         },
@@ -131,7 +131,7 @@
             }
           ],
           "id": 37,
-          "showLogoInEventPage": true,
+          "showLogoInEventPage": false,
           "email": "info@adanda.net",
           "usesSponsorPage": true
         },
