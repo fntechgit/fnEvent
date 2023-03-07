@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from "react"
-import {navigate, withPrefix} from "gatsby"
-import {connect} from "react-redux";
+import React, { useEffect, useState } from "react"
+import * as Sentry from "@sentry/react";
+import { navigate, withPrefix } from "gatsby"
+import { connect } from "react-redux";
 import URI from "urijs"
 // these two libraries are client-side only
 import RegistrationLiteWidget from 'summit-registration-lite/dist';
@@ -16,12 +17,9 @@ import styles from '../styles/marketing-hero.module.scss'
 import Swal from "sweetalert2";
 import {checkRequireExtraQuestionsByAttendee} from "../actions/user-actions";
 import {userHasAccessLevel, VirtualAccessLevel} from "../utils/authorizedGroups";
+
 import { SentryFallbackFunction } from "./SentryErrorComponent";
-<<<<<<< HEAD
-import * as Sentry from "@sentry/react";
-=======
 import { getExtraQuestions } from "../actions/summit-actions";
->>>>>>> 3f683742 (Use attendee extra questions, removing json file and build fetch (#150))
 
 const RegistrationLiteComponent = ({
                                        registrationProfile,
@@ -164,11 +162,13 @@ const RegistrationLiteComponent = ({
 
     return (
         <>
-            <button className={`${styles.button} button is-large`} disabled={isActive} onClick={() => setIsActive(true)}>
-                <i className={`fa fa-2x fa-edit icon is-large`}/>
-                <b>{registerButton.text}</b>
-            </button>
-
+            {!summit.invite_only_registration &&
+                <button className={`${styles.button} button is-large`} disabled={isActive}
+                        onClick={() => setIsActive(true)}>
+                    <i className={`fa fa-2x fa-edit icon is-large`}/>
+                    <b>{registerButton.text}</b>
+                </button>
+            }
             <div>
                 <Sentry.ErrorBoundary fallback={SentryFallbackFunction({componentName: 'Registration Lite'})}>
                     {isActive && <RegistrationLiteWidget {...widgetProps} />}

@@ -52,7 +52,7 @@ const allSchedulesReducer = (state = DEFAULT_STATE, action) => {
 
                 // translate filters and pre_filters
                 const newFilters = sched.filters.reduce((result, item) => {
-                    result[item.type.toLowerCase()] = {label: item.label, enabled: item.is_enabled, values: [], options: []};
+                    result[item.type.toLowerCase()] = {label: item.label, enabled: item.is_enabled, values: [], options: [], order: item.order};
                     return result;
                 }, {});
 
