@@ -115,7 +115,7 @@
     "redux-thunk": "^2.4.1",
     "sanitize-html": "^2.7.0",
     "sass": "^1.49.9",
-    "schedule-filter-widget": "^2.0.1",
+    "schedule-filter-widget": "^2.0.2",
     "simple-chat-widget": "^1.0.31",
     "simple-oauth2": "^4.1.0",
     "slick-carousel": "^1.8.1",
