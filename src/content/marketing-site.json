@@ -1,1 +1,108 @@
-{"heroBanner":{"title":"YOCO Summit","subTitle":"Now Live!","date":"virtual • pacific time zone","time":"","dateLayout":false,"buttons":{"registerButton":{"text":"Register now","display":true},"loginButton":{"text":"Log in","display":true}},"background":{"alt":"","file":""},"images":[{"file":"/img/flavor_wheel.jpg","alt":"flavor wheel alt"}]},"countdown":{"display":false,"text":"Yoco starts in"},"leftColumn":{"schedule":{"display":true,"title":"Full Event Schedule"},"disqus":{"display":false,"title":"Join the conversation"},"image":{"display":false,"title":"Image","src":"/img/yoco-sponsor-ads-large-wherehol-vert.png","alt":"big test"}},"sponsors":[{"title":"Top Left","images":[{"image":"/img/yoco-sponsor-ads-large-wherehol-vert.png","link":"","alt":"test sponsor"}],"size":2},{"title":"Top Right","images":[{"image":"/img/yoco-sponsor-ads-medium-tilted.png","link":"","alt":"test sponsor 2"}],"size":1},{"title":"Mid Left","images":[{"image":"/img/yoco-sponsor-ads-large-mobility-vert-new.png","link":"","alt":" test sponsor 3"}],"size":2},{"title":"Mid Right","images":[{"image":"/img/yoco-sponsor-ads-large-apex-vert.png","link":"","alt":" test sponsor 4"}],"size":2},{"title":"Bottom Right","images":[{"image":"/img/yoco-sponsor-ads-medium-treva.png","link":"","alt":"test sponsor 5"}],"size":1}],"registration_in_person_disclaimer":"<p>OCP will follow all county, state and federal rules and regulations regarding travel and meetings at the time of the 2021 OCP Global Summit. &nbsp;By clicking “Accept” below, you acknowledge and take responsibility for adhering to any and all travel and public participation regulations. &nbsp;</p>\n<p>Please visit the San Jose Convention Center&nbsp;<a href=\"https://www.sanjoseca.gov/news-stories/news/vaccination-requirements-for-events\" target=\"_blank\"><u>travel webpage</u></a> or reference the <a href=\"https://www.opencompute.org/summit/global-summit/health-and-safety\" target=\"_blank\"><u>OCP Health &amp; Safety</u></a> website to see the latest updates regarding travel and meeting requirements.&nbsp;</p>\n<p>OCP, FNTECH, and Team San Jose are not responsible for any expenses incurred should an attendee be denied entry into the country, state, or event, including but not limited to: airfare, hotel, meals, and event registration fees. More information can be found&nbsp;the OCP travel page&nbsp;<a href=\"https://www.opencompute.org/summit/global-summit/venue-and-hotel-accomodations\" target=\"_blank\"><u>here</u></a>.</p>","summit_delta_start_time":"900"}
+{
+  "heroBanner": {
+    "title": "YOCO Summit",
+    "subTitle": "Now Live!",
+    "date": "virtual • pacific time zone",
+    "time": "",
+    "dateLayout": false,
+    "buttons": {
+      "registerButton": {
+        "text": "Register now",
+        "display": true
+      },
+      "loginButton": {
+        "text": "Log in",
+        "display": true
+      }
+    },
+    "background": {
+      "alt": "",
+      "file": ""
+    },
+    "images": [
+      {
+        "file": "/img/flavor_wheel.jpg",
+        "alt": "flavor wheel alt"
+      }
+    ]
+  },
+  "countdown": {
+    "display": false,
+    "text": "Yoco starts in"
+  },
+  "leftColumn": {
+    "schedule": {
+      "display": true,
+      "title": "Full Event Schedule"
+    },
+    "disqus": {
+      "display": false,
+      "title": "Join the conversation"
+    },
+    "image": {
+      "display": false,
+      "title": "Image",
+      "src": "/img/yoco-sponsor-ads-large-wherehol-vert.png",
+      "alt": "big test"
+    }
+  },
+  "sponsors": [
+    {
+      "title": "Top Left",
+      "images": [
+        {
+          "image": "/img/yoco-sponsor-ads-large-wherehol-vert.png",
+          "link": "",
+          "alt": "test sponsor"
+        }
+      ],
+      "size": 2
+    },
+    {
+      "title": "Top Right",
+      "images": [
+        {
+          "image": "/img/yoco-sponsor-ads-medium-tilted.png",
+          "link": "",
+          "alt": "test sponsor 2"
+        }
+      ],
+      "size": 1
+    },
+    {
+      "title": "Mid Left",
+      "images": [
+        {
+          "image": "/img/yoco-sponsor-ads-large-mobility-vert-new.png",
+          "link": "",
+          "alt": " test sponsor 3"
+        }
+      ],
+      "size": 2
+    },
+    {
+      "title": "Mid Right",
+      "images": [
+        {
+          "image": "/img/yoco-sponsor-ads-large-apex-vert.png",
+          "link": "",
+          "alt": " test sponsor 4"
+        }
+      ],
+      "size": 2
+    },
+    {
+      "title": "Bottom Right",
+      "images": [
+        {
+          "image": "/img/yoco-sponsor-ads-medium-treva.png",
+          "link": "",
+          "alt": "test sponsor 5"
+        }
+      ],
+      "size": 1
+    }
+  ],
+  "registration_in_person_disclaimer": "",
+  "summit_delta_start_time": "900"
+}
