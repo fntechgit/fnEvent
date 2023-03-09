@@ -13,7 +13,7 @@
       },
       "name": "Top-Tier Sponsors",
       "expoHallSize": "large",
-      "eventTemplate": "small-images",
+      "eventTemplate": null,
       "widgetTitle": "Top-Tier Sponsors",
       "lobby": {
         "lobbyTemplate": "carousel",
