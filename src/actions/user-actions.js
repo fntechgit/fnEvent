@@ -93,17 +93,14 @@ export const getUserProfile = () => async (dispatch) => {
     expand: 'groups,summit_tickets,summit_tickets.owner,summit_tickets.owner.presentation_votes,summit_tickets.owner.extra_questions,summit_tickets.badge,summit_tickets.badge.features,summit_tickets.badge.type, summit_tickets.badge.type.access_levels,summit_tickets.badge.type.features,favorite_summit_events,feedback,schedule_summit_events,rsvp,rsvp.answers'
   };
 
-  dispatch(startLoading());
-  dispatch(createAction(START_LOADING_PROFILE)());
   return getRequest(
-    null,
+    createAction(START_LOADING_PROFILE),
     createAction(GET_USER_PROFILE),
     `${window.SUMMIT_API_BASE_URL}/api/v1/summits/${window.SUMMIT_ID}/members/me`,
     customErrorHandler
   )(params)(dispatch).then(() => {
-    return dispatch(getIDPProfile()).then(() => {
-      return dispatch(getScheduleSyncLink()).then(() => dispatch(createAction(STOP_LOADING_PROFILE)()))
-    });
+    dispatch(createAction(STOP_LOADING_PROFILE)());
+    return dispatch(getIDPProfile()).then(() => dispatch(getScheduleSyncLink()));
   }).catch((e) => {
     console.log('ERROR: ', e);
     dispatch(createAction(STOP_LOADING_PROFILE)());
@@ -123,15 +120,13 @@ export const getIDPProfile = () => async (dispatch) => {
     return Promise.reject();
   }
 
-  dispatch(createAction(START_LOADING_IDP_PROFILE)());
-
   let params = {
     access_token: accessToken,
     expand: 'groups'
   };
 
   return getRequest(
-    null,
+    createAction(START_LOADING_IDP_PROFILE),
     createAction(GET_IDP_PROFILE),
     `${window.IDP_BASE_URL}/api/v1/users/me`,
     customErrorHandler
