@@ -84,7 +84,6 @@ export const getUserProfile = () => async (dispatch) => {
     accessToken = await getAccessToken();
   } catch (e) {
     console.log('getAccessToken error: ', e);
-    dispatch(stopLoading());
     return Promise.reject();
   }
 
@@ -116,7 +115,6 @@ export const getIDPProfile = () => async (dispatch) => {
     accessToken = await getAccessToken();
   } catch (e) {
     console.log('getAccessToken error: ', e);
-    dispatch(stopLoading());
     return Promise.reject();
   }
 
@@ -252,7 +250,6 @@ export const castPresentationVote = (presentation) => async (dispatch, getState)
     accessToken = await getAccessToken();
   } catch (e) {
     console.log('getAccessToken error: ', e);
-    dispatch(stopLoading());
     return Promise.reject();
   }
 
@@ -307,7 +304,6 @@ export const uncastPresentationVote = (presentation) => async (dispatch, getStat
     accessToken = await getAccessToken();
   } catch (e) {
     console.log('getAccessToken error: ', e);
-    dispatch(stopLoading());
     return Promise.reject();
   }
 
@@ -347,7 +343,6 @@ export const updateProfilePicture = (pic) => async (dispatch) => {
     accessToken = await getAccessToken();
   } catch (e) {
     console.log('getAccessToken error: ', e);
-    dispatch(stopLoading());
     return Promise.reject();
   }
 
@@ -381,7 +376,6 @@ export const updateProfile = (profile) => async (dispatch) => {
     accessToken = await getAccessToken();
   } catch (e) {
     console.log('getAccessToken error: ', e);
-    dispatch(stopLoading());
     return Promise.reject();
   }
 
@@ -414,17 +408,14 @@ export const updatePassword = (password) => async (dispatch) => {
     accessToken = await getAccessToken();
   } catch (e) {
     console.log('getAccessToken error: ', e);
-    dispatch(stopLoading());
     return Promise.reject();
   }
   let params = {
     access_token: accessToken,
   };
 
-  dispatch(createAction(START_LOADING_IDP_PROFILE)());
-
   putRequest(
-    null,
+    createAction(START_LOADING_IDP_PROFILE),
     createAction(UPDATE_PASSWORD),
     `${window.IDP_BASE_URL}/api/v1/users/me`,
     password,
@@ -447,6 +438,8 @@ export const saveAttendeeQuestions = (values) => async (dispatch, getState) => {
 
   const { userState: { userProfile: { summit_tickets } } } = getState();
 
+  dispatch(startLoading());
+
   const normalizedEntity = {...values};
 
   if (!values.attendee_company.id) {
@@ -463,9 +456,7 @@ export const saveAttendeeQuestions = (values) => async (dispatch, getState) => {
     console.log('getAccessToken error: ', e);
     dispatch(stopLoading());
     return Promise.reject();
-  }
-
-  dispatch(startLoading());
+  }  
 
   let params = {
     access_token: accessToken,
@@ -479,6 +470,7 @@ export const saveAttendeeQuestions = (values) => async (dispatch, getState) => {
     normalizedEntity,
     customErrorHandler
   )(params)(dispatch).then(() => {
+    dispatch(stopLoading());
     Swal.fire('Success', "Attendee saved successfully", "success");
     dispatch(getUserProfile());
     navigate('/')
@@ -511,7 +503,6 @@ export const getScheduleSyncLink = () => async (dispatch) => {
     accessToken = await getAccessToken();
   } catch (e) {
     console.log('getAccessToken error: ', e);
-    dispatch(stopLoading());
     return Promise.reject();
   }
 
