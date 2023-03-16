@@ -83,6 +83,8 @@ export const getUserTickets = ({ page = 1, perPage = 5 }) => async (dispatch, ge
 
     if (!accessToken) return;
 
+    if (!userProfile.id) return Promise.reject();
+
     dispatch(startLoading());
 
     const params = {
