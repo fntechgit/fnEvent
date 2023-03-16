@@ -1,6 +1,6 @@
 backend:
   name: github
-  branch: prod/tier-1-default
+  branch: prod/rdc23
   repo: fntechgit/fnEvent
   commit_messages:
     create: 'Create {{collection}} “{{slug}}”'
