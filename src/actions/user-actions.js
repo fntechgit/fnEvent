@@ -84,7 +84,6 @@ export const getUserProfile = () => async (dispatch) => {
     accessToken = await getAccessToken();
   } catch (e) {
     console.log('getAccessToken error: ', e);
-    dispatch(stopLoading());
     return Promise.reject();
   }
 
@@ -93,17 +92,14 @@ export const getUserProfile = () => async (dispatch) => {
     expand: 'groups,summit_tickets,summit_tickets.owner,summit_tickets.owner.presentation_votes,summit_tickets.owner.extra_questions,summit_tickets.badge,summit_tickets.badge.features,summit_tickets.badge.type, summit_tickets.badge.type.access_levels,summit_tickets.badge.type.features,favorite_summit_events,feedback,schedule_summit_events,rsvp,rsvp.answers'
   };
 
-  dispatch(startLoading());
-  dispatch(createAction(START_LOADING_PROFILE)());
   return getRequest(
-    null,
+    createAction(START_LOADING_PROFILE),
     createAction(GET_USER_PROFILE),
     `${window.SUMMIT_API_BASE_URL}/api/v1/summits/${window.SUMMIT_ID}/members/me`,
     customErrorHandler
   )(params)(dispatch).then(() => {
-    return dispatch(getIDPProfile()).then(() => {
-      return dispatch(getScheduleSyncLink()).then(() => dispatch(createAction(STOP_LOADING_PROFILE)()))
-    });
+    dispatch(createAction(STOP_LOADING_PROFILE)());
+    return dispatch(getIDPProfile()).then(() => dispatch(getScheduleSyncLink()));
   }).catch((e) => {
     console.log('ERROR: ', e);
     dispatch(createAction(STOP_LOADING_PROFILE)());
@@ -119,11 +115,8 @@ export const getIDPProfile = () => async (dispatch) => {
     accessToken = await getAccessToken();
   } catch (e) {
     console.log('getAccessToken error: ', e);
-    dispatch(stopLoading());
     return Promise.reject();
   }
-
-  dispatch(createAction(START_LOADING_IDP_PROFILE)());
 
   let params = {
     access_token: accessToken,
@@ -131,7 +124,7 @@ export const getIDPProfile = () => async (dispatch) => {
   };
 
   return getRequest(
-    null,
+    createAction(START_LOADING_IDP_PROFILE),
     createAction(GET_IDP_PROFILE),
     `${window.IDP_BASE_URL}/api/v1/users/me`,
     customErrorHandler
@@ -173,7 +166,6 @@ export const scanBadge = (sponsorId) => async (dispatch) => {
     accessToken = await getAccessToken();
   } catch (e) {
     console.log('getAccessToken error: ', e);
-    dispatch(stopLoading());
     return Promise.reject();
   }
 
@@ -257,7 +249,6 @@ export const castPresentationVote = (presentation) => async (dispatch, getState)
     accessToken = await getAccessToken();
   } catch (e) {
     console.log('getAccessToken error: ', e);
-    dispatch(stopLoading());
     return Promise.reject();
   }
 
@@ -312,7 +303,6 @@ export const uncastPresentationVote = (presentation) => async (dispatch, getStat
     accessToken = await getAccessToken();
   } catch (e) {
     console.log('getAccessToken error: ', e);
-    dispatch(stopLoading());
     return Promise.reject();
   }
 
@@ -352,7 +342,6 @@ export const updateProfilePicture = (pic) => async (dispatch) => {
     accessToken = await getAccessToken();
   } catch (e) {
     console.log('getAccessToken error: ', e);
-    dispatch(stopLoading());
     return Promise.reject();
   }
 
@@ -386,7 +375,6 @@ export const updateProfile = (profile) => async (dispatch) => {
     accessToken = await getAccessToken();
   } catch (e) {
     console.log('getAccessToken error: ', e);
-    dispatch(stopLoading());
     return Promise.reject();
   }
 
@@ -419,17 +407,14 @@ export const updatePassword = (password) => async (dispatch) => {
     accessToken = await getAccessToken();
   } catch (e) {
     console.log('getAccessToken error: ', e);
-    dispatch(stopLoading());
     return Promise.reject();
   }
   let params = {
     access_token: accessToken,
   };
 
-  dispatch(createAction(START_LOADING_IDP_PROFILE)());
-
   putRequest(
-    null,
+    createAction(START_LOADING_IDP_PROFILE),
     createAction(UPDATE_PASSWORD),
     `${window.IDP_BASE_URL}/api/v1/users/me`,
     password,
@@ -450,7 +435,7 @@ export const updatePassword = (password) => async (dispatch) => {
 
 export const saveAttendeeQuestions = (values) => async (dispatch, getState) => {
 
-  const { userState: { userProfile: { summit_tickets } } } = getState();
+  const { userState: { userProfile: { summit_tickets } } } = getState();  
 
   const normalizedEntity = {...values};
 
@@ -466,16 +451,15 @@ export const saveAttendeeQuestions = (values) => async (dispatch, getState) => {
     accessToken = await getAccessToken();
   } catch (e) {
     console.log('getAccessToken error: ', e);
-    dispatch(stopLoading());
     return Promise.reject();
-  }
-
-  dispatch(startLoading());
+  }  
 
   let params = {
     access_token: accessToken,
     expand: 'owner, owner.extra_questions'
   };
+
+  dispatch(startLoading());
 
   return putRequest(
     null,
@@ -484,6 +468,7 @@ export const saveAttendeeQuestions = (values) => async (dispatch, getState) => {
     normalizedEntity,
     customErrorHandler
   )(params)(dispatch).then(() => {
+    dispatch(stopLoading());
     Swal.fire('Success', "Attendee saved successfully", "success");
     dispatch(getUserProfile());
     navigate('/')
@@ -516,7 +501,6 @@ export const getScheduleSyncLink = () => async (dispatch) => {
     accessToken = await getAccessToken();
   } catch (e) {
     console.log('getAccessToken error: ', e);
-    dispatch(stopLoading());
     return Promise.reject();
   }
 
@@ -569,7 +553,6 @@ export const doVirtualCheckIn = (attendee) => async (dispatch, getState) => {
     accessToken = await getAccessToken();
   } catch (e) {
     console.log('getAccessToken error: ', e);
-    dispatch(stopLoading());
     return Promise.reject();
   }
 
