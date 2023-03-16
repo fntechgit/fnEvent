@@ -436,9 +436,7 @@ export const updatePassword = (password) => async (dispatch) => {
 
 export const saveAttendeeQuestions = (values) => async (dispatch, getState) => {
 
-  const { userState: { userProfile: { summit_tickets } } } = getState();
-
-  dispatch(startLoading());
+  const { userState: { userProfile: { summit_tickets } } } = getState();  
 
   const normalizedEntity = {...values};
 
@@ -454,7 +452,6 @@ export const saveAttendeeQuestions = (values) => async (dispatch, getState) => {
     accessToken = await getAccessToken();
   } catch (e) {
     console.log('getAccessToken error: ', e);
-    dispatch(stopLoading());
     return Promise.reject();
   }  
 
@@ -462,6 +459,8 @@ export const saveAttendeeQuestions = (values) => async (dispatch, getState) => {
     access_token: accessToken,
     expand: 'owner, owner.extra_questions'
   };
+
+  dispatch(startLoading());
 
   return putRequest(
     null,
