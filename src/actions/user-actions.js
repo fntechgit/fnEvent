@@ -166,7 +166,6 @@ export const scanBadge = (sponsorId) => async (dispatch) => {
     accessToken = await getAccessToken();
   } catch (e) {
     console.log('getAccessToken error: ', e);
-    dispatch(stopLoading());
     return Promise.reject();
   }
 
@@ -554,7 +553,6 @@ export const doVirtualCheckIn = (attendee) => async (dispatch, getState) => {
     accessToken = await getAccessToken();
   } catch (e) {
     console.log('getAccessToken error: ', e);
-    dispatch(stopLoading());
     return Promise.reject();
   }
 
