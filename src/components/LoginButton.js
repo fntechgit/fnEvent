@@ -7,7 +7,7 @@ import LoginComponent from 'summit-registration-lite/dist/components/login';
 import PasswordlessLoginComponent from 'summit-registration-lite/dist/components/login-passwordless';
 import FragmentParser from "openstack-uicore-foundation/lib/utils/fragment-parser";
 import { doLogin, passwordlessStart } from 'openstack-uicore-foundation/lib/security/methods'
-import { getUserProfile, setPasswordlessLogin, setUserOrder, checkOrderData } from "../actions/user-actions";
+import { setPasswordlessLogin, setUserOrder, checkOrderData } from "../actions/user-actions";
 import { getThirdPartyProviders } from "../actions/base-actions";
 import { formatThirdPartyProviders } from "../utils/loginUtils";
 import 'summit-registration-lite/dist/index.css';
@@ -165,7 +165,6 @@ const mapStateToProps = ({ userState, summitState, settingState }) => {
 
 export default connect(mapStateToProps, {
     getThirdPartyProviders,
-    getUserProfile,
     setPasswordlessLogin,
     setUserOrder,
     checkOrderData
