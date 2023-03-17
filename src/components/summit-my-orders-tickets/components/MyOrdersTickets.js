@@ -23,11 +23,18 @@ export const MyOrdersTickets = ({ className }) => {
 
     const fetchData = async () => {
         setIsInitializing(true);
-
-        await dispatch(getUserOrders({ page: orderState.current_page, perPage: orderState.per_page }));
-        await dispatch(getUserTickets({ page: ticketState.current_page, perPage: ticketState.per_page }));
-
-        setIsInitializing(false);
+        dispatch(getUserOrders({ page: orderState.current_page, perPage: orderState.per_page }))
+            .then(() => {
+                dispatch(getUserTickets({ page: ticketState.current_page, perPage: ticketState.per_page }))
+                .then(() =>  setIsInitializing(false))
+                .catch((e) => {
+                    console.log(e);
+                    setIsInitializing(false);
+                })
+        }).catch((e) => {
+            console.log(e);
+            setIsInitializing(false);
+        })
     };
 
     useEffect(() => {

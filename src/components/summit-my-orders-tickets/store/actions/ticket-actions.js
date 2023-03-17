@@ -77,11 +77,13 @@ const customFetchErrorHandler = (response) => {
 export const getUserTickets = ({ page = 1, perPage = 5 }) => async (dispatch, getState, { getAccessToken, apiBaseUrl, loginUrl }) => {
     const { userState: { userProfile }, summitState: { summit } } = getState();
 
-    if (!summit) return
+    if (!summit) return Promise.reject();
 
     const accessToken = await getAccessToken().catch(_ => history.replace(loginUrl));
 
-    if (!accessToken) return;
+    if (!accessToken) return Promise.reject();
+
+    if (!userProfile.id) return Promise.reject();
 
     dispatch(startLoading());
 
