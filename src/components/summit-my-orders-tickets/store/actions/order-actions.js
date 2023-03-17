@@ -29,7 +29,7 @@ export const getUserOrders = ({ page = 1, perPage = 5 }) => async (dispatch, get
 
     const accessToken = await getAccessToken().catch(_ => history.replace(loginUrl));
 
-    if (!accessToken) return;
+    if (!accessToken) return Promise.reject();
 
     dispatch(startLoading());
 
@@ -79,6 +79,6 @@ export const cancelOrder = ({ order }) => async (dispatch, getState, { getAccess
         dispatch(stopLoading());
     }).catch(e => {
         dispatch(stopLoading());
-        throw (e);
+        return e;
     });
 };
