@@ -1,10 +1,10 @@
-import './src/utils/envVariables'
-import 'what-input'
-import ReduxWrapper from "./src/state/ReduxWrapper"
-import colors from './src/content/colors.json'
+import ReduxWrapper from './src/state/ReduxWrapper';
 import * as Sentry from '@sentry/gatsby';
+import { RewriteFrames as RewriteFramesIntegration } from '@sentry/integrations';
+import { checkMaintenanceMode } from './src/utils/maintenance';
+import colors from './src/content/colors.json';
+import 'what-input';
 
-import { RewriteFrames as RewriteFramesIntegration } from "@sentry/integrations";
 export const wrapRootElement = ReduxWrapper;
 
 export const onClientEntry = () => {
@@ -17,7 +17,7 @@ export const onClientEntry = () => {
     // init sentry
     const GATSBY_SENTRY_DSN = process.env.GATSBY_SENTRY_DSN;
     if(GATSBY_SENTRY_DSN) {
-        console.log("INIT SENTRY ....");
+        console.log('INIT SENTRY ....');
         // sentry init
         Sentry.init({
             dsn: GATSBY_SENTRY_DSN,
@@ -51,4 +51,8 @@ export const onClientEntry = () => {
         });
         window.Sentry = Sentry;
     }
+    // check site mode
+    checkMaintenanceMode();
 };
+
+export const onRouteUpdate = checkMaintenanceMode;
