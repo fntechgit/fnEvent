@@ -54,5 +54,3 @@ export const onClientEntry = () => {
     // check site mode
     checkMaintenanceMode();
 };
-
-export const onRouteUpdate = checkMaintenanceMode;
