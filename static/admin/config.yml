@@ -1,6 +1,6 @@
 backend:
   name: github
-  branch: main
+  branch: feature/maintenance-mode
   repo: fntechgit/fnEvent
   commit_messages:
     create: 'Create {{collection}} “{{slug}}”'
