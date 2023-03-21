@@ -439,8 +439,8 @@ exports.createPages = ({ actions, graphql }) => {
 
       if (page.path.match(/maintenance/)) {
         createRedirect({
-          fromPath: '/*',
-          toPath: '/maintenance'
+          fromPath: `/*`,
+          toPath: `/maintenance`
         });
       }
 
