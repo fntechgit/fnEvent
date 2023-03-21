@@ -386,7 +386,7 @@ exports.sourceNodes = async ({
 
 
 exports.createPages = ({ actions, graphql }) => {
-  const { createPage } = actions;
+  const { createPage, createRedirect } = actions;
 
   return graphql(`
     {
@@ -438,6 +438,11 @@ exports.createPages = ({ actions, graphql }) => {
       };
 
       createPage(page);
+    });
+
+    createRedirect({
+      fromPath: '/*'
+      toPath: '/maintenance/'
     });
   });
 };
