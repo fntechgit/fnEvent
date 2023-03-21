@@ -30,7 +30,8 @@
     }
 
     .scheduleWrapper {
-      width: 70%;
+      min-width: 70%;
+      max-width: 70%;
       // make up space for button
       @media (max-width: 991px) {
         width: 100%;
