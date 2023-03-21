@@ -435,7 +435,7 @@ exports.createPages = ({ actions, graphql }) => {
     }
 
     edges.forEach((edge) => {
-      const { id, fields, frontmatter } = edge.node;
+      const { id, fields, frontmatter: { templateKey } } = edge.node;
 
       var slug = fields.slug;
       if (slug.match(/custom-pages/)) {
@@ -445,7 +445,7 @@ exports.createPages = ({ actions, graphql }) => {
       const page = {
         path: slug,
         component: path.resolve(
-          `src/templates/${String(frontmatter.templateKey)}.js`
+          `src/templates/${String(templateKey)}.js`
         ),
         context: {
           id,
