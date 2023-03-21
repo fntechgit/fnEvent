@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import maintenanceMode from '../content/maintenance.json';
 
-import Layout from '../components/Layout';
 import HeroComponent from '../components/HeroComponent';
 
 const MaintenancePageTemplate = ({
@@ -29,12 +28,10 @@ const MaintenancePage = () => {
   } = maintenanceMode;
 
   return (
-    <Layout>
-      <MaintenancePageTemplate
-        title={title}
-        subtitle={subtitle}
-      />
-    </Layout>
+    <MaintenancePageTemplate
+      title={title}
+      subtitle={subtitle}
+    />
   )
 };
 
