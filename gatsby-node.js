@@ -421,12 +421,12 @@ exports.createPages = ({ actions, graphql }) => {
 
     if (true) {
       createRedirect({
-        fromPath: `/`,
-        toPath: `/maintenance`
+        fromPath: '/',
+        toPath: '/maintenance'
       });
       createRedirect({
-        fromPath: `/*`,
-        toPath: `/maintenance`
+        fromPath: '/*',
+        toPath: '/maintenance'
       });
     }
 
@@ -451,8 +451,9 @@ exports.createPages = ({ actions, graphql }) => {
       if (true) {
         createRedirect({
           fromPath: page.path,
-          toPath: `/maintenance`
+          toPath: '/maintenance'
         });
+        return;
       }
 
       createPage(page);
