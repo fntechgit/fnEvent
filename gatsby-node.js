@@ -442,8 +442,12 @@ exports.createPages = ({ actions, graphql }) => {
 
         createRedirect({
           fromPath: '/*',
-          toPath: '/maintenance/',
-          force: true
+          toPath: '/maintenance'
+        });
+
+        createRedirect({
+          fromPath: '/maintenance',
+          toPath: '/maintenance/'
         });
       }
 
@@ -542,5 +546,5 @@ exports.onCreateWebpackConfig = ({ actions, plugins, loaders }) => {
 
 exports.onPostBuild = ({ store }) => {
   const { redirects } = store.getState();
-  console.log(redirects);
+  console.log('redirects', redirects);
 }

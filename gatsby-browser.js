@@ -1,7 +1,6 @@
 import ReduxWrapper from './src/state/ReduxWrapper';
 import * as Sentry from '@sentry/gatsby';
 import { RewriteFrames as RewriteFramesIntegration } from '@sentry/integrations';
-import { checkMaintenanceMode } from './src/utils/maintenance';
 import colors from './src/content/colors.json';
 import 'what-input';
 
@@ -51,6 +50,4 @@ export const onClientEntry = () => {
         });
         window.Sentry = Sentry;
     }
-    // check site mode
-    checkMaintenanceMode();
 };
