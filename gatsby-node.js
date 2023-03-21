@@ -540,6 +540,7 @@ exports.onCreateWebpackConfig = ({ actions, plugins, loaders }) => {
   });
 };
 
-exports.onPostBuild = ({ redirects }) => {
-  console.log('redirects', redirects);
-};
+exports.onPostBuild = ({ store }) => {
+  const { redirects } = store.getState();
+  console.log(redirects);
+}
