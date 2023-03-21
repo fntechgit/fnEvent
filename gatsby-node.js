@@ -442,7 +442,8 @@ exports.createPages = ({ actions, graphql }) => {
 
         createRedirect({
           fromPath: '/*',
-          toPath: '/maintenance/'
+          toPath: '/maintenance/',
+          force: true
         });
       }
 
@@ -536,5 +537,9 @@ exports.onCreateWebpackConfig = ({ actions, plugins, loaders }) => {
           release: process.env.GATSBY_SENTRY_RELEASE,
         })]:[],
     ]
-  })  
+  });
+};
+
+exports.onPostBuild = ({ redirects }) => {
+  console.log('redirects', redirects);
 };
