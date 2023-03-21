@@ -419,6 +419,17 @@ exports.createPages = ({ actions, graphql }) => {
       return Promise.reject(errors);
     }
 
+    if (true) {
+      createRedirect({
+        fromPath: `/`,
+        toPath: `/maintenance`
+      });
+      createRedirect({
+        fromPath: `/*`,
+        toPath: `/maintenance`
+      });
+    }
+
     edges.forEach((edge) => {
       const { id, fields, frontmatter } = edge.node;
 
@@ -437,16 +448,10 @@ exports.createPages = ({ actions, graphql }) => {
         },
       };
 
-      if (page.path.match(/maintenance/)) {
+      if (true) {
         createRedirect({
-          fromPath: `/`,
-          toPath: `/maintenance`,
-          redirectInBrowser: true
-        });
-        createRedirect({
-          fromPath: `/*`,
-          toPath: `/maintenance`,
-          redirectInBrowser: true
+          fromPath: page.path,
+          toPath: `/maintenance`
         });
       }
 
