@@ -425,10 +425,6 @@ exports.createPages = ({ actions, graphql }) => {
 
     if (maintenanceMode.enabled) {
       createRedirect({
-        fromPath: '/',
-        toPath: '/maintenance'
-      });
-      createRedirect({
         fromPath: '/*',
         toPath: '/maintenance'
       });
