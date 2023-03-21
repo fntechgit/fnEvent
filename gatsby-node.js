@@ -8,11 +8,11 @@ const SentryWebpackPlugin = require("@sentry/webpack-plugin");
 const {ClientCredentials} = require('simple-oauth2');
 const URI = require('urijs');
 const sizeOf = require('image-size');
-const colorsFilepath = 'src/content/colors.json';
-const disqusFilepath = 'src/content/disqus-settings.json';
-const marketingFilepath = 'src/content/marketing-site.json';
-const homeFilepath = 'src/content/home-settings.json';
-const settingsFilepath = 'src/content/settings.json';
+const colorsFilePath = 'src/content/colors.json';
+const disqusFilePath = 'src/content/disqus-settings.json';
+const marketingFilePath = 'src/content/marketing-site.json';
+const homeFilePath = 'src/content/home-settings.json';
+const settingsFilePath = 'src/content/settings.json';
 const eventsFilePath = 'src/content/events.json';
 const eventsIdxFilePath = 'src/content/events.idx.json';
 const speakersFilePath = 'src/content/speakers.json';
@@ -20,6 +20,7 @@ const speakersIdxFilePath = 'src/content/speakers.idx.json';
 const voteablePresentationFilePath = 'src/content/voteable_presentations.json';
 const extraQuestionFilePath = 'src/content/extra-questions.json';
 const summitFilePath = 'src/content/summit.json';
+const maintenanceFilePath = 'src/content/maintenance.json';
 
 const fileBuildTimes = [];
 
@@ -184,11 +185,11 @@ exports.onPreBootstrap = async () => {
   const summitId = process.env.GATSBY_SUMMIT_ID;
   const summitApiBaseUrl = process.env.GATSBY_SUMMIT_API_BASE_URL;
   const marketingData = await SSR_getMarketingSettings(process.env.GATSBY_MARKETING_API_BASE_URL, process.env.GATSBY_SUMMIT_ID);
-  const colorSettings = fs.existsSync(colorsFilepath) ? JSON.parse(fs.readFileSync(colorsFilepath)) : {};
-  const disqusSettings = fs.existsSync(disqusFilepath) ? JSON.parse(fs.readFileSync(disqusFilepath)) : {};
-  const marketingSite = fs.existsSync(marketingFilepath) ? JSON.parse(fs.readFileSync(marketingFilepath)) : {};
-  const homeSettings = fs.existsSync(homeFilepath) ? JSON.parse(fs.readFileSync(homeFilepath)) : {};
-  const globalSettings = fs.existsSync(settingsFilepath) ? JSON.parse(fs.readFileSync(settingsFilepath)) : {};
+  const colorSettings = fs.existsSync(colorsFilePath) ? JSON.parse(fs.readFileSync(colorsFilePath)) : {};
+  const disqusSettings = fs.existsSync(disqusFilePath) ? JSON.parse(fs.readFileSync(disqusFilePath)) : {};
+  const marketingSite = fs.existsSync(marketingFilePath) ? JSON.parse(fs.readFileSync(marketingFilePath)) : {};
+  const homeSettings = fs.existsSync(homeFilePath) ? JSON.parse(fs.readFileSync(homeFilePath)) : {};
+  const globalSettings = fs.existsSync(settingsFilePath) ? JSON.parse(fs.readFileSync(settingsFilePath)) : {};
 
   const config = {
     client: {
@@ -236,10 +237,10 @@ exports.onPreBootstrap = async () => {
       if (key === 'sponsors') marketingSite[key] = migrateMasonry(marketingSite[key]);
   });
 
-  fs.writeFileSync(colorsFilepath, JSON.stringify(colorSettings), 'utf8');
-  fs.writeFileSync(disqusFilepath, JSON.stringify(disqusSettings), 'utf8');
-  fs.writeFileSync(marketingFilepath, JSON.stringify(marketingSite), 'utf8');
-  fs.writeFileSync(homeFilepath, JSON.stringify(homeSettings), 'utf8');
+  fs.writeFileSync(colorsFilePath, JSON.stringify(colorSettings), 'utf8');
+  fs.writeFileSync(disqusFilePath, JSON.stringify(disqusSettings), 'utf8');
+  fs.writeFileSync(marketingFilePath, JSON.stringify(marketingSite), 'utf8');
+  fs.writeFileSync(homeFilePath, JSON.stringify(homeSettings), 'utf8');
 
   let sassColors = '';
   Object.entries(colorSettings).forEach(([key, value]) => sassColors += `$${key} : ${value};\n`);
@@ -323,7 +324,7 @@ exports.onPreBootstrap = async () => {
   globalSettings.staticJsonFilesBuildTime = fileBuildTimes;
   globalSettings.lastBuild = Date.now();
 
-  fs.writeFileSync(settingsFilepath, JSON.stringify(globalSettings), 'utf8');
+  fs.writeFileSync(settingsFilePath, JSON.stringify(globalSettings), 'utf8');
 };
 
 // makes Summit logo optional for graphql queries
@@ -419,13 +420,16 @@ exports.createPages = ({ actions, graphql }) => {
       return Promise.reject(errors);
     }
 
-    if (true) {
+    const maintenanceMode = fs.existsSync(maintenanceFilePath) ?
+      JSON.parse(fs.readFileSync(maintenanceFilePath)) : { enabled: false };
+
+    if (maintenanceMode.enabled) {
       createRedirect({
-        fromPath: `/`,
+        fromPath: '/',
         toPath: '/maintenance'
       });
       createRedirect({
-        fromPath: `/*`,
+        fromPath: '/*',
         toPath: '/maintenance'
       });
     }
@@ -448,7 +452,7 @@ exports.createPages = ({ actions, graphql }) => {
         },
       };
 
-      if (true) {
+      if (maintenanceMode.enabled && !page.path.match(/maintenance/)) {
         createRedirect({
           fromPath: page.path,
           toPath: '/maintenance'
