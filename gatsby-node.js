@@ -392,8 +392,8 @@ exports.createPages = ({ actions, graphql }) => {
   const maintenanceMode = fs.existsSync(maintenanceFilePath) ?
     JSON.parse(fs.readFileSync(maintenanceFilePath)) : { enabled: false };
 
+  // create a catch all redirect
   if (maintenanceMode.enabled) {
-    // create redirect for all routes that are not custom pages
     createRedirect({
       fromPath: '/*',
       toPath: '/maintenance/'
@@ -449,17 +449,10 @@ exports.createPages = ({ actions, graphql }) => {
         },
       };
 
-      // we create either a redirect or a page, based on maintenanceMode.enabled
-      if (maintenanceMode.enabled && !page.path.match(/maintenance/)) {
-        // create redirect for custom pages        
-        createRedirect({
-          fromPath: page.path,
-          toPath: '/maintenance/'
-        });
-        return;
-      }
+      // dont create pages if maintenance mode enabled
+      // gatsby disregards redirect if pages created for path
+      if (maintenanceMode.enabled && !page.path.match(/maintenance/)) return;
 
-      // create custom page 
       createPage(page);
     });
   });
