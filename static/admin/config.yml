@@ -166,6 +166,13 @@ collections:
               {label: "Subtitle", name: "subtitle", widget: string },
               {label: "Background Image", name: "image", widget: image, required: false},
             ]}
+      - file: "src/content/maintenance.json"
+        label: "Maintenance Mode"
+        name: "maintenance"
+        fields:
+          - {label: "Enabled", name: "enabled", widget: boolean, required: true}
+          - {label: "Title", name: title, widget: string, required: true}
+          - {label: "Subtitle", name: subtitle, widget: string}
   - name: "home"
     label: "Lobby Site"
     editor:

@@ -381,7 +381,7 @@ exports.sourceNodes = async ({
   };
 
   const node = Object.assign({}, summit, nodeMeta);
-  createNode(node)
+  createNode(node);
 };
 
 
@@ -405,30 +405,41 @@ exports.createPages = ({ actions, graphql }) => {
       }
     }
   `).then((result) => {
-    if (result.errors) {
-      result.errors.forEach((e) => console.error(e.toString()));
-      return Promise.reject(result.errors)
+    const {
+      errors,
+      data: {
+        allMarkdownRemark: {
+          edges
+        }
+      }
+    } = result;
+
+    if (errors) {
+      errors.forEach((e) => console.error(e.toString()));
+      return Promise.reject(errors);
     }
 
-    const posts = result.data.allMarkdownRemark.edges;
+    edges.forEach((edge) => {
+      const { id, fields, frontmatter } = edge.node;
 
-    posts.forEach((edge) => {
-      const id = edge.node.id;
-      if (edge.node.fields.slug.match(/custom-pages/)) {
-        edge.node.fields.slug = edge.node.fields.slug.replace('/custom-pages/', '/');
+      var slug = fields.slug;
+      if (slug.match(/custom-pages/)) {
+        slug = slug.replace('/custom-pages/', '/');
       }
-      createPage({
-        path: edge.node.fields.slug,
+
+      const page = {
+        path: slug,
         component: path.resolve(
-          `src/templates/${String(edge.node.frontmatter.templateKey)}.js`
+          `src/templates/${String(frontmatter.templateKey)}.js`
         ),
-        // additional data can be passed via context
         context: {
           id,
         },
-      })
-    })
-  })
+      };
+
+      createPage(page);
+    });
+  });
 };
 
 exports.onCreateWebpackConfig = ({ actions, plugins, loaders }) => {  

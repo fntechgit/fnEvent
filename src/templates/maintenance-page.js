@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { graphql } from 'gatsby';
+import maintenanceMode from '../content/maintenance.json';
 
 import HeroComponent from '../components/HeroComponent';
 
@@ -21,15 +21,11 @@ MaintenancePageTemplate.propTypes = {
   subtitle: PropTypes.string,
 }
 
-const MaintenancePage = ({ data }) => {
+const MaintenancePage = () => {
   const {
-    markdownRemark: {
-      frontmatter: {
-        title,
-        subtitle
-      }
-    }
-  } = data;
+    title,
+    subtitle
+  } = maintenanceMode;
 
   return (
     <MaintenancePageTemplate
@@ -39,24 +35,4 @@ const MaintenancePage = ({ data }) => {
   )
 };
 
-
-MaintenancePage.propTypes = {
-  data: PropTypes.shape({
-    markdownRemark: PropTypes.shape({
-      frontmatter: PropTypes.object,
-    }),
-  }),
-};
-
 export default MaintenancePage;
-
-export const maintenancePageQuery = graphql`
-  query MaintenancePageTemplate($id: String!) {
-    markdownRemark(id: { eq: $id }) {
-      frontmatter {
-        title
-        subtitle
-      }
-    }
-  }
-`;
