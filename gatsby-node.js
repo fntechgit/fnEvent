@@ -440,11 +440,13 @@ exports.createPages = ({ actions, graphql }) => {
       if (page.path.match(/maintenance/)) {
         createRedirect({
           fromPath: `/`,
-          toPath: `/maintenance`
+          toPath: `/maintenance`,
+          redirectInBrowser: true
         });
         createRedirect({
           fromPath: `/*`,
-          toPath: `/maintenance`
+          toPath: `/maintenance`,
+          redirectInBrowser: true
         });
       }
 
