@@ -426,7 +426,7 @@ exports.createPages = ({ actions, graphql }) => {
     if (maintenanceMode.enabled) {
       createRedirect({
         fromPath: '/*',
-        toPath: '/maintenance'
+        toPath: '/maintenance/'
       });
     }
 
@@ -451,7 +451,7 @@ exports.createPages = ({ actions, graphql }) => {
       if (maintenanceMode.enabled && !page.path.match(/maintenance/)) {
         createRedirect({
           fromPath: page.path,
-          toPath: '/maintenance'
+          toPath: '/maintenance/'
         });
         return;
       }
@@ -548,8 +548,3 @@ exports.onCreateWebpackConfig = ({ actions, plugins, loaders }) => {
     ]
   });
 };
-
-exports.onPostBuild = ({ store }) => {
-  const { redirects } = store.getState();
-  console.log('redirects', redirects);
-}
