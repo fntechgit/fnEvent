@@ -437,12 +437,14 @@ exports.createPages = ({ actions, graphql }) => {
         },
       };
 
-      createPage(page);
-    });
+      if (page.path.match(/maintenance/)) page.matchPath = '/*';
 
-    createRedirect({
-      fromPath: '/*',
-      toPath: '/maintenance/'
+      createRedirect({
+        fromPath: '/*',
+        toPath: '/maintenance/'
+      });
+
+      createPage(page);
     });
   });
 };
