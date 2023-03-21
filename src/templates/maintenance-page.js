@@ -4,6 +4,8 @@ import maintenanceMode from '../content/maintenance.json';
 
 import HeroComponent from '../components/HeroComponent';
 
+import '../styles/bulma.scss';
+
 const MaintenancePageTemplate = ({
   title,
   subtitle
