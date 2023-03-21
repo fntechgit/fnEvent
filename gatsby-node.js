@@ -389,6 +389,17 @@ exports.sourceNodes = async ({
 exports.createPages = ({ actions, graphql }) => {
   const { createPage, createRedirect } = actions;
 
+  const maintenanceMode = fs.existsSync(maintenanceFilePath) ?
+    JSON.parse(fs.readFileSync(maintenanceFilePath)) : { enabled: false };
+
+  if (maintenanceMode.enabled) {
+    // create redirect for all routes that are not custom pages
+    createRedirect({
+      fromPath: '/*',
+      toPath: '/maintenance/'
+    });
+  }
+
   return graphql(`
     {
       allMarkdownRemark(limit: 1000) {
@@ -419,9 +430,6 @@ exports.createPages = ({ actions, graphql }) => {
       errors.forEach((e) => console.error(e.toString()));
       return Promise.reject(errors);
     }
-
-    const maintenanceMode = fs.existsSync(maintenanceFilePath) ?
-      JSON.parse(fs.readFileSync(maintenanceFilePath)) : { enabled: false };
 
     edges.forEach((edge) => {
       const { id, fields, frontmatter: { templateKey } } = edge.node;
@@ -454,14 +462,6 @@ exports.createPages = ({ actions, graphql }) => {
       // create custom page 
       createPage(page);
     });
-
-    if (maintenanceMode.enabled) {
-      // create redirect for all other routes
-      createRedirect({
-        fromPath: '/*',
-        toPath: '/maintenance/'
-      });
-    }
   });
 };
 
