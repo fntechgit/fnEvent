@@ -73,7 +73,7 @@ const MarketingHeroComponent = ({ siteSettings, eventRedirect, summit_phase, isL
 
     return (
       <>
-        {registerButton.display && !summit.invite_only_registration &&
+        {registerButton.display &&
           (
             <span className={styles.link}>
               <RegistrationLiteComponent location={location} />
