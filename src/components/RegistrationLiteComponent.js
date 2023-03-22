@@ -174,10 +174,14 @@ const RegistrationLiteComponent = ({
 
     return (
         <>
-            <button className={`${styles.button} button is-large`} onClick={() => setIsActive(true)}>
-                <i className={`fa fa-2x fa-edit icon is-large`} />
-                <b>{registerButton.text}</b>
-            </button>
+
+            {!summit.invite_only_registration &&
+                <button className={`${styles.button} button is-large`} disabled={isActive}
+                        onClick={() => setIsActive(true)}>
+                    <i className={`fa fa-2x fa-edit icon is-large`}/>
+                    <b>{registerButton.text}</b>
+                </button>
+            }
 
             <div>
                 <Sentry.ErrorBoundary fallback={SentryFallbackFunction({componentName: 'Registration Lite'})}>
