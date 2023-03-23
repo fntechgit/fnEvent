@@ -113,8 +113,7 @@ const RegistrationLiteComponent = ({
             setIsActive(false);
         },
         goToExtraQuestions: () => {
-            // reload user profile
-            getUserProfile().then(() => navigate('/a/extra-questions')).catch((e)=> console.log(e));
+            navigate('/a/extra-questions');
         },
         goToEvent: () => navigate('/a/'),
         goToRegistration: () => navigate(`${getEnvVariable(REGISTRATION_BASE_URL)}/a/${summit.slug}`),
