@@ -47,11 +47,15 @@ const LoginButton = ({
         let backUrl = location.state?.backUrl
             ? location.state.backUrl
             : '/';
+        const fragmentParser = new FragmentParser();
+        const paramBackUrl = fragmentParser.getParam('backurl');
+        if(paramBackUrl)
+            backUrl = paramBackUrl;
         return encode ? URI.encode(backUrl) : backUrl;
     };
 
     const onClickLogin = (provider) => {
-        doLogin(getBackURL(), provider);
+        doLogin(getBackURL(), provider, null, initialEmailValue || null);
     };
 
     const closeLoginPopup = () => {
@@ -67,10 +71,11 @@ const LoginButton = ({
     }
 
     const getPasswordlessCode = (email) => {
+        const backUrl = getBackURL(true)
         const params = {
             connection: "email",
             send: "code",
-            redirect_uri: `${window.location.origin}/auth/callback`,
+            redirect_uri: `${window.location.origin}/auth/callback?BackUrl${backUrl}`,
             email,
         };
 
