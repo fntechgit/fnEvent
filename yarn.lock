@@ -3872,16 +3872,17 @@ atob@^2.1.2:
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
 
-attendee-to-attendee-widget@2.0.20:
-  version "2.0.20"
-  resolved "https://registry.yarnpkg.com/attendee-to-attendee-widget/-/attendee-to-attendee-widget-2.0.20.tgz#d30d0110e57df14a2bb2423cf0af8031c2f00447"
-  integrity sha512-tigipwVBfgSSoG7rTSAgXEdCKwYEc3zrFdJ0PImLoKJGZKVreyGjN4TeeqmMoSMnXW0cqoy6nWaMCh7JgkchwQ==
+attendee-to-attendee-widget@2.0.23:
+  version "2.0.23"
+  resolved "https://registry.yarnpkg.com/attendee-to-attendee-widget/-/attendee-to-attendee-widget-2.0.23.tgz#1cd3307e21ca498b811551e4bb8ad60a775d8dbe"
+  integrity sha512-Q/vgWgNNmRpsuHMPzYKgpEpF1B3flrW70QMZzFMRa2fajFe5QDcgbUsccTOfJhcSdoq7MoJUz3EqVV0F5S+2ng==
   dependencies:
     "@babel/helper-string-parser" "^7.19.4"
     "@supabase/supabase-js" "^1.35.6"
     bulma "^0.9.2"
     font-awesome "^4.7.0"
     formik "^2.2.6"
+    html-entities "^2.3.3"
     lodash.debounce "^4.0.8"
     luxon "^1.26.0"
     public-ip "^4.0.3"
