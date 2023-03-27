@@ -35,7 +35,7 @@
       "title": "Join the conversation"
     },
     "image": {
-      "display": false,
+      "display": true,
       "title": "",
       "src": "/img/cs23-fnv-marketing-container-left.png"
     }
