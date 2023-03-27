@@ -1,56 +1,5 @@
 {
-  "columns": [
-    {
-      "title": "The Event",
-      "display": true,
-      "items": [
-        {
-          "title": "All Projects",
-          "link": "/footer-content/"
-        },
-        {
-          "title": "Host a project",
-          "link": "/footer-content/"
-        },
-        {
-          "title": "Services",
-          "link": "/footer-content/"
-        }
-      ]
-    },
-    {
-      "title": "The Vision",
-      "display": true,
-      "items": [
-        {
-          "title": "About",
-          "link": "/footer-content/"
-        },
-        {
-          "title": "Supporters",
-          "link": "/footer-content/"
-        }
-      ]
-    },
-    {
-      "title": "Membership",
-      "display": false,
-      "items": [
-        {
-          "title": "Corporate members",
-          "link": "/footer-content/"
-        },
-        {
-          "title": "Join us",
-          "link": "/footer-content/"
-        },
-        {
-          "title": "Services",
-          "link": "/footer-content/"
-        }
-      ]
-    }
-  ],
+  "columns": [],
   "logo": {
     "display": false
   },
@@ -59,23 +8,13 @@
     "display": true,
     "networks": [
       {
-        "icon": "fa-facebook",
+        "icon": "fa-strava",
         "link": "/footer-content/",
         "display": true
       },
       {
-        "icon": "fa-twitter",
-        "link": "/footer-content/",
-        "display": true
-      },
-      {
-        "icon": "fa-linkedin",
-        "link": "/footer-content/",
-        "display": true
-      },
-      {
-        "link": "/footer-content/",
-        "icon": "TEST",
+        "icon": "fa-instagram",
+        "link": "https://www.instagram.com/strava/?hl=en",
         "display": true
       }
     ]
