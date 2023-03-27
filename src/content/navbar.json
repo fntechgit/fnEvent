@@ -28,35 +28,8 @@
       ]
     },
     {
-      "title": "Sponsors ",
-      "link": "/a/sponsors/",
-      "display": true,
-      "requiresAuth": true,
-      "pageRestriction": [
-        "ANY"
-      ]
-    },
-    {
       "title": "About the event",
       "link": "/about-event",
-      "display": true,
-      "requiresAuth": false,
-      "pageRestriction": [
-        "ANY"
-      ]
-    },
-    {
-      "title": "Who we are",
-      "link": "/who-we-are",
-      "display": true,
-      "requiresAuth": false,
-      "pageRestriction": [
-        "ANY"
-      ]
-    },
-    {
-      "title": "Past events",
-      "link": "/past-events",
       "display": true,
       "requiresAuth": false,
       "pageRestriction": [
