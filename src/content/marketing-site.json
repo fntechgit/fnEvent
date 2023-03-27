@@ -1,9 +1,9 @@
 {
   "heroBanner": {
     "title": "Camp Strava 2023",
-    "subTitle": "The Garland Hotel, LA",
-    "date": "May 17, 2023",
-    "time": "7am–5pm",
+    "subTitle": "Join us for a day of connection and inspiration.",
+    "date": "May 17, 2023  |  7am–5pm",
+    "time": "",
     "dateLayout": false,
     "buttons": {
       "registerButton": {
