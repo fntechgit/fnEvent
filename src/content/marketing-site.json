@@ -3,7 +3,7 @@
     "title": "Camp Strava 2023",
     "subTitle": "The Garland Hotel, LA",
     "date": "May 17, 2023",
-    "time": "",
+    "time": "7am–5pm",
     "dateLayout": false,
     "buttons": {
       "registerButton": {
@@ -15,26 +15,20 @@
         "display": true
       }
     },
-    "background": "",
+    "background": {
+      "file": "/img/cs23-fnv-marketing-header-l.png"
+    },
     "images": [
       {
-        "file": "/img/tier1-default-header1.png",
-        "alt": ""
-      },
-      {
-        "file": "/img/tier1-default-header2.png",
-        "alt": ""
-      },
-      {
-        "file": "/img/tier1-default-header3.png",
+        "file": "/img/cs23-fnv-marketing-header-r.png",
         "alt": ""
       }
     ]
   },
   "leftColumn": {
     "schedule": {
-      "display": true,
-      "title": "Full Event Schedule"
+      "display": false,
+      "title": ""
     },
     "disqus": {
       "display": false,
@@ -51,7 +45,7 @@
       "title": "Top Left",
       "images": [
         {
-          "image": "/img/tier1-default-space3.png",
+          "image": "/img/cs23-fnv-marketing-space3.png",
           "link": "",
           "alt": ""
         }
@@ -62,7 +56,7 @@
       "title": "Top Right",
       "images": [
         {
-          "image": "/img/tier1-default-space1.png",
+          "image": "/img/cs23-fnv-marketing-space1.png",
           "link": "",
           "alt": ""
         }
@@ -73,7 +67,7 @@
       "title": "Mid Left",
       "images": [
         {
-          "image": "/img/tier1-default-space2.png",
+          "image": "/img/cs23-fnv-marketing-space2.png",
           "alt": ""
         }
       ],
@@ -82,7 +76,7 @@
     {
       "images": [
         {
-          "image": "/img/tier1-default-space4.png",
+          "image": "/img/cs23-fnv-marketing-space4.png",
           "alt": ""
         }
       ],
@@ -91,7 +85,7 @@
   ],
   "countdown": {
     "display": true,
-    "text": "Event Kickoff"
+    "text": "RSVP"
   },
   "registration_in_person_disclaimer": ""
 }
