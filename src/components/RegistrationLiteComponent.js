@@ -131,7 +131,7 @@ const RegistrationLiteComponent = ({
         allowsOtpAuth: allowsOtpAuth,
         stripeOptions: {
             fonts: [{cssSrc: withPrefix('/fonts/fonts.css')}],
-            style: {base: {fontFamily: `'Nunito Sans', sans-serif`, fontWeight: 300}}
+            style: {base: {fontFamily: `'MaisonNeue', sans-serif`, fontWeight: 300}}
         },
         loginInitialEmailInputValue: initialEmailValue,
         authErrorCallback: (error) => {
