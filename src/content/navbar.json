@@ -46,6 +46,16 @@
       ]
     },
     {
+      "requiresAuth": false,
+      "showOnlyAtShowTime": false,
+      "pageRestriction": [
+        "ANY"
+      ],
+      "title": "FAQ",
+      "link": "/faq",
+      "display": true
+    },
+    {
       "title": "MY ORDERS/TICKETS",
       "link": "/a/my-tickets",
       "display": true,
