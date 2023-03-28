@@ -12,7 +12,7 @@
     {
       "title": "Schedule",
       "link": "/a/schedule",
-      "display": true,
+      "display": false,
       "requiresAuth": false,
       "pageRestriction": [
         "ANY"
