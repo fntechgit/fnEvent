@@ -1,10 +1,10 @@
 {
   "items": [
     {
-      "title": "Lobby",
-      "link": "/a/",
+      "title": "HOME",
+      "link": "/",
       "display": true,
-      "requiresAuth": true,
+      "requiresAuth": false,
       "pageRestriction": [
         "ANY"
       ]
