@@ -16,6 +16,7 @@ import 'summit-registration-lite/dist/index.css';
 import styles from '../styles/marketing-hero.module.scss'
 import Swal from "sweetalert2";
 import {checkRequireExtraQuestionsByAttendee} from "../actions/user-actions";
+import {userHasAccessLevel, VirtualAccessLevel} from "../utils/authorizedGroups";
 
 import { SentryFallbackFunction } from "./SentryErrorComponent";
 
@@ -101,6 +102,7 @@ const RegistrationLiteComponent = ({
         loading: loadingProfile || loadingIDP,
         // only show info if its not a recent purchase
         ticketOwned: userProfile?.summit_tickets?.length > 0,
+        hasVirtualAccessLevel: userHasAccessLevel(userProfile?.summit_tickets, VirtualAccessLevel),
         ownedTickets: attendee?.ticket_types || [],
         authUser: (provider) => onClickLogin(provider),
         getPasswordlessCode: getPasswordlessCode,
