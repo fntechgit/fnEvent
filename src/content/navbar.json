@@ -10,7 +10,7 @@
       ]
     },
     {
-      "title": "Schedule",
+      "title": "SCHEDULE",
       "link": "/a/schedule",
       "display": false,
       "requiresAuth": false,
@@ -19,7 +19,7 @@
       ]
     },
     {
-      "title": "My Schedule",
+      "title": "MY SCHEDULE",
       "link": "/a/my-schedule",
       "display": true,
       "requiresAuth": true,
@@ -28,7 +28,7 @@
       ]
     },
     {
-      "title": "About the event",
+      "title": "ABOUT THE EVENT",
       "link": "/about-event",
       "display": true,
       "requiresAuth": false,
@@ -37,8 +37,8 @@
       ]
     },
     {
-      "title": "Contact",
-      "link": "/contact",
+      "title": "SUPPORT",
+      "link": "/support",
       "display": true,
       "requiresAuth": false,
       "pageRestriction": [
@@ -46,16 +46,7 @@
       ]
     },
     {
-      "title": "Help",
-      "link": "/help",
-      "display": true,
-      "requiresAuth": false,
-      "pageRestriction": [
-        "ANY"
-      ]
-    },
-    {
-      "title": "My Orders/Tickets",
+      "title": "MY ORDERS/TICKETS",
       "link": "/a/my-tickets",
       "display": true,
       "requiresAuth": true,
@@ -64,7 +55,7 @@
       ]
     },
     {
-      "title": "My Profile",
+      "title": "MY PROFILE",
       "link": "/a/profile",
       "display": true,
       "requiresAuth": true,
