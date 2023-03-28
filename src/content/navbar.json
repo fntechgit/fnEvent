@@ -21,7 +21,7 @@
     {
       "title": "MY SCHEDULE",
       "link": "/a/my-schedule",
-      "display": true,
+      "display": false,
       "requiresAuth": true,
       "pageRestriction": [
         "ANY"
