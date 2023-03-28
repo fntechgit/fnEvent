@@ -3,4 +3,4 @@ templateKey: custom-page
 title: Support
 userRequirement: NONE
 ---
-**Event Tech Support:** [events@strava.com ](mailto:events@strava.com)
+Please send any questions about Camp Strava to: [events@strava.com](mailto:events@strava.com).
