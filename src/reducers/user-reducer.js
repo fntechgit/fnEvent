@@ -58,12 +58,14 @@ const userReducer = (state = DEFAULT_STATE, action) => {
     case SET_USER_TICKET:
       return { ...state, hasTicket: payload }
     case SET_USER_ORDER: {
+      // we need to verify that the ticket is for current attendee
+      const currentUserTickets =  (payload?.tickets || []).filter(t => t?.owner?.email == state.userProfile?.email);
       return {
         ...state,
-        hasTicket: true,
+        hasTicket: currentUserTickets.length > 0,
         userProfile: {
           ...state.userProfile,
-          summit_tickets: [...(state.userProfile?.summit_tickets || []), ...(payload?.tickets || [])]
+          summit_tickets: [...(state.userProfile?.summit_tickets || []), ...(currentUserTickets)]
         }
       };
     }
