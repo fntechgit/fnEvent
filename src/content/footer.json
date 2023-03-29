@@ -9,7 +9,7 @@
     "networks": [
       {
         "icon": "fa-instagram",
-        "link": "https://strava.app.link/TheStravaClub",
+        "link": "/",
         "display": true
       }
     ]
