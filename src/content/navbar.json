@@ -37,8 +37,8 @@
       ]
     },
     {
-      "title": "SUPPORT",
-      "link": "/support",
+      "title": "CONTACT",
+      "link": "/contact",
       "display": true,
       "requiresAuth": false,
       "pageRestriction": [
