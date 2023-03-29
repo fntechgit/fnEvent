@@ -8,13 +8,8 @@
     "display": true,
     "networks": [
       {
-        "icon": "fa-strava",
-        "link": "/footer-content/",
-        "display": true
-      },
-      {
         "icon": "fa-instagram",
-        "link": "https://www.instagram.com/strava/?hl=en",
+        "link": "https://strava.app.link/TheStravaClub",
         "display": true
       }
     ]
