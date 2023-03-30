@@ -16,6 +16,8 @@ import styles from '../styles/marketing-hero.module.scss'
 import Swal from "sweetalert2";
 import {checkRequireExtraQuestionsByAttendee} from "../actions/user-actions";
 import {userHasAccessLevel, VirtualAccessLevel} from "../utils/authorizedGroups";
+import { SentryFallbackFunction } from "./SentryErrorComponent";
+import * as Sentry from "@sentry/react";
 
 const RegistrationLiteComponent = ({
                                        registrationProfile,
@@ -162,7 +164,9 @@ const RegistrationLiteComponent = ({
             </button>
 
             <div>
-                {isActive && <RegistrationLiteWidget {...widgetProps} />}
+                <Sentry.ErrorBoundary fallback={SentryFallbackFunction({componentName: 'Registration Lite'})}>
+                    {isActive && <RegistrationLiteWidget {...widgetProps} />}
+                </Sentry.ErrorBoundary>
             </div>
         </>
     )
