@@ -3,7 +3,7 @@ templateKey: custom-page
 title: About Camp Strava
 userRequirement: NONE
 ---
-![](/img/cs23-fnv-navpage-header.png)
+![](/img/cs23-fnv-navpage-header-v3.png)
 
 <br>
 
