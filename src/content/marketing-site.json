@@ -2,8 +2,8 @@
   "heroBanner": {
     "title": "CAMP STRAVA 2023",
     "subTitle": "Join us for a day of connection and inspiration.",
-    "date": "May 17, 2023  |  7am–5pm  |  The Garland Hotel, Los Angeles, CA",
-    "time": "",
+    "date": "May 17, 2023  |  7am–5pm ",
+    "time": " The Garland Hotel, Los Angeles, CA",
     "dateLayout": false,
     "buttons": {
       "registerButton": {
@@ -37,7 +37,7 @@
     "image": {
       "display": true,
       "title": "",
-      "src": "/img/cs23-fnv-marketing-container-left-v7.png"
+      "src": "/img/cs23-fnv-marketing-container-left-v8.png"
     }
   },
   "sponsors": [
@@ -45,7 +45,7 @@
       "title": "Top Left",
       "images": [
         {
-          "image": "/img/cs23-fnv-marketing-space3-v3.png",
+          "image": "/img/cs23-fnv-marketing-space3-v4.png",
           "link": "",
           "alt": ""
         }
@@ -76,7 +76,7 @@
     {
       "images": [
         {
-          "image": "/img/cs23-fnv-marketing-space4-v3.png",
+          "image": "/img/cs23-fnv-marketing-space4-v4.png",
           "alt": ""
         }
       ],
