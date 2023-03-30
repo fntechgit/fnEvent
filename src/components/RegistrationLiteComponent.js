@@ -8,7 +8,7 @@ import RegistrationLiteWidget from 'summit-registration-lite/dist';
 import FragmentParser from "openstack-uicore-foundation/lib/utils/fragment-parser";
 import {doLogin, passwordlessStart, getAccessToken} from 'openstack-uicore-foundation/lib/security/methods'
 import {doLogout} from 'openstack-uicore-foundation/lib/security/actions'
-import {getEnvVariable, SUMMIT_API_BASE_URL, OAUTH2_CLIENT_ID, REGISTRATION_BASE_URL} from '../utils/envVariables'
+import {getEnvVariable, SUMMIT_API_BASE_URL, OAUTH2_CLIENT_ID, REGISTRATION_BASE_URL, SUPPORT_EMAIL} from '../utils/envVariables'
 import {getUserProfile, setPasswordlessLogin, setUserOrder, checkOrderData} from "../actions/user-actions";
 import {getThirdPartyProviders} from "../actions/base-actions";
 import {formatThirdPartyProviders} from "../utils/loginUtils";
@@ -151,7 +151,8 @@ const RegistrationLiteComponent = ({
         },
         allowPromoCodes: siteSettings?.REG_LITE_ALLOW_PROMO_CODES,
         companyInputPlaceholder: siteSettings?.REG_LITE_COMPANY_INPUT_PLACEHOLDER,
-        companyDDLPlaceholder: siteSettings?.REG_LITE_COMPANY_DDL_PLACEHOLDER
+        companyDDLPlaceholder: siteSettings?.REG_LITE_COMPANY_DDL_PLACEHOLDER,
+        supportEmail:getEnvVariable(SUPPORT_EMAIL),
     };
 
     const {registerButton} = siteSettings.heroBanner.buttons;
