@@ -9,7 +9,7 @@
     "networks": [
       {
         "icon": "fa-instagram",
-        "link": "/",
+        "link": "http://bit.ly/strava-instagram",
         "display": true
       }
     ]
