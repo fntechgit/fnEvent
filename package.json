@@ -122,7 +122,7 @@
     "stream-browserify": "^3.0.0",
     "stream-chat": "^2.7.2",
     "stream-chat-react": "3.1.7",
-    "summit-registration-lite": "4.0.8",
+    "summit-registration-lite": "4.0.9",
     "superagent": "8.0.9",
     "sweetalert2": "^9.17.0",
     "upcoming-events-widget": "2.0.8",
