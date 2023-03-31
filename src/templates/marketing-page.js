@@ -135,13 +135,13 @@ export const MarketingPageTemplate = class extends React.Component {
         <AttendanceTrackerComponent />
         <MarketingHeroComponent summit={summit} isLoggedUser={isLoggedUser} location={location} />
         <Mobile>
-          <div className="columns" id="marketing-columns">
+          <div className="columns mb-0">
             <div className="column is-full px-6 pt-6 pb-0" style={{ position: 'relative' }}>
               { renderMainContent() }
             </div>
           </div>
           { renderCountdown() }
-          <div className="columns" id="marketing-columns">
+          <div className="columns mb-0">
             <div className="column is-full px-0 pb-0">
               { renderMasonry() }
             </div>
@@ -149,7 +149,7 @@ export const MarketingPageTemplate = class extends React.Component {
         </Mobile>
         <Default>
           { renderCountdown() }
-          <div className="columns" id="marketing-columns">
+          <div className="columns mb-0">
             <div className="column is-half px-6 pt-6 pb-0" style={{ position: 'relative' }}>
               { renderMainContent() }
             </div>
