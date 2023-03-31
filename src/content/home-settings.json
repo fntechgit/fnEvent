@@ -1,1 +1,17 @@
-{"centerColumn":{"speakers":{"showTodaySpeakers":true,"showFeatureSpeakers":false}},"homeHero":{"title":"Lobby HERO Text","subTitle":"Lobby Subtitle Text","image":{"file":"/img/tier1-default-lobby-header1.png","alt":""},"copy":"<h2><strong>Lobby HERO Text</strong></h2>\n<h2>Lobby Subtitle Text</h2>"}}
+{
+  "centerColumn": {
+    "speakers": {
+      "showTodaySpeakers": false,
+      "showFeatureSpeakers": false
+    }
+  },
+  "homeHero": {
+    "title": "CAMP STRAVA 2023",
+    "subTitle": "The Garland Hotel, Los Angeles, CA",
+    "image": {
+      "file": "/img/cs23-fnv-marketing-header-r-v4.png",
+      "alt": ""
+    },
+    "copy": ""
+  }
+}
