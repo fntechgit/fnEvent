@@ -10,10 +10,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-import { Redirect } from '@reach/router'
 import React from 'react';
 import { connect } from 'react-redux';
 import { navigate } from "gatsby"
+import { Redirect } from "@gatsbyjs/reach-router";
 import URI from "urijs"
 import { initLogOut } from 'openstack-uicore-foundation/lib/security/methods'
 import { doLogout } from 'openstack-uicore-foundation/lib/security/actions'

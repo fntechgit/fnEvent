@@ -14,7 +14,7 @@
 import React from 'react'
 import URI from "urijs"
 import { navigate } from "gatsby"
-import { Redirect } from '@reach/router'
+import { Redirect } from "@gatsbyjs/reach-router";
 import { connect } from 'react-redux';
 import AbstractAuthorizationCallbackRoute from "openstack-uicore-foundation/lib/security/abstract-auth-callback-route";
 import { getUserProfile, addToSchedule, removeFromSchedule } from '../actions/user-actions'

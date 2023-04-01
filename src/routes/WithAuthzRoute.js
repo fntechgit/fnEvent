@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useMemo} from "react";
 import {connect} from "react-redux";
 import {navigate} from "gatsby";
-import { pick }  from "@reach/router/lib/utils";
+import { pick } from "@gatsbyjs/reach-router";
 import { getUserProfile, requireExtraQuestions } from "../actions/user-actions";
 import HeroComponent from "../components/HeroComponent";
 import { userHasAccessLevel, VirtualAccessLevel } from "../utils/authorizedGroups";
