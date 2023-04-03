@@ -4,7 +4,14 @@ module.exports = {
     description: 'Virtual event',
   },
   plugins: [
-    "gatsby-plugin-root-import",
+    {
+      resolve: "gatsby-alias-imports",
+      options: {
+        aliases: {
+          "@utils": `${__dirname}/src/utils`,
+        }
+      }
+    },
     'gatsby-plugin-react-helmet',
     {
       /**

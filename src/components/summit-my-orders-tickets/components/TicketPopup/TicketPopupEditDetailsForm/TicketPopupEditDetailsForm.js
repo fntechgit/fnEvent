@@ -17,7 +17,7 @@ import {
 import { useTicketDetails } from '../../../util';
 import { ConfirmPopup, CONFIRM_POPUP_CASE } from '../../ConfirmPopup/ConfirmPopup';
 
-import { DefaultScrollBehaviour as ScrollBehaviour } from 'utils/scroll';
+import { DefaultScrollBehaviour as ScrollBehaviour } from '@utils/scroll';
 
 import './ticket-popup-edit-details-form.scss';
 

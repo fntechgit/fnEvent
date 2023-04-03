@@ -14,7 +14,7 @@ import { Input, RegistrationCompanyInput, RawHTML } from 'openstack-uicore-found
 import QuestionsSet from 'openstack-uicore-foundation/lib/utils/questions-set';
 import ExtraQuestionsForm from 'openstack-uicore-foundation/lib/components/extra-questions';
 
-import { DefaultScrollBehaviour as ScrollBehaviour } from 'utils/scroll';
+import { DefaultScrollBehaviour as ScrollBehaviour } from '@utils/scroll';
 
 import styles from '../styles/extra-questions.module.scss';
 
