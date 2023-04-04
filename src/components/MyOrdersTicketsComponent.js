@@ -25,7 +25,7 @@ export const MyOrdersTicketsComponent = () => {
         getUserProfile: async () => await dispatch(getUserProfile()),
         summit,
         user,
-        onTicketAssigned: async (ticket) => await dispatch(ticketOwnerChange(ticket))
+        onTicketAssigned: (ticket) => dispatch(ticketOwnerChange(ticket))
     };
 
     return (

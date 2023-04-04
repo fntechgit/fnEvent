@@ -9,7 +9,7 @@ import { Input } from 'openstack-uicore-foundation/lib/components'
 import { changeTicketAttendee } from "../../store/actions/ticket-actions";
 import { ConfirmPopup, CONFIRM_POPUP_CASE } from "../ConfirmPopup/ConfirmPopup";
 import { getSummitFormattedReassignDate } from "../../util";
-import { MyOrdersTicketsContext } from "../../summit-my-orders-tickets";
+import { useTicketAssignedContext } from "../../context/TicketAssignedContext";
 
 const initialValues = {
     attendee_email: '',
@@ -28,7 +28,7 @@ export const TicketPopupReassignForm = ({ ticket, summit, order }) => {
     const [showSaveMessage, setShowSaveMessage] = useState(false);
     const [message, setMessage] = useState('')
 
-    const { onTicketAssigned } = useContext(MyOrdersTicketsContext);
+    const { onTicketAssignChange } = useTicketAssignedContext();
 
     const isUserTicketOwner = userProfile.email === ticket.owner?.email;
     const isTicketPrinted = ticket.badge?.printed_times > 0 ? true : false
@@ -65,8 +65,8 @@ export const TicketPopupReassignForm = ({ ticket, summit, order }) => {
             message,            
             order,
             data: { attendee_email: newAttendeeEmail }
-        })).then(() => {
-            onTicketAssigned(ticket);
+        })).then((updatedTicket) => {
+            onTicketAssignChange(updatedTicket);
             toggleSaveMessage();
             setMessage('');
         });

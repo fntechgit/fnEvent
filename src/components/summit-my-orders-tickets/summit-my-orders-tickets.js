@@ -1,4 +1,4 @@
-import React, { createContext, useEffect } from "react"
+import React, { useEffect } from "react"
 import { Provider } from "react-redux";
 import { PersistGate } from 'redux-persist/integration/react'
 import PropTypes from 'prop-types'
@@ -12,7 +12,7 @@ import { MyOrdersTickets } from "./components/MyOrdersTickets";
 import Clock from 'openstack-uicore-foundation/lib/components/clock';
 import './styles/general.scss';
 
-export const MyOrdersTicketsContext = createContext(null);
+import { TicketAssignedProvider } from "./context/TicketAssignedContext";
 
 export const MyOrdersTicketsWidget = ({
     className,
@@ -59,10 +59,10 @@ export const MyOrdersTicketsWidget = ({
     return (
         <Provider store={store}>
             <PersistGate onBeforeLift={handleBeforeLift} loading={null} persistor={persistor}>
-                <Clock onTick={(timestamp) => store.dispatch(updateClock(timestamp))} timezone={summit.time_zone_id} />
-                <MyOrdersTicketsContext.Provider value={{ onTicketAssigned }}>
+                <Clock onTick={(timestamp) => store.dispatch(updateClock(timestamp))} timezone={summit.time_zone_id} />                
+                <TicketAssignedProvider onTicketAssigned={onTicketAssigned} >
                     <MyOrdersTickets {...props} />
-                </MyOrdersTicketsContext.Provider>
+                </TicketAssignedProvider>
             </PersistGate>
         </Provider>
     );

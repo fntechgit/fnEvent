@@ -20,7 +20,7 @@ import { ConfirmPopup, CONFIRM_POPUP_CASE } from '../../ConfirmPopup/ConfirmPopu
 import { DefaultScrollBehaviour as ScrollBehaviour } from 'utils/scroll';
 
 import './ticket-popup-edit-details-form.scss';
-import { MyOrdersTicketsContext } from '../../../summit-my-orders-tickets';
+import { useTicketAssignedContext } from '../../../context/TicketAssignedContext';
 
 const noOpFn = () => {};
 
@@ -48,7 +48,7 @@ export const TicketPopupEditDetailsForm = ({
         daysUntilReassignDeadline
     } = useTicketDetails({ ticket, summit });
 
-    const { onTicketAssigned } = useContext(MyOrdersTicketsContext);
+    const { onTicketAssignChange } = useTicketAssignedContext();
 
     const initialValues = useMemo(() => {
         const {
@@ -126,8 +126,8 @@ export const TicketPopupEditDetailsForm = ({
 
     const handleConfirmAccept = async () => {
         setShowConfirm(false);        
-        dispatch(removeAttendee({ticket, context})).then(() => {
-            onTicketAssigned(ticket);
+        dispatch(removeAttendee({ticket, context})).then((updatedTicket) => {
+            onTicketAssignChange(updatedTicket);
             toggleUnassignMessage()
         });
     };
