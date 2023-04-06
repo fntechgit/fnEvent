@@ -1,7 +1,11 @@
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+});
+
 module.exports = {
   siteMetadata: {
-    title: 'Virtual Event',
-    description: 'Virtual event',
+    title: `${process.env.GATSBY_METADATA_TITLE || 'Event Site'}`,
+    description: `${process.env.GATSBY_METADATA_DESCRIPTION || 'Event Site'}`,
   },
   plugins: [
     "gatsby-plugin-root-import",
