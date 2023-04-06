@@ -40,6 +40,10 @@ collections:
                 {label: "Allow Clickable Behavior", name: allowClick, widget: boolean, required: false, default: true},                
               ]}              
             ]}
+          - {label: "Site Metadata", name: siteMetadata, widget: object, fields: [
+              {label: "Title", name: title, widget: string, required: false },
+              {label: "Description", name: description, widget: string, required: false }
+          ]}
       - file: "src/content/ads.json"
         label: "Advertisement"
         name: "ads"

@@ -1,7 +1,13 @@
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+});
+
+const GeneralSettings = require('./src/content/settings.json');
+
 module.exports = {
   siteMetadata: {
-    title: 'Virtual Event',
-    description: 'Virtual event',
+    title: `${GeneralSettings?.siteMetadata?.title || process.env.GATSBY_METADATA_TITLE || 'Event Site'}`,
+    description: `${GeneralSettings?.siteMetadata?.description || process.env.GATSBY_METADATA_DESCRIPTION || 'Event Site'}`,
   },
   plugins: [
     "gatsby-plugin-root-import",
