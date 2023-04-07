@@ -1,9 +1,11 @@
-import React from "react";
+import * as React from "react";
 import { pickBy } from "lodash";
-import { Helmet } from "react-helmet";
 import * as Sentry from "@sentry/react";
 import Filters from "schedule-filter-widget/dist";
 import "schedule-filter-widget/dist/index.css";
+// awesome-bootstrap-checkbox css dependency 
+// https://cdnjs.cloudflare.com/ajax/libs/awesome-bootstrap-checkbox/1.0.2/awesome-bootstrap-checkbox.min.css
+// injected through HeadComponents
 import styles from "../styles/full-schedule.module.scss";
 
 import { SentryFallbackFunction } from "./SentryErrorComponent";
@@ -16,13 +18,6 @@ const ScheduleFilters = ({ className, filters, ...rest }) => {
   if(!allEvents.length) return null;
   return (
     <>
-      <Helmet>
-        <link
-          rel="stylesheet"
-          type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/awesome-bootstrap-checkbox/1.0.2/awesome-bootstrap-checkbox.min.css"
-        />
-      </Helmet>
       <div className={styles.filters}>
         <Sentry.ErrorBoundary fallback={SentryFallbackFunction({componentName: 'Schedule Filter'})}>
           <Filters title="Filter by" filters={enabledFilters} {...rest} />

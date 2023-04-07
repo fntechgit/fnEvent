@@ -1,11 +1,13 @@
-import React from "react";
+import * as React from "react";
 import * as Sentry from "@sentry/react";
-import { Helmet } from "react-helmet";
 import { connect } from "react-redux";
 
 // these two libraries are client-side only
 import UpcomingEvents from "upcoming-events-widget/dist";
 import "upcoming-events-widget/dist/index.css";
+// awesome-bootstrap-checkbox css dependency 
+// https://cdnjs.cloudflare.com/ajax/libs/awesome-bootstrap-checkbox/1.0.2/awesome-bootstrap-checkbox.min.css
+// injected through HeadComponents
 
 import { addToSchedule, removeFromSchedule } from "../actions/user-actions";
 
@@ -48,13 +50,6 @@ const UpcomingEventsComponent = ({
 
     return (
         <>
-            <Helmet>
-                <link
-                    rel="stylesheet"
-                    type="text/css"
-                    href="https://cdnjs.cloudflare.com/ajax/libs/awesome-bootstrap-checkbox/1.0.2/awesome-bootstrap-checkbox.min.css"
-                />
-            </Helmet>
             <div id="upcoming-events" className={className || wrapperClass} style={{ height: 500 }}>
                 <Sentry.ErrorBoundary fallback={SentryFallbackFunction({componentName: 'Upcoming Events'})}>
                         <UpcomingEvents {...componentProps} {...rest} />

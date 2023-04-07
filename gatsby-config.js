@@ -12,7 +12,6 @@ module.exports = {
         }
       }
     },
-    'gatsby-plugin-react-helmet',
     {
       /**
        * Gatsby v4 uses ES Modules for importing cssModules by default.
@@ -57,11 +56,19 @@ module.exports = {
         name: 'images',
       },
     },
-    'gatsby-plugin-image',
-    'gatsby-plugin-sharp',
-    'gatsby-transformer-sharp',
+    "gatsby-transformer-json",
     {
-      resolve: 'gatsby-transformer-remark',
+      resolve: "gatsby-source-filesystem",
+      options: {
+        path: `${__dirname}/src/content`,
+        name: "content",
+      },
+    },
+    "gatsby-plugin-image",
+    "gatsby-plugin-sharp",
+    "gatsby-transformer-sharp",
+    {
+      resolve: "gatsby-transformer-remark",
       options: {
         plugins: [
           {

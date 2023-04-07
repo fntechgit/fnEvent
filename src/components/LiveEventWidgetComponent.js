@@ -1,11 +1,13 @@
-import React from "react"
+import * as React from "react";
 import * as Sentry from "@sentry/react";
 import {connect} from "react-redux";
-import { Helmet } from 'react-helmet'
 
 // these two libraries are client-side only
 import LiveEventWidget from 'live-event-widget/dist/index.js';
 import 'live-event-widget/dist/index.css';
+// awesome-bootstrap-checkbox css dependency 
+// https://cdnjs.cloudflare.com/ajax/libs/awesome-bootstrap-checkbox/1.0.2/awesome-bootstrap-checkbox.min.css
+// injected through HeadComponents
 
 import { SentryFallbackFunction } from "./SentryErrorComponent";
 
@@ -22,9 +24,6 @@ const LiveEventWidgetComponent = ({allEvents, summit, colorSettings, homeSetting
 
     return (
         <>
-            <Helmet>
-                <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/awesome-bootstrap-checkbox/1.0.2/awesome-bootstrap-checkbox.min.css" />
-            </Helmet>
             <div className={className}>
                 <Sentry.ErrorBoundary fallback={SentryFallbackFunction({componentName: 'Live Event'})}>
                     <LiveEventWidget {...widgetProps} />

@@ -1,21 +1,34 @@
-import ReduxWrapper from "./src/state/ReduxWrapper"
+import * as React from "react";
+import ReduxWrapper from "./src/state/ReduxWrapper";
+import { 
+  HtmlAttributes,
+  HeadComponents,
+  PreBodyComponents
+} from "./src/components/HeadComponents";
 
-export const wrapRootElement = ReduxWrapper
+import { JSDOM } from "jsdom";
+import { XMLHttpRequest } from "xmlhttprequest";
 
-import { JSDOM } from 'jsdom'
-import { XMLHttpRequest } from 'xmlhttprequest';
+export const wrapRootElement = ReduxWrapper;
 
-global.dom = new JSDOM(`...`)
-global.window = dom.window
-global.document = dom.window.document
-global.navigator = global.window.navigator
+export const onRenderBody = ({
+  setHtmlAttributes,
+  setHeadComponents,
+  setPreBodyComponents
+}, pluginOptions) => {
+  setHtmlAttributes(HtmlAttributes);
+  setHeadComponents(HeadComponents);
+  setPreBodyComponents(PreBodyComponents);
+};
 
-global.window.matchMedia = function() {
-	return {
-    matches: false,
-    addListener: function() {},
-    removeListener: function() {}
-  }
-}
-
-global.XMLHttpRequest = XMLHttpRequest
+// build enabler polyfills
+global.dom = new JSDOM("...");
+global.window = dom.window;
+global.document = dom.window.document;
+global.navigator = global.window.navigator;
+global.window.matchMedia = () => ({
+  matches: false,
+  addListener: () => {},
+  removeListener: () => {}
+});
+global.XMLHttpRequest = XMLHttpRequest;
