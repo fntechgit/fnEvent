@@ -16,6 +16,7 @@ import {
   CAST_PRESENTATION_VOTE_RESPONSE,
   UNCAST_PRESENTATION_VOTE_RESPONSE,
   TOGGLE_PRESENTATION_VOTE,
+  TICKET_OWNER_CHANGED
 } from '../actions/user-actions';
 import { RESET_STATE } from '../actions/base-actions-definitions';
 import { isAuthorizedUser } from '../utils/authorizedGroups';
@@ -83,6 +84,29 @@ const userReducer = (state = DEFAULT_STATE, action) => {
     case SCHEDULE_SYNC_LINK_RECEIVED:
       const { link } = payload.response;
       return { ...state, userProfile: { ...state.userProfile, schedule_shareable_link: link } };
+    case TICKET_OWNER_CHANGED: {
+      const ticketUpdated = payload.response;
+      const isUserTicket = state.userProfile?.summit_tickets.some(t => t.id === ticketUpdated.id);
+      let currentUserTickets = [...state.userProfile?.summit_tickets];
+      // if is an user ticket and is reassigned or unassiged, remove it from current user tickets
+      if(isUserTicket) {
+        if(ticketUpdated?.owner_id === 0 || ticketUpdated?.owner?.member_id !== state.userProfile.id) {
+          currentUserTickets = [...currentUserTickets].filter(t => t.id !== ticketUpdated.id) 
+        }          
+      }
+      // if the new ticket belongs to the current user, add it to current user tickets
+      if (ticketUpdated?.owner?.member_id === state.userProfile.id) {
+        currentUserTickets = [...currentUserTickets, ticketUpdated];
+      }
+      return {
+        ...state,
+        hasTicket: currentUserTickets.length > 0,
+        userProfile: {
+          ...state.userProfile,
+          summit_tickets: [...(currentUserTickets)]
+        }
+      };
+    }
     default:
       return state;
   }

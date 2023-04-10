@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { CSSTransition } from "react-transition-group";
@@ -9,6 +9,7 @@ import { Input } from 'openstack-uicore-foundation/lib/components'
 import { changeTicketAttendee } from "../../store/actions/ticket-actions";
 import { ConfirmPopup, CONFIRM_POPUP_CASE } from "../ConfirmPopup/ConfirmPopup";
 import { getSummitFormattedReassignDate } from "../../util";
+import { useTicketAssignedContext } from "../../context/TicketAssignedContext";
 
 const initialValues = {
     attendee_email: '',
@@ -26,6 +27,8 @@ export const TicketPopupReassignForm = ({ ticket, summit, order }) => {
     const [newAttendeeEmail, setNewAttendeeEmail] = useState('');
     const [showSaveMessage, setShowSaveMessage] = useState(false);
     const [message, setMessage] = useState('')
+
+    const { onTicketAssignChange } = useTicketAssignedContext();
 
     const isUserTicketOwner = userProfile.email === ticket.owner?.email;
     const isTicketPrinted = ticket.badge?.printed_times > 0 ? true : false
@@ -62,7 +65,8 @@ export const TicketPopupReassignForm = ({ ticket, summit, order }) => {
             message,            
             order,
             data: { attendee_email: newAttendeeEmail }
-        })).then(() => {
+        })).then((updatedTicket) => {
+            onTicketAssignChange(updatedTicket);
             toggleSaveMessage();
             setMessage('');
         });

@@ -227,13 +227,14 @@ export const assignAttendee = ({
         `${apiBaseUrl}/api/v1/summits/all/orders/${orderId}/tickets/${ticket.id}/attendee`,
         normalizedEntity,
         authErrorHandler
-    )(params)(dispatch).then(() => {
+    )(params)(dispatch).then((newTicket) => {
         if (reassignOrderId && context === 'ticket-list') {
             dispatch(getUserTickets({ page: ticketPage }));
         } else {
             dispatch(getUserOrders({ page: orderPage }));
             dispatch(getTicketsByOrder({ orderId, page: orderTicketsCurrentPage }));
         }
+        return newTicket;
     }).catch(e => {
         dispatch(stopLoading());
         return (e);
@@ -389,7 +390,7 @@ export const changeTicketAttendee = ({
         {},
         authErrorHandler
     )(params)(dispatch).then(() => {
-        dispatch(assignAttendee({
+        return dispatch(assignAttendee({
             ticket,
             message,
             order,
@@ -437,13 +438,14 @@ export const removeAttendee = ({ticket, context}) => async (dispatch, getState, 
         `${apiBaseUrl}/api/v1/summits/all/orders/${orderId}/tickets/${ticket.id}/attendee`,
         {},
         authErrorHandler
-    )(params)(dispatch).then(() => {
+    )(params)(dispatch).then((removedTicket) => {
         if (context === 'ticket-list') {
             dispatch(getUserTickets({ page: ticketPage }));
         } else {
             dispatch(getUserOrders({ page: orderPage }));
             dispatch(getTicketsByOrder({ orderId, page: orderTicketsCurrentPage }));
         }
+        return removedTicket;
         }).catch((e) => {
             console.log('error', e)
             dispatch(stopLoading());
