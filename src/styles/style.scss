@@ -117,7 +117,6 @@ footer {
 }
 
 #content-wrapper {
-  padding-bottom: 3rem;
   min-height: 95vh;
 }
 
@@ -487,10 +486,6 @@ div.event-feedback-container {
 @media (max-width: 768px) {
   div.login-form {
     width: auto;
-  }
-
-  #marketing-columns {
-    margin-bottom: 4rem;
   }
 
   #marketing-slider {
