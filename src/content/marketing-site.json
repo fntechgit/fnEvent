@@ -35,7 +35,7 @@
     "image": {
       "display": true,
       "title": "",
-      "src": "/img/ocpreg23-fnv-hl-schedule_032223pm.png"
+      "src": "/img/ocpreg23-fnv-hl-schedule_041023.png"
     }
   },
   "sponsors": [
@@ -43,44 +43,44 @@
       "title": "Top Left",
       "images": [
         {
-          "image": "/img/ocp23r-fnv-marketing-space1_v2.png",
+          "image": "/img/ocp23r-fnv-marketing-space1_duringevent.png",
           "alt": "",
-          "link": "/travel"
+          "link": "/map"
         }
       ],
-      "size": 2
+      "size": 1
     },
     {
       "title": "Top Right",
       "images": [
         {
-          "image": "/img/ocp23r-fnv-marketing-space2_v2.png",
-          "link": "https://www.opencompute.org/summit/regional-summit/sponsorship",
+          "image": "/img/ocp23r-fnv-marketing-space2_duringevent.png",
+          "link": "/a/schedule",
           "alt": ""
         }
       ],
-      "size": 2
+      "size": 1
     },
     {
       "title": "Mid Left",
       "images": [
         {
-          "image": "/img/ocp23r-fnv-marketing-space3_v2.png",
+          "image": "/img/ocp23r-fnv-marketing-space3_duringevent.png",
           "alt": "",
           "link": "https://www.opencompute.org/membership/how-to-join"
         }
       ],
-      "size": 2
+      "size": 1
     },
     {
       "images": [
         {
-          "image": "/img/ocp23r-fnv-marketing-space4_v2.png",
+          "image": "/img/ocp23r-fnv-marketing-space4_duringevent.png",
           "alt": "",
           "link": "https://www.opencompute.org/summit/global-summit"
         }
       ],
-      "size": 2
+      "size": 1
     }
   ],
   "countdown": {
