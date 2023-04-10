@@ -12,6 +12,8 @@ import { MyOrdersTickets } from "./components/MyOrdersTickets";
 import Clock from 'openstack-uicore-foundation/lib/components/clock';
 import './styles/general.scss';
 
+import { TicketAssignedProvider } from "./context/TicketAssignedContext";
+
 export const MyOrdersTicketsWidget = ({
     className,
     clientId,
@@ -23,6 +25,7 @@ export const MyOrdersTicketsWidget = ({
     getUserProfile,
     summit,
     user,
+    onTicketAssigned,
     ...props
 }) => {
     const { store, persistor } = useInitStore({
@@ -35,7 +38,7 @@ export const MyOrdersTicketsWidget = ({
         getUserProfile,
         summit,
         user
-    });
+    });    
 
     const handleBeforeLift = () => {
         const params = new URLSearchParams(window.location.search);
@@ -56,8 +59,10 @@ export const MyOrdersTicketsWidget = ({
     return (
         <Provider store={store}>
             <PersistGate onBeforeLift={handleBeforeLift} loading={null} persistor={persistor}>
-                <Clock onTick={(timestamp) => store.dispatch(updateClock(timestamp))} timezone={summit.time_zone_id} />
-                <MyOrdersTickets {...props} />
+                <Clock onTick={(timestamp) => store.dispatch(updateClock(timestamp))} timezone={summit.time_zone_id} />                
+                <TicketAssignedProvider onTicketAssigned={onTicketAssigned} >
+                    <MyOrdersTickets {...props} />
+                </TicketAssignedProvider>
             </PersistGate>
         </Provider>
     );
