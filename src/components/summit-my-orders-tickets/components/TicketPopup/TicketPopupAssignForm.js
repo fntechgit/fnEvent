@@ -8,6 +8,7 @@ import * as Yup from 'yup';
 import { Input } from 'openstack-uicore-foundation/lib/components'
 import { assignAttendee } from "../../store/actions/ticket-actions";
 import { getSummitFormattedReassignDate } from "../../util";
+import { useTicketAssignedContext } from "../../context/TicketAssignedContext";
 
 const initialValues = {
     reassign_email: '',
@@ -29,7 +30,9 @@ export const TicketPopupAssignForm = ({ ticket, summit, order }) => {
     const dispatch = useDispatch();
     const userProfile = useSelector(state => state.userState.userProfile);
     const [showSaveMessage, setShowSaveMessage] = useState(false);
-    const [message, setMessage] = useState('')
+    const [message, setMessage] = useState('');
+
+    const { onTicketAssignChange } = useTicketAssignedContext();
 
     const toggleSaveMessage = () => {
         setTimeout(() => setShowSaveMessage(true), 50);
@@ -66,7 +69,10 @@ export const TicketPopupAssignForm = ({ ticket, summit, order }) => {
                 attendee_first_name: userProfile.first_name,
                 attendee_last_name: userProfile.last_name
             }
-        })).then(() => toggleSaveMessage());
+        })).then((newTicket) => {
+            onTicketAssignChange(newTicket);
+            toggleSaveMessage();
+        });
     };
 
     return (

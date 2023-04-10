@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { CSSTransition } from "react-transition-group";
@@ -20,6 +20,7 @@ import { ConfirmPopup, CONFIRM_POPUP_CASE } from '../../ConfirmPopup/ConfirmPopu
 import { DefaultScrollBehaviour as ScrollBehaviour } from 'utils/scroll';
 
 import './ticket-popup-edit-details-form.scss';
+import { useTicketAssignedContext } from '../../../context/TicketAssignedContext';
 
 const noOpFn = () => {};
 
@@ -46,6 +47,8 @@ export const TicketPopupEditDetailsForm = ({
         formattedReassignDate,
         daysUntilReassignDeadline
     } = useTicketDetails({ ticket, summit });
+
+    const { onTicketAssignChange } = useTicketAssignedContext();
 
     const initialValues = useMemo(() => {
         const {
@@ -123,7 +126,10 @@ export const TicketPopupEditDetailsForm = ({
 
     const handleConfirmAccept = async () => {
         setShowConfirm(false);        
-        dispatch(removeAttendee({ticket, context})).then(() => toggleUnassignMessage());
+        dispatch(removeAttendee({ticket, context})).then((updatedTicket) => {
+            onTicketAssignChange(updatedTicket);
+            toggleUnassignMessage()
+        });
     };
 
     const handleConfirmReject = () => {
