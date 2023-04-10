@@ -17,8 +17,9 @@ import Content, { HTMLContent } from '../components/Content'
 import Countdown from '../components/Countdown'
 import Link from '../components/Link'
 import { PHASES } from '../utils/phasesUtils'
-import { formatMasonry } from '../utils/masonry'
+import { Mobile, Default } from '../utils/responsive'
 
+import { formatMasonry } from '../utils/masonry'
 
 import styles from "../styles/marketing.module.scss"
 import '../styles/style.scss'
@@ -40,6 +41,41 @@ export const MarketingPageTemplate = class extends React.Component {
       }
     }
 
+    const renderMainContent = () => (
+      <>
+        {siteSettings.leftColumn.schedule.display &&
+          <>
+            <h2><b>{siteSettings.leftColumn.schedule.title}</b></h2>
+            <LiteScheduleComponent
+              {...scheduleProps}
+              key={`marketing_lite_schedule_${lastDataSync}`}
+              id={`marketing_lite_schedule_${lastDataSync}`}
+              page="marketing-site"
+              showAllEvents={true}
+              showSearch={false}
+              showNav={true}
+            />
+          </>
+        }
+        {siteSettings.leftColumn.disqus.display &&
+          <>
+            <h2><b>{siteSettings.leftColumn.disqus.title}</b></h2>
+            <DisqusComponent page="marketing-site"/>
+          </>
+        }
+        {siteSettings.leftColumn.image.display &&
+          <>
+            <h2><b>{siteSettings.leftColumn.image.title}</b></h2>
+            <br />
+            <img alt={siteSettings.leftColumn.image.alt} src={siteSettings.leftColumn.image.src} />
+          </>
+        }
+      </>
+    );
+
+    const renderCountdown = () => summit && siteSettings?.countdown?.display &&
+      <Countdown summit={summit} text={siteSettings?.countdown?.text} />;
+
     const sliderSettings = {
       autoplay: true,
       autoplaySpeed: 5000,
@@ -49,88 +85,81 @@ export const MarketingPageTemplate = class extends React.Component {
       slidesToScroll: 1
     };
 
-    return (
-      <React.Fragment>
-        <AttendanceTrackerComponent />
-        <MarketingHeroComponent summit={summit} isLoggedUser={isLoggedUser} location={location} />
-        {summit && siteSettings?.countdown?.display && <Countdown summit={summit} text={siteSettings?.countdown?.text} />}
-        <div className="columns" id="marketing-columns">
-          <div className="column is-half px-6 pt-6 pb-0" style={{ position: 'relative' }}>
-            {siteSettings.leftColumn.schedule.display &&
-              <React.Fragment>
-                <h2><b>{siteSettings.leftColumn.schedule.title}</b></h2>
-                <LiteScheduleComponent
-                  {...scheduleProps}
-                  key={`marketing_lite_schedule_${lastDataSync}`}
-                  id={`marketing_lite_schedule_${lastDataSync}`}
-                  page="marketing-site"
-                  showAllEvents={true}
-                  showSearch={false}
-                  showNav={true}
-                />
-              </React.Fragment>
-            }
-            {siteSettings.leftColumn.disqus.display &&
-              <React.Fragment>
-                <h2><b>{siteSettings.leftColumn.disqus.title}</b></h2>
-                <DisqusComponent page="marketing-site"/>
-              </React.Fragment>
-            }
-            {siteSettings.leftColumn.image.display &&
-              <React.Fragment>
-                <h2><b>{siteSettings.leftColumn.image.title}</b></h2>
-                <br />
-                <img alt={siteSettings.leftColumn.image.alt} src={siteSettings.leftColumn.image.src} />
-              </React.Fragment>
-            }
-          </div>
-          <div className="column is-half px-0 pb-0">
-            <Masonry
-              breakpointCols={2}
-              className="my-masonry-grid"
-              columnClassName="my-masonry-grid_column">
-              {formatMasonry(siteSettings.sponsors).map((item, index) => {
-                if (item.images && item.images.length === 1) {
+    const renderMasonry = () => (
+      <Masonry
+        breakpointCols={2}
+        className="my-masonry-grid"
+        columnClassName="my-masonry-grid_column">
+        {formatMasonry(siteSettings.sponsors).map((item, index) => {
+          if (item.images && item.images.length === 1) {
+            return (
+              <div className={'single'} key={index}>
+                {item.images[0].link ?
+                  <Link to={item.images[0].link}>
+                    <img alt={item.images[0].alt} src={item.images[0].image} />
+                  </Link>
+                  :
+                  <img alt={item.images[0].alt} src={item.images[0].image} />
+                }
+              </div>
+            )
+          } else if (item.images && item.images.length > 1) {
+            return (
+              <Slider {...sliderSettings} key={index}>
+                {item.images.map((img, indexSlide) => {
                   return (
-                    <div className={'single'} key={index}>
-                      {item.images[0].link ?
-                        <Link to={item.images[0].link}>
-                          <img alt={item.images[0].alt} src={item.images[0].image} />
+                    <div className={styles.imageSlider} key={indexSlide}>
+                      {img.link ?
+                        <Link to={img.link}>
+                          <img alt={img.alt} src={img.image} />
                         </Link>
                         :
-                        <img alt={item.images[0].alt} src={item.images[0].image} />
+                        <img alt={img.alt} src={img.image} />
                       }
                     </div>
                   )
-                } else if (item.images && item.images.length > 1) {
-                  return (
-                    <Slider {...sliderSettings} key={index}>
-                      {item.images.map((img, indexSlide) => {
-                        return (
-                          <div className={styles.imageSlider} key={indexSlide}>
-                            {img.link ?
-                              <Link to={img.link}>
-                                <img alt={img.alt} src={img.image} />
-                              </Link>
-                              :
-                              <img alt={img.alt} src={img.image} />
-                            }
-                          </div>
-                        )
-                      })}
-                    </Slider>
-                  )
-                } else {
-                  return (
-                    <div className="single" key={index} />
-                  )
-                }
-              })}
-            </Masonry>
+                })}
+              </Slider>
+            )
+          } else {
+            return (
+              <div className="single" key={index} />
+            )
+          }
+        })}
+      </Masonry>
+    );
+
+    return (
+      <>
+        <AttendanceTrackerComponent />
+        <MarketingHeroComponent summit={summit} isLoggedUser={isLoggedUser} location={location} />
+        <Mobile>
+          <div className="columns mb-0">
+            <div className="column is-full px-6 pt-6 pb-0" style={{ position: 'relative' }}>
+              { renderMainContent() }
+            </div>
           </div>
-        </div>
+          { renderCountdown() }
+          <div className="columns mb-0">
+            <div className="column is-full px-0 pb-0">
+              { renderMasonry() }
+            </div>
+          </div>
+        </Mobile>
+        <Default>
+          { renderCountdown() }
+          <div className="columns mb-0">
+            <div className="column is-half px-6 pt-6 pb-0" style={{ position: 'relative' }}>
+              { renderMainContent() }
+            </div>
+            <div className="column is-half px-0 pb-0">
+              { renderMasonry() }
+            </div>
+          </div>
+        </Default>
         <PageContent content={content} />
-      </React.Fragment>
+      </>
     )
   }
 }
