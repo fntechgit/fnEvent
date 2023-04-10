@@ -49,6 +49,7 @@ export const UNCAST_PRESENTATION_VOTE_REQUEST = 'UNCAST_PRESENTATION_VOTE_REQUES
 export const UNCAST_PRESENTATION_VOTE_RESPONSE = 'UNCAST_PRESENTATION_VOTE_RESPONSE';
 export const TOGGLE_PRESENTATION_VOTE = 'TOGGLE_PRESENTATION_VOTE';
 export const GET_EXTRA_QUESTIONS = 'GET_EXTRA_QUESTIONS';
+export const TICKET_OWNER_CHANGED = 'TICKET_OWNER_CHANGED';
 
 // shortName is the unique identifier assigned to a Disqus site.
 export const getDisqusSSO = (shortName) => async (dispatch, getState) => {
@@ -539,6 +540,10 @@ export const checkOrderData = (order) => (dispatch, getState) => {
     };
     dispatch(updateProfile(newProfile));
   }
+}
+
+export const ticketOwnerChange = (ticket) => async (dispatch) => {
+  return dispatch(createAction(TICKET_OWNER_CHANGED)(ticket));
 }
 
 /**
