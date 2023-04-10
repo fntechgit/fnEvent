@@ -54,7 +54,7 @@ export const MarketingPageTemplate = class extends React.Component {
         <AttendanceTrackerComponent />
         <MarketingHeroComponent summit={summit} isLoggedUser={isLoggedUser} location={location} />
         {summit && siteSettings?.countdown?.display && <Countdown summit={summit} text={siteSettings?.countdown?.text} />}
-        <div className="columns" id="marketing-columns">
+        <div className="columns mb-0">
           <div className="column is-half px-6 pt-6 pb-0" style={{ position: 'relative' }}>
             {siteSettings.leftColumn.schedule.display &&
               <React.Fragment>
