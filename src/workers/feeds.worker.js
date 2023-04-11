@@ -1,28 +1,28 @@
-import summitBuildJson from '../content/summit.json';
-import eventsBuildJson from '../content/events.json';
-import speakersBuildJson from '../content/speakers.json';
-import extraQuestionsBuildJson from '../content/extra-questions.json';
-import eventsIDXBuildJson from '../content/events.idx.json';
-import speakersIDXBuildJson from '../content/speakers.idx.json';
-import settings from '../content/settings.json';
+import settings from "../content/site-settings/index.json";
+import summitBuildJson from "../data/summit.json";
+import eventsBuildJson from "../data/events.json";
+import eventsIDXBuildJson from "../data/events.idx.json";
+import speakersBuildJson from "../data/speakers.json";
+import speakersIDXBuildJson from "../data/speakers.idx.json";
+import extraQuestionsBuildJson from "../data/extra-questions.json";
 
 import {
-    bucket_getEvents,
-    bucket_getExtraQuestions,
-    bucket_getSpeakers,
     bucket_getSummit,
+    bucket_getEvents,
     bucket_getEventsIDX,
+    bucket_getSpeakers,
     bucket_getSpeakersIDX,
+    bucket_getExtraQuestions,
 } from "../actions/update-data-actions";
 
 import {
-    eventsFilePath,
-    speakersFilePath,
-    extraQuestionFilePath,
-    summitFilePath,
-    eventsIdxFilePath,
-    speakersIdxFilePath,
-} from '../utils/StaticFileUtils';
+  SUMMIT_FILE_PATH,
+  EVENTS_FILE_PATH,
+  EVENTS_IDX_FILE_PATH,
+  SPEAKERS_FILE_PATH,
+  SPEAKERS_IDX_FILE_PATH,
+  EXTRA_QUESTIONS_FILE_PATH
+} from "../utils/filePath";
 
 /* eslint-disable-next-line no-restricted-globals */
 self.onmessage = async ({data: {summitId, staticJsonFilesBuildTime}}) => {
@@ -32,26 +32,26 @@ self.onmessage = async ({data: {summitId, staticJsonFilesBuildTime}}) => {
     const calls = [];
 
     // events
-    let buildTime = staticJsonFilesBuildTime.find(e => e.file === eventsFilePath).build_time;
+    let buildTime = staticJsonFilesBuildTime.find(e => e.file === EVENTS_FILE_PATH).build_time;
 
     calls.push(bucket_getEvents(summitId, buildTime));
 
-    buildTime = staticJsonFilesBuildTime.find(e => e.file === eventsIdxFilePath).build_time;
+    buildTime = staticJsonFilesBuildTime.find(e => e.file === EVENTS_IDX_FILE_PATH).build_time;
     calls.push(bucket_getEventsIDX(summitId, buildTime));
 
     // summit
-    buildTime = staticJsonFilesBuildTime.find(e => e.file === summitFilePath).build_time;
+    buildTime = staticJsonFilesBuildTime.find(e => e.file === SUMMIT_FILE_PATH).build_time;
     calls.push(bucket_getSummit(summitId, buildTime));
 
     //speakers
-    buildTime = staticJsonFilesBuildTime.find(e => e.file === speakersFilePath).build_time;
+    buildTime = staticJsonFilesBuildTime.find(e => e.file === SPEAKERS_FILE_PATH).build_time;
     calls.push(bucket_getSpeakers(summitId, buildTime));
 
-    buildTime = staticJsonFilesBuildTime.find(e => e.file === speakersIdxFilePath).build_time;
+    buildTime = staticJsonFilesBuildTime.find(e => e.file === SPEAKERS_IDX_FILE_PATH).build_time;
     calls.push(bucket_getSpeakersIDX(summitId, buildTime));
 
     // extra questions
-    buildTime = staticJsonFilesBuildTime.find(e => e.file === extraQuestionFilePath).build_time;
+    buildTime = staticJsonFilesBuildTime.find(e => e.file === EXTRA_QUESTIONS_FILE_PATH).build_time;
     calls.push(bucket_getExtraQuestions(summitId, buildTime));
 
 

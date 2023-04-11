@@ -1,28 +1,28 @@
-import settings from '../content/settings.json';
-import colors from '../content/colors.json';
-import marketing_site from '../content/marketing-site.json';
-import disqus_settings from '../content/disqus-settings.json';
-import home_settings from '../content/home-settings.json';
-import poster_pages from '../content/poster-pages.json';
-
 import { START_LOADING, STOP_LOADING } from "openstack-uicore-foundation/lib/utils/actions";
 import { LOGOUT_USER } from "openstack-uicore-foundation/lib/security/actions";
 import { RESET_STATE, SYNC_DATA, UPDATE_LAST_CHECK_FOR_NOVELTIES } from "../actions/base-actions-definitions";
 
+// TODO: dont store build timestamps in site-settings, use another file
+import settings from "../content/site-settings/index.json";
+import colors from "../content/colors.json";
+// TODO: rename to lobby page settings?
+import homeSettings from "../content/home-settings.json";
+// TODO: should this live in reducer or should be accessed though graphql?
+import marketingPageSettings from "../content/marketing-page/index.json";
+import postersPages from "../content/posters-pages.json";
 
 console.log(`settingReducer DEFAULT_STATE settings.lastBuild ${settings.lastBuild}`);
 
 const DEFAULT_STATE = {
   lastBuild: settings.lastBuild,
-  lastCheckForNovelties:settings.lastBuild,
+  lastCheckForNovelties: settings.lastBuild,
   staticJsonFilesBuildTime: settings.staticJsonFilesBuildTime,
   favicons: settings.favicons,
   widgets: settings.widgets,
   colorSettings: colors,
-  siteSettings: marketing_site,
-  disqusSettings: disqus_settings,
-  homeSettings: home_settings,
-  posterPagesSettings: poster_pages,
+  marketingPageSettings: marketingPageSettings,
+  homeSettings: homeSettings,
+  posterPagesSettings: postersPages,
   // this keeps tracks of last data synch
   lastDataSync: settings.lastBuild,
 };

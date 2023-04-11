@@ -12,7 +12,15 @@ import styles from "../styles/marketing-hero.module.scss";
 import {userHasAccessLevel, VirtualAccessLevel} from "../utils/authorizedGroups";
 import LoginButton from "./LoginButton";
 
-const MarketingHeroComponent = ({ siteSettings, eventRedirect, summit_phase, isLoggedUser, summit, location, userProfile }) => {
+const MarketingHeroComponent = ({
+  marketingPageSettings,
+  eventRedirect,
+  summitPhase,
+  isLoggedUser,
+  summit,
+  location,
+  userProfile
+}) => {
 
   const sliderRef = useRef(null);
   const [sliderHeight, setSliderHeight] = useState(424);
@@ -49,9 +57,9 @@ const MarketingHeroComponent = ({ siteSettings, eventRedirect, summit_phase, isL
   const getButtons = () => {
 
     const path = getDefaultLocation(eventRedirect, hasVirtualBadge);
-    const { registerButton, loginButton } = siteSettings.heroBanner.buttons;
+    const { registerButton, loginButton } = marketingPageSettings.hero.buttons;
 
-    if (summit_phase >= PHASES.DURING && isLoggedUser) {
+    if (summitPhase >= PHASES.DURING && isLoggedUser) {
       return (
         <>
           {registerButton.display &&
@@ -102,38 +110,38 @@ const MarketingHeroComponent = ({ siteSettings, eventRedirect, summit_phase, isL
         <div
           className={`${styles.leftColumn} column is-6`}
           style={{
-            backgroundImage: siteSettings.heroBanner.background?.file
-              ? `url(${siteSettings.heroBanner.background.file})`
+            backgroundImage: marketingPageSettings.hero.background?.file
+              ? `url(${marketingPageSettings.hero.background.file})`
               : "",
           }}
         >
           <div className={`${styles.heroMarketingContainer} hero-body`}>
             <div className="container">
-              <h1 className="title">{siteSettings.heroBanner.title}</h1>
-              <h2 className="subtitle">{siteSettings.heroBanner.subTitle}</h2>
+              <h1 className="title">{marketingPageSettings.hero.title}</h1>
+              <h2 className="subtitle">{marketingPageSettings.hero.subTitle}</h2>
               <div
                 className={styles.date}
                 style={{
-                  backgroundColor: siteSettings.heroBanner.dateLayout
+                  backgroundColor: marketingPageSettings.hero.dateLayout
                     ? "var(--color_secondary)"
                     : "",
-                  display: siteSettings.heroBanner.dateLayout
+                  display: marketingPageSettings.hero.dateLayout
                     ? ""
                     : "inline",
-                  transform: siteSettings.heroBanner.dateLayout
+                  transform: marketingPageSettings.hero.dateLayout
                     ? "skew(-25deg)"
                     : "skew(0deg)",
                 }}
               >
-                {siteSettings.heroBanner.dateLayout ?
-                <div style={{transform: "skew(25deg)"}}>{siteSettings.heroBanner.date}</div>
+                {marketingPageSettings.hero.dateLayout ?
+                <div style={{transform: "skew(25deg)"}}>{marketingPageSettings.hero.date}</div>
                 :
                 <div style={{transform: "skew(0deg)"}}>
-                  <span>{siteSettings.heroBanner.date}</span>
+                  <span>{marketingPageSettings.hero.date}</span>
                 </div>
                 }
               </div>
-              <h4>{siteSettings.heroBanner.time}</h4>
+              <h4>{marketingPageSettings.hero.time}</h4>
               <div className={styles.heroButtons}>
                 {getButtons()}
               </div>
@@ -141,9 +149,9 @@ const MarketingHeroComponent = ({ siteSettings, eventRedirect, summit_phase, isL
           </div>
         </div>
         <div className={`${styles.rightColumn} column is-6 px-0`} id="marketing-slider" ref={sliderRef}>
-          {siteSettings.heroBanner.images.length > 1 ?
+          {marketingPageSettings.hero.images.length > 1 ?
             <Slider {...sliderSettings}>
-              {siteSettings.heroBanner.images.map((img, index) => {
+              {marketingPageSettings.hero.images.map((img, index) => {
                 return (
                   <div key={index}>
                     <div className={styles.imageSlider} aria-label={img.alt} style={{ backgroundImage: `url(${img.file})`, height: sliderHeight, marginBottom: -6 }} />
@@ -152,7 +160,7 @@ const MarketingHeroComponent = ({ siteSettings, eventRedirect, summit_phase, isL
               })}
             </Slider>
             :
-            <div className={styles.singleImage} aria-label={siteSettings.heroBanner.images[0].alt} style={{ backgroundImage: `url(${siteSettings.heroBanner.images[0].file})`}} >
+            <div className={styles.singleImage} aria-label={marketingPageSettings.hero.images[0].alt} style={{ backgroundImage: `url(${marketingPageSettings.hero.images[0].file})`}} >
             </div>
           }
         </div>
@@ -162,10 +170,11 @@ const MarketingHeroComponent = ({ siteSettings, eventRedirect, summit_phase, isL
 }
 
 const mapStateToProps = ({ clockState, settingState, userState, summitState }) => ({
-  summit_phase: clockState.summit_phase,
+  summitPhase: clockState.summit_phase,
   summit: summitState.summit,
-  siteSettings: settingState.siteSettings,
-  eventRedirect: settingState.siteSettings.eventRedirect,
+  marketingPageSettings: settingState.marketingPageSettings,
+  // TODO: move to site settings i/o marketing page settings
+  eventRedirect: settingState.marketingPageSettings.eventRedirect,
   userProfile: userState.userProfile,
 });
 

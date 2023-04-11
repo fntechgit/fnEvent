@@ -1,14 +1,18 @@
+const {
+  STATIC_CONTENT_DIR_PATH
+} = require("./src/utils/filePath");
+
 module.exports = {
   siteMetadata: {
-    title: 'Virtual Event',
-    description: 'Virtual event',
+    title: "Virtual Event",
+    description: "Virtual event",
   },
   plugins: [
     {
       resolve: "gatsby-alias-imports",
       options: {
         aliases: {
-          "@utils": `${__dirname}/src/utils`,
+          "@utils": `${__dirname}/src/utils`
         }
       }
     },
@@ -24,7 +28,7 @@ module.exports = {
        * @see https://www.gatsbyjs.com/plugins/gatsby-plugin-sass/#v300
        * @see https://sass-lang.com/blog/libsass-is-deprecated#how-do-i-migrate
        */
-      resolve: `gatsby-plugin-sass`,
+      resolve: "gatsby-plugin-sass",
       options: {
         cssLoaderOptions: {
           esModule: false,
@@ -36,31 +40,31 @@ module.exports = {
     },
     {
       // keep as first gatsby-source-filesystem plugin for gatsby image support
-      resolve: 'gatsby-source-filesystem',
+      resolve: "gatsby-source-filesystem",
       options: {
         path: `${__dirname}/static/img`,
-        name: 'uploads',
+        name: "uploads",
       },
     },
     {
-      resolve: 'gatsby-source-filesystem',
+      resolve: "gatsby-source-filesystem",
       options: {
         path: `${__dirname}/src/pages`,
-        name: 'pages',
+        name: "pages",
       },
     },
     {
-      resolve: 'gatsby-source-filesystem',
+      resolve: "gatsby-source-filesystem",
       options: {
         path: `${__dirname}/src/img`,
-        name: 'images',
+        name: "images",
       },
     },
     "gatsby-transformer-json",
     {
       resolve: "gatsby-source-filesystem",
       options: {
-        path: `${__dirname}/src/content`,
+        path: `${__dirname}/${STATIC_CONTENT_DIR_PATH}`,
         name: "content",
       },
     },
@@ -80,41 +84,29 @@ module.exports = {
           {
             resolve: "gatsby-remark-images",
             options: {
-              // It's important to specify the maxWidth (in pixels) of
+              // It"s important to specify the maxWidth (in pixels) of
               // the content container as this plugin uses this as the
               // base for generating different widths of each image.
               maxWidth: 2048,
             },
           },
           {
-            resolve: 'gatsby-remark-copy-linked-files',
+            resolve: "gatsby-remark-copy-linked-files",
             options: {
-              destinationDir: 'static',
+              destinationDir: "static",
             },
           },
         ],
       },
-    },    
-    /**
-     * This plugin has been deprecated.
-     * Gatsby now natively supports client paths.
-     * @see https://www.gatsbyjs.com/plugins/gatsby-plugin-create-client-paths/
-     * @see https://www.gatsbyjs.com/docs/how-to/routing/client-only-routes-and-user-authentication/#handling-client-only-routes-with-gatsby
-     */
-    // {
-    //   resolve: `gatsby-plugin-create-client-paths`,
-    //   options: { prefixes: [`/auth/*`, `/a/*`] },
-    // },
-
+    },
     {
-      resolve: 'gatsby-plugin-netlify-cms',
+      resolve: "gatsby-plugin-netlify-cms",
       options: {
         modulePath: `${__dirname}/src/cms/cms.js`,
         enableIdentityWidget: false,
-
         /**
-         * Fixes Module not found: Error: Can't resolve 'path' bug.
-         * Webpack 5 doesn't include browser polyfills for node APIs by default anymore,
+         * Fixes Module not found: Error: Can"t resolve "path" bug.
+         * Webpack 5 doesn"t include browser polyfills for node APIs by default anymore,
          * so we need to provide them ourselves.
          * @see https://github.com/postcss/postcss/issues/1509#issuecomment-772097567
          * @see https://github.com/gatsbyjs/gatsby/issues/31475
@@ -131,17 +123,6 @@ module.exports = {
         }
       },
     },
-
-    /**
-     * If we are not using `gatsby-plugin-purgecss`, can we remove it from our dependencies?
-     */
-    // {
-    //   resolve: 'gatsby-plugin-purgecss', // purges all unused/unreferenced css rules
-    //   options: {
-    //     develop: true, // Activates purging in npm run develop
-    //     purgeOnly: ['/all.sass'], // applies purging only on the bulma css file
-    //   },
-    // }, // must be after other CSS plugins
-    'gatsby-plugin-netlify', // make sure to keep it last in the array
+    "gatsby-plugin-netlify", // make sure to keep it last in the array
   ],
 }

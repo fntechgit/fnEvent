@@ -27,6 +27,8 @@ import { castPresentationVote, uncastPresentationVote } from '../actions/user-ac
 import { PHASES } from '../utils/phasesUtils';
 import { isAuthorizedBadge } from '../utils/authorizedGroups';
 
+import useMarketingSettings from "@utils/useMarketingSettings";
+
 export const PosterDetailPage = ({
   location,
   presentationId,
@@ -43,8 +45,7 @@ export const PosterDetailPage = ({
   votingPeriods,
   votes,
   castPresentationVote,
-  uncastPresentationVote,
-  activityCtaText
+  uncastPresentationVote
 }) => {
 
   const [{ poster, posterTrackGroups, posterViewable }, setPosterState] = useState({
@@ -137,6 +138,11 @@ export const PosterDetailPage = ({
     setPreviousVotingPeriods(votingPeriods);
   }, [posterTrackGroups, votingPeriods]);
 
+  const {
+    MARKETING_SETTINGS_KEYS,
+    getSettingByKey
+  } = useMarketingSettings();
+
   if (loading) return <HeroComponent title="Loading poster" />;
 
   if (!poster) return <HeroComponent title="Poster not found" />;
@@ -146,6 +152,8 @@ export const PosterDetailPage = ({
   }
 
   const mediaUpload = poster.media_uploads?.find((e) => e?.media_upload_type?.name === 'Poster');
+
+  const activityCtaText = getSettingByKey(MARKETING_SETTINGS_KEYS.activityCtaText);
 
   return (
     <>
@@ -309,8 +317,7 @@ const posterDetailPageTemplatePropTypes = {
   votingPeriods: PropTypes.object,
   votes: PropTypes.array,
   castPresentationVote: PropTypes.func,
-  uncastPresentationVote: PropTypes.func,
-  activityCtaText: PropTypes.string,
+  uncastPresentationVote: PropTypes.func
 };
 
 PosterDetailPage.propTypes = posterDetailPageTemplatePropTypes;
@@ -325,8 +332,7 @@ const mapStateToProps = ({ userState, summitState, presentationsState, settingSt
   allPosters: presentationsState.voteablePresentations.allPresentations,
   recommendedPosters: presentationsState.voteablePresentations.recommendedPresentations,
   votingPeriods: presentationsState.votingPeriods,
-  votes: userState.attendee?.presentation_votes ?? [],
-  activityCtaText: settingState.siteSettings.activity_cta_text
+  votes: userState.attendee?.presentation_votes ?? []
 });
 
 export default connect(mapStateToProps, {

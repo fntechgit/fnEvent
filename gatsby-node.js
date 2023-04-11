@@ -1,31 +1,36 @@
-const axios = require('axios');
-const path = require('path');
+const axios = require("axios");
+const path = require("path");
 const fs = require("fs");
-const webpack = require('webpack');
-const {createFilePath} = require('gatsby-source-filesystem');
+const webpack = require("webpack");
+const { createFilePath } = require("gatsby-source-filesystem");
 const SentryWebpackPlugin = require("@sentry/webpack-plugin");
 
-const {ClientCredentials} = require('simple-oauth2');
-const URI = require('urijs');
-const sizeOf = require('image-size');
-const colorsFilepath = 'src/content/colors.json';
-const disqusFilepath = 'src/content/disqus-settings.json';
-const marketingFilepath = 'src/content/marketing-site.json';
-const homeFilepath = 'src/content/home-settings.json';
-const settingsFilepath = 'src/content/settings.json';
-const eventsFilePath = 'src/content/events.json';
-const eventsIdxFilePath = 'src/content/events.idx.json';
-const speakersFilePath = 'src/content/speakers.json';
-const speakersIdxFilePath = 'src/content/speakers.idx.json';
-const voteablePresentationFilePath = 'src/content/voteable_presentations.json';
-const extraQuestionFilePath = 'src/content/extra-questions.json';
-const summitFilePath = 'src/content/summit.json';
+const { ClientCredentials } = require("simple-oauth2");
+const URI = require("urijs");
+const sizeOf = require("image-size");
 
-const fileBuildTimes = [];
 
 const myEnv = require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 });
+
+const {
+  REQUIRED_DIR_PATHS,
+  COLORS_SASS_FILE_PATH,
+  COLORS_FILE_PATH,
+  SITE_SETTINGS_FILE_PATH,
+  HOME_SETTINGS_FILE_PATH,
+  SUMMIT_FILE_PATH,
+  EVENTS_FILE_PATH,
+  EVENTS_IDX_FILE_PATH,
+  SPEAKERS_FILE_PATH,
+  SPEAKERS_IDX_FILE_PATH,
+  EXTRA_QUESTIONS_FILE_PATH,
+  VOTEABLE_PRESENTATIONS_FILE_PATH,
+  MARKETING_SETTINGS_FILE_PATH
+} = require("./src/utils/filePath");
+
+const fileBuildTimes = [];
 
 const getAccessToken = async (config, scope) => {
   const client = new ClientCredentials(config);
@@ -77,10 +82,10 @@ const SSR_getEvents = async (baseUrl, summitId, accessToken) => {
   const endpoint = `${baseUrl}/api/v1/summits/${summitId}/events/published`;
 
   const params = {
-        access_token: accessToken,
-        per_page: 50,
-        page: 1,
-        expand: 'slides, links, videos, media_uploads, type, track, track.allowed_access_levels, location, location.venue, location.floor, speakers, moderator, sponsors, current_attendance, groups, rsvp_template, tags',
+    access_token: accessToken,
+    per_page: 50,
+    page: 1,
+    expand: 'slides, links, videos, media_uploads, type, track, track.allowed_access_levels, location, location.venue, location.floor, speakers, moderator, sponsors, current_attendance, groups, rsvp_template, tags',
   }
 
   return await axios.get(endpoint, { params }).then(async ({data}) => {
@@ -183,12 +188,10 @@ exports.onPreBootstrap = async () => {
 
   const summitId = process.env.GATSBY_SUMMIT_ID;
   const summitApiBaseUrl = process.env.GATSBY_SUMMIT_API_BASE_URL;
-  const marketingData = await SSR_getMarketingSettings(process.env.GATSBY_MARKETING_API_BASE_URL, process.env.GATSBY_SUMMIT_ID);
-  const colorSettings = fs.existsSync(colorsFilepath) ? JSON.parse(fs.readFileSync(colorsFilepath)) : {};
-  const disqusSettings = fs.existsSync(disqusFilepath) ? JSON.parse(fs.readFileSync(disqusFilepath)) : {};
-  const marketingSite = fs.existsSync(marketingFilepath) ? JSON.parse(fs.readFileSync(marketingFilepath)) : {};
-  const homeSettings = fs.existsSync(homeFilepath) ? JSON.parse(fs.readFileSync(homeFilepath)) : {};
-  const globalSettings = fs.existsSync(settingsFilepath) ? JSON.parse(fs.readFileSync(settingsFilepath)) : {};
+  const marketingSettings = await SSR_getMarketingSettings(process.env.GATSBY_MARKETING_API_BASE_URL, process.env.GATSBY_SUMMIT_ID);
+  const colorSettings = fs.existsSync(COLORS_FILE_PATH) ? JSON.parse(fs.readFileSync(COLORS_FILE_PATH)) : {};
+  const homeSettings = fs.existsSync(HOME_SETTINGS_FILE_PATH) ? JSON.parse(fs.readFileSync(HOME_SETTINGS_FILE_PATH)) : {};
+  const globalSettings = fs.existsSync(SITE_SETTINGS_FILE_PATH) ? JSON.parse(fs.readFileSync(SITE_SETTINGS_FILE_PATH)) : {};
 
   const config = {
     client: {
@@ -206,18 +209,9 @@ exports.onPreBootstrap = async () => {
 
   const accessToken = await getAccessToken(config, process.env.GATSBY_BUILD_SCOPES).then(({ token }) => token.access_token);
 
-  // Marketing Settings
-  marketingData.map(({ key, value }) => {
+  // extract colors from marketing settings
+  marketingSettings.map(({ key, value }) => {
     if (key.startsWith('color_')) colorSettings[key] = value;
-    if (key.startsWith('disqus_')) disqusSettings[key] = value;
-    if (key.startsWith('summit_')) marketingSite[key] = value;
-        
-    if (key === 'REG_LITE_COMPANY_INPUT_PLACEHOLDER') marketingSite[key] = value;
-    if (key === 'REG_LITE_COMPANY_DDL_PLACEHOLDER') marketingSite[key] = value;
-    if (key === 'REG_LITE_ALLOW_PROMO_CODES') marketingSite[key] = !!Number(value);
-    if (key === 'schedule_default_image') homeSettings.schedule_default_image = value;
-    if (key === 'registration_in_person_disclaimer') marketingSite[key] = value;
-    if (key === 'ACTIVITY_CTA_TEXT') marketingSite[key] = value;
   });
 
   // Set the size property on marketing settings masonry if it's needed
@@ -231,99 +225,91 @@ exports.onPreBootstrap = async () => {
       }
       return masonry;
   }
-
-  Object.keys(marketingSite).map((key) => {
-      if (key === 'sponsors') marketingSite[key] = migrateMasonry(marketingSite[key]);
+  // create required directories
+  REQUIRED_DIR_PATHS.forEach(dirPath => {
+    if (!fs.existsSync(dirPath)) {
+      fs.mkdirSync(dirPath, { recursive: true });
+    }
   });
 
-  fs.writeFileSync(colorsFilepath, JSON.stringify(colorSettings), 'utf8');
-  fs.writeFileSync(disqusFilepath, JSON.stringify(disqusSettings), 'utf8');
-  fs.writeFileSync(marketingFilepath, JSON.stringify(marketingSite), 'utf8');
-  fs.writeFileSync(homeFilepath, JSON.stringify(homeSettings), 'utf8');
+  fs.writeFileSync(COLORS_FILE_PATH, JSON.stringify(colorSettings), "utf8");
+  fs.writeFileSync(MARKETING_SETTINGS_FILE_PATH, JSON.stringify(marketingSettings), "utf8");
+  fs.writeFileSync(HOME_SETTINGS_FILE_PATH, JSON.stringify(homeSettings), "utf8");
 
-  let sassColors = '';
+  let sassColors = "";
   Object.entries(colorSettings).forEach(([key, value]) => sassColors += `$${key} : ${value};\n`);
-  fs.writeFileSync('src/styles/colors.scss', sassColors, 'utf8');
+  fs.writeFileSync(COLORS_SASS_FILE_PATH, sassColors, "utf8");
 
   // summit
   const summit = await SSR_getSummit(summitApiBaseUrl, summitId);
-  fileBuildTimes.push(
-      {
-        'file' : summitFilePath,
-        'build_time': Date.now()
-      });
-  fs.writeFileSync(summitFilePath, JSON.stringify(summit), 'utf8');
+  fileBuildTimes.push({
+    'file': SUMMIT_FILE_PATH,
+    'build_time': Date.now()
+  });
+  fs.writeFileSync(SUMMIT_FILE_PATH, JSON.stringify(summit), "utf8");
 
   // Show Events
   const allEvents = await SSR_getEvents(summitApiBaseUrl, summitId, accessToken);
-  fileBuildTimes.push(
-      {
-        'file': eventsFilePath,
-        'build_time': Date.now()
-      });
+  fileBuildTimes.push({
+    'file': EVENTS_FILE_PATH,
+    'build_time': Date.now()
+  });
   console.log(`allEvents ${allEvents.length}`);
 
-  fs.writeFileSync(eventsFilePath, JSON.stringify(allEvents), 'utf8');
+  fs.writeFileSync(EVENTS_FILE_PATH, JSON.stringify(allEvents), "utf8");
 
   const allEventsIDX = {};
   allEvents.forEach((e, index) => allEventsIDX[e.id] = index);
 
-  fileBuildTimes.push(
-      {
-        'file': eventsIdxFilePath,
-        'build_time': Date.now()
-      });
-  fs.writeFileSync(eventsIdxFilePath, JSON.stringify(allEventsIDX), 'utf8');
+  fileBuildTimes.push({
+    'file': EVENTS_IDX_FILE_PATH,
+    'build_time': Date.now()
+  });
+  fs.writeFileSync(EVENTS_IDX_FILE_PATH, JSON.stringify(allEventsIDX), "utf8");
 
 
   // Show Speakers
   const allSpeakers = await SSR_getSpeakers(summitApiBaseUrl, summitId, accessToken);
   console.log(`allSpeakers ${allSpeakers.length}`);
-  fileBuildTimes.push(
-      {
-        'file': speakersFilePath,
-        'build_time': Date.now()
-      });
+  fileBuildTimes.push({
+    'file': SPEAKERS_FILE_PATH,
+    'build_time': Date.now()
+  });
 
-  fs.writeFileSync(speakersFilePath, JSON.stringify(allSpeakers), 'utf8');
+  fs.writeFileSync(SPEAKERS_FILE_PATH, JSON.stringify(allSpeakers), "utf8");
 
   const allSpeakersIDX = {};
   allSpeakers.forEach((e, index) => allSpeakersIDX[e.id] = index);
-  fileBuildTimes.push(
-      {
-        'file': speakersIdxFilePath,
-        'build_time': Date.now()
-      });
-  fs.writeFileSync(speakersIdxFilePath, JSON.stringify(allSpeakersIDX), 'utf8');
-
+  fileBuildTimes.push({
+    'file': SPEAKERS_IDX_FILE_PATH,
+    'build_time': Date.now()
+  });
+  fs.writeFileSync(SPEAKERS_IDX_FILE_PATH, JSON.stringify(allSpeakersIDX), "utf8");
 
   // Voteable Presentations
-
   const allVoteablePresentations = await SSR_getVoteablePresentations(summitApiBaseUrl, summitId, accessToken);
   console.log(`allVoteablePresentations ${allVoteablePresentations.length}`);
-  fileBuildTimes.push(
-      {
-        'file':voteablePresentationFilePath,
-        'build_time': Date.now()
-      });
-  fs.writeFileSync(voteablePresentationFilePath, JSON.stringify(allVoteablePresentations), 'utf8');
+  fileBuildTimes.push({
+    'file':VOTEABLE_PRESENTATIONS_FILE_PATH,
+    'build_time': Date.now()
+  });
+  fs.writeFileSync(VOTEABLE_PRESENTATIONS_FILE_PATH, JSON.stringify(allVoteablePresentations), "utf8");
 
   // Get Summit Extra Questions
   const extraQuestions = await SSR_getSummitExtraQuestions(summitApiBaseUrl, summitId, accessToken);
   console.log(`extraQuestions ${extraQuestions.length}`);
-  fileBuildTimes.push(
-      {
-        'file': extraQuestionFilePath,
-        'build_time': Date.now()
-      });
+  fileBuildTimes.push({
+    'file': EXTRA_QUESTIONS_FILE_PATH,
+    'build_time': Date.now()
+  });
 
-  fs.writeFileSync(extraQuestionFilePath, JSON.stringify(extraQuestions), 'utf8');
+  fs.writeFileSync(EXTRA_QUESTIONS_FILE_PATH, JSON.stringify(extraQuestions), "utf8");
 
   // setting build times
   globalSettings.staticJsonFilesBuildTime = fileBuildTimes;
   globalSettings.lastBuild = Date.now();
 
-  fs.writeFileSync(settingsFilepath, JSON.stringify(globalSettings), 'utf8');
+  fs.writeFileSync(SITE_SETTINGS_FILE_PATH, JSON.stringify(globalSettings), "utf8");
 };
 
 // makes Summit logo optional for graphql queries
@@ -334,17 +320,11 @@ exports.createSchemaCustomization = ({ actions }) => {
       logo: String
     }
   `;
-  createTypes(typeDefs)
+  createTypes(typeDefs);
 };
 
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
-  /**
-   * Gatsby v4 Upgrade NOTE: This is no longer needed in `gatsby-remark-relative-images` v2.
-   * @see https://www.npmjs.com/package/gatsby-remark-relative-images#v2-breaking-changes
-   */
-  // fmImagesToRelative(node); // convert image paths for gatsby images
-
   if (node.internal.type === `MarkdownRemark`) {
     const value = createFilePath({ node, getNode });
     createNodeField({
@@ -363,7 +343,7 @@ exports.sourceNodes = async ({
 
   console.log('sourceNodes');
   const { createNode } = actions;
-  const summit = fs.existsSync(summitFilePath) ? JSON.parse(fs.readFileSync(summitFilePath)) : {};
+  const summit = fs.existsSync(SUMMIT_FILE_PATH) ? JSON.parse(fs.readFileSync(SUMMIT_FILE_PATH)) : {};
   const nodeContent = JSON.stringify(summit);
 
   const nodeMeta = {
@@ -469,44 +449,44 @@ exports.onCreateWebpackConfig = ({ actions, plugins, loaders }) => {
           // Specify the directory containing build artifacts
           include: [
               {
-                  paths: ['src','public','.cache'],
-                  urlPrefix: '~/',
+                paths: ['src','public','.cache'],
+                urlPrefix: '~/',
               },
               {
                 paths: ['node_modules/upcoming-events-widget/dist'],
                 urlPrefix: '~/node_modules/upcoming-events-widget/dist',
               },
               {
-                  paths: ['node_modules/summit-registration-lite/dist'],
-                  urlPrefix: '~/node_modules/summit-registration-lite/dist',
+                paths: ['node_modules/summit-registration-lite/dist'],
+                urlPrefix: '~/node_modules/summit-registration-lite/dist',
               },
               {
-                  paths: ['node_modules/full-schedule-widget/dist'],
-                  urlPrefix: '~/node_modules/full-schedule-widget//dist',
+                paths: ['node_modules/full-schedule-widget/dist'],
+                urlPrefix: '~/node_modules/full-schedule-widget//dist',
               },
               {
-                  paths: ['node_modules/schedule-filter-widget/dist'],
-                  urlPrefix: '~/node_modules/schedule-filter-widget/dist',
+                paths: ['node_modules/schedule-filter-widget/dist'],
+                urlPrefix: '~/node_modules/schedule-filter-widget/dist',
               },
               {
-                  paths: ['node_modules/lite-schedule-widget/dist'],
-                  urlPrefix: '~/node_modules/lite-schedule-widget/dist',
+                paths: ['node_modules/lite-schedule-widget/dist'],
+                urlPrefix: '~/node_modules/lite-schedule-widget/dist',
               },
               {
-                  paths: ['node_modules/live-event-widget/dist'],
-                  urlPrefix: '~/node_modules/live-event-widget/dist',
+                paths: ['node_modules/live-event-widget/dist'],
+                urlPrefix: '~/node_modules/live-event-widget/dist',
               },
               {
-                  paths: ['node_modules/attendee-to-attendee-widget/dist'],
-                  urlPrefix: '~/node_modules/attendee-to-attendee-widget/dist',
+                paths: ['node_modules/attendee-to-attendee-widget/dist'],
+                urlPrefix: '~/node_modules/attendee-to-attendee-widget/dist',
               },
               {
-                  paths: ['node_modules/openstack-uicore-foundation/lib'],
-                  urlPrefix: '~/node_modules/openstack-uicore-foundation/lib',
+                paths: ['node_modules/openstack-uicore-foundation/lib'],
+                urlPrefix: '~/node_modules/openstack-uicore-foundation/lib',
               },
               {
-                  paths: ['node_modules/speakers-widget/dist'],
-                  urlPrefix: '~/node_modules/speakers-widget/dist',
+                paths: ['node_modules/speakers-widget/dist'],
+                urlPrefix: '~/node_modules/speakers-widget/dist',
               },
           ],
           // Auth tokens can be obtained from https://sentry.io/settings/account/api/auth-tokens/

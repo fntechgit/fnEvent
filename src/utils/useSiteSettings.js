@@ -1,6 +1,6 @@
 import { graphql, useStaticQuery } from "gatsby";
 
-export const siteSettingsQuery = graphql`
+const siteSettingsQuery = graphql`
   query {
     siteSettingsJson {
       favicons {

@@ -1,11 +1,12 @@
-import React from 'react'
-import Content from '../content/ads.json'
+import * as React from "react";
 import Ad from "./Ad";
 
 import styles from '../styles/advertise.module.scss'
 
-const AdvertiseComponent = ({ section, column, id }) => {
-    const sectionAds = Content.ads.find(ad => ad.section === section)?.columnAds.filter(c => c.column === column) || [];
+import content from "../content/ads.json";
+
+const AdvertiseComponent = ({ section, column, eventId }) => {
+    const sectionAds = content.ads.find(ad => ad.section === section)?.columnAds.filter(c => c.column === column) || [];
 
     if (sectionAds.length === 0) return null;
 
@@ -31,7 +32,7 @@ const AdvertiseComponent = ({ section, column, id }) => {
                 )
             }
 
-            if((ad.hasOwnProperty('id') && id && ad.id && ad.id !== id) || column === 'center') return null
+            if((ad.hasOwnProperty('eventId') && eventId && ad.eventId && ad.eventId !== eventId) || column === 'center') return null
 
             const wrapperClass =`${index === 0 ? styles.firstSponsorContainer : styles.sponsorContainer} sponsor-container`;
 

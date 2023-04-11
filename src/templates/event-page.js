@@ -4,6 +4,7 @@ import {navigate} from "gatsby";
 import {connect} from "react-redux";
 import { isEqual } from "lodash";
 import Layout from "../components/Layout";
+//import EventHeroComponent from "../components/EventHeroComponent";
 import DisqusComponent from "../components/DisqusComponent";
 import AdvertiseComponent from "../components/AdvertiseComponent";
 import Etherpad from "../components/Etherpad";
@@ -21,7 +22,8 @@ import AttendanceTrackerComponent from "../components/AttendanceTrackerComponent
 import EventFeedbackComponent from '../components/EventFeedbackComponent'
 import {PHASES} from '../utils/phasesUtils';
 import { getEventById } from "../actions/event-actions";
-import URI from "urijs"
+import useMarketingSettings from "@utils/useMarketingSettings";
+import URI from "urijs";
 
 /**
  * @type {EventPageTemplate}
@@ -227,9 +229,15 @@ const EventPage = ({
                        nowUtc,
                        getEventById,
                        lastUpdate,
-                       activityCtaText,
-                       lastDataSync,
+                       lastDataSync
                    }) => {
+
+    const {
+        MARKETING_SETTINGS_KEYS,
+        getSettingByKey
+    } = useMarketingSettings();
+
+    const activityCtaText = getSettingByKey(MARKETING_SETTINGS_KEYS.activityCtaText);
 
     return (
         <Layout location={location}>
@@ -266,7 +274,6 @@ EventPage.propTypes = {
     user: PropTypes.object,
     eventsPhases: PropTypes.array,
     getEventById: PropTypes.func,
-    activityCtaText: PropTypes.string,
 };
 
 EventPageTemplate.propTypes = {
@@ -288,7 +295,6 @@ const mapStateToProps = ({eventState, summitState, userState, clockState, settin
     eventsPhases: clockState.events_phases,
     nowUtc: clockState.nowUtc,
     lastUpdate: eventState.lastUpdate,
-    activityCtaText: settingState.siteSettings.ACTIVITY_CTA_TEXT,
     lastDataSync: settingState.lastDataSync,
 });
 

@@ -43,6 +43,7 @@ const LoginPage = ({ loggedUserState, location, userProfile }) => {
 
 export default connect(state => ({
   loggedUserState: state.loggedUserState,
-  eventRedirect: state.settingState.siteSettings.eventRedirect,
+  // TODO: move to site settings i/o marketing page settings
+  eventRedirect: state.settingState.marketingPageSettings.eventRedirect,
   userProfile: state.userState.userProfile,
 }), null)(LoginPage)

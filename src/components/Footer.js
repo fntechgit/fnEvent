@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { StaticQuery, graphql } from "gatsby"
 
 import FooterMarketing from './FooterMarketing';
-import footerContent from '../content/footer.json';
+import footerContent from '../content/footer/index.json';
 import Link from './Link'
 import styles from '../styles/footer.module.scss';
 

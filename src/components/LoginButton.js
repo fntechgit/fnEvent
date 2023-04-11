@@ -19,7 +19,7 @@ const LoginButton = ({
     thirdPartyProviders,
     setPasswordlessLogin,
     summit,
-    siteSettings,
+    marketingPageSettings,
     allowsNativeAuth,
     allowsOtpAuth,
     location,
@@ -126,7 +126,7 @@ const LoginButton = ({
         getLoginCode: (email) => sendCode(email),
     }
 
-    const { loginButton } = siteSettings.heroBanner.buttons;
+    const { loginButton } = marketingPageSettings.hero.buttons;
 
     return (
         <div className={styles.loginButtonWrapper}>
@@ -164,7 +164,7 @@ const mapStateToProps = ({ userState, summitState, settingState }) => {
         allowsOtpAuth: summitState.allows_otp_auth,
         summit: summitState.summit,
         colorSettings: settingState.colorSettings,
-        siteSettings: settingState.siteSettings,
+        marketingPageSettings: settingState.marketingPageSettings,
     })
 };
 

@@ -1,8 +1,9 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { DiscussionEmbed } from 'disqus-react';
-import { getEnvVariable, DISQUS_SHORTNAME } from '../utils/envVariables';
-import { getDisqusSSO } from '../actions/user-actions';
+import React from "react";
+import { connect } from "react-redux";
+import { DiscussionEmbed } from "disqus-react";
+import { withMarketingSettings } from "@utils/useMarketingSettings";
+import { getEnvVariable, DISQUS_SHORTNAME } from "@utils/envVariables";
+import { getDisqusSSO } from "../actions/user-actions";
 import PropTypes from "prop-types";
 
 const DisqusComponent = class extends React.Component {
@@ -45,15 +46,22 @@ const DisqusComponent = class extends React.Component {
   };
 
   getIdentifier() {
-    const { summit, page, sponsor, event, disqusSettings } = this.props;
+    const {
+      summit,
+      page,
+      sponsor,
+      event,
+      getMarketingSettingByKey,
+      MARKETING_SETTINGS_KEYS
+    } = this.props;
 
-    let threadsBy = disqusSettings.disqus_threads_by ? disqusSettings.disqus_threads_by : disqusSettings.threads_by;
+    let threadsBy = getMarketingSettingByKey(MARKETING_SETTINGS_KEYS.disqusThreadsBy) ?? "event";
 
     let identifier = null;
 
     if (event) {
-      let eventExcludes = disqusSettings.disqus_exclude_events ? disqusSettings.disqus_exclude_events : [];
-      let trackExcludes = disqusSettings.disqus_exclude_tracks ? disqusSettings.disqus_exclude_tracks : [];
+      let eventExcludes = getMarketingSettingByKey(MARKETING_SETTINGS_KEYS.disqusExcludeEvents) ?? [];
+      let trackExcludes = getMarketingSettingByKey(MARKETING_SETTINGS_KEYS.disqusExcludeTracks) ?? [];
 
       identifier = eventExcludes.includes(event.id) ? `summit/${summit.id}/event/${event.id}` : null;
 
@@ -89,11 +97,20 @@ const DisqusComponent = class extends React.Component {
   }
 
   getTitle() {
-    const { summit, page, sponsor, event, disqusSettings } = this.props;
+    const {
+      summit,
+      page,
+      sponsor,
+      event,
+      getMarketingSettingByKey,
+      MARKETING_SETTINGS_KEYS
+    } = this.props;
+
     let suffix = '';
-    const threadsBy = disqusSettings.disqus_threads_by ? disqusSettings.disqus_threads_by : disqusSettings.threads_by;
+    const threadsBy = getMarketingSettingByKey(MARKETING_SETTINGS_KEYS.disqusThreadsBy) ?? "event";
+
     if (event) {
-      const trackExcludes = disqusSettings.disqus_exclude_tracks ? disqusSettings.disqus_exclude_tracks : [];
+      const trackExcludes = getMarketingSettingByKey(MARKETING_SETTINGS_KEYS.disqusExcludeTracks) ?? [];
       if (event.track && event.track.id && (threadsBy === 'track' || trackExcludes.includes(event.track.id))) {
         suffix += ' - ';
         suffix += event.track.name;
@@ -163,10 +180,9 @@ const DisqusComponent = class extends React.Component {
   }
 };
 
-const mapStateToProps = ({ summitState, userState, settingState }) => ({
+const mapStateToProps = ({ summitState, userState }) => ({
   summit: summitState.summit,
-  disqusSSO: userState.disqusSSO,
-  disqusSettings: settingState.disqusSettings
+  disqusSSO: userState.disqusSSO
 });
 
 DisqusComponent.propTypes = {
@@ -177,4 +193,4 @@ DisqusComponent.propTypes = {
   page: PropTypes.string,
 };
 
-export default connect(mapStateToProps, { getDisqusSSO })(DisqusComponent)
+export default connect(mapStateToProps, { getDisqusSSO })(withMarketingSettings(DisqusComponent));

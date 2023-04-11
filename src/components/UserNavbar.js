@@ -138,8 +138,9 @@ const UserNavbar = class extends React.Component {
 }
 
 const mapStateToProps = ({ settingState, userState }) => ({
-  eventRedirect: settingState.siteSettings.eventRedirect,
-  userProfile: userState.userProfile,
+  // TODO: move to site settings i/o marketing page settings
+  eventRedirect: settingState.marketingPageSettings.eventRedirect,
+  userProfile: userState.userProfile
 });
 
 export default connect(mapStateToProps, { updateProfilePicture, updateProfile })(UserNavbar)

@@ -11,10 +11,12 @@ import {
   EVENT_PHASE_BEFORE,
   EVENT_PHASE_ADD
 } from '../actions/clock-actions';
-import summitData from '../content/summit.json';
+
 import {RESET_STATE, SYNC_DATA} from "../actions/base-actions-definitions";
 
 import {getEventPhase, getSummitPhase} from '../utils/phasesUtils';
+
+import summitData from '../data/summit.json';
 
 const localNowUtc = Math.round(+new Date() / 1000);
 

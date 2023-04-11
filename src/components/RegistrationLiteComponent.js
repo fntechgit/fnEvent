@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react"
 import * as Sentry from "@sentry/react";
 import { navigate, withPrefix } from "gatsby"
 import { connect } from "react-redux";
-import URI from "urijs"
+import URI from "urijs";
 // these two libraries are client-side only
 import RegistrationLiteWidget from 'summit-registration-lite/dist';
+import 'summit-registration-lite/dist/index.css';
 import FragmentParser from "openstack-uicore-foundation/lib/utils/fragment-parser";
 import {doLogin, passwordlessStart, getAccessToken} from 'openstack-uicore-foundation/lib/security/methods'
 import {doLogout} from 'openstack-uicore-foundation/lib/security/actions'
@@ -12,33 +13,35 @@ import {getEnvVariable, SUMMIT_API_BASE_URL, OAUTH2_CLIENT_ID, REGISTRATION_BASE
 import {getUserProfile, setPasswordlessLogin, setUserOrder, checkOrderData} from "../actions/user-actions";
 import {getThirdPartyProviders} from "../actions/base-actions";
 import {formatThirdPartyProviders} from "../utils/loginUtils";
-import 'summit-registration-lite/dist/index.css';
-import styles from '../styles/marketing-hero.module.scss'
 import Swal from "sweetalert2";
 import {checkRequireExtraQuestionsByAttendee} from "../actions/user-actions";
 import {userHasAccessLevel, VirtualAccessLevel} from "../utils/authorizedGroups";
 
+import useMarketingSettings from "@utils/useMarketingSettings";
+
+import styles from '../styles/marketing-hero.module.scss'
+
 import { SentryFallbackFunction } from "./SentryErrorComponent";
 
 const RegistrationLiteComponent = ({
-                                       registrationProfile,
-                                       userProfile,
-                                       attendee,
-                                       getThirdPartyProviders,
-                                       thirdPartyProviders,
-                                       getUserProfile,
-                                       setPasswordlessLogin,
-                                       setUserOrder,
-                                       checkOrderData,
-                                       loadingProfile,
-                                       loadingIDP,
-                                       summit,
-                                       colorSettings,
-                                       siteSettings,
-                                       allowsNativeAuth,
-                                       allowsOtpAuth,
-                                       checkRequireExtraQuestionsByAttendee,
-                                   }) => {
+   registrationProfile,
+   userProfile,
+   attendee,
+   getThirdPartyProviders,
+   thirdPartyProviders,
+   getUserProfile,
+   setPasswordlessLogin,
+   setUserOrder,
+   checkOrderData,
+   loadingProfile,
+   loadingIDP,
+   summit,
+   colorSettings,
+   marketingPageSettings,
+   allowsNativeAuth,
+   allowsOtpAuth,
+   checkRequireExtraQuestionsByAttendee,
+}) => {
     const [isActive, setIsActive] = useState(false);
     const [initialEmailValue, setInitialEmailValue] = useState('');
 
@@ -92,6 +95,16 @@ const RegistrationLiteComponent = ({
         return setPasswordlessLogin(params);
     };
 
+    const {
+        MARKETING_SETTINGS_KEYS,
+        getSettingByKey
+    } = useMarketingSettings();
+
+    const inPersonDisclaimer = getSettingByKey(MARKETING_SETTINGS_KEYS.registrationInPersonDisclaimer);
+    const allowPromoCodes = !!Number(getSettingByKey(MARKETING_SETTINGS_KEYS.regLiteAllowPromoCodes));
+    const companyInputPlaceholder = getSettingByKey(MARKETING_SETTINGS_KEYS.regLiteCompanyInputPlaceholder);
+    const companyDDLPlaceholder = getSettingByKey(MARKETING_SETTINGS_KEYS.regLiteCompanyDDLPlaceholder);
+
     const widgetProps = {
         apiBaseUrl: getEnvVariable(SUMMIT_API_BASE_URL),
         clientId: getEnvVariable(OAUTH2_CLIENT_ID),
@@ -130,7 +143,7 @@ const RegistrationLiteComponent = ({
             // check if it's necessary to update profile
             setUserOrder(order).then(()=> checkOrderData(order));
         },
-        inPersonDisclaimer: siteSettings?.registration_in_person_disclaimer,
+        inPersonDisclaimer: inPersonDisclaimer,
         handleCompanyError: () => handleCompanyError,
         allowsNativeAuth: allowsNativeAuth,
         allowsOtpAuth: allowsOtpAuth,
@@ -142,20 +155,19 @@ const RegistrationLiteComponent = ({
         authErrorCallback: (error) => {
             // we have an auth Error, perform logout
             const fragment = window?.location?.hash;
-            return navigate('/auth/logout',
-                {
-                    state: {
-                        backUrl: '/' + fragment
-                    }
-                });
+            return navigate('/auth/logout', {
+                state: {
+                    backUrl: '/' + fragment
+                }
+            });
         },
-        allowPromoCodes: siteSettings?.REG_LITE_ALLOW_PROMO_CODES,
-        companyInputPlaceholder: siteSettings?.REG_LITE_COMPANY_INPUT_PLACEHOLDER,
-        companyDDLPlaceholder: siteSettings?.REG_LITE_COMPANY_DDL_PLACEHOLDER,
-        supportEmail:getEnvVariable(SUPPORT_EMAIL),
+        allowPromoCodes: allowPromoCodes,
+        companyInputPlaceholder: companyInputPlaceholder,
+        companyDDLPlaceholder: companyDDLPlaceholder,
+        supportEmail: getEnvVariable(SUPPORT_EMAIL),
     };
 
-    const {registerButton} = siteSettings.heroBanner.buttons;
+    const { registerButton } = marketingPageSettings.hero.buttons;
 
     return (
         <>
@@ -187,7 +199,7 @@ const mapStateToProps = ({userState, summitState, settingState}) => {
         allowsOtpAuth: summitState.allows_otp_auth,
         summit: summitState.summit,
         colorSettings: settingState.colorSettings,
-        siteSettings: settingState.siteSettings,
+        marketingPageSettings: settingState.marketingPageSettings
     })
 };
 

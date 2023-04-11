@@ -1,8 +1,9 @@
-import speakers from '../content/speakers.json';
-import allIDXSpeakers from '../content/speakers.idx.json';
 import { START_LOADING, STOP_LOADING } from "openstack-uicore-foundation/lib/utils/actions";
 import { LOGOUT_USER } from "openstack-uicore-foundation/lib/security/actions";
 import { RESET_STATE, SYNC_DATA}  from "../actions/base-actions-definitions";
+
+import speakers from '../data/speakers.json';
+import allIDXSpeakers from '../data/speakers.idx.json';
 
 const DEFAULT_STATE = {
   loading: false,

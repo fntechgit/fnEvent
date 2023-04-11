@@ -197,8 +197,9 @@ const Navbar = ({
 const mapStateToProps = ({ summitState, clockState, settingState, userState }) => ({
   summit: summitState.summit,
   summit_phase: clockState.summit_phase,
-  eventRedirect: settingState.siteSettings.eventRedirect,
-  userProfile: userState.userProfile,
+  // TODO: move to site settings i/o marketing page settings
+  eventRedirect: settingState.marketingPageSettings.eventRedirect,
+  userProfile: userState.userProfile
 });
 
 export default connect(mapStateToProps, {

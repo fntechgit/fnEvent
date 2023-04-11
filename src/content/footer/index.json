@@ -72,11 +72,6 @@
         "icon": "fa-linkedin",
         "link": "/footer-content/",
         "display": true
-      },
-      {
-        "link": "/footer-content/",
-        "icon": "TEST",
-        "display": true
       }
     ]
   },

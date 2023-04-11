@@ -1,4 +1,12 @@
-import MarketingSite from '../content/marketing-site.json';
+import {
+  MARKETING_SETTINGS_KEYS
+} from "@utils/useMarketingSettings";
+
+import marketingSettings from "../content/marketing-settings.json";
+
+const summitDeltaStartTime = marketingSettings.find(
+  (setting) => setting.key === MARKETING_SETTINGS_KEYS.summitDeltaStartTime
+)?.value;
 
 export const PHASES = {
   BEFORE: -1,
@@ -14,7 +22,7 @@ export const getSummitPhase = function (summit, now) {
 
   const { start_date, end_date } = summit;
 
-  const deltaSummit = MarketingSite.summit_delta_start_time ? parseInt(MarketingSite.summit_delta_start_time) : 0;
+  const deltaSummit = summitDeltaStartTime ? parseInt(summitDeltaStartTime) : 0;
 
   return start_date - deltaSummit <= now && end_date > now ? PHASES.DURING
       :

@@ -1,0 +1,87 @@
+{
+  "hero": {
+    "title": "TIER 1 - EVENT NAME HERE",
+    "date": "Date Information",
+    "dateLayout": true,
+    "time": "Timezone",
+    "buttons": {
+      "registerButton": {
+        "text": "Register Now",
+        "display": true
+      },
+      "loginButton": {
+        "text": "Log In",
+        "display": true
+      }
+    },
+    "images": [
+      {
+        "image": "/img/tier1-default-header1.png"
+      },
+      {
+        "image": "/img/tier1-default-header2.png"
+      },
+      {
+        "image": "/img/tier1-default-header3.png"
+      }
+    ]
+  },
+  "countdown": {
+    "display": true,
+    "text": "Event Kickoff"
+  },
+  "leftColumn": {
+    "schedule": {
+      "display": true,
+      "title": "Full Event Schedule"
+    },
+    "disqus": {
+      "title": "Join the Conversation"
+    },
+    "image": {
+      "title": "Image"
+    }
+  },
+  "masonry": [
+    {
+      "placement": "Top Left",
+      "size": 2,
+      "images": [
+        {
+          "image": "/img/tier1-default-space3.png"
+        },
+        {
+          "image": "/img/tier1-default-space4.png"
+        }
+      ]
+    },
+    {
+      "placement": "Top Right",
+      "size": 1,
+      "images": [
+        {
+          "image": "/img/tier1-default-space1.png"
+        }
+      ]
+    },
+    {
+      "placement": "Bottom Left",
+      "size": 1,
+      "images": [
+        {
+          "image": "/img/tier1-default-space2.png"
+        }
+      ]
+    },
+    {
+      "placement": "Bottom Right",
+      "size": 2,
+      "images": [
+        {
+          "image": "/img/tier1-default-space4.png"
+        }
+      ]
+    }
+  ],
+  "eventRedirect": 753
+}

@@ -72,7 +72,8 @@ TokenExpirePage.propTypes = {
 
 const mapStateToProps = ({ loggedUserState, settingState, userState  }) => ({
   loggedUser: loggedUserState,
-  eventRedirect: settingState.siteSettings.eventRedirect,
+  // TODO: move to site settings i/o marketing page settings
+  eventRedirect: settingState.marketingPageSettings.eventRedirect,
   userProfile: userState.userProfile,
 })
 

@@ -26,8 +26,9 @@ import {
 
 import { filterEventsByAccessLevels } from '../utils/authorizedGroups';
 import { randomSort } from '../utils/filterUtils';
-import allVoteablePresentations from '../content/voteable_presentations.json';
-import DEFAULT_FILTERS_STATE from '../content/posters_filters.json';
+
+import DEFAULT_FILTERS_STATE from '../content/posters-filters.json';
+import allVoteablePresentations from '../data/voteable-presentations.json';
 
 const DEFAULT_VOTEABLE_PRESENTATIONS_STATE = {
   filters: { ...DEFAULT_FILTERS_STATE },

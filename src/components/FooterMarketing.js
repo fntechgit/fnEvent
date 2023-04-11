@@ -1,8 +1,9 @@
-import React from 'react'
-import footerContent from '../content/footer.json';
-import Link from './Link'
+import * as React from "react";
+import Link from "./Link";
 
-import styles from '../styles/footer.module.scss';
+import footerContent from "../content/footer/index.json";
+
+import styles from "../styles/footer.module.scss";
 
 const FooterMarketing = () => (
   <div className={styles.footerMarketing}>

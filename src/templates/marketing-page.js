@@ -29,11 +29,11 @@ import withRealTimeUpdates from "../utils/real_time_updates/withRealTimeUpdates"
 export const MarketingPageTemplate = class extends React.Component {
 
   render() {
-    const { content, contentComponent, summit_phase, user, isLoggedUser, location, summit, siteSettings,lastDataSync } = this.props;
+    const { content, contentComponent, summit_phase, user, isLoggedUser, location, summit, marketingPageSettings,lastDataSync } = this.props;
     const PageContent = contentComponent || Content;
 
     let scheduleProps = {};
-    if (siteSettings.leftColumn.schedule && isLoggedUser && summit_phase !== PHASES.BEFORE) {
+    if (marketingPageSettings.leftColumn.schedule && isLoggedUser && summit_phase !== PHASES.BEFORE) {
       scheduleProps = {
         ...scheduleProps,
         onEventClick: (ev) => navigate(`/a/event/${ev.id}`),
@@ -53,12 +53,12 @@ export const MarketingPageTemplate = class extends React.Component {
       <React.Fragment>
         <AttendanceTrackerComponent />
         <MarketingHeroComponent summit={summit} isLoggedUser={isLoggedUser} location={location} />
-        {summit && siteSettings?.countdown?.display && <Countdown summit={summit} text={siteSettings?.countdown?.text} />}
+        {summit && marketingPageSettings?.countdown?.display && <Countdown summit={summit} text={marketingPageSettings?.countdown?.text} />}
         <div className="columns" id="marketing-columns">
           <div className="column is-half px-6 pt-6 pb-0" style={{ position: 'relative' }}>
-            {siteSettings.leftColumn.schedule.display &&
+            {marketingPageSettings.leftColumn.schedule.display &&
               <React.Fragment>
-                <h2><b>{siteSettings.leftColumn.schedule.title}</b></h2>
+                <h2><b>{marketingPageSettings.leftColumn.schedule.title}</b></h2>
                 <LiteScheduleComponent
                   {...scheduleProps}
                   key={`marketing_lite_schedule_${lastDataSync}`}
@@ -70,17 +70,17 @@ export const MarketingPageTemplate = class extends React.Component {
                 />
               </React.Fragment>
             }
-            {siteSettings.leftColumn.disqus.display &&
+            {marketingPageSettings.leftColumn.disqus.display &&
               <React.Fragment>
-                <h2><b>{siteSettings.leftColumn.disqus.title}</b></h2>
+                <h2><b>{marketingPageSettings.leftColumn.disqus.title}</b></h2>
                 <DisqusComponent page="marketing-site"/>
               </React.Fragment>
             }
-            {siteSettings.leftColumn.image.display &&
+            {marketingPageSettings.leftColumn.image.display &&
               <React.Fragment>
-                <h2><b>{siteSettings.leftColumn.image.title}</b></h2>
+                <h2><b>{marketingPageSettings.leftColumn.image.title}</b></h2>
                 <br />
-                <img alt={siteSettings.leftColumn.image.alt} src={siteSettings.leftColumn.image.src} />
+                <img alt={marketingPageSettings.leftColumn.image.alt} src={marketingPageSettings.leftColumn.image.src} />
               </React.Fragment>
             }
           </div>
@@ -89,7 +89,7 @@ export const MarketingPageTemplate = class extends React.Component {
               breakpointCols={2}
               className="my-masonry-grid"
               columnClassName="my-masonry-grid_column">
-              {formatMasonry(siteSettings.sponsors).map((item, index) => {
+              {formatMasonry(marketingPageSettings.sponsors).map((item, index) => {
                 if (item.images && item.images.length === 1) {
                   return (
                     <div className={'single'} key={index}>
@@ -143,7 +143,7 @@ MarketingPageTemplate.propTypes = {
   isLoggedUser: PropTypes.bool,
 }
 
-const MarketingPage = ({ summit, location, data, summit_phase, user, isLoggedUser, syncData, lastBuild, siteSettings, lastDataSync }) => {
+const MarketingPage = ({ summit, location, data, summit_phase, user, isLoggedUser, syncData, lastBuild, marketingPageSettings, lastDataSync }) => {
   const { html } = data.markdownRemark;
 
   return (
@@ -158,7 +158,7 @@ const MarketingPage = ({ summit, location, data, summit_phase, user, isLoggedUse
         isLoggedUser={isLoggedUser}
         syncData={syncData}
         lastBuild={lastBuild}
-        siteSettings={siteSettings}
+        marketingPageSettings={marketingPageSettings}
         lastDataSync={lastDataSync}
       />
     </Layout>
@@ -183,7 +183,7 @@ const mapStateToProps = ({ clockState, loggedUserState, userState, summitState, 
   user: userState,
   summit: summitState.summit,
   lastBuild: settingState.lastBuild,
-  siteSettings: settingState.siteSettings,
+  marketingPageSettings: settingState.marketingPageSettings,
   staticJsonFilesBuildTime: settingState.staticJsonFilesBuildTime,
   lastDataSync: settingState.lastDataSync,
 });
@@ -191,14 +191,3 @@ const mapStateToProps = ({ clockState, loggedUserState, userState, summitState, 
 export default connect(mapStateToProps, {
   syncData
 })(withFeedsWorker(withRealTimeUpdates(MarketingPage)))
-
-export const marketingPageQuery = graphql`
-  query MarketingPageTemplate($id: String!) {    
-    markdownRemark(id: { eq: $id }) {
-      html
-      frontmatter {        
-        title
-      }
-    }
-  }
-`;
