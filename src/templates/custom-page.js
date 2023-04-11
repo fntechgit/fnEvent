@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { graphql } from 'gatsby'
-import { Redirect } from '@reach/router'
 import Layout from '../components/Layout'
 import { connect } from 'react-redux'
 import Content, { HTMLContent } from '../components/Content'
+import { Redirect } from "@gatsbyjs/reach-router";
 
 export const CustomPageTemplate = ({
   title,
