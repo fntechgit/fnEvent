@@ -1,40 +1,34 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { StaticQuery, graphql } from "gatsby"
-import Navbar from './Navbar'
+import * as React from "react";
+import { connect } from "react-redux";
+import Navbar from './Navbar';
 
-const Header = ({ isLoggedUser, location, idpProfile, idpLoading, summit}) => (
+const Header = ({
+  location,
+  summit,
+  isLoggedUser,
+  idpProfile,
+  idpLoading
+}) => (
+  <header>
+    <Navbar
+      isLoggedUser={isLoggedUser}
+      idpProfile={idpProfile}
+      idpLoading={idpLoading}
+      location={location}
+      logo={summit?.logo}
+    />
+  </header>
+);
 
-  <StaticQuery
-    query={graphql`
-        query HeaderQuery {
-          summit {
-            logo
-          }
-        }
-      `}
-    render={data => (
-      <header>
-        <Navbar isLoggedUser={isLoggedUser} idpProfile={idpProfile} idpLoading={idpLoading} location={location}
-          logo={
-            summit && summit.logo ?
-              summit.logo
-              :
-              data.summit && data.summit.logo ?
-                data.summit.logo
-                :
-                null
-          } />          
-      </header>
-    )}
-  />
-)
-
-const mapStateToProps = ({ loggedUserState, summitState, userState }) => ({
+const mapStateToProps = ({
+  summitState,
+  loggedUserState,
+  userState
+}) => ({
+  summit: summitState.summit,
   isLoggedUser: loggedUserState.isLoggedUser,
   idpProfile: userState.idpProfile,
-  idpLoading: userState.loadingIDP,
-  summit: summitState.summit
+  idpLoading: userState.loadingIDP
 })
 
-export default connect(mapStateToProps)(Header)
+export default connect(mapStateToProps)(Header);

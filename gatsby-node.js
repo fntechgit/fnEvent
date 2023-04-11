@@ -312,17 +312,6 @@ exports.onPreBootstrap = async () => {
   fs.writeFileSync(SITE_SETTINGS_FILE_PATH, JSON.stringify(globalSettings), "utf8");
 };
 
-// makes Summit logo optional for graphql queries
-exports.createSchemaCustomization = ({ actions }) => {
-  const { createTypes } = actions;
-  const typeDefs = `
-    type Summit implements Node {
-      logo: String
-    }
-  `;
-  createTypes(typeDefs);
-};
-
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
   if (node.internal.type === `MarkdownRemark`) {
@@ -334,36 +323,6 @@ exports.onCreateNode = ({ node, actions, getNode }) => {
     })
   }
 };
-
-exports.sourceNodes = async ({
-  actions,
-  createNodeId,
-  createContentDigest
-}) => {
-
-  console.log('sourceNodes');
-  const { createNode } = actions;
-  const summit = fs.existsSync(SUMMIT_FILE_PATH) ? JSON.parse(fs.readFileSync(SUMMIT_FILE_PATH)) : {};
-  const nodeContent = JSON.stringify(summit);
-
-  const nodeMeta = {
-    ...summit,
-    id: createNodeId(`summit-${summit.id}`),
-    summit_id: summit.id,
-    parent: null,
-    children: [],
-    internal: {
-      type: `Summit`,
-      mediaType: `application/json`,
-      content: nodeContent,
-      contentDigest: createContentDigest(summit)
-    }
-  };
-
-  const node = Object.assign({}, summit, nodeMeta);
-  createNode(node)
-};
-
 
 exports.createPages = ({ actions, graphql }) => {
   const { createPage } = actions;
