@@ -1,10 +1,10 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { graphql } from 'gatsby'
-import Layout from '../components/Layout'
-import { connect } from 'react-redux'
-import Content, { HTMLContent } from '../components/Content'
+import * as React from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { graphql } from "gatsby";
 import { Redirect } from "@gatsbyjs/reach-router";
+import Layout from "../components/Layout";
+import Content, { HTMLContent } from "../components/Content";
 
 export const CustomPageTemplate = ({
   title,
@@ -30,11 +30,9 @@ CustomPageTemplate.propTypes = {
 const CustomPage = ({ data, isLoggedUser, hasTicket, isAuthorized }) => {
   const { frontmatter: {title, userRequirement}, html } = data.markdownRemark
   // if isAuthorized byoass the AUTHZ check
-  if (
-      !isAuthorized &&
-      (
-          (userRequirement === 'LOGGGED_IN' && !isLoggedUser) || (userRequirement === 'HAS_TICKET' && !hasTicket)
-      )) {
+  if (!isAuthorized && (
+    (userRequirement === 'LOGGED_IN' && !isLoggedUser) || (userRequirement === 'HAS_TICKET' && !hasTicket)
+  )) {
     return <Redirect to='/' noThrow />
   }
 
@@ -56,19 +54,19 @@ CustomPage.propTypes = {
     }),
   }),
   isLoggedUser: PropTypes.bool,
-  hasTicket: PropTypes.bool,
+  hasTicket: PropTypes.bool
 };
 
 const mapStateToProps = ({ loggedUserState, userState }) => ({
   isLoggedUser: loggedUserState.isLoggedUser,
   hasTicket: userState.hasTicket,
-  isAuthorized: userState.isAuthorized,
+  isAuthorized: userState.isAuthorized
 });
 
-export default connect(mapStateToProps, null)(CustomPage)
+export default connect(mapStateToProps, null)(CustomPage);
 
 export const customPageQuery = graphql`
-  query CustomPageTemplate($id: String!) {    
+  query ($id: String!) {    
     markdownRemark(id: { eq: $id }) {
       html
       frontmatter {        
@@ -77,5 +75,4 @@ export const customPageQuery = graphql`
       }
     }
   }
-`
-
+`;
