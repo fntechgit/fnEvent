@@ -16,13 +16,13 @@
     },
     "images": [
       {
-        "image": "/img/tier1-default-header1.png"
+        "file": "/img/tier1-default-header1.png"
       },
       {
-        "image": "/img/tier1-default-header2.png"
+        "file": "/img/tier1-default-header2.png"
       },
       {
-        "image": "/img/tier1-default-header3.png"
+        "file": "/img/tier1-default-header3.png"
       }
     ]
   },
