@@ -6,6 +6,7 @@ const summitTimeZoneId = summitData.time_zone_id;  // TODO use reducer data
 const INITIAL_STATE = {
     events: [],
     filters: [],
+    baseFilters: [],
     view: 'calendar',
     timezone: 'show',
     colorSource: 'track',
@@ -32,6 +33,7 @@ const scheduleReducer = (state = INITIAL_STATE, action) => {
                 pre_filters,
                 all_events,
                 filters,
+                baseFilters,
                 only_events_with_attendee_access,
                 is_my_schedule,
                 userProfile,
@@ -44,7 +46,7 @@ const scheduleReducer = (state = INITIAL_STATE, action) => {
             const newFilters = syncFilters(filters, state.filters);
             const events = getFilteredEvents(allFilteredEvents, newFilters, summitTimeZoneId);
 
-            return {...state, allEvents: allFilteredEvents, filters: newFilters, colorSource: color_source.toLowerCase(), events, is_my_schedule, only_events_with_attendee_access};
+            return {...state, allEvents: allFilteredEvents, baseFilters, filters: newFilters, colorSource: color_source.toLowerCase(), events, is_my_schedule, only_events_with_attendee_access};
         }
         case `SCHED_UPDATE_FILTER`: {
            
@@ -67,11 +69,19 @@ const scheduleReducer = (state = INITIAL_STATE, action) => {
         case `SCHED_UPDATE_FILTERS`: {
             const {filters, view} = payload;
             const {allEvents} = state;
-
+            
             // update events
             const events = getFilteredEvents(allEvents, filters, summitTimeZoneId);
 
             return {...state, filters, events, view}
+        }
+        case `SCHED_CLEAR_FILTERS`: {
+            const { allEvents, baseFilters } = state;
+            
+            return {...state,
+                filters : baseFilters ,
+                // refilter events
+                events: getFilteredEvents(allEvents, baseFilters, summitTimeZoneId)}
         }
         case `SCHED_CHANGE_VIEW`: {
             const {view} = payload;

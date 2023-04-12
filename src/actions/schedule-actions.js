@@ -5,6 +5,7 @@ import { pickBy, isEqual, isEmpty } from "lodash";
 
 export const UPDATE_FILTER = "UPDATE_FILTER";
 export const UPDATE_FILTERS = "UPDATE_FILTERS";
+export const CLEAR_FILTERS = "CLEAR_FILTERS";
 export const CHANGE_VIEW = "CHANGE_VIEW";
 export const CHANGE_TIMEZONE = "CHANGE_TIMEZONE";
 
@@ -29,6 +30,10 @@ export const updateFilter =
   (dispatch) => {
     dispatch(createAction(action)({ ...filter, key }));
   };
+
+export const clearFilters = (key) => (dispatch) => {
+  dispatch(createAction(CLEAR_FILTERS)({ key }));
+};
 
 export const deepLinkToEvent = () => {
   if (typeof window === "undefined") return null;
@@ -123,7 +128,7 @@ export const getShareLink = (filters, view) => {
 
   if (filters) {
     Object.entries(filters).forEach(([key, value]) => {
-      if (value.values.length > 0) {
+      if (value?.values?.length > 0) {
         let hashValue = "";
         // if it has options means value.values is an array of values, we should encode each
         if (value.options.length > 0) {

@@ -3,7 +3,7 @@ import eventsData from '../content/events.json';
 import eventsIDXData from '../content/events.idx.json';
 import {filterEventsByTags} from '../utils/schedule';
 import {LOGOUT_USER} from "openstack-uicore-foundation/lib/security/actions";
-import {UPDATE_FILTER, UPDATE_FILTERS, CHANGE_VIEW, CHANGE_TIMEZONE, RELOAD_SCHED_DATA , RELOAD_USER_PROFILE} from '../actions/schedule-actions'
+import {CLEAR_FILTERS, UPDATE_FILTER, UPDATE_FILTERS, CHANGE_VIEW, CHANGE_TIMEZONE, RELOAD_SCHED_DATA , RELOAD_USER_PROFILE} from '../actions/schedule-actions'
 import {RESET_STATE, SYNC_DATA} from "../actions/base-actions-definitions";
 import {GET_EVENT_DATA} from '../actions/event-actions-definitions';
 import {ADD_TO_SCHEDULE, REMOVE_FROM_SCHEDULE, GET_USER_PROFILE} from "../actions/user-actions";
@@ -61,7 +61,7 @@ const allSchedulesReducer = (state = DEFAULT_STATE, action) => {
                     return result;
                 }, {});
 
-                const newData = {...sched, all_events: allScheduleEvents, filters: newFilters, pre_filters: newPreFilters};
+                const newData = {...sched, all_events: allScheduleEvents, baseFilters: newFilters, filters: newFilters, pre_filters: newPreFilters};
 
                 const schedState = scheduleReducer(scheduleState, {type: `SCHED_${type}`, payload: {...newData, isLoggedUser, userProfile }});
 
@@ -97,6 +97,7 @@ const allSchedulesReducer = (state = DEFAULT_STATE, action) => {
         }
         case CHANGE_TIMEZONE:
         case CHANGE_VIEW:
+        case CLEAR_FILTERS:
         case UPDATE_FILTERS:
         case UPDATE_FILTER: {
             const {key} = payload;

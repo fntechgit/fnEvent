@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import { connect } from "react-redux";
 import {compose} from "redux";
 import HeroComponent from "../components/HeroComponent";
-import { updateFilter, updateFiltersFromHash } from "../actions/schedule-actions";
+import {clearFilters, callAction, updateFilter, updateFiltersFromHash} from "../actions/schedule-actions";
 import { reloadScheduleData } from '../actions/base-actions';
 
 // This HOC makes sure the schedules array in allSchedulesState is populated before render.
@@ -45,6 +45,8 @@ const mapStateToProps = ({
 const reduxConnection = connect(mapStateToProps, {
   updateFiltersFromHash,
   updateFilter,
+  clearFilters,
+  callAction,
   reloadScheduleData,
 });
 
