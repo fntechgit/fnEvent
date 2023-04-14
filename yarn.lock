@@ -14400,10 +14400,10 @@ saxes@^5.0.1:
   dependencies:
     xmlchars "^2.2.0"
 
-schedule-filter-widget@^2.0.2:
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/schedule-filter-widget/-/schedule-filter-widget-2.0.2.tgz#d81065f2b559d29812ab96326b63f2ebeddea26e"
-  integrity sha512-TmL+Rm1xFB0l0T73apfyPNOiQQlmxdAS6jnFfBJkxcgM7hkoEdcopgruJpjxLGVKkXLw7137UehYiLUFw/mTUA==
+schedule-filter-widget@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/schedule-filter-widget/-/schedule-filter-widget-2.0.3.tgz#b25dd6c8ad2b7d02921846842ebeb01545e2e6cd"
+  integrity sha512-IqjxAU+5ECVxMvNBpPOZEK136YD8S/oDEhPcMfZiU/Mz/lmU/H8gSrPV/FmAs1YrmdGb62MDA1/q8BgcvHeMPg==
   dependencies:
     react-spring "^9.1.2"
     react-use "^17.2.4"

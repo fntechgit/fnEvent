@@ -92,7 +92,7 @@ export const getFilteredEvents = (events, filters, summitTimezone) => {
     }
 
     if (filters.level?.values.length > 0) {
-      valid = filters.level.values.some(l => l.toString().toLowerCase() === ev.level.toLowerCase());
+      valid = filters.level.values.some(l => l.toString().toLowerCase() === ev.level?.toLowerCase());
       if (!valid) return false;
     }
 
