@@ -203,7 +203,7 @@ export const assignAttendee = ({
 
     const params = {
         access_token: accessToken,
-        expand: 'owner, owner.extra_questions'
+        expand: 'owner,owner.extra_questions,badge,badge.type,badge.type.access_levels'
     };
 
     const normalizedEntity =
