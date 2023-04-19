@@ -81,7 +81,7 @@ const mapStateToProps = ({ loggedUserState, userState, clockState, settingState,
   summitId: summitState?.summit?.id,
   lastBuild: settingState.lastBuild,
   summit: summitState?.summit,
-  allowClick: settingState?.widgets?.schedule?.allowClick || true
+  allowClick: settingState?.widgets?.schedule?.allowClick
 });
 
 export default connect(mapStateToProps, {
