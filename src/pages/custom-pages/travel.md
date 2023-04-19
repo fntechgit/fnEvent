@@ -26,7 +26,7 @@ The closest airports to The Garland Hotel are: 
 
 
 
-Book your room at The Garland using this [link](https://res.windsurfercrs.com/ibe/details.aspx?propertyid=13971&checkin=05/15/2023&group=STRAVA2023&lang=en-us)!  
+Book your room at The Garland using this [link](https://res.windsurfercrs.com/ibe/details.aspx?propertyid=13971&checkin=05/16/2023&group=STRAVA2023&lang=en-us)!  
 
 Rooms are available for Camp Strava attendees from Monday 15, 2023 until Thursday May 18, 2023. 
 
