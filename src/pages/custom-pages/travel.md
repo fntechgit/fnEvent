@@ -30,7 +30,7 @@ Book your room at The Garland using this [link](https://res.windsurfercrs.com/ib
 
 Rooms are available for Camp Strava attendees from Monday 15, 2023 until Thursday May 18, 2023. 
 
-<br><br>
+<br>
 
 There are also rooms available at the nearby Hilton Universal – you can book a room there using this [link](http://www.hiltonuniversal.com/). 
 
