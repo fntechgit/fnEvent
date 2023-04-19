@@ -18,7 +18,10 @@
         }
       },
       "eventTemplate": "",
-      "expoHallSize": "large"
+      "expoHallPage": {
+        "expoHallTemplate": "large",
+        "display": true
+      }
     },
     {
       "id": "tier-DHcI3dWGk",
@@ -38,7 +41,10 @@
         }
       },
       "eventTemplate": "",
-      "expoHallSize": "medium"
+      "expoHallPage": {
+        "expoHallTemplate": "medium",
+        "display": true
+      }
     },
     {
       "id": "tier-U_wEwGX8a",
@@ -58,7 +64,10 @@
         }
       },
       "eventTemplate": "",
-      "expoHallSize": "small"
+      "expoHallPage": {
+        "expoHallTemplate": "small",
+        "display": true
+      }
     }
   ],
   "imageHeader": {

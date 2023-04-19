@@ -4,18 +4,15 @@ import LogoutButton from "./LogoutButton";
 import Link from "./Link";
 import ProfilePopupComponent from "./ProfilePopupComponent";
 import { updateProfilePicture, updateProfile } from "../actions/user-actions";
-import Content from "../content/navbar.json";
-import { PHASES } from "../utils/phasesUtils";
 import { getDefaultLocation } from "../utils/loginUtils";
+import { userHasAccessLevel, VirtualAccessLevel } from "../utils/authorizedGroups";
+
+import { PHASES } from "../utils/phasesUtils";
+import { PAGE_RESTRICTIONS } from "../cms/config/collections/configurationsCollection/navbar";
+
+import content from "../content/navbar/index.json";
 
 import styles from "../styles/navbar.module.scss";
-import { userHasAccessLevel, VirtualAccessLevel } from "../utils/authorizedGroups";
-const PAGE_RESTRICTION_ACTIVITY = 'ACTIVITY';
-const PAGE_RESTRICTION_MARKETING = 'MARKETING';
-const PAGE_RESTRICTION_LOBBY = 'LOBBY';
-const PAGE_RESTRICTION_ANY = 'ANY';
-const PAGE_RESTRICTION_SHOW = 'SHOW';
-const PAGE_RESTRICTION_CUSTOM_PAGE = 'CUSTOM_PAGE';
 
 const Navbar = ({
   isLoggedUser,
@@ -26,7 +23,7 @@ const Navbar = ({
   updateProfilePicture,
   updateProfile,
   location,
-  summit_phase,
+  summitPhase,
   eventRedirect,
   userProfile,
 }) => {
@@ -107,17 +104,17 @@ const Navbar = ({
     const currentPath = location ? location.pathname: (typeof window !== "undefined" ? window.location.pathname: "");
     const passPageRestriction = !item.pageRestriction ||
         item.link === currentPath || // if we are on the same page then show it
-        item.pageRestriction.includes(PAGE_RESTRICTION_ANY) ||
-        (item.pageRestriction.includes(PAGE_RESTRICTION_ACTIVITY) && isActivityPage(currentPath)) ||
-        (item.pageRestriction.includes(PAGE_RESTRICTION_MARKETING) && isMarketingPage(currentPath)) ||
-        (item.pageRestriction.includes(PAGE_RESTRICTION_LOBBY) && isLobbyPage(currentPath)) ||
-        (item.pageRestriction.includes(PAGE_RESTRICTION_SHOW) && isShowPage(currentPath)) ||
-        (item.pageRestriction.includes(PAGE_RESTRICTION_CUSTOM_PAGE) && isCustomPage(currentPath))
+        item.pageRestriction.includes(PAGE_RESTRICTIONS.any) ||
+        (item.pageRestriction.includes(PAGE_RESTRICTIONS.activity) && isActivityPage(currentPath)) ||
+        (item.pageRestriction.includes(PAGE_RESTRICTIONS.marketing) && isMarketingPage(currentPath)) ||
+        (item.pageRestriction.includes(PAGE_RESTRICTIONS.lobby) && isLobbyPage(currentPath)) ||
+        (item.pageRestriction.includes(PAGE_RESTRICTIONS.show) && isShowPage(currentPath)) ||
+        (item.pageRestriction.includes(PAGE_RESTRICTIONS.customPage) && isCustomPage(currentPath))
     ;
 
     return item.display &&
            (!item.requiresAuth || isLoggedUser) &&
-           (!item.showOnlyAtShowTime || summit_phase >= PHASES.DURING) &&
+           (!item.showOnlyAtShowTime || summitPhase >= PHASES.DURING) &&
            passPageRestriction;
   };
 
@@ -143,7 +140,7 @@ const Navbar = ({
             className={`link ${styles.navbarBurger} ${styles.burger} ${navBarActiveClass}`}
             aria-label="menu"
             aria-expanded="false"
-            data-target="navbarBasicExample"
+            data-target="navbar"
             onClick={() => toggleHamburger()}
           >
             <span aria-hidden="true" />
@@ -153,12 +150,12 @@ const Navbar = ({
         </div>
 
         <div
-          id="navbarBasicExample"
+          id="navbar"
           className={`${styles.navbarMenu} ${navBarActiveClass}`}
         >
           <div className={styles.navbarStart} />
           <div className={styles.navbarEnd}>
-            {Content.items.filter(showItem).map((item, index) => (
+            {content.items.filter(showItem).map((item, index) => (
               <div className={styles.navbarItem} key={index}>
                 <Link to={item.link} className={styles.link}>
                   <span>{item.title}</span>
@@ -196,7 +193,7 @@ const Navbar = ({
 
 const mapStateToProps = ({ summitState, clockState, settingState, userState }) => ({
   summit: summitState.summit,
-  summit_phase: clockState.summit_phase,
+  summitPhase: clockState.summit_phase,
   // TODO: move to site settings i/o marketing page settings
   eventRedirect: settingState.marketingPageSettings.eventRedirect,
   userProfile: userState.userProfile

@@ -1,5 +1,6 @@
 import React, {useEffect, useState, useRef, useMemo} from "react";
 import { connect } from "react-redux";
+import { getSrc } from "gatsby-plugin-image";
 import Slider from "react-slick";
 import URI from "urijs";
 import { doLogin } from "openstack-uicore-foundation/lib/security/methods";
@@ -104,16 +105,18 @@ const MarketingHeroComponent = ({
     slidesToScroll: 1,
   };
 
+  let heroLeftColumnInlineStyles = {};
+  if (marketingPageSettings.hero.background?.src) {
+    const imageSrc = getSrc(marketingPageSettings.hero.background.src);
+    heroLeftColumnInlineStyles.backgroundImage = `url(${imageSrc})`;
+  }
+
   return (
     <section className={styles.heroMarketing}>
       <div className={`${styles.heroMarketingColumns} columns is-gapless`}>
         <div
           className={`${styles.leftColumn} column is-6`}
-          style={{
-            backgroundImage: marketingPageSettings.hero.background?.file
-              ? `url(${marketingPageSettings.hero.background.file})`
-              : "",
-          }}
+          style={heroLeftColumnInlineStyles}
         >
           <div className={`${styles.heroMarketingContainer} hero-body`}>
             <div className="container">
@@ -151,16 +154,17 @@ const MarketingHeroComponent = ({
         <div className={`${styles.rightColumn} column is-6 px-0`} id="marketing-slider" ref={sliderRef}>
           {marketingPageSettings.hero.images.length > 1 ?
             <Slider {...sliderSettings}>
-              {marketingPageSettings.hero.images.map((img, index) => {
+              {marketingPageSettings.hero.images.map((image, index) => {
+                const imageSrc = getSrc(image.src);
                 return (
                   <div key={index}>
-                    <div className={styles.imageSlider} aria-label={img.alt} style={{ backgroundImage: `url(${img.file})`, height: sliderHeight, marginBottom: -6 }} />
+                    <div className={styles.imageSlider} aria-label={image.alt} style={{ backgroundImage: `url(${imageSrc})`, height: sliderHeight, marginBottom: -6 }} />
                   </div>
                 );
               })}
             </Slider>
             :
-            <div className={styles.singleImage} aria-label={marketingPageSettings.hero.images[0].alt} style={{ backgroundImage: `url(${marketingPageSettings.hero.images[0].file})`}} >
+            <div className={styles.singleImage} aria-label={marketingPageSettings.hero.images[0].alt} style={{ backgroundImage: `url(${getSrc(marketingPageSettings.hero.images[0].src)})`}} >
             </div>
           }
         </div>
@@ -172,7 +176,6 @@ const MarketingHeroComponent = ({
 const mapStateToProps = ({ clockState, settingState, userState, summitState }) => ({
   summitPhase: clockState.summit_phase,
   summit: summitState.summit,
-  marketingPageSettings: settingState.marketingPageSettings,
   // TODO: move to site settings i/o marketing page settings
   eventRedirect: settingState.marketingPageSettings.eventRedirect,
   userProfile: userState.userProfile,

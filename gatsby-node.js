@@ -9,6 +9,7 @@ const { ClientCredentials } = require("simple-oauth2");
 const URI = require("urijs");
 const sizeOf = require("image-size");
 
+const typeDefs = require("./src/cms/config/collections/typeDefs");
 
 const myEnv = require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
@@ -214,17 +215,6 @@ exports.onPreBootstrap = async () => {
     if (key.startsWith('color_')) colorSettings[key] = value;
   });
 
-  // Set the size property on marketing settings masonry if it's needed
-  const migrateMasonry = (masonry) => {
-      const sizeRequired = masonry.some(i => !i.hasOwnProperty("size"));
-      if (sizeRequired) {
-          return masonry.map((i) => {
-              isSingle = masonry.some(img => sizeOf(`./static${img.images[0].image}`).height > sizeOf(`./static${i.images[0].image}`).height);
-              return { ...i, size: isSingle ? 1: 2 }
-          })
-      }
-      return masonry;
-  }
   // create required directories
   REQUIRED_DIR_PATHS.forEach(dirPath => {
     if (!fs.existsSync(dirPath)) {
@@ -312,12 +302,17 @@ exports.onPreBootstrap = async () => {
   fs.writeFileSync(SITE_SETTINGS_FILE_PATH, JSON.stringify(globalSettings), "utf8");
 };
 
+exports.createSchemaCustomization = ({ actions }) => {
+  const { createTypes } = actions;
+  createTypes(typeDefs);
+};
+
 exports.onCreateNode = ({ node, actions, getNode }) => {
   const { createNodeField } = actions;
-  if (node.internal.type === `MarkdownRemark`) {
+  if (node.internal.type === "MarkdownRemark") {
     const value = createFilePath({ node, getNode });
     createNodeField({
-      name: `slug`,
+      name: "slug",
       node,
       value,
     })
@@ -387,9 +382,6 @@ exports.onCreateWebpackConfig = ({ actions, plugins, loaders }) => {
     },
     // canvas is a jsdom external dependency
     externals: ['canvas'],
-    experiments: {
-      topLevelAwait: true,
-    },
     // devtool: 'source-map',
     plugins: [
       plugins.define({

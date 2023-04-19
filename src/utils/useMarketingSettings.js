@@ -1,5 +1,4 @@
 import * as React from "react";
-import { useState } from "react";
 import { graphql, useStaticQuery } from "gatsby";
 
 export const MARKETING_SETTINGS_KEYS = {
@@ -28,8 +27,8 @@ const marketingSettingsQuery = graphql`
 
 const useMarketingSettings = () => {
   const { allMarketingSettingsJson } = useStaticQuery(marketingSettingsQuery);
-  const [marketingSettings, _] = useState(allMarketingSettingsJson.nodes);
-  const getSettingByKey = (key) => marketingSettings.find(setting => setting.key === key)?.value;
+  const getSettingByKey = (key) =>
+    allMarketingSettingsJson.nodes.find(setting => setting.key === key)?.value;
   return { MARKETING_SETTINGS_KEYS, getSettingByKey };
 };
 

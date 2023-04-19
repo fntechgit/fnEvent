@@ -7,7 +7,6 @@ import withFeedsWorker from "../utils/withFeedsWorker";
 
 const MarketingPage = ({
   data,
-  marketingPageSettings,
   lastDataSync,
   summit,
   summitPhase,
@@ -18,7 +17,6 @@ const MarketingPage = ({
     <MarketingPageTemplate
       data={data}
       lastDataSync={lastDataSync}
-      marketingPageSettings={marketingPageSettings}
       summit={summit}
       summitPhase={summitPhase}
       user={user}
@@ -27,6 +25,98 @@ const MarketingPage = ({
   )
 };
 
+export const marketingPageQuery = graphql`
+  query {
+    marketingPageJson {
+      hero {
+        title
+        subtitle
+        dateLayout
+        date
+        time
+        background {
+          src {
+            childImageSharp {
+              gatsbyImageData (
+                quality: 100
+                placeholder: BLURRED
+              )
+            }
+          }
+          alt
+        }
+        images {
+          src {
+            childImageSharp {
+              gatsbyImageData (
+                quality: 100
+                placeholder: BLURRED
+              )
+            }
+          }
+          alt
+        }
+        buttons {
+          registerButton {
+            text
+            display
+          }
+          loginButton {
+            text
+            display
+          }
+        }
+      }
+      countdown {
+        display
+        text
+      }
+      leftColumn {
+        disqus {
+          title
+          display
+        }
+        image {
+          title
+          display
+          image {
+            src {
+              childImageSharp {
+                gatsbyImageData (
+                  quality: 100
+                  placeholder: BLURRED
+                )
+              }
+            }
+            alt
+          }
+        }
+        schedule {
+          title
+          display
+        }
+      }
+      eventRedirect
+      masonry {
+        placement
+        size
+        images {
+          src {
+            childImageSharp {
+              gatsbyImageData (
+                quality: 100
+                placeholder: BLURRED
+              )
+            }
+          }
+          alt
+          link
+        }
+      }
+    }
+  }
+`;
+
 const mapStateToProps = ({
   settingState,
   summitState,
@@ -34,7 +124,6 @@ const mapStateToProps = ({
   userState,
   loggedUserState
 }) => ({
-  marketingPageSettings: settingState.marketingPageSettings,
   lastDataSync: settingState.lastDataSync,
   summit: summitState.summit,
   summitPhase: clockState.summit_phase,

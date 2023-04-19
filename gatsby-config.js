@@ -33,50 +33,51 @@ module.exports = {
         cssLoaderOptions: {
           esModule: false,
           modules: {
-            namedExport: false,
-          },
-        },
-      },
+            namedExport: false
+          }
+        }
+      }
     },
     {
-      // keep as first gatsby-source-filesystem plugin for gatsby image support
+      // Add image assets before markdown or json files
       resolve: "gatsby-source-filesystem",
       options: {
         path: `${__dirname}/static/img`,
-        name: "uploads",
-      },
+        name: "uploads"
+      }
+    },
+    {
+      // Add image assets before markdown or json files
+      resolve: "gatsby-source-filesystem",
+      options: {
+        path: `${__dirname}/src/img`,
+        name: "images"
+      }
     },
     {
       resolve: "gatsby-source-filesystem",
       options: {
         path: `${__dirname}/src/pages`,
-        name: "pages",
-      },
+        name: "pages"
+      }
     },
-    {
-      resolve: "gatsby-source-filesystem",
-      options: {
-        path: `${__dirname}/src/img`,
-        name: "images",
-      },
-    },
-    "gatsby-transformer-json",
     {
       resolve: "gatsby-source-filesystem",
       options: {
         path: `${__dirname}/${STATIC_CONTENT_DIR_PATH}`,
-        name: "content",
-      },
+        name: "content"
+      }
     },
     "gatsby-plugin-image",
     "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
+    "gatsby-transformer-json",
     {
       resolve: "gatsby-transformer-remark",
       options: {
         plugins: [
           {
-            resolve: 'gatsby-remark-relative-images',
+            resolve: "gatsby-remark-relative-images",
             options: {
               name: 'uploads',
             },
@@ -87,22 +88,23 @@ module.exports = {
               // It"s important to specify the maxWidth (in pixels) of
               // the content container as this plugin uses this as the
               // base for generating different widths of each image.
-              maxWidth: 2048,
-            },
+              maxWidth: 2048
+            }
           },
           {
             resolve: "gatsby-remark-copy-linked-files",
             options: {
               destinationDir: "static",
-            },
-          },
-        ],
-      },
+            }
+          }
+        ]
+      }
     },
     {
       resolve: "gatsby-plugin-netlify-cms",
       options: {
         modulePath: `${__dirname}/src/cms/cms.js`,
+        manualInit: true,
         enableIdentityWidget: false,
         /**
          * Fixes Module not found: Error: Can"t resolve "path" bug.
@@ -121,7 +123,7 @@ module.exports = {
             }
           };
         }
-      },
+      }
     },
     "gatsby-plugin-netlify", // make sure to keep it last in the array
   ],

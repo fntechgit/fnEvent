@@ -16,13 +16,13 @@
     },
     "images": [
       {
-        "file": "/img/tier1-default-header1.png"
+        "src": "tier1-default-header1.png"
       },
       {
-        "file": "/img/tier1-default-header2.png"
+        "src": "tier1-default-header2.png"
       },
       {
-        "file": "/img/tier1-default-header3.png"
+        "src": "tier1-default-header3.png"
       }
     ]
   },
@@ -48,10 +48,10 @@
       "size": 2,
       "images": [
         {
-          "image": "/img/tier1-default-space3.png"
+          "src": "tier1-default-space3.png"
         },
         {
-          "image": "/img/tier1-default-space4.png"
+          "src": "tier1-default-space4.png"
         }
       ]
     },
@@ -60,7 +60,7 @@
       "size": 1,
       "images": [
         {
-          "image": "/img/tier1-default-space1.png"
+          "src": "tier1-default-space1.png"
         }
       ]
     },
@@ -69,7 +69,7 @@
       "size": 1,
       "images": [
         {
-          "image": "/img/tier1-default-space2.png"
+          "src": "tier1-default-space2.png"
         }
       ]
     },
@@ -78,7 +78,7 @@
       "size": 2,
       "images": [
         {
-          "image": "/img/tier1-default-space4.png"
+          "src": "tier1-default-space4.png"
         }
       ]
     }

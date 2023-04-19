@@ -37,19 +37,19 @@ collections:
                 ]}
               ]},
               {label: "Schedule", name: schedule, widget: object, fields: [
-                {label: "Allow Clickable Behavior", name: allowClick, widget: boolean, required: false, default: true},                
-              ]}              
+                {label: "Allow Clickable Behavior", name: allowClick, widget: boolean, required: false, default: true},
+              ]}
             ]}
       - file: "src/content/ads.json"
         label: "Advertisement"
         name: "ads"
         fields:
           - {label: "Ads", name: "ads", widget: list, fields: [
-              {label: "Page", name: "section", widget: string},                          
+              {label: "Page", name: "section", widget: string},
               {label: "Ads", name: "columnAds", widget: list, required: false, fields: [
                 {label: "Image", name: "image", widget: object, required: false, fields: [
-                  {label: "File", name: "file", widget: image, required: false, default: '' },
-                  {label: "Alt", name: "alt", widget: string, required: false, default: '' },
+                  {label: "Src", name: "src", widget: image, required: false, default: ''},
+                  {label: "Alt", name: "alt", widget: string, required: false, default: ''},
                 ]},
                 {label: "Button", name: "button", widget: object, required: false, fields: [
                   {label: "Text", name: "text", widget: string, required: false},
@@ -72,8 +72,8 @@ collections:
               {label: "Widget Title", name: "widgetTitle", widget: string, required: false},
               {label: "ID", name: "id", widget: ncw-id, prefix: tier, hidden: true},
               {label: "Badge", name: "badge", widget: object, required: false, fields: [
-                {label: "File", name: "file", widget: image, required: false, default: '' },
-                {label: "Alt", name: "alt", widget: string, required: false, default: '' },
+                {label: "File", name: "file", widget: image, required: false, default: ''},
+                {label: "Alt", name: "alt", widget: string, required: false, default: ''},
               ]},
               {label: "Lobby", name: "lobby", widget: object, fields: [
                 {label: "Lobby Template", name: "lobbyTemplate", widget: select, required: false, default: 'small-images', options: [
@@ -110,7 +110,10 @@ collections:
                 {label: "Horizontal Images", value: "horizontal-images" },
               ]},
             ]}
-          - {label: "Expo Hall Header Image", name: "imageHeader", widget: object, required: false, fields: [{label: "File", name: "file", widget: image, default: '', required: false},{label: "Alt", name: "alt", widget: string, required: false}]}
+          - {label: "Expo Hall Header Image", name: "imageHeader", widget: object, required: false, fields: [
+              {label: "File", name: "file", widget: image, default: '', required: false},
+              {label: "Alt", name: "alt", widget: string, required: false}
+            ]}
           - {label: "Lobby Button", name: lobbyButton, widget: object, fields: [
               {label: "Text", name: "text", widget: string, required: false, default: ''},
               {label: "Link", name: "link", widget: string, required: false, default: ''}
@@ -161,7 +164,7 @@ collections:
         fields:
           - {label: "Posters Pages", name: "postersPages", widget: list, fields: [
               {label: "Name", name: "name", widget: string, required: false},
-              {label: "Track Group Id", name: "trackGroupId", widget: number },
+              {label: "Track Group Id", name: "trackGroupId", widget: number},
               {label: "Title", name: "title", widget: string },
               {label: "Subtitle", name: "subtitle", widget: string },
               {label: "Background Image", name: "image", widget: image, required: false},
@@ -214,15 +217,15 @@ collections:
                 {label: "Login Button", name: "loginButton", widget: object, fields: [
                   {label: "Text", name: "text", widget: string},
                   {label: "Display", name: "display", widget: boolean, required: false},
-                ]}                
+                ]}
               ]},
               {label: "Background Image", name: "background", widget: object, required: false, fields: [
-                {label: "File", name: "file", widget: image, default: '', required: false},
+                {label: "Src", name: "src", widget: image, required: false},
                 {label: "Alt", name: "alt", widget: string, required: false},
               ]},
               {label: "Images", name: "images", widget: list, fields: [
-                { label: "File", name: "file", widget: image, default: '', required: false },
-                { label: "Alt", name: "alt", widget: string, required: false },
+                {label: "Image", name: "image", widget: image, required: false},
+                {label: "Alt", name: "alt", widget: string, required: false},
               ]},
             ]}
           - {label: "Countdown", name: "countdown", widget: object, fields: [
@@ -241,8 +244,10 @@ collections:
               {label: "Image", name: "image", widget: object, fields: [
                 {label: "Display", name: "display", widget: boolean, required: false},
                 {label: "Title", name: "title", widget: string, required: false},
-                {label: "Image", name: "src", widget: image, required: false},
-                {label: "Alt", name: "alt", widget: string, required: false},
+                {label: "Image", name: "image", widget: object, required: false, fields: [
+                  {label: "Src", name: "src", widget: image, required: false},
+                  {label: "Alt", name: "alt", widget: string, required: false},
+                ]},
               ]},
             ]}
           - {label: "Redirect to event", name: "eventRedirect", widget: number, required: false, hint: "User will be redirected to this event after login"}
@@ -253,11 +258,10 @@ collections:
                 {label: "Double", value: 2}
               ]},
               {label: "Images", name: "images", widget: list, fields: [
-                {label: "Image", name: "image", widget: image, required: false},
+                {label: "Src", name: "src", widget: image, required: false},
                 {label: "Link", name: "link", widget: string, required: false},
                 {label: "Alt", name: "alt", widget: string, required: false},
               ]}
-            ]}          
   - name: "virtualBooth"
     label: "Virtual Booth"
     files: 
@@ -301,7 +305,7 @@ collections:
     files:
       - file: "src/content/sponsors.json"
         label: "Tier Sponsors"
-        name: "tierSponsors"
+        name: "tier-sponsors"
         fields:
           - {label: "Tier Sponsors", name: "tierSponsors", widget: list, summary: "{{tier[0].label}}", fields: [
               {label: "Tier", name: "tier", widget: ncw-file-relation, collection: configurations, file: sponsorsTiers, target_field: tiers, id_field: id, display_fields: name},
@@ -355,22 +359,23 @@ collections:
                   {label: "Image", name: "image", widget: image},
                   {label: "Alt", name: "alt", widget: string, required: false},
                   {label: "Button Text", name: "text", widget: string, required: false},
-                  {label: "Link", name: "link", widget: string, required: false}                  
+                  {label: "Link", name: "link", widget: string, required: false}
                 ]},
                 {label: "Uses Sponsor Page?", name: "usesSponsorPage", widget: boolean, required: false},
                 {label: "Header Image", name: "headerImage", widget: object, required: false, fields: [
-                  { label: "File", name: "file", widget: image, default: '', required: false },
-                  { label: "Alt", name: "alt", widget: string, required: false },
+                  { label: "File", name: "file", widget: image, default: '', required: false},
+                  { label: "Alt", name: "alt", widget: string, required: false},
                 ]},
                 {label: "Mobile Header Image", name: "headerImageMobile", widget: object, required: false, fields: [
-                  { label: "File", name: "file", widget: image, default: '', required: false },
-                  { label: "Alt", name: "alt", widget: string, required: false },
+                  { label: "File", name: "file", widget: image, default: '', required: false},
+                  { label: "Alt", name: "alt", widget: string, required: false},
                 ] },
                 {label: "Side Image", name: "sideImage", widget: object, required: false, fields: [
-                  { label: "File", name: "file", widget: image, default: '', required: false },
-                  { label: "Alt", name: "alt", widget: string, required: false },
+                  { label: "File", name: "file", widget: image, default: '', required: false},
+                  { label: "Alt", name: "alt", widget: string, required: false},
                 ]},
                 {label: "Video Header", name: "headerVideo", widget: string, required: false},
-                {label: "Show Logo in Event Page", name: "showLogoInEventPage", widget: boolean, required: false, default: true },
-              ]}              
+                {label: "Show Logo in Event Page", name: "showLogoInEventPage", widget: boolean, required: false, default: true},
+              ]}
             ]}
+

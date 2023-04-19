@@ -1,6 +1,7 @@
 import * as React from "react";
 import PropTypes from "prop-types";
 import { navigate } from "gatsby";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 
 import Layout from "../components/Layout";
 import AttendanceTrackerComponent from "../components/AttendanceTrackerComponent";
@@ -20,7 +21,7 @@ import styles from "../styles/marketing.module.scss";
 
 const MarketingPageTemplate = ({
   location,
-  marketingPageSettings,
+  data,
   lastDataSync,
   summit,
   summitPhase,
@@ -28,8 +29,12 @@ const MarketingPageTemplate = ({
   isLoggedUser
 }) => {
 
+  const {
+    marketingPageJson
+  } = data;
+
   let scheduleProps = {};
-  if (marketingPageSettings.leftColumn.schedule && isLoggedUser && summitPhase !== PHASES.BEFORE) {
+  if (marketingPageJson.leftColumn.schedule && isLoggedUser && summitPhase !== PHASES.BEFORE) {
     scheduleProps = {
       ...scheduleProps,
       onEventClick: (ev) => navigate(`/a/event/${ev.id}`),
@@ -48,13 +53,18 @@ const MarketingPageTemplate = ({
   return (
     <Layout marketing={true} location={location}>
       <AttendanceTrackerComponent />
-      <MarketingHeroComponent summit={summit} isLoggedUser={isLoggedUser} location={location} />
-      {summit && marketingPageSettings?.countdown?.display && <Countdown summit={summit} text={marketingPageSettings?.countdown?.text} />}
+      <MarketingHeroComponent
+        marketingPageSettings={marketingPageJson}
+        summit={summit}
+        isLoggedUser={isLoggedUser}
+        location={location}
+      />
+      {summit && marketingPageJson?.countdown?.display && <Countdown summit={summit} text={marketingPageJson?.countdown?.text} />}
       <div className="columns" id="marketing-columns">
         <div className="column is-half px-6 pt-6 pb-0" style={{ position: 'relative' }}>
-          {marketingPageSettings.leftColumn.schedule.display &&
+          {marketingPageJson.leftColumn.schedule.display &&
             <>
-              <h2><b>{marketingPageSettings.leftColumn.schedule.title}</b></h2>
+              <h2><b>{marketingPageJson.leftColumn.schedule.title}</b></h2>
               <LiteScheduleComponent
                 {...scheduleProps}
                 key={`marketing_lite_schedule_${lastDataSync}`}
@@ -66,17 +76,18 @@ const MarketingPageTemplate = ({
               />
             </>
           }
-          {marketingPageSettings.leftColumn.disqus.display &&
+          {marketingPageJson.leftColumn.disqus.display &&
             <>
-              <h2><b>{marketingPageSettings.leftColumn.disqus.title}</b></h2>
+              <h2><b>{marketingPageJson.leftColumn.disqus.title}</b></h2>
               <DisqusComponent page="marketing-site"/>
             </>
           }
-          {marketingPageSettings.leftColumn.image.display &&
+          {marketingPageJson.leftColumn.image.display &&
+           marketingPageJson.leftColumn.image.image.src &&
             <>
-              <h2><b>{marketingPageSettings.leftColumn.image.title}</b></h2>
+              <h2><b>{marketingPageJson.leftColumn.image.title}</b></h2>
               <br />
-              <img alt={marketingPageSettings.leftColumn.image.alt} src={marketingPageSettings.leftColumn.image.src} />
+              <GatsbyImage image={getImage(marketingPageJson.leftColumn.image.image.src)} alt={marketingPageJson.leftColumn.image.image.alt ?? ""} />
             </>
           }
         </div>
@@ -85,31 +96,33 @@ const MarketingPageTemplate = ({
             breakpointCols={2}
             className="my-masonry-grid"
             columnClassName="my-masonry-grid_column">
-            {formatMasonry(marketingPageSettings.masonry).map((item, index) => {
+            {formatMasonry(marketingPageJson.masonry).map((item, index) => {
               if (item.images && item.images.length === 1) {
+                const image = getImage(item.images[0].src);
                 return (
                   <div className={'single'} key={index}>
                     {item.images[0].link ?
                       <Link to={item.images[0].link}>
-                        <img alt={item.images[0].alt} src={item.images[0].image} />
+                        <GatsbyImage image={image} alt={item.images[0].alt ?? ""} />
                       </Link>
                       :
-                      <img alt={item.images[0].alt} src={item.images[0].image} />
+                      <GatsbyImage image={image} alt={item.images[0].alt ?? ""} />
                     }
                   </div>
                 )
               } else if (item.images && item.images.length > 1) {
                 return (
                   <Slider {...sliderSettings} key={index}>
-                    {item.images.map((img, indexSlide) => {
+                    {item.images.map((image, indexSlide) => {
+                      const img = getImage(image.src);
                       return (
                         <div className={styles.imageSlider} key={indexSlide}>
-                          {img.link ?
-                            <Link to={img.link}>
-                              <img alt={img.alt} src={img.image} />
+                          {image.link ?
+                            <Link to={image.link}>
+                              <GatsbyImage image={img} alt={image.alt ?? ""} />
                             </Link>
                             :
-                            <img alt={img.alt} src={img.image} />
+                            <GatsbyImage image={img} alt={image.alt ?? ""} />
                           }
                         </div>
                       )
@@ -131,7 +144,7 @@ const MarketingPageTemplate = ({
 
 MarketingPageTemplate.propTypes = {
   location: PropTypes.object,
-  marketingPageSettings: PropTypes.object,
+  data: PropTypes.object,
   lastDataSync: PropTypes.number,
   summit: PropTypes.object,
   summitPhase: PropTypes.number,
