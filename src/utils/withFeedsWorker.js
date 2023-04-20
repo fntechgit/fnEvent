@@ -44,7 +44,6 @@ const withFeedsWorker = WrappedComponent => {
                 eventsData,
                 summitData,
                 speakersData,
-                extraQuestionsData,
                 eventsIDXData,
                 speakersIXData,
                 lastModified} }) => {
@@ -53,7 +52,7 @@ const withFeedsWorker = WrappedComponent => {
                     console.log(`withFeedsWorker::componentDidMount setting lastModified ${lastModified}`);
                     updateLastCheckForNovelties(lastModified);
                 }
-                syncData( eventsData, summitData, speakersData, extraQuestionsData, eventsIDXData, speakersIXData);
+                syncData( eventsData, summitData, speakersData, eventsIDXData, speakersIXData);
                 this._worker.terminate();
             };
         }
