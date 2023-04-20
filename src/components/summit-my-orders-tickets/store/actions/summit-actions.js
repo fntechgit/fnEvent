@@ -32,10 +32,8 @@ export const getMainOrderExtraQuestions = ({ summit }) => async (dispatch, getSt
 
     if (!summit) return;
 
-    const apiUrl = URI(`${apiBaseUrl}/api/public/v1/summits/${summit.id}/order-extra-questions`);
+    const apiUrl = URI(`${apiBaseUrl}/api/public/v1/summits/${summit.id}/attendees/me/allowed-extra-questions`);
 
-    apiUrl.addQuery('filter[]', 'class==MainQuestion');
-    apiUrl.addQuery('filter[]', 'usage==Ticket');
     apiUrl.addQuery('expand', '*sub_question_rules,*sub_question,*values')
     apiUrl.addQuery('order', 'order');
     apiUrl.addQuery('page', 1);

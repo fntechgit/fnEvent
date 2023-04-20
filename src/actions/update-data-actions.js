@@ -147,20 +147,6 @@ export const bucket_getSpeakers = (summitId, lastBuildTime = null) => {
  * @param lastBuildTime
  * @returns {Promise<Response>}
  */
-export const bucket_getExtraQuestions = (summitId, lastBuildTime = null) => {
-
-    return fetchBucket(BUCKET_EXTRA_QUESTIONS_ETAG_KEY, BUCKET_EXTRA_QUESTIONS_DATA_KEY, 'extra-questions.json', summitId, lastBuildTime)
-        .then(data => {
-            return data;
-        }).catch(e => null);
-}
-
-/**
- *
- * @param summitId
- * @param lastBuildTime
- * @returns {Promise<Response>}
- */
 export const bucket_getVotablePresentations = (summitId, lastBuildTime = null) => {
 
     return fetchBucket(BUCKET_VOTABLE_PRES_ETAG_KEY, BUCKET_VOTABLE_PRES_DATA_KEY, 'voteable-presentations.json', summitId, lastBuildTime)
