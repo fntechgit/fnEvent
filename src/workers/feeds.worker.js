@@ -56,7 +56,6 @@ self.onmessage = async ({data: {summitId, staticJsonFilesBuildTime}}) => {
             let summitData = values[2];
             let speakersData = values[3];
             let speakersIXData = values[4];
-            let extraQuestionsData = values[5];
 
             // if null , then set the SSR content
             // summit
