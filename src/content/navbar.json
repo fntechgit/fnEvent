@@ -37,6 +37,16 @@
       ]
     },
     {
+      "requiresAuth": false,
+      "showOnlyAtShowTime": false,
+      "pageRestriction": [
+        "ANY"
+      ],
+      "title": "TRAVEL",
+      "link": "/travel",
+      "display": true
+    },
+    {
       "title": "CONTACT",
       "link": "/contact",
       "display": true,
