@@ -1,5 +1,4 @@
 import summitData from '../content/summit.json';
-import extraQuestions from '../content/extra-questions.json';
 import { START_LOADING, STOP_LOADING } from "openstack-uicore-foundation/lib/utils/actions";
 import { LOGOUT_USER } from "openstack-uicore-foundation/lib/security/actions";
 import { RESET_STATE, GET_THIRD_PARTY_PROVIDERS, SYNC_DATA } from "../actions/base-actions-definitions";
@@ -11,7 +10,7 @@ const DEFAULT_STATE = {
   summit: summitData,
   allows_native_auth: true,
   allows_otp_auth: true,
-  extra_questions: extraQuestions
+  extra_questions: []
 };
 
 const summitReducer = (state = DEFAULT_STATE, action) => {
