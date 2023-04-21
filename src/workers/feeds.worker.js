@@ -98,11 +98,10 @@ self.onmessage = async ({data: {summitId, staticJsonFilesBuildTime}}) => {
             }
             else
                 speakersIXData = speakersIDXBuildJson;
-            
 
             /* eslint-disable-next-line no-restricted-globals */
             self.postMessage({
-                eventsData, summitData, speakersData, eventsIDXData, speakersIXData,lastModified
+                eventsData, summitData, speakersData, eventsIDXData, speakersIXData, lastModified
             });
         });
 

@@ -52,7 +52,9 @@ const withFeedsWorker = WrappedComponent => {
                     console.log(`withFeedsWorker::componentDidMount setting lastModified ${lastModified}`);
                     updateLastCheckForNovelties(lastModified);
                 }
-                syncData( eventsData, summitData, speakersData, eventsIDXData, speakersIXData);
+
+                syncData(eventsData, summitData, speakersData, eventsIDXData, speakersIXData);
+
                 this._worker.terminate();
             };
         }

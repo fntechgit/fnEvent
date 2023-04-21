@@ -19,6 +19,7 @@ import {
     startLoading,
     authErrorHandler,
 } from 'openstack-uicore-foundation/lib/utils/actions';
+import history from "../history";
 
 export const SET_SUMMIT = 'SET_SUMMIT';
 export const GET_MAIN_EXTRA_QUESTIONS = 'GET_MAIN_EXTRA_QUESTIONS';
@@ -27,17 +28,23 @@ export const CLEAR_MARKETING_SETTINGS = 'CLEAR_MARKETING_SETTINGS';
 
 export const setSummit = (summit) => async (dispatch) => dispatch(createAction(SET_SUMMIT)(summit))
 
-export const getMainOrderExtraQuestions = ({ summit }) => async (dispatch, getState, { apiBaseUrl }) => {
-    dispatch(startLoading());
+export const getMainOrderExtraQuestions = ({ summit }) => async (dispatch, getState, { apiBaseUrl, getAccessToken, loginUrl }) => {
 
-    if (!summit) return;
+    if (!summit) return Promise.reject();
 
-    const apiUrl = URI(`${apiBaseUrl}/api/public/v1/summits/${summit.id}/attendees/me/allowed-extra-questions`);
+    const accessToken = await getAccessToken().catch(_ => history.replace(loginUrl));
 
-    apiUrl.addQuery('expand', '*sub_question_rules,*sub_question,*values')
+    if (!accessToken) return Promise.reject();
+
+    const apiUrl = URI(`${apiBaseUrl}/api/v1/summits/${summit.id}/attendees/me/allowed-extra-questions`);
+
+    apiUrl.addQuery('access_token', accessToken);
+    apiUrl.addQuery('expand', '*sub_question_rules,*sub_question,*values');
     apiUrl.addQuery('order', 'order');
     apiUrl.addQuery('page', 1);
     apiUrl.addQuery('per_page', 100);
+
+    dispatch(startLoading());
 
     return getRequest(
         null,

@@ -34,6 +34,7 @@ export const syncData = (
   const { isLoggedUser } = loggedUserState;
   const { userProfile } = userState;
   const syncPayload = { isLoggedUser, userProfile, eventsData, summitData, speakersData, eventsIDXData, allIDXSpeakers: speakersIDXData };
+
   dispatch(createAction(SYNC_DATA)(syncPayload));
 
   if(isLoggedUser)
