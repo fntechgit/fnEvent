@@ -18,7 +18,6 @@ const eventsIdxFilePath = 'src/content/events.idx.json';
 const speakersFilePath = 'src/content/speakers.json';
 const speakersIdxFilePath = 'src/content/speakers.idx.json';
 const voteablePresentationFilePath = 'src/content/voteable_presentations.json';
-const extraQuestionFilePath = 'src/content/extra-questions.json';
 const summitFilePath = 'src/content/summit.json';
 
 const fileBuildTimes = [];
@@ -135,22 +134,6 @@ const SSR_getSummit = async (baseUrl, summitId) => {
   )
     .then(({ data }) => data)
     .catch(e => console.log('ERROR: ', e));
-};
-
-const SSR_getSummitExtraQuestions = async (baseUrl, summitId, accessToken) => {
-
-    let apiUrl = URI(`${baseUrl}/api/v1/summits/${summitId}/order-extra-questions`);
-    apiUrl.addQuery('filter[]', 'class==MainQuestion');
-    apiUrl.addQuery('filter[]', 'usage==Ticket');
-    apiUrl.addQuery('expand', '*sub_question_rules,*sub_question,*values')
-    apiUrl.addQuery('access_token', accessToken);
-    apiUrl.addQuery('order', 'order');
-    apiUrl.addQuery('page', 1);
-    apiUrl.addQuery('per_page', 100);
-
-    return await axios.get(apiUrl.toString())
-        .then(({data}) => data.data)
-        .catch(e => console.log('ERROR: ', e));
 };
 
 const SSR_getVoteablePresentations = async (baseUrl, summitId, accessToken) => {
@@ -307,17 +290,6 @@ exports.onPreBootstrap = async () => {
         'build_time': Date.now()
       });
   fs.writeFileSync(voteablePresentationFilePath, JSON.stringify(allVoteablePresentations), 'utf8');
-
-  // Get Summit Extra Questions
-  const extraQuestions = await SSR_getSummitExtraQuestions(summitApiBaseUrl, summitId, accessToken);
-  console.log(`extraQuestions ${extraQuestions.length}`);
-  fileBuildTimes.push(
-      {
-        'file': extraQuestionFilePath,
-        'build_time': Date.now()
-      });
-
-  fs.writeFileSync(extraQuestionFilePath, JSON.stringify(extraQuestions), 'utf8');
 
   // setting build times
   globalSettings.staticJsonFilesBuildTime = fileBuildTimes;

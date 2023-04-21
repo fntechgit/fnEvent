@@ -20,8 +20,6 @@ export const BUCKET_SPEAKERS_ETAG_KEY = 'speakersETAG';
 export const BUCKET_SPEAKERS_DATA_KEY = 'speakersJSON';
 export const BUCKET_SPEAKERS_IDX_ETAG_KEY = 'speakersIDXETAG';
 export const BUCKET_SPEAKERS_IDX_DATA_KEY = 'speakersIDXJSON';
-export const BUCKET_EXTRA_QUESTIONS_ETAG_KEY = 'extraQuestionsETAG';
-export const BUCKET_EXTRA_QUESTIONS_DATA_KEY = 'extraQuestionsJSON';
 export const BUCKET_VOTABLE_PRES_ETAG_KEY = 'votablePresETAG';
 export const BUCKET_VOTABLE_PRES_DATA_KEY = 'votablePresJSON';
 

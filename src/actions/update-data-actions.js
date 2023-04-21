@@ -18,8 +18,6 @@ import {
     BUCKET_SPEAKERS_DATA_KEY,
     BUCKET_SPEAKERS_IDX_ETAG_KEY,
     BUCKET_SPEAKERS_IDX_DATA_KEY,
-    BUCKET_EXTRA_QUESTIONS_ETAG_KEY,
-    BUCKET_EXTRA_QUESTIONS_DATA_KEY,
     BUCKET_VOTABLE_PRES_ETAG_KEY,
     BUCKET_VOTABLE_PRES_DATA_KEY,
     isSummitEventDataUpdate,
@@ -136,20 +134,6 @@ export const bucket_getSummit = (summitId, lastBuildTime = null) => {
 export const bucket_getSpeakers = (summitId, lastBuildTime = null) => {
 
     return fetchBucket(BUCKET_SPEAKERS_ETAG_KEY, BUCKET_SPEAKERS_DATA_KEY, 'speakers.json', summitId, lastBuildTime)
-        .then(data => {
-            return data;
-        }).catch(e => null);
-}
-
-/**
- *
- * @param summitId
- * @param lastBuildTime
- * @returns {Promise<Response>}
- */
-export const bucket_getExtraQuestions = (summitId, lastBuildTime = null) => {
-
-    return fetchBucket(BUCKET_EXTRA_QUESTIONS_ETAG_KEY, BUCKET_EXTRA_QUESTIONS_DATA_KEY, 'extra-questions.json', summitId, lastBuildTime)
         .then(data => {
             return data;
         }).catch(e => null);
