@@ -7,8 +7,6 @@ userRequirement: NONE
 
 ##### <br>GETTING TO CAMP STRAVA 
 
-
-
 Camp Strava will take place at The Garland Hotel. 
 
 The address is: 4222 Vineland Ave, North Hollywood, CA 91602
@@ -26,6 +24,4 @@ Book your room at the Garland using this [link](https://res.windsurfercrs.com/ib
 
 Rooms are also available at the nearby Hilton Universal – you can book a room there using this [link](http://www.hiltonuniversal.com/). Rooms are available starting Monday, May 15, 2023 until Thursday, May 18, 2023. 
 
-
-
-Make sure to get our Camp Strava rate! In the booking window, click on the “special rates” icon. Add the code: 3218468 in the “corporate code,” close the window and select “check room rates.” Proceed with your booking from there.  Please note, the link will only be valid until the hotel reaches 85% capacity for the selected nights.
+Make sure to get our Camp Strava rate! In the booking window, click on the “special rates” icon. Add the code: 3218468 in the “corporate code,” close the window and select “check room rates.” Proceed with your booking from there. Please note, the link will only be valid until the hotel reaches 85% capacity for the selected nights.
