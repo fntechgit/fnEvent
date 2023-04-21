@@ -1,14 +1,12 @@
 import summitBuildJson from '../content/summit.json';
 import eventsBuildJson from '../content/events.json';
 import speakersBuildJson from '../content/speakers.json';
-import extraQuestionsBuildJson from '../content/extra-questions.json';
 import eventsIDXBuildJson from '../content/events.idx.json';
 import speakersIDXBuildJson from '../content/speakers.idx.json';
 import settings from '../content/settings.json';
 
 import {
     bucket_getEvents,
-    bucket_getExtraQuestions,
     bucket_getSpeakers,
     bucket_getSummit,
     bucket_getEventsIDX,
@@ -18,7 +16,6 @@ import {
 import {
     eventsFilePath,
     speakersFilePath,
-    extraQuestionFilePath,
     summitFilePath,
     eventsIdxFilePath,
     speakersIdxFilePath,
@@ -50,10 +47,6 @@ self.onmessage = async ({data: {summitId, staticJsonFilesBuildTime}}) => {
     buildTime = staticJsonFilesBuildTime.find(e => e.file === speakersIdxFilePath).build_time;
     calls.push(bucket_getSpeakersIDX(summitId, buildTime));
 
-    // extra questions
-    buildTime = staticJsonFilesBuildTime.find(e => e.file === extraQuestionFilePath).build_time;
-    calls.push(bucket_getExtraQuestions(summitId, buildTime));
-
 
     Promise.all(calls)
         .then((values) => {
@@ -63,7 +56,6 @@ self.onmessage = async ({data: {summitId, staticJsonFilesBuildTime}}) => {
             let summitData = values[2];
             let speakersData = values[3];
             let speakersIXData = values[4];
-            let extraQuestionsData = values[5];
 
             // if null , then set the SSR content
             // summit
@@ -106,16 +98,10 @@ self.onmessage = async ({data: {summitId, staticJsonFilesBuildTime}}) => {
             }
             else
                 speakersIXData = speakersIDXBuildJson;
-            // extra questions
-            if (extraQuestionsData && extraQuestionsData?.file){
-                extraQuestionsData = extraQuestionsData.file;
-            }
-            else
-                extraQuestionsData = extraQuestionsBuildJson;
 
             /* eslint-disable-next-line no-restricted-globals */
             self.postMessage({
-                eventsData, summitData, speakersData, extraQuestionsData, eventsIDXData, speakersIXData,lastModified
+                eventsData, summitData, speakersData, eventsIDXData, speakersIXData, lastModified
             });
         });
 

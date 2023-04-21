@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from "react"
-import {navigate, withPrefix} from "gatsby"
-import {connect} from "react-redux";
+import React, { useEffect, useState } from "react"
+import * as Sentry from "@sentry/react";
+import { navigate, withPrefix } from "gatsby"
+import { connect } from "react-redux";
 import URI from "urijs"
 // these two libraries are client-side only
 import RegistrationLiteWidget from 'summit-registration-lite/dist';
@@ -16,9 +17,9 @@ import styles from '../styles/marketing-hero.module.scss'
 import Swal from "sweetalert2";
 import {checkRequireExtraQuestionsByAttendee} from "../actions/user-actions";
 import {userHasAccessLevel, VirtualAccessLevel} from "../utils/authorizedGroups";
-import * as Sentry from "@sentry/react";
-import { SentryFallbackFunction } from "./SentryErrorComponent";
 
+import { SentryFallbackFunction } from "./SentryErrorComponent";
+import { getExtraQuestions } from "../actions/summit-actions";
 
 const RegistrationLiteComponent = ({
                                        registrationProfile,
@@ -38,6 +39,7 @@ const RegistrationLiteComponent = ({
                                        allowsNativeAuth,
                                        allowsOtpAuth,
                                        checkRequireExtraQuestionsByAttendee,
+                                       getExtraQuestions,
                                    }) => {
     const [isActive, setIsActive] = useState(false);
     const [initialEmailValue, setInitialEmailValue] = useState('');
@@ -120,10 +122,11 @@ const RegistrationLiteComponent = ({
         goToEvent: () => navigate('/a/'),
         goToRegistration: () => navigate(`${getEnvVariable(REGISTRATION_BASE_URL)}/a/${summit.slug}`),
         goToMyOrders: () => navigate('/a/my-tickets'),
-        completedExtraQuestions: (order) => {
+        completedExtraQuestions: async (order) => {
             const currentUserTicket = order?.tickets.find(t => t?.owner?.email == userProfile?.email);
             const currentAttendee = attendee ? attendee : (currentUserTicket ? currentUserTicket?.owner : null);
             if(!currentAttendee) return true;
+            await getExtraQuestions();
             return checkRequireExtraQuestionsByAttendee(currentAttendee);
         },
         onPurchaseComplete: (order) => {
@@ -136,7 +139,7 @@ const RegistrationLiteComponent = ({
         allowsOtpAuth: allowsOtpAuth,
         stripeOptions: {
             fonts: [{cssSrc: withPrefix('/fonts/fonts.css')}],
-            style: {base: {fontFamily: `'MaisonNeue', sans-serif`, fontWeight: 300}}
+            style: {base: {fontFamily: `'Nunito Sans', sans-serif`, fontWeight: 300}}
         },
         loginInitialEmailInputValue: initialEmailValue,
         authErrorCallback: (error) => {
@@ -153,18 +156,19 @@ const RegistrationLiteComponent = ({
         companyInputPlaceholder: siteSettings?.REG_LITE_COMPANY_INPUT_PLACEHOLDER,
         companyDDLPlaceholder: siteSettings?.REG_LITE_COMPANY_DDL_PLACEHOLDER,
         supportEmail:getEnvVariable(SUPPORT_EMAIL),
-        footerHasTicketText:'',
     };
 
     const {registerButton} = siteSettings.heroBanner.buttons;
 
     return (
         <>
-            <button className={`${styles.button} button is-large`} disabled={isActive} onClick={() => setIsActive(true)}>
-                <i className={`fa fa-2x fa-edit icon is-large`}/>
-                <b>{registerButton.text}</b>
-            </button>
-
+            {!summit.invite_only_registration &&
+                <button className={`${styles.button} button is-large`} disabled={isActive}
+                        onClick={() => setIsActive(true)}>
+                    <i className={`fa fa-2x fa-edit icon is-large`}/>
+                    <b>{registerButton.text}</b>
+                </button>
+            }
             <div>
                 <Sentry.ErrorBoundary fallback={SentryFallbackFunction({componentName: 'Registration Lite'})}>
                     {isActive && <RegistrationLiteWidget {...widgetProps} />}
@@ -197,4 +201,5 @@ export default connect(mapStateToProps, {
     setUserOrder,
     checkOrderData,
     checkRequireExtraQuestionsByAttendee,
+    getExtraQuestions,
 })(RegistrationLiteComponent)

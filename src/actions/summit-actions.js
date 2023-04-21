@@ -28,9 +28,7 @@ export const getExtraQuestions = () => async (dispatch, getState) => {
         return Promise.reject(e);
     }
 
-    let apiUrl = URI(`${window.API_BASE_URL}/api/v1/summits/${window.SUMMIT_ID}/order-extra-questions`);
-    apiUrl.addQuery('filter[]', 'class==MainQuestion');
-    apiUrl.addQuery('filter[]', 'usage==Ticket');
+    let apiUrl = URI(`${window.API_BASE_URL}/api/v1/summits/${window.SUMMIT_ID}/attendees/me/allowed-extra-questions`);
     apiUrl.addQuery('expand', '*sub_question_rules,*sub_question,*values')
     apiUrl.addQuery('access_token', accessToken);
     apiUrl.addQuery('order', 'order');
