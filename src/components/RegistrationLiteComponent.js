@@ -19,6 +19,7 @@ import {checkRequireExtraQuestionsByAttendee} from "../actions/user-actions";
 import {userHasAccessLevel, VirtualAccessLevel} from "../utils/authorizedGroups";
 
 import { SentryFallbackFunction } from "./SentryErrorComponent";
+import { getExtraQuestions } from "../actions/summit-actions";
 
 const RegistrationLiteComponent = ({
                                        registrationProfile,
@@ -38,6 +39,7 @@ const RegistrationLiteComponent = ({
                                        allowsNativeAuth,
                                        allowsOtpAuth,
                                        checkRequireExtraQuestionsByAttendee,
+                                       getExtraQuestions,
                                    }) => {
     const [isActive, setIsActive] = useState(false);
     const [initialEmailValue, setInitialEmailValue] = useState('');
@@ -120,10 +122,11 @@ const RegistrationLiteComponent = ({
         goToEvent: () => navigate('/a/'),
         goToRegistration: () => navigate(`${getEnvVariable(REGISTRATION_BASE_URL)}/a/${summit.slug}`),
         goToMyOrders: () => navigate('/a/my-tickets'),
-        completedExtraQuestions: (order) => {
+        completedExtraQuestions: async (order) => {
             const currentUserTicket = order?.tickets.find(t => t?.owner?.email == userProfile?.email);
             const currentAttendee = attendee ? attendee : (currentUserTicket ? currentUserTicket?.owner : null);
             if(!currentAttendee) return true;
+            await getExtraQuestions();
             return checkRequireExtraQuestionsByAttendee(currentAttendee);
         },
         onPurchaseComplete: (order) => {
@@ -198,4 +201,5 @@ export default connect(mapStateToProps, {
     setUserOrder,
     checkOrderData,
     checkRequireExtraQuestionsByAttendee,
+    getExtraQuestions,
 })(RegistrationLiteComponent)
