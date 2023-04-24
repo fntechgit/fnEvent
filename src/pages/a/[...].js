@@ -33,7 +33,7 @@ const App = ({ isLoggedUser, user, summit_phase, allowClick = true }) => {
             schedKey="schedule-main"
             scheduleProps={{ subtitle:
               <Link to={'/a/my-schedule'}>Show My Schedule</Link>
-          }}
+            }}
             allowClick={allowClick}
           />
           <WithAuthRoute path="/" isLoggedIn={isLoggedUser} location={location}>
