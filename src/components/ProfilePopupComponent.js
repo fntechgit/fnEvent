@@ -33,16 +33,16 @@ const ProfilePopupComponent = ({ userProfile, idpLoading, closePopup, showProfil
   const height = 200;
 
   useEffect(() => {
-    setFirstName(userProfile.given_name);
-    setLastName(userProfile.family_name);
-    setCompany(userProfile.company);
-    setBio(userProfile.bio);
-    setJobTitle(userProfile.job_title);
-    setImage(userProfile.picture);
-    setGithub(userProfile.github_user);
-    setIRC(userProfile.irc);
-    setLinkedin(userProfile.linked_in_profile);
-    setTwitter(userProfile.twitter_name);
+    setFirstName(userProfile.given_name || '');
+    setLastName(userProfile.family_name || '');
+    setCompany(userProfile.company || '');
+    setBio(userProfile.bio || '');
+    setJobTitle(userProfile.job_title || '');
+    setImage(userProfile.picture || '');
+    setGithub(userProfile.github_user || '');
+    setIRC(userProfile.irc || '');
+    setLinkedin(userProfile.linked_in_profile || '');
+    setTwitter(userProfile.twitter_name || '');
 
     return () => {
       setFirstName('');
@@ -154,9 +154,11 @@ const ProfilePopupComponent = ({ userProfile, idpLoading, closePopup, showProfil
 
   const onClickSave = () => {
     if (editorRef.current && newImage) {
-      const canvas = editorRef.current.getImage().toDataURL();
-      urltoFile(canvas, image.name)
-          .then(file => changePicture(file));
+      const canvas = editorRef.current?.getImage()?.toDataURL();
+      if(canvas) {
+        urltoFile(canvas, image.name)
+            .then(file => changePicture(file));
+      }
     }
     if (userProfile.given_name !== firstName ||
         userProfile.family_name !== lastName ||
