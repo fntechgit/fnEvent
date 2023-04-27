@@ -174,9 +174,9 @@ collections:
         label: "Maintenance Mode"
         name: "maintenance"
         fields:
-          - {label: "Enabled", name: "enabled", widget: boolean, required: true}
-          - {label: "Title", name: title, widget: string, required: true}
-          - {label: "Subtitle", name: subtitle, widget: string}
+          - {label: "Enabled", name: "enabled", widget: boolean, required: true, default: false}
+          - {label: "Title", name: title, widget: string, required: true, default: 'Site under maintenance' }
+          - {label: "Subtitle", name: subtitle, widget: string, default: 'Please reload page shortly'}
   - name: "home"
     label: "Lobby Site"
     editor:
