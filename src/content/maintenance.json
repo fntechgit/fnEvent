@@ -1,5 +1,5 @@
 {
-  "enabled": false,
-  "title": "Site under maintenance",
+  "enabled": true,
+  "title": "Site under maintenance 1",
   "subtitle": "Please reload page shortly"
 }
