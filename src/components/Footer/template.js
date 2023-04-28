@@ -1,14 +1,10 @@
 import * as React from "react";
-import { connect } from "react-redux";
+import FooterMarketing from "../FooterMarketing";
+import Link from "../Link";
 
-import Link from "./Link";
-import FooterMarketing from "./FooterMarketing";
+import styles from "../../styles/footer.module.scss";
 
-import footerContent from "../content/footer/index.json";
-
-import styles from "../styles/footer.module.scss";
-
-const Footer = ({ summit, marketing }) => {
+const FooterTemplate = ({ data, summit, marketing }) => {
   if (marketing) {
     return (
       <FooterMarketing />
@@ -16,9 +12,9 @@ const Footer = ({ summit, marketing }) => {
   } else {
     return (
       <React.Fragment>
-        {footerContent.columns.filter(col => col.display === false).length === footerContent.columns.length ?
+        {data.columns.filter(col => col.display === false).length === data.columns.length ?
           <React.Fragment>
-            {footerContent.logo.display && footerContent.social.display ?
+            {data.logo.display && data.social.display ?
               <footer className="footer">
                 <div className={`${styles.footerColummns} columns`}>
                   <div className="column is-one-quarter">
@@ -26,11 +22,11 @@ const Footer = ({ summit, marketing }) => {
                     <img alt="logo" src={summit.logo} style={{ marginTop: '10px' }} />
                   }
                   </div>
-                  {footerContent.social.display &&
+                  {data.social.display &&
                     <div className="column is-one-quarter is-offset-half">
-                      <h4>{footerContent.social.title}</h4>
+                      <h4>{data.social.title}</h4>
                       <div className={styles.socialContainer}>
-                        {footerContent.social.networks.map((net, index) => (
+                        {data.social.networks.map((net, index) => (
                           net.display &&
                           <Link to={net.link} key={index}>
                             <i className={`fa icon is-large ${net.icon}`}></i>
@@ -46,7 +42,7 @@ const Footer = ({ summit, marketing }) => {
           </React.Fragment>
           :
           <footer className="footer">
-            {footerContent.logo.display && summit?.logo ?
+            {data.logo.display && summit?.logo ?
               <div className="columns">
                 <div className="column is-one-quarter">
                   <img alt="logo" src={summit.logo} style={{ margin: '10px 0 4rem' }} />
@@ -57,7 +53,7 @@ const Footer = ({ summit, marketing }) => {
             <div className={`${styles.footerColummns} columns`}>
               <div className="column is-three-quarters">
                 <div className="columns" style={{ flexWrap: 'wrap' }}>
-                  {footerContent.columns.map((col, index) => {
+                  {data.columns.map((col, index) => {
                     return (
                       col.display &&
                       <div className={`column is-3 ${index > 0 && index % 3 !== 0 && index !== 0 ? 'is-offset-1' : ''}`} key={index}>
@@ -78,18 +74,14 @@ const Footer = ({ summit, marketing }) => {
                   })}
                 </div>
               </div>
-              {footerContent.social.display &&
+              {data.social.display &&
                 <div className="column is-one-quarter">
-                  <h4>{footerContent.social.title}</h4>
+                  <h4>{data.social.title}</h4>
                   <div className={styles.socialContainer}>
-                    {footerContent.social.networks.map((net, index) => (
+                    {data.social.networks.map((net, index) => (
                       net.display &&
                       <Link to={net.link} className={styles.link} key={index}>
-                        {net.icon === 'fa-facebook' ?
-                          <img alt="logo" style={{ width: 25, marginTop: '-1px' }} src="/img/f_logo_RGB-White_58.png" />
-                          :
-                          <i className={`fa icon is-large ${net.icon}`} />
-                        }
+                        <i className={`fa icon is-large ${net.icon}`} />
                       </Link>
                     ))}
                   </div>
@@ -99,7 +91,7 @@ const Footer = ({ summit, marketing }) => {
           </footer>
         }
         <div className={styles.legalsBar}>
-          {footerContent.legal.map((item, index) => {
+          {data.legal.map((item, index) => {
             return (
               <Link to={item.link} className={styles.link} key={index}>
                 <span className={styles.legalItem}>
@@ -117,8 +109,4 @@ const Footer = ({ summit, marketing }) => {
   }
 };
 
-const mapStateToProps = ({ summitState }) => ({
-  summit: summitState.summit
-});
-
-export default connect(mapStateToProps)(Footer);
+export default FooterTemplate;

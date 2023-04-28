@@ -2,8 +2,8 @@ import { START_LOADING, STOP_LOADING } from "openstack-uicore-foundation/lib/uti
 import { LOGOUT_USER } from "openstack-uicore-foundation/lib/security/actions";
 import {RESET_STATE, SYNC_DATA} from "../actions/base-actions-definitions";
 
-import sponsorData from "../content/sponsors";
-import tierData from "../content/sponsors-tiers";
+import sponsorData from "content/sponsors";
+import tierData from "content/sponsors-tiers";
 
 const DEFAULT_STATE = {
   sponsors: sponsorData.tierSponsors,

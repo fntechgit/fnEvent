@@ -1,4 +1,4 @@
-@import './colors.scss';
+@import 'styles/colors.scss';
 @import './global-classes';
 
 html,
@@ -9,13 +9,14 @@ body {
   height: 100%;
 }
 
-*:focus,
-.focus {
+
+html[data-whatintent=keyboard] *:focus,
+html[data-whatintent=keyboard] .focus {
   outline: 3px solid transparent !important;
-    box-shadow:  0 0 0 3px #fff, 0 0 0 6px #333 !important;
+  box-shadow:  0 0 0 3px #fff, 0 0 0 6px #333 !important;
 }
 *:focus-visible {
-  outline: none !important;
+  outline: inherit;
 }
 
 /*
@@ -24,8 +25,8 @@ body {
 */
 html:not([data-whatintent=keyboard]) *:focus,
 html:not([data-whatintent=keyboard]) .focus {
-  outline: none !important;
-  box-shadow: none !important;
+  outline: inherit;
+  box-shadow: inherit;
 }
 
 /*

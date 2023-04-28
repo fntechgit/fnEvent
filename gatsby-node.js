@@ -9,8 +9,6 @@ const { ClientCredentials } = require("simple-oauth2");
 const URI = require("urijs");
 const sizeOf = require("image-size");
 
-const typeDefs = require("./src/cms/config/collections/typeDefs");
-
 const myEnv = require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 });
@@ -304,6 +302,7 @@ exports.onPreBootstrap = async () => {
 
 exports.createSchemaCustomization = ({ actions }) => {
   const { createTypes } = actions;
+  const typeDefs = require("./src/cms/config/collections/typeDefs");
   createTypes(typeDefs);
 };
 
@@ -378,7 +377,8 @@ exports.onCreateWebpackConfig = ({ actions, plugins, loaders }) => {
         path: require.resolve('path-browserify'),
         stream: require.resolve('stream-browserify'),
         buffer: require.resolve('buffer/')
-      }
+      },
+      modules: [path.resolve(__dirname, "src")]
     },
     // canvas is a jsdom external dependency
     externals: ['canvas'],
@@ -447,5 +447,5 @@ exports.onCreateWebpackConfig = ({ actions, plugins, loaders }) => {
           release: process.env.GATSBY_SENTRY_RELEASE,
         })]:[],
     ]
-  })  
+  })
 };

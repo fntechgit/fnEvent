@@ -3,13 +3,13 @@ import { LOGOUT_USER } from "openstack-uicore-foundation/lib/security/actions";
 import { RESET_STATE, SYNC_DATA, UPDATE_LAST_CHECK_FOR_NOVELTIES } from "../actions/base-actions-definitions";
 
 // TODO: dont store build timestamps in site-settings, use another file
-import settings from "../content/site-settings/index.json";
-import colors from "../content/colors.json";
+import settings from "content/site-settings/index.json";
+import colors from "content/colors.json";
 // TODO: rename to lobby page settings?
-import homeSettings from "../content/home-settings.json";
+import homeSettings from "content/home-settings.json";
 // TODO: should this live in reducer or should be accessed though graphql?
-import marketingPageSettings from "../content/marketing-page/index.json";
-import postersPages from "../content/posters-pages.json";
+import marketingPageSettings from "content/marketing-page/index.json";
+import postersPages from "content/posters-pages.json";
 
 console.log(`settingReducer DEFAULT_STATE settings.lastBuild ${settings.lastBuild}`);
 

@@ -5,7 +5,7 @@ import {
     syncFilters
 } from "../utils/schedule";
 
-import summitData from "../data/summit.json";
+import summitData from "data/summit.json";
 
 const summitTimeZoneId = summitData.time_zone_id;  // TODO use reducer data
 

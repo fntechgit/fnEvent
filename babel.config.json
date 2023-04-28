@@ -1,7 +1,4 @@
 {
-  "plugins": [
-    "@babel/plugin-syntax-top-level-await"
-  ],
   "presets": [
     [
       "babel-preset-gatsby",

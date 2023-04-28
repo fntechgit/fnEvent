@@ -46,7 +46,7 @@ export const HomePageTemplate = class extends React.Component {
                 <PageHeader
                     title={homeSettings.homeHero.title}
                     subtitle={homeSettings.homeHero.subTitle}
-                    backgroundImage={homeSettings.homeHero.image.file}
+                    backgroundImage={homeSettings.homeHero.image?.file}
                 />
                 <div className="px-5 py-5 mb-6">
                     <div className="columns">

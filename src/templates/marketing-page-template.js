@@ -25,8 +25,10 @@ const MarketingPageTemplate = ({
   lastDataSync,
   summit,
   summitPhase,
-  user,
-  isLoggedUser
+  doLogin,
+  isLoggedUser,
+  hasVirtualBadge,
+  defaultPath
 }) => {
 
   const {
@@ -34,7 +36,7 @@ const MarketingPageTemplate = ({
   } = data;
 
   let scheduleProps = {};
-  if (marketingPageJson.leftColumn.schedule && isLoggedUser && summitPhase !== PHASES.BEFORE) {
+  if (marketingPageJson.leftColumn?.schedule && isLoggedUser && summitPhase !== PHASES.BEFORE) {
     scheduleProps = {
       ...scheduleProps,
       onEventClick: (ev) => navigate(`/a/event/${ev.id}`),
@@ -54,15 +56,18 @@ const MarketingPageTemplate = ({
     <Layout marketing={true} location={location}>
       <AttendanceTrackerComponent />
       <MarketingHeroComponent
+        location={location}
         marketingPageSettings={marketingPageJson}
         summit={summit}
+        doLogin={doLogin}
         isLoggedUser={isLoggedUser}
-        location={location}
+        hasVirtualBadge={hasVirtualBadge}
+        defaultPath={defaultPath}
       />
-      {summit && marketingPageJson?.countdown?.display && <Countdown summit={summit} text={marketingPageJson?.countdown?.text} />}
+      {summit && marketingPageJson.countdown?.display && <Countdown summit={summit} text={marketingPageJson?.countdown?.text} />}
       <div className="columns" id="marketing-columns">
         <div className="column is-half px-6 pt-6 pb-0" style={{ position: 'relative' }}>
-          {marketingPageJson.leftColumn.schedule.display &&
+          {marketingPageJson.leftColumn?.schedule?.display &&
             <>
               <h2><b>{marketingPageJson.leftColumn.schedule.title}</b></h2>
               <LiteScheduleComponent
@@ -76,14 +81,14 @@ const MarketingPageTemplate = ({
               />
             </>
           }
-          {marketingPageJson.leftColumn.disqus.display &&
+          {marketingPageJson.leftColumn?.disqus?.display &&
             <>
               <h2><b>{marketingPageJson.leftColumn.disqus.title}</b></h2>
               <DisqusComponent page="marketing-site"/>
             </>
           }
-          {marketingPageJson.leftColumn.image.display &&
-           marketingPageJson.leftColumn.image.image.src &&
+          {marketingPageJson.leftColumn?.image?.display &&
+           marketingPageJson.leftColumn?.image?.image.src &&
             <>
               <h2><b>{marketingPageJson.leftColumn.image.title}</b></h2>
               <br />
@@ -96,7 +101,8 @@ const MarketingPageTemplate = ({
             breakpointCols={2}
             className="my-masonry-grid"
             columnClassName="my-masonry-grid_column">
-            {formatMasonry(marketingPageJson.masonry).map((item, index) => {
+            { marketingPageJson.masonry &&
+              formatMasonry(marketingPageJson.masonry).map((item, index) => {
               if (item.images && item.images.length === 1) {
                 const image = getImage(item.images[0].src);
                 return (
@@ -148,7 +154,6 @@ MarketingPageTemplate.propTypes = {
   lastDataSync: PropTypes.number,
   summit: PropTypes.object,
   summitPhase: PropTypes.number,
-  user: PropTypes.object,
   isLoggedUser: PropTypes.bool
 };
 

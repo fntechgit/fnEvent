@@ -20,12 +20,6 @@ export const collectionDefaults = ({
   }
 });
 
-/*
-{label: "Image", name: "image", widget: object, required: false, fields: [
-  {label: "File", name: "file", widget: image, required: false, default: ''},
-  {label: "Alt", name: "alt", widget: string, required: false, default: ''},
-]},
-*/
 export const imageWithAltFieldset = ({
   imageRequired = false
 } = {}) => ([

@@ -17,7 +17,7 @@ const adsQuery = graphql`
             link
             text
           }
-          image {    
+          image {
             src {
               childImageSharp {
                 gatsbyImageData (

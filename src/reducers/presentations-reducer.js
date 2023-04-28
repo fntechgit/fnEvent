@@ -1,17 +1,17 @@
-import { combineReducers } from 'redux';
-import { isString } from 'lodash';
+import { combineReducers } from "redux";
+import { isString } from "lodash";
 
-import { VotingPeriod } from '../model/VotingPeriod';
+import { VotingPeriod } from "../model/VotingPeriod";
 
-import { START_LOADING, STOP_LOADING } from 'openstack-uicore-foundation/lib/utils/actions';
-import { LOGOUT_USER } from 'openstack-uicore-foundation/lib/security/actions';
-import {RESET_STATE, SYNC_DATA} from "../actions/base-actions-definitions";
+import { START_LOADING, STOP_LOADING } from "openstack-uicore-foundation/lib/utils/actions";
+import { LOGOUT_USER } from "openstack-uicore-foundation/lib/security/actions";
+import { RESET_STATE, SYNC_DATA } from "../actions/base-actions-definitions";
 
 import {
   CAST_PRESENTATION_VOTE_REQUEST,
   UNCAST_PRESENTATION_VOTE_REQUEST,
   TOGGLE_PRESENTATION_VOTE
-} from '../actions/user-actions';
+} from "../actions/user-actions";
 
 import {
   SET_INITIAL_DATASET,
@@ -22,13 +22,13 @@ import {
   GET_RECOMMENDED_PRESENTATIONS,
   VOTING_PERIODS_CREATE,
   VOTING_PERIODS_PHASE_CHANGE,
-} from '../actions/presentation-actions';
+} from "../actions/presentation-actions";
 
-import { filterEventsByAccessLevels } from '../utils/authorizedGroups';
-import { randomSort } from '../utils/filterUtils';
+import { filterEventsByAccessLevels } from "../utils/authorizedGroups";
+import { randomSort } from "../utils/filterUtils";
 
-import DEFAULT_FILTERS_STATE from '../content/posters-filters.json';
-import allVoteablePresentations from '../data/voteable-presentations.json';
+import DEFAULT_FILTERS_STATE from "content/posters-filters.json";
+import allVoteablePresentations from "data/voteable-presentations.json";
 
 const DEFAULT_VOTEABLE_PRESENTATIONS_STATE = {
   filters: { ...DEFAULT_FILTERS_STATE },

@@ -1,10 +1,10 @@
-import settings from "../content/site-settings/index.json";
-import summitBuildJson from "../data/summit.json";
-import eventsBuildJson from "../data/events.json";
-import eventsIDXBuildJson from "../data/events.idx.json";
-import speakersBuildJson from "../data/speakers.json";
-import speakersIDXBuildJson from "../data/speakers.idx.json";
-import extraQuestionsBuildJson from "../data/extra-questions.json";
+import settings from "content/site-settings/index.json";
+import summitBuildJson from "data/summit.json";
+import eventsBuildJson from "data/events.json";
+import eventsIDXBuildJson from "data/events.idx.json";
+import speakersBuildJson from "data/speakers.json";
+import speakersIDXBuildJson from "data/speakers.idx.json";
+import extraQuestionsBuildJson from "data/extra-questions.json";
 
 import {
     bucket_getSummit,

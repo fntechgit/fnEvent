@@ -1,39 +1,37 @@
-import React, {useEffect, useState, useRef, useMemo} from "react";
+import React, {
+  useRef,
+  useState,
+  useEffect
+} from "react";
 import { connect } from "react-redux";
 import { getSrc } from "gatsby-plugin-image";
 import Slider from "react-slick";
 import URI from "urijs";
-import { doLogin } from "openstack-uicore-foundation/lib/security/methods";
-import { PHASES } from "../utils/phasesUtils";
 import Link from "../components/Link";
+import LoginButton from "./LoginButton";
 import RegistrationLiteComponent from "./RegistrationLiteComponent";
-import { getDefaultLocation } from "../utils/loginUtils";
+
+import { PHASES } from "@utils/phasesUtils";
 
 import styles from "../styles/marketing-hero.module.scss";
-import {userHasAccessLevel, VirtualAccessLevel} from "../utils/authorizedGroups";
-import LoginButton from "./LoginButton";
 
 const MarketingHeroComponent = ({
+  location,
   marketingPageSettings,
-  eventRedirect,
   summitPhase,
   isLoggedUser,
   summit,
-  location,
-  userProfile
+  doLogin,
+  hasVirtualBadge,
+  defaultPath
 }) => {
 
   const sliderRef = useRef(null);
   const [sliderHeight, setSliderHeight] = useState(424);
 
   const onResize = () => {
-    setSliderHeight(sliderRef.current.clientHeight);
+    sliderRef?.current && setSliderHeight(sliderRef.current.clientHeight);
   };
-
-  // we store this calculation to use it later
-  const hasVirtualBadge = useMemo(() =>
-          userProfile ? userHasAccessLevel(userProfile.summit_tickets, VirtualAccessLevel) : false,
-      [userProfile]);
 
   useEffect(() => {
     onResize();
@@ -44,10 +42,9 @@ const MarketingHeroComponent = ({
   }, []);
 
   const getBackURL = () => {
-    let defaultLocation = getDefaultLocation(eventRedirect, hasVirtualBadge);
-    let backUrl = location.state?.backUrl
+    const backUrl = location.state?.backUrl
       ? location.state.backUrl
-      : defaultLocation;
+      : defaultPath;
     return URI.encode(backUrl);
   };
 
@@ -56,8 +53,6 @@ const MarketingHeroComponent = ({
   };
 
   const getButtons = () => {
-
-    const path = getDefaultLocation(eventRedirect, hasVirtualBadge);
     const { registerButton, loginButton } = marketingPageSettings.hero.buttons;
 
     if (summitPhase >= PHASES.DURING && isLoggedUser) {
@@ -70,7 +65,7 @@ const MarketingHeroComponent = ({
               </span>
             )}
           {hasVirtualBadge && /* only show button if we have virtual access */
-              <Link className={styles.link} to={path}>
+              <Link className={styles.link} to={defaultPath}>
                 <button className={`${styles.button} button is-large`}>
                   <i className={`fa fa-2x fa-sign-in icon is-large`}/>
                   <b>Enter</b>
@@ -90,7 +85,7 @@ const MarketingHeroComponent = ({
             </span>
           )}
         {loginButton.display && !isLoggedUser && (
-          <LoginButton location={location} />          
+          <LoginButton location={location} />
         )}
       </>
     );
@@ -106,7 +101,7 @@ const MarketingHeroComponent = ({
   };
 
   let heroLeftColumnInlineStyles = {};
-  if (marketingPageSettings.hero.background?.src) {
+  if (marketingPageSettings.hero?.background?.src) {
     const imageSrc = getSrc(marketingPageSettings.hero.background.src);
     heroLeftColumnInlineStyles.backgroundImage = `url(${imageSrc})`;
   }
@@ -136,23 +131,24 @@ const MarketingHeroComponent = ({
                     : "skew(0deg)",
                 }}
               >
-                {marketingPageSettings.hero.dateLayout ?
-                <div style={{transform: "skew(25deg)"}}>{marketingPageSettings.hero.date}</div>
+                {marketingPageSettings.hero?.dateLayout ?
+                <div style={{transform: "skew(25deg)"}}>{marketingPageSettings.hero?.date}</div>
                 :
                 <div style={{transform: "skew(0deg)"}}>
-                  <span>{marketingPageSettings.hero.date}</span>
+                  <span>{marketingPageSettings.hero?.date}</span>
                 </div>
                 }
               </div>
-              <h4>{marketingPageSettings.hero.time}</h4>
+              <h4>{marketingPageSettings.hero?.time}</h4>
               <div className={styles.heroButtons}>
                 {getButtons()}
               </div>
             </div>
           </div>
         </div>
+        {marketingPageSettings.hero?.images &&
         <div className={`${styles.rightColumn} column is-6 px-0`} id="marketing-slider" ref={sliderRef}>
-          {marketingPageSettings.hero.images.length > 1 ?
+            {marketingPageSettings.hero?.images?.length > 1 ?
             <Slider {...sliderSettings}>
               {marketingPageSettings.hero.images.map((image, index) => {
                 const imageSrc = getSrc(image.src);
@@ -168,17 +164,15 @@ const MarketingHeroComponent = ({
             </div>
           }
         </div>
+      }
       </div>
     </section>
   );
 }
 
-const mapStateToProps = ({ clockState, settingState, userState, summitState }) => ({
+const mapStateToProps = ({ clockState, summitState }) => ({
   summitPhase: clockState.summit_phase,
-  summit: summitState.summit,
-  // TODO: move to site settings i/o marketing page settings
-  eventRedirect: settingState.marketingPageSettings.eventRedirect,
-  userProfile: userState.userProfile,
+  summit: summitState.summit
 });
 
 export default connect(mapStateToProps, null)(MarketingHeroComponent);

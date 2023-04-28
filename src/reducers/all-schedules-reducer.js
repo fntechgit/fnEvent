@@ -6,8 +6,8 @@ import {RESET_STATE, SYNC_DATA} from "../actions/base-actions-definitions";
 import {GET_EVENT_DATA} from '../actions/event-actions-definitions';
 import {ADD_TO_SCHEDULE, REMOVE_FROM_SCHEDULE, GET_USER_PROFILE} from "../actions/user-actions";
 
-import eventsData from '../data/events.json';
-import eventsIDXData from '../data/events.idx.json';
+import eventsData from "data/events.json";
+import eventsIDXData from "data/events.idx.json";
 
 const scheduleEvents = filterEventsByTags(eventsData);
 

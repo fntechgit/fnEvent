@@ -9,7 +9,7 @@ export const collections = [
 const config = {
   backend: {
     name: "github",
-    repo: "fntechgit/fnEvent",
+    repo: "OpenEventKit/event-site",
     branch: "main",
     commit_messages: {
       create: "Create {{collection}} “{{slug}}”",
