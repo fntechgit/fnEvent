@@ -7292,10 +7292,10 @@ fsevents@~2.3.2:
   resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-2.3.2.tgz#8a526f78b8fdf4623b709e0b975c52c24c02fd1a"
   integrity sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==
 
-full-schedule-widget@2.0.23:
-  version "2.0.23"
-  resolved "https://registry.yarnpkg.com/full-schedule-widget/-/full-schedule-widget-2.0.23.tgz#0611dc007a2cf4d94b22878cc0c2e07414dc38fa"
-  integrity sha512-9TsgEfTUDoHI/OSEu2J+uzJd4tzh8Akr41jw3VGaqQCLTkdkagzzryXELn0+MxEM9yEvxdhAwIjtDZFDqzWaow==
+full-schedule-widget@2.0.24:
+  version "2.0.24"
+  resolved "https://registry.yarnpkg.com/full-schedule-widget/-/full-schedule-widget-2.0.24.tgz#a1c606228190dced8b2e1af77f20e4f54e9ada55"
+  integrity sha512-6QaBT9dd6R91QYKGZyoiVCyTWzzbanAVPZ8XmO6vEBkM4Hgpwty//vXBQ9nRhBepoxXrv58QZwYTWgYgwkYFLA==
   dependencies:
     "@mui/base" "^5.0.0-alpha.105"
     bootstrap "^5.1.3"
