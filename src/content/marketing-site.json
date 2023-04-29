@@ -16,7 +16,7 @@
       }
     },
     "background": {
-      "file": "/img/cs23-fnv-marketing-header-l-v5.png"
+      "file": "/img/cs23-fnv-marketing-header-l.png"
     },
     "images": [
       {
@@ -67,7 +67,7 @@
       "title": "Mid Left",
       "images": [
         {
-          "image": "/img/cs23-fnv-marketing-space2-v3.png",
+          "image": "/img/cs23-fnv-marketing-space2-v2.png",
           "alt": ""
         }
       ],
@@ -76,7 +76,7 @@
     {
       "images": [
         {
-          "image": "/img/cs23-fnv-marketing-space4-refresh.png",
+          "image": "/img/cs23-fnv-marketing-space4-v3.png",
           "alt": ""
         }
       ],
