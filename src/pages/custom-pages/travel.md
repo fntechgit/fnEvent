@@ -3,7 +3,7 @@ templateKey: custom-page
 title: Travel
 userRequirement: NONE
 ---
-![](/img/cs23-fnv-navpage-header-v3.png)
+![](/img/cs23-email-header-generic-v2.png)
 
 ##### <br>GETTING TO CAMP STRAVA 
 
