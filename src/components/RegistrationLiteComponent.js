@@ -162,7 +162,7 @@ const RegistrationLiteComponent = ({
 
     return (
         <>
-            {!summit.invite_only_registration &&
+            {registerButton.display &&
                 <button className={`${styles.button} button is-large`} disabled={isActive}
                         onClick={() => setIsActive(true)}>
                     <i className={`fa fa-2x fa-edit icon is-large`}/>
