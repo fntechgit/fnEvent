@@ -22,7 +22,7 @@
     {
       "title": "My Schedule",
       "link": "/a/my-schedule",
-      "display": true,
+      "display": false,
       "requiresAuth": true,
       "pageRestriction": [
         "ANY"
@@ -36,7 +36,7 @@
       ],
       "title": "Onsite Info",
       "link": "/onsite-info",
-      "display": true
+      "display": false
     },
     {
       "requiresAuth": true,
@@ -46,7 +46,7 @@
       ],
       "title": "Map",
       "link": "/map",
-      "display": true
+      "display": false
     },
     {
       "requiresAuth": false,
@@ -82,7 +82,7 @@
     {
       "title": "My Orders/Tickets",
       "link": "/a/my-tickets",
-      "display": true,
+      "display": false,
       "requiresAuth": true,
       "pageRestriction": [
         "ANY"
