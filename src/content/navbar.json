@@ -36,7 +36,7 @@
       ],
       "title": "Onsite Info",
       "link": "/onsite-info",
-      "display": false
+      "display": true
     },
     {
       "requiresAuth": true,
@@ -46,7 +46,7 @@
       ],
       "title": "Map",
       "link": "/map",
-      "display": false
+      "display": true
     },
     {
       "requiresAuth": false,
@@ -82,7 +82,7 @@
     {
       "title": "My Orders/Tickets",
       "link": "/a/my-tickets",
-      "display": false,
+      "display": true,
       "requiresAuth": true,
       "pageRestriction": [
         "ANY"
