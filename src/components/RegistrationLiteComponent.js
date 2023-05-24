@@ -9,7 +9,13 @@ import FragmentParser from "openstack-uicore-foundation/lib/utils/fragment-parse
 import {doLogin, passwordlessStart, getAccessToken} from 'openstack-uicore-foundation/lib/security/methods'
 import {doLogout} from 'openstack-uicore-foundation/lib/security/actions'
 import {getEnvVariable, SUMMIT_API_BASE_URL, OAUTH2_CLIENT_ID, REGISTRATION_BASE_URL, SUPPORT_EMAIL} from '../utils/envVariables'
-import {getUserProfile, setPasswordlessLogin, setUserOrder, checkOrderData} from "../actions/user-actions";
+import {
+    getUserProfile,
+    setPasswordlessLogin,
+    setUserOrder,
+    checkOrderData,
+    clearUserLoadState
+} from "../actions/user-actions";
 import {getThirdPartyProviders} from "../actions/base-actions";
 import {formatThirdPartyProviders} from "../utils/loginUtils";
 import 'summit-registration-lite/dist/index.css';
@@ -40,6 +46,7 @@ const RegistrationLiteComponent = ({
                                        allowsOtpAuth,
                                        checkRequireExtraQuestionsByAttendee,
                                        getExtraQuestions,
+                                       clearUserLoadState
                                    }) => {
     const [isActive, setIsActive] = useState(false);
     const [initialEmailValue, setInitialEmailValue] = useState('');
@@ -164,7 +171,10 @@ const RegistrationLiteComponent = ({
         <>
             {registerButton.display &&
                 <button className={`${styles.button} button is-large`} disabled={isActive}
-                        onClick={() => setIsActive(true)}>
+                        onClick={() => {
+                            clearUserLoadState();
+                            setIsActive(true);
+                        }}>
                     <i className={`fa fa-2x fa-edit icon is-large`}/>
                     <b>{registerButton.text}</b>
                 </button>
@@ -202,4 +212,5 @@ export default connect(mapStateToProps, {
     checkOrderData,
     checkRequireExtraQuestionsByAttendee,
     getExtraQuestions,
+    clearUserLoadState,
 })(RegistrationLiteComponent)

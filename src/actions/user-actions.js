@@ -577,3 +577,8 @@ export const doVirtualCheckIn = (attendee) => async (dispatch, getState) => {
     return e;
   });
 };
+
+export const clearUserLoadState = () => (dispatch) => {
+  dispatch(createAction(STOP_LOADING_PROFILE)());
+  dispatch(createAction(STOP_LOADING_IDP_PROFILE)());
+}
