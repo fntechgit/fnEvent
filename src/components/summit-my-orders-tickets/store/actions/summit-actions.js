@@ -28,15 +28,15 @@ export const CLEAR_MARKETING_SETTINGS = 'CLEAR_MARKETING_SETTINGS';
 
 export const setSummit = (summit) => async (dispatch) => dispatch(createAction(SET_SUMMIT)(summit))
 
-export const getMainOrderExtraQuestions = ({ summit }) => async (dispatch, getState, { apiBaseUrl, getAccessToken, loginUrl }) => {
+export const getMainOrderExtraQuestions = ({ summit, attendeeId }) => async (dispatch, getState, { apiBaseUrl, getAccessToken, loginUrl }) => {
 
-    if (!summit) return Promise.reject();
+    if (!summit || !attendeeId) return Promise.reject();
 
     const accessToken = await getAccessToken().catch(_ => history.replace(loginUrl));
 
     if (!accessToken) return Promise.reject();
 
-    const apiUrl = URI(`${apiBaseUrl}/api/v1/summits/${summit.id}/attendees/me/allowed-extra-questions`);
+    const apiUrl = URI(`${apiBaseUrl}/api/v1/summits/${summit.id}/attendees/${attendeeId}/allowed-extra-questions`);
 
     apiUrl.addQuery('access_token', accessToken);
     apiUrl.addQuery('expand', '*sub_question_rules,*sub_question,*values');

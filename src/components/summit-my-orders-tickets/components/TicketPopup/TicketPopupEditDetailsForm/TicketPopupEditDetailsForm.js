@@ -91,7 +91,8 @@ export const TicketPopupEditDetailsForm = ({
     const isUserTicketOwner = order.owner_id === userProfile.id;
 
     useEffect(() => {
-        dispatch(getMainOrderExtraQuestions({ summit }));
+        const attendeeId = ticket?.owner?.id;
+        dispatch(getMainOrderExtraQuestions({ summit, attendeeId }));
     }, [ticket]);
 
     const toggleSaveMessage = () => {
