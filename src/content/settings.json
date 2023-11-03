@@ -8,7 +8,7 @@
   "widgets": {
     "chat": {
       "showQA": false,
-      "showHelp": false,
+      "showHelp": true,
       "defaultScope": "page"
     },
     "schedule": {
